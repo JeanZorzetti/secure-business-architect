@@ -41,12 +41,12 @@ if (process.env.NODE_ENV === 'development') {
 
 // Log errors
 prisma.$on('error', (e) => {
-  logger.error('Prisma error:', e);
+  logger.error({ event: e }, 'Prisma error');
 });
 
 // Log warnings
 prisma.$on('warn', (e) => {
-  logger.warn('Prisma warning:', e);
+  logger.warn({ event: e }, 'Prisma warning');
 });
 
 // Graceful shutdown

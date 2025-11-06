@@ -22,12 +22,12 @@ export const errorHandler = (
   res: Response,
   _next: NextFunction
 ) => {
-  logger.error('Error occurred:', {
+  logger.error({
     error: err.message,
     stack: err.stack,
     path: req.path,
     method: req.method,
-  });
+  }, 'Error occurred');
 
   // Zod validation errors
   if (err instanceof ZodError) {

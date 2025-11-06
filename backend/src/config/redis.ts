@@ -29,7 +29,7 @@ export const connectRedis = async () => {
     await redisClient.connect();
     logger.info('✅ Redis connected successfully');
   } catch (error) {
-    logger.error('❌ Failed to connect to Redis:', error);
+    logger.error({ error }, '❌ Failed to connect to Redis');
     // Don't exit process, app can run without Redis (no caching)
   }
 };
