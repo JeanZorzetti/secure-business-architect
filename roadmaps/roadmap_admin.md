@@ -4,7 +4,10 @@
 
 Este documento define o roadmap completo para o desenvolvimento do **Painel Administrativo** e **CRM simples** para o escritório de advocacia Jennifer Barreto. O sistema permitirá gerenciar leads, contatos, newsletter, blog e todo o conteúdo do site institucional.
 
-**Site**: https://jbadvocacia.roilabs.com.br
+**URLs do Projeto**:
+- **Frontend (Site)**: https://jbadvocacia.roilabs.com.br
+- **Backend (API)**: https://backjennifer.roilabs.com.br
+- **Admin (Painel)**: https://jbadmin.roilabs.com.br
 
 ---
 
