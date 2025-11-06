@@ -1,0 +1,155 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enums
+enum UserRole {
+  ADMIN
+  SUPER_ADMIN
+}
+
+enum ContactStatus {
+  PENDING
+  READ
+  ARCHIVED
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  UNSUBSCRIBED
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+// Models
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      UserRole @default(ADMIN)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@map("users")
+}
+
+model Contact {
+  id        String        @id @default(uuid())
+  name      String
+  email     String
+  phone     String?
+  company   String?
+  message   String        @db.Text
+  status    ContactStatus @default(PENDING)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([email])
+  @@index([status])
+  @@index([createdAt])
+  @@map("contacts")
+}
+
+model Newsletter {
+  id               String             @id @default(uuid())
+  email            String             @unique
+  status           SubscriptionStatus @default(ACTIVE)
+  subscribedAt     DateTime           @default(now())
+  unsubscribedAt   DateTime?
+  unsubscribeToken String             @unique @default(uuid())
+  confirmToken     String?            @unique
+  confirmedAt      DateTime?
+
+  @@index([email])
+  @@index([status])
+  @@map("newsletter")
+}
+
+model BlogPost {
+  id          String     @id @default(uuid())
+  title       String
+  slug        String     @unique
+  excerpt     String
+  content     String     @db.Text
+  coverImage  String?
+  author      String
+  category    String
+  tags        String[]
+  status      PostStatus @default(DRAFT)
+  publishedAt DateTime?
+  viewCount   Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([slug])
+  @@index([status])
+  @@index([publishedAt])
+  @@index([category])
+  @@map("blog_posts")
+}
+
+model Service {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  icon        String
+  description String   @db.Text
+  benefits    String[]
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([slug])
+  @@index([order])
+  @@index([isActive])
+  @@map("services")
+}
+
+model Testimonial {
+  id          String   @id @default(uuid())
+  clientName  String
+  clientRole  String?
+  content     String   @db.Text
+  rating      Int      @default(5)
+  avatar      String?
+  isPublished Boolean  @default(false)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([isPublished])
+  @@index([order])
+  @@map("testimonials")
+}
+
+model Analytics {
+  id        String   @id @default(uuid())
+  event     String
+  entityId  String?
+  entityType String?
+  metadata  Json?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+
+  @@index([event])
+  @@index([entityId])
+  @@index([createdAt])
+  @@map("analytics")
+}

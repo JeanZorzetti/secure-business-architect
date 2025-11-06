@@ -1,0 +1,830 @@
+# Roadmap Backend - Secure Business Architect
+
+## Visão Geral
+
+Este documento define o roadmap completo para o desenvolvimento do backend do sistema **Secure Business Architect**, um website institucional para escritório de advocacia empresarial com funcionalidades de gestão de conteúdo, contatos e newsletter.
+
+---
+
+## Stack Tecnológico Proposta
+
+### Core
+- **Node.js** (v20 LTS) com **TypeScript**
+- **Framework**: Express.js ou Fastify (performance)
+- **ORM**: Prisma ou TypeORM
+- **Banco de Dados**: PostgreSQL (principal) + Redis (cache)
+
+### Segurança & Autenticação
+- **JWT** para autenticação admin
+- **bcrypt** para hash de senhas
+- **helmet** para headers de segurança
+- **express-rate-limit** para proteção contra abuso
+- **cors** configurado adequadamente
+- **express-validator** ou **Zod** para validação
+
+### Infraestrutura & DevOps
+- **Docker** para containerização (deploy via Dockerfile)
+- **Easypanel** para gestão de deploy na VPS
+- **Winston** ou **Pino** para logging
+- **Jest** para testes unitários
+- **Supertest** para testes de integração
+
+### Integrações
+- **Nodemailer** ou **SendGrid** para envio de emails
+- **Multer** para upload de arquivos
+- **AWS S3** ou **Cloudinary** para armazenamento de imagens
+- **Bull** ou **BullMQ** para filas de processamento
+
+---
+
+## Arquitetura Proposta
+
+### Padrão: Clean Architecture / Layered Architecture
+
+```
+backend/
+├── src/
+│   ├── config/              # Configurações (DB, env, etc)
+│   ├── controllers/         # Camada de controle (handlers)
+│   ├── services/            # Lógica de negócio
+│   ├── repositories/        # Acesso a dados
+│   ├── models/              # Modelos/Entidades
+│   ├── middlewares/         # Middlewares (auth, validation, etc)
+│   ├── routes/              # Definição de rotas
+│   ├── utils/               # Utilitários
+│   ├── validators/          # Schemas de validação
+│   ├── types/               # TypeScript types/interfaces
+│   ├── jobs/                # Background jobs
+│   └── app.ts               # Configuração Express
+├── prisma/                  # Schema Prisma e migrations
+├── tests/                   # Testes
+├── uploads/                 # Uploads temporários
+├── .env.example
+├── docker-compose.yml
+├── Dockerfile
+├── package.json
+└── tsconfig.json
+```
+
+---
+
+## Fase 1: Setup e Infraestrutura Base (Semana 1-2)
+
+### 1.1 Configuração Inicial
+- [ ] Inicializar projeto Node.js com TypeScript
+- [ ] Configurar ESLint + Prettier
+- [ ] Configurar estrutura de pastas
+- [ ] Setup de variáveis de ambiente (.env)
+- [ ] Configurar scripts npm (dev, build, start, test)
+
+### 1.2 Docker & Database
+- [ ] Criar Dockerfile otimizado para produção (multi-stage build)
+- [ ] Criar docker-compose.yml para desenvolvimento local (Node.js + PostgreSQL + Redis)
+- [ ] Configurar Prisma ORM
+- [ ] Criar schema inicial do banco de dados
+- [ ] Setup de migrations
+- [ ] Seed inicial para desenvolvimento
+- [ ] Configurar variáveis de ambiente para Easypanel (.env.production)
+
+### 1.3 Express Setup
+- [ ] Configurar Express com TypeScript
+- [ ] Implementar middlewares básicos (cors, helmet, compression)
+- [ ] Configurar logging (Winston/Pino)
+- [ ] Implementar error handling global
+- [ ] Configurar rate limiting
+- [ ] Health check endpoint (`/health`, `/api/health`)
+
+### 1.4 Testes
+- [ ] Configurar Jest + Supertest
+- [ ] Criar estrutura de testes
+- [ ] Testes básicos de saúde da API
+
+**Entregável**: API base rodando em Docker com health check
+
+---
+
+## Fase 2: Autenticação e Autorização (Semana 3)
+
+### 2.1 Sistema de Usuários Admin
+- [ ] Model User (Prisma schema)
+- [ ] Migration para tabela users
+- [ ] Repository pattern para User
+- [ ] Service para gestão de usuários
+
+### 2.2 Autenticação JWT
+- [ ] Endpoint de registro admin (POST `/api/auth/register`)
+- [ ] Endpoint de login (POST `/api/auth/login`)
+- [ ] Endpoint de logout (POST `/api/auth/logout`)
+- [ ] Endpoint de refresh token (POST `/api/auth/refresh`)
+- [ ] Middleware de autenticação JWT
+- [ ] Middleware de autorização por roles
+
+### 2.3 Segurança
+- [ ] Hash de senhas com bcrypt
+- [ ] Validação de força de senha
+- [ ] Proteção contra brute force (rate limit em login)
+- [ ] Blacklist de tokens (Redis)
+
+### 2.4 Testes
+- [ ] Testes unitários de auth service
+- [ ] Testes de integração de endpoints auth
+- [ ] Testes de segurança básicos
+
+**Entregável**: Sistema de autenticação completo e seguro
+
+---
+
+## Fase 3: Gestão de Contatos (Semana 4)
+
+### 3.1 Model & Database
+- [ ] Model Contact (Prisma schema)
+```prisma
+model Contact {
+  id          String   @id @default(uuid())
+  name        String
+  email       String
+  phone       String?
+  company     String?
+  message     String
+  status      ContactStatus @default(PENDING) // PENDING, READ, ARCHIVED
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+```
+- [ ] Migration para tabela contacts
+- [ ] Indexes adequados (email, status, createdAt)
+
+### 3.2 API Endpoints (Público)
+- [ ] POST `/api/contacts` - Criar contato (público)
+  - Validação de dados (Zod/express-validator)
+  - Sanitização de inputs
+  - Rate limiting agressivo (3 por hora por IP)
+  - CAPTCHA (opcional: Google reCAPTCHA)
+
+### 3.3 API Endpoints (Admin)
+- [ ] GET `/api/admin/contacts` - Listar contatos (paginado, filtros)
+- [ ] GET `/api/admin/contacts/:id` - Ver detalhes
+- [ ] PATCH `/api/admin/contacts/:id/status` - Atualizar status
+- [ ] DELETE `/api/admin/contacts/:id` - Deletar contato
+
+### 3.4 Notificações por Email
+- [ ] Configurar Nodemailer/SendGrid
+- [ ] Template de email para admin (novo contato)
+- [ ] Template de confirmação para cliente
+- [ ] Fila de processamento de emails (Bull)
+
+### 3.5 Testes
+- [ ] Testes de validação de formulário
+- [ ] Testes de rate limiting
+- [ ] Testes de endpoints admin
+- [ ] Testes de envio de email (mock)
+
+**Entregável**: Sistema completo de gestão de contatos
+
+---
+
+## Fase 4: Newsletter (Semana 5)
+
+### 4.1 Model & Database
+- [ ] Model Newsletter (Prisma schema)
+```prisma
+model Newsletter {
+  id              String   @id @default(uuid())
+  email           String   @unique
+  status          SubscriptionStatus @default(ACTIVE) // ACTIVE, UNSUBSCRIBED
+  subscribedAt    DateTime @default(now())
+  unsubscribedAt  DateTime?
+  unsubscribeToken String @unique @default(uuid())
+}
+```
+- [ ] Migration para tabela newsletter
+- [ ] Indexes (email, status)
+
+### 4.2 API Endpoints (Público)
+- [ ] POST `/api/newsletter/subscribe` - Inscrever
+  - Validação de email
+  - Prevenção de duplicatas
+  - Rate limiting
+  - Email de confirmação (double opt-in)
+- [ ] GET `/api/newsletter/unsubscribe/:token` - Cancelar inscrição
+- [ ] POST `/api/newsletter/confirm/:token` - Confirmar inscrição
+
+### 4.3 API Endpoints (Admin)
+- [ ] GET `/api/admin/newsletter` - Listar inscritos (paginado)
+- [ ] DELETE `/api/admin/newsletter/:id` - Remover inscrito
+- [ ] GET `/api/admin/newsletter/export` - Exportar CSV
+- [ ] POST `/api/admin/newsletter/send` - Enviar campanha (futuro)
+
+### 4.4 Emails
+- [ ] Template de confirmação de inscrição
+- [ ] Template de confirmação de cancelamento
+- [ ] Link de unsubscribe em todos os emails
+
+### 4.5 Testes
+- [ ] Testes de inscrição/cancelamento
+- [ ] Testes de validação
+- [ ] Testes de tokens
+- [ ] Testes de exportação
+
+**Entregável**: Sistema completo de newsletter
+
+---
+
+## Fase 5: Gestão de Conteúdo - Blog (Semana 6-7)
+
+### 5.1 Models & Database
+- [ ] Model BlogPost (Prisma schema)
+```prisma
+model BlogPost {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  excerpt     String
+  content     String   @db.Text
+  coverImage  String?
+  author      String
+  category    String
+  tags        String[] // Array de tags
+  status      PostStatus @default(DRAFT) // DRAFT, PUBLISHED
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  viewCount   Int      @default(0)
+}
+```
+- [ ] Model BlogCategory (opcional)
+- [ ] Migrations
+- [ ] Indexes (slug, status, publishedAt, category)
+
+### 5.2 API Endpoints (Público)
+- [ ] GET `/api/blog/posts` - Listar posts publicados (paginado, filtros)
+- [ ] GET `/api/blog/posts/:slug` - Ver post por slug
+- [ ] GET `/api/blog/categories` - Listar categorias
+- [ ] GET `/api/blog/posts/search?q=termo` - Buscar posts
+
+### 5.3 API Endpoints (Admin)
+- [ ] POST `/api/admin/blog/posts` - Criar post
+- [ ] GET `/api/admin/blog/posts` - Listar todos (incluindo drafts)
+- [ ] GET `/api/admin/blog/posts/:id` - Ver post
+- [ ] PUT `/api/admin/blog/posts/:id` - Atualizar post
+- [ ] DELETE `/api/admin/blog/posts/:id` - Deletar post
+- [ ] PATCH `/api/admin/blog/posts/:id/publish` - Publicar
+- [ ] PATCH `/api/admin/blog/posts/:id/unpublish` - Despublicar
+
+### 5.4 Upload de Imagens
+- [ ] Endpoint POST `/api/admin/upload/image`
+- [ ] Configurar Multer
+- [ ] Validação de tipo/tamanho de arquivo
+- [ ] Integração com S3/Cloudinary
+- [ ] Geração de thumbnails
+- [ ] Otimização de imagens
+
+### 5.5 Features Avançadas
+- [ ] Auto-geração de slug a partir do título
+- [ ] Sistema de rascunhos automáticos
+- [ ] Preview de posts antes de publicar
+- [ ] Agendamento de publicação (job scheduler)
+- [ ] Contador de visualizações
+- [ ] Sistema de tags
+
+### 5.6 Testes
+- [ ] Testes CRUD completos
+- [ ] Testes de validação
+- [ ] Testes de upload
+- [ ] Testes de busca
+- [ ] Testes de permissões
+
+**Entregável**: CMS completo para blog
+
+---
+
+## Fase 6: Gestão de Serviços (Semana 8)
+
+### 6.1 Models & Database
+- [ ] Model Service (Prisma schema)
+```prisma
+model Service {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  icon        String   // Nome do ícone Lucide
+  description String   @db.Text
+  benefits    String[] // Array de benefícios
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+```
+- [ ] Migration
+- [ ] Indexes (slug, order, isActive)
+
+### 6.2 API Endpoints (Público)
+- [ ] GET `/api/services` - Listar serviços ativos (ordenados)
+- [ ] GET `/api/services/:slug` - Ver serviço por slug
+
+### 6.3 API Endpoints (Admin)
+- [ ] POST `/api/admin/services` - Criar serviço
+- [ ] GET `/api/admin/services` - Listar todos
+- [ ] GET `/api/admin/services/:id` - Ver serviço
+- [ ] PUT `/api/admin/services/:id` - Atualizar
+- [ ] DELETE `/api/admin/services/:id` - Deletar
+- [ ] PATCH `/api/admin/services/reorder` - Reordenar
+
+### 6.4 Testes
+- [ ] Testes CRUD
+- [ ] Testes de ordenação
+- [ ] Testes de permissões
+
+**Entregável**: Sistema de gestão de serviços
+
+---
+
+## Fase 7: Depoimentos (Testimonials) (Semana 9)
+
+### 7.1 Models & Database
+- [ ] Model Testimonial (Prisma schema)
+```prisma
+model Testimonial {
+  id          String   @id @default(uuid())
+  clientName  String
+  clientRole  String?  // Cargo/empresa
+  content     String   @db.Text
+  rating      Int      @default(5) // 1-5
+  avatar      String?  // URL da foto
+  isPublished Boolean  @default(false)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+```
+- [ ] Migration
+- [ ] Indexes (isPublished, order)
+
+### 7.2 API Endpoints (Público)
+- [ ] GET `/api/testimonials` - Listar depoimentos publicados
+
+### 7.3 API Endpoints (Admin)
+- [ ] POST `/api/admin/testimonials` - Criar
+- [ ] GET `/api/admin/testimonials` - Listar todos
+- [ ] PUT `/api/admin/testimonials/:id` - Atualizar
+- [ ] DELETE `/api/admin/testimonials/:id` - Deletar
+- [ ] PATCH `/api/admin/testimonials/:id/publish` - Publicar/Despublicar
+
+### 7.4 Testes
+- [ ] Testes CRUD básicos
+- [ ] Testes de publicação
+
+**Entregável**: Sistema de depoimentos
+
+---
+
+## Fase 8: Analytics e Métricas (Semana 10)
+
+### 8.1 Rastreamento Básico
+- [ ] Model Analytics (views, events)
+- [ ] Middleware de tracking de requisições
+- [ ] Endpoint GET `/api/admin/analytics/overview`
+- [ ] Métricas: visualizações de posts, contatos recebidos, inscrições newsletter
+
+### 8.2 Dashboard Admin
+- [ ] Estatísticas gerais
+- [ ] Posts mais visualizados
+- [ ] Gráficos de tendências (últimos 30 dias)
+
+### 8.3 Logs e Monitoramento
+- [ ] Configurar logs estruturados
+- [ ] Log rotation
+- [ ] Error tracking (Sentry opcional)
+
+**Entregável**: Sistema básico de analytics
+
+---
+
+## Fase 9: Otimizações e Cache (Semana 11)
+
+### 9.1 Cache com Redis
+- [ ] Cache de posts publicados
+- [ ] Cache de listagens (5-15 minutos)
+- [ ] Cache de serviços
+- [ ] Estratégia de invalidação de cache
+
+### 9.2 Otimizações de Query
+- [ ] Revisar queries N+1
+- [ ] Adicionar indexes faltantes
+- [ ] Implementar paginação cursor-based onde necessário
+- [ ] Lazy loading de relações
+
+### 9.3 Performance
+- [ ] Compressão de responses (gzip)
+- [ ] ETags para recursos estáticos
+- [ ] Response time monitoring
+
+**Entregável**: API otimizada e performática
+
+---
+
+## Fase 10: Documentação e Deploy (Semana 12)
+
+### 10.1 Documentação da API
+- [ ] Setup Swagger/OpenAPI
+- [ ] Documentar todos os endpoints
+- [ ] Exemplos de requests/responses
+- [ ] Documentação de autenticação
+- [ ] Postman Collection
+
+### 10.2 README e Docs
+- [ ] README.md completo
+- [ ] Guia de instalação local
+- [ ] Guia de deploy
+- [ ] Variáveis de ambiente documentadas
+- [ ] Arquitetura e padrões
+
+### 10.3 Deploy via Easypanel
+
+- [ ] Configurar aplicação no Easypanel
+  - [ ] Conectar repositório Git (GitHub/GitLab)
+  - [ ] Configurar build a partir do Dockerfile
+  - [ ] Definir variáveis de ambiente (DATABASE_URL, JWT_SECRET, etc)
+  - [ ] Configurar porta da aplicação (default: 3000)
+- [ ] Configurar PostgreSQL no Easypanel
+  - [ ] Criar serviço de banco de dados PostgreSQL
+  - [ ] Conectar com a aplicação backend
+  - [ ] Configurar backups automáticos
+- [ ] Configurar Redis no Easypanel
+  - [ ] Criar serviço Redis para cache
+  - [ ] Conectar com a aplicação backend
+- [ ] Configurar domínio e SSL
+  - [ ] Adicionar domínio customizado
+  - [ ] Easypanel provê SSL automático (Let's Encrypt)
+  - [ ] Configurar CORS para domínio de produção
+- [ ] Deploy inicial
+  - [ ] Push para branch main/master
+  - [ ] Easypanel faz build automático via Dockerfile
+  - [ ] Verificar logs de deploy
+  - [ ] Executar migrations em produção
+- [ ] Configurar CI/CD (opcional)
+  - [ ] Auto-deploy no push para main (webhook do Git)
+  - [ ] Health checks automáticos
+- [ ] Monitoramento
+  - [ ] Configurar logs persistentes no Easypanel
+  - [ ] Configurar alertas de downtime
+  - [ ] Monitorar uso de recursos (CPU, memória, disco)
+
+### 10.4 Segurança Final
+- [ ] Audit de segurança
+- [ ] Penetration testing básico
+- [ ] Scan de vulnerabilidades (npm audit)
+- [ ] Configuração de CORS production
+- [ ] Rate limiting ajustado
+
+**Entregável**: API em produção documentada
+
+---
+
+## Fase 11: Funcionalidades Avançadas (Futuro)
+
+### 11.1 Sistema de Comentários (Opcional)
+- [ ] Model Comment para blog posts
+- [ ] Moderação de comentários
+- [ ] Aprovação admin
+
+### 11.2 Campanhas de Email Marketing
+- [ ] Integração com Mailchimp/SendGrid
+- [ ] Templates de email
+- [ ] Agendamento de envios
+- [ ] Tracking de abertura/cliques
+
+### 11.3 Multi-idioma (i18n)
+- [ ] Suporte a português e inglês
+- [ ] Conteúdo traduzido no banco
+
+### 11.4 SEO Avançado
+- [ ] Sitemap.xml dinâmico
+- [ ] Robots.txt
+- [ ] Meta tags dinâmicas por página
+- [ ] Schema.org markup
+
+### 11.5 Webhooks
+- [ ] Sistema de webhooks para integrações externas
+- [ ] Eventos: novo contato, nova inscrição, novo post
+
+---
+
+## Estrutura de Dados Resumida
+
+### Tabelas Principais
+
+1. **users** - Administradores do sistema
+2. **contacts** - Formulários de contato recebidos
+3. **newsletter** - Inscritos na newsletter
+4. **blog_posts** - Posts do blog
+5. **services** - Serviços oferecidos
+6. **testimonials** - Depoimentos de clientes
+7. **analytics** - Métricas e tracking (opcional)
+
+---
+
+## Endpoints API - Visão Geral
+
+### Públicos (sem autenticação)
+```
+GET    /health
+GET    /api/health
+
+POST   /api/contacts
+GET    /api/services
+GET    /api/services/:slug
+GET    /api/blog/posts
+GET    /api/blog/posts/:slug
+GET    /api/testimonials
+POST   /api/newsletter/subscribe
+GET    /api/newsletter/unsubscribe/:token
+```
+
+### Admin (requer JWT)
+```
+POST   /api/auth/login
+POST   /api/auth/refresh
+POST   /api/auth/logout
+
+GET    /api/admin/contacts
+GET    /api/admin/contacts/:id
+PATCH  /api/admin/contacts/:id/status
+DELETE /api/admin/contacts/:id
+
+GET    /api/admin/newsletter
+DELETE /api/admin/newsletter/:id
+GET    /api/admin/newsletter/export
+
+CRUD   /api/admin/blog/posts
+POST   /api/admin/upload/image
+
+CRUD   /api/admin/services
+
+CRUD   /api/admin/testimonials
+
+GET    /api/admin/analytics/overview
+```
+
+---
+
+## Estimativa de Tempo
+
+| Fase | Descrição | Tempo Estimado |
+|------|-----------|----------------|
+| 1 | Setup e Infraestrutura | 1-2 semanas |
+| 2 | Autenticação | 1 semana |
+| 3 | Gestão de Contatos | 1 semana |
+| 4 | Newsletter | 1 semana |
+| 5 | Blog/CMS | 1-2 semanas |
+| 6 | Serviços | 1 semana |
+| 7 | Depoimentos | 1 semana |
+| 8 | Analytics | 1 semana |
+| 9 | Otimizações | 1 semana |
+| 10 | Deploy | 1 semana |
+| **TOTAL** | **MVP Completo** | **10-12 semanas** |
+
+---
+
+## Priorização (MVP vs. Futuro)
+
+### MVP Essencial (8 semanas)
+1. Setup + Infraestrutura
+2. Autenticação Admin
+3. Gestão de Contatos (com email)
+4. Newsletter
+5. Blog (CRUD básico)
+6. Deploy
+
+### Versão 1.0 Completa (12 semanas)
+MVP + Serviços + Depoimentos + Analytics + Otimizações
+
+### Futuro (Pós-lançamento)
+- Comentários
+- Email marketing
+- Multi-idioma
+- Webhooks
+
+---
+
+## Considerações Finais
+
+### Boas Práticas a Seguir
+- ✅ Sempre usar TypeScript com tipagem forte
+- ✅ Validação de todos os inputs
+- ✅ Sanitização contra XSS/SQL Injection
+- ✅ Rate limiting em todos os endpoints públicos
+- ✅ Logs estruturados para debugging
+- ✅ Testes automatizados (cobertura > 70%)
+- ✅ Documentação inline (JSDoc)
+- ✅ Commits semânticos
+- ✅ Code review antes de merge
+
+### Segurança
+- 🔒 HTTPS obrigatório em produção
+- 🔒 Secrets em variáveis de ambiente
+- 🔒 Validação e sanitização de inputs
+- 🔒 Rate limiting agressivo
+- 🔒 CORS configurado corretamente
+- 🔒 Headers de segurança (helmet)
+- 🔒 Audit regular de dependências
+
+### Escalabilidade
+- 📈 Cache estratégico com Redis
+- 📈 Database indexes otimizados
+- 📈 Background jobs para tarefas pesadas
+- 📈 CDN para assets estáticos
+- 📈 Load balancing (produção)
+- 📈 Monitoramento e alertas
+
+---
+
+## Configuração Específica para Easypanel
+
+### Dockerfile Multi-Stage (Produção)
+
+O Dockerfile deve ser otimizado para produção com multi-stage build:
+
+```dockerfile
+# Stage 1: Build
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+COPY prisma ./prisma/
+
+# Install dependencies
+RUN npm ci
+
+# Copy source code
+COPY . .
+
+# Generate Prisma Client
+RUN npx prisma generate
+
+# Build TypeScript
+RUN npm run build
+
+# Stage 2: Production
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+COPY prisma ./prisma/
+
+# Install only production dependencies
+RUN npm ci --only=production
+
+# Copy built files from builder
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
+
+# Expose port
+EXPOSE 3000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3000/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
+
+# Start application
+CMD ["npm", "start"]
+```
+
+### Variáveis de Ambiente no Easypanel
+
+Configure estas variáveis no painel do Easypanel:
+
+```env
+# Application
+NODE_ENV=production
+PORT=3000
+
+# Database (Easypanel PostgreSQL service)
+DATABASE_URL=postgresql://user:password@postgres-service:5432/dbname
+
+# Redis (Easypanel Redis service)
+REDIS_URL=redis://redis-service:6379
+
+# JWT
+JWT_SECRET=your-super-secret-jwt-key-change-in-production
+JWT_EXPIRES_IN=7d
+JWT_REFRESH_EXPIRES_IN=30d
+
+# CORS
+ALLOWED_ORIGINS=https://yourdomain.com,https://www.yourdomain.com
+
+# Email (SendGrid/Nodemailer)
+SMTP_HOST=smtp.sendgrid.net
+SMTP_PORT=587
+SMTP_USER=apikey
+SMTP_PASSWORD=your-sendgrid-api-key
+EMAIL_FROM=noreply@yourdomain.com
+
+# File Upload
+MAX_FILE_SIZE=5242880
+UPLOAD_DIR=/app/uploads
+
+# Optional: External Storage
+AWS_ACCESS_KEY_ID=your-aws-key
+AWS_SECRET_ACCESS_KEY=your-aws-secret
+AWS_REGION=us-east-1
+S3_BUCKET=your-bucket-name
+```
+
+### Estrutura de Serviços no Easypanel
+
+No Easypanel, você terá 3 serviços conectados:
+
+1. **Backend API** (Node.js via Dockerfile)
+   - Build: Dockerfile
+   - Port: 3000
+   - Domain: api.yourdomain.com
+
+2. **PostgreSQL**
+   - Serviço gerenciado Easypanel
+   - Versão: 15 ou superior
+   - Persistent volume para dados
+
+3. **Redis**
+   - Serviço gerenciado Easypanel
+   - Versão: 7 ou superior
+   - Para cache e sessões
+
+### Script de Migrations em Produção
+
+Adicione ao `package.json`:
+
+```json
+{
+  "scripts": {
+    "start": "node dist/app.js",
+    "build": "tsc",
+    "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
+    "migrate:deploy": "prisma migrate deploy",
+    "migrate:dev": "prisma migrate dev",
+    "postinstall": "prisma generate"
+  }
+}
+```
+
+No Easypanel, configure um **one-off command** para rodar migrations:
+
+```bash
+npm run migrate:deploy
+```
+
+### Checklist de Deploy no Easypanel
+
+- [ ] VPS com Easypanel instalado e rodando
+- [ ] Repositório Git (GitHub/GitLab) configurado
+- [ ] Dockerfile na raiz do projeto backend
+- [ ] `.dockerignore` configurado (node_modules, .env, etc)
+- [ ] Criar aplicação no Easypanel
+- [ ] Adicionar serviço PostgreSQL
+- [ ] Adicionar serviço Redis
+- [ ] Adicionar serviço Node.js (build via Dockerfile)
+- [ ] Configurar todas as variáveis de ambiente
+- [ ] Conectar serviços via network interna do Easypanel
+- [ ] Configurar domínio customizado
+- [ ] SSL automático ativado (Let's Encrypt)
+- [ ] Rodar migrations na primeira vez
+- [ ] Verificar health check (`/health`)
+- [ ] Testar endpoints da API
+- [ ] Configurar auto-deploy no push (webhook Git)
+- [ ] Configurar logs e monitoring
+- [ ] Setup de backups do PostgreSQL
+
+### Vantagens do Easypanel
+
+- Interface web intuitiva para gerenciar containers
+- SSL automático com Let's Encrypt
+- Deploy via Git push (CI/CD integrado)
+- Logs centralizados
+- Monitoring de recursos
+- Backup automático de databases
+- Network interna entre serviços
+- Mais simples que configurar Docker manualmente na VPS
+- Zero-downtime deployments
+
+---
+
+## Próximos Passos
+
+1. **Revisar e aprovar este roadmap**
+2. **Configurar repositório Git**
+3. **Garantir Easypanel instalado na VPS**
+4. **Definir ambiente de desenvolvimento local**
+5. **Iniciar Fase 1: Setup**
+6. **Configurar projeto management (Trello/Jira/GitHub Projects)**
+
+---
+
+**Documento criado em**: 2025-11-06
+**Versão**: 1.1
+**Última atualização**: 2025-11-06
+**Deploy**: VPS via Easypanel + Dockerfile
