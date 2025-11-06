@@ -116,17 +116,20 @@ admin/
 
 ## Fase 1: Setup do Admin Frontend (Semana 1)
 
-### 1.1 Configuração Inicial
-- [ ] Criar projeto Vite + React + TypeScript
-- [ ] Configurar Tailwind CSS
-- [ ] Instalar e configurar shadcn/ui
-- [ ] Configurar ESLint + Prettier
-- [ ] Configurar React Router
-- [ ] Configurar TanStack Query
-- [ ] Setup de variáveis de ambiente
+### 1.1 Configuração Inicial ✅
+- [x] Criar projeto Vite + React + TypeScript
+- [x] Configurar Tailwind CSS
+- [x] Instalar dependências core (TanStack Query, Router, Zustand, Axios, etc)
+- [x] Configurar ESLint + TypeScript strict
+- [x] Setup de variáveis de ambiente (.env)
+- [x] Configurar path aliases (@/*)
+- [x] Criar utility functions (cn, formatDate, formatRelativeTime)
+- [ ] Instalar e configurar shadcn/ui (próximo)
+- [ ] Configurar React Router (próximo)
+- [ ] Configurar TanStack Query (próximo)
 
 ### 1.2 Estrutura Base
-- [ ] Criar estrutura de pastas
+- [x] Criar estrutura de pastas (components, pages, api, hooks, lib, stores)
 - [ ] Configurar axios client com interceptors
 - [ ] Implementar gerenciamento de tokens JWT
 - [ ] Criar layout base (Sidebar + Header)
@@ -134,13 +137,14 @@ admin/
 - [ ] Criar página 404
 
 ### 1.3 Design System
-- [ ] Definir paleta de cores do admin
-- [ ] Configurar tema (light/dark mode)
+- [x] Configurar Tailwind CSS com design tokens (CSS variables)
+- [x] Setup dark mode support
+- [ ] Definir paleta de cores customizada do admin
 - [ ] Criar componentes base customizados
 - [ ] Tipografia e espaçamentos
 - [ ] Configurar toast notifications
 
-**Entregável**: Admin frontend estruturado e pronto para desenvolvimento
+**Entregável**: Admin frontend estruturado e pronto para desenvolvimento - **EM ANDAMENTO** 🚧
 
 ---
 
