@@ -118,23 +118,26 @@ admin/
 
 ### 1.1 Configuração Inicial ✅
 - [x] Criar projeto Vite + React + TypeScript
-- [x] Configurar Tailwind CSS
+- [x] Configurar Tailwind CSS (v3.4.0)
 - [x] Instalar dependências core (TanStack Query, Router, Zustand, Axios, etc)
 - [x] Configurar ESLint + TypeScript strict
 - [x] Setup de variáveis de ambiente (.env)
 - [x] Configurar path aliases (@/*)
 - [x] Criar utility functions (cn, formatDate, formatRelativeTime)
+- [x] Configurar React Router
+- [x] Configurar TanStack Query
 - [ ] Instalar e configurar shadcn/ui (próximo)
-- [ ] Configurar React Router (próximo)
-- [ ] Configurar TanStack Query (próximo)
 
-### 1.2 Estrutura Base
+### 1.2 Estrutura Base ✅
+
 - [x] Criar estrutura de pastas (components, pages, api, hooks, lib, stores)
-- [ ] Configurar axios client com interceptors
-- [ ] Implementar gerenciamento de tokens JWT
-- [ ] Criar layout base (Sidebar + Header)
-- [ ] Configurar rotas protegidas
-- [ ] Criar página 404
+- [x] Configurar axios client com interceptors
+- [x] Implementar gerenciamento de tokens JWT (Zustand store)
+- [x] Criar layout base (Sidebar + Header + MainLayout)
+- [x] Configurar rotas protegidas (PrivateRoute component)
+- [x] Criar página 404
+- [x] Criar página de Login
+- [x] Criar página Dashboard inicial
 
 ### 1.3 Design System
 - [x] Configurar Tailwind CSS com design tokens (CSS variables)
