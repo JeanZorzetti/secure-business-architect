@@ -10,6 +10,7 @@ import { NewsletterList } from './pages/newsletter/NewsletterList';
 import { BlogList } from './pages/blog/BlogList';
 import { BlogEditor } from './pages/blog/BlogEditor';
 import { ServicesList } from './pages/services/ServicesList';
+import TestimonialsList from './pages/testimonials/TestimonialsList';
 import { NotFound } from './pages/NotFound';
 import { useAuthStore } from './stores/authStore';
 
@@ -122,11 +123,7 @@ function App() {
             path="/testimonials"
             element={
               <PrivateRoute>
-                <div className="flex h-screen items-center justify-center">
-                  <p className="text-2xl text-muted-foreground">
-                    Página de Depoimentos em desenvolvimento...
-                  </p>
-                </div>
+                <TestimonialsList />
               </PrivateRoute>
             }
           />

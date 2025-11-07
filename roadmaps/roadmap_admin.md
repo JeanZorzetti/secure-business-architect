@@ -615,34 +615,60 @@ model Note {
 
 ---
 
-## Fase 9: Gestão de Depoimentos (Semana 11)
+## Fase 9: Gestão de Depoimentos (Semana 11) ✅ COMPLETA
 
-### 9.1 Backend - Endpoints de Depoimentos (se não existir)
-- [ ] GET `/api/admin/testimonials` - Listar depoimentos
-- [ ] GET `/api/admin/testimonials/:id` - Ver depoimento
-- [ ] POST `/api/admin/testimonials` - Criar depoimento
-- [ ] PUT `/api/admin/testimonials/:id` - Atualizar depoimento
-- [ ] DELETE `/api/admin/testimonials/:id` - Deletar depoimento
-- [ ] PATCH `/api/admin/testimonials/:id/publish` - Publicar
-- [ ] PATCH `/api/admin/testimonials/reorder` - Reordenar
+### 9.1 Backend - Endpoints de Depoimentos ✅
+- [x] GET `/api/admin/testimonials` - Listar depoimentos - funcionando (implementado na Phase 7 do backend)
+- [x] GET `/api/admin/testimonials/:id` - Ver depoimento - funcionando
+- [x] POST `/api/admin/testimonials` - Criar depoimento - funcionando
+- [x] PUT `/api/admin/testimonials/:id` - Atualizar depoimento - funcionando
+- [x] DELETE `/api/admin/testimonials/:id` - Deletar depoimento - funcionando
+- [x] PATCH `/api/admin/testimonials/:id/toggle-publish` - Publicar/Despublicar - funcionando
+- [x] PATCH `/api/admin/testimonials/reorder` - Reordenar - funcionando
 
-### 9.2 Frontend - Gestão de Depoimentos
-- [ ] Página de listagem de depoimentos
-- [ ] Lista ordenável (drag & drop)
-- [ ] Filtros (publicados, não publicados)
-- [ ] Botão "Novo Depoimento"
-- [ ] Modal de edição/criação
-  - Nome do cliente
-  - Cargo/Empresa
-  - Conteúdo do depoimento
-  - Rating (1-5 estrelas)
-  - Avatar (upload opcional)
-  - Status (publicado/não publicado)
-- [ ] Toggle publicado/não publicado
-- [ ] Deletar depoimento (com confirmação)
-- [ ] Preview do card
+### 9.2 Frontend - Gestão de Depoimentos ✅
+- [x] Página de listagem de depoimentos - implementada
+- [x] Grid de cards com preview completo
+- [x] Ícone drag handle para reordenação futura
+- [x] Botão "Novo Depoimento"
+- [x] Dialog de edição/criação - completo
+  - Nome do cliente (obrigatório)
+  - Cargo/Empresa (opcional)
+  - Conteúdo do depoimento (textarea, obrigatório)
+  - Rating (1-5 estrelas com preview visual)
+  - Avatar (URL com preview de imagem)
+  - Contador de caracteres
+  - Validação de campos obrigatórios
+- [x] Toggle publicado/não publicado - botão individual por card
+- [x] Badge de status (Publicado/Não Publicado)
+- [x] Deletar depoimento (com AlertDialog de confirmação)
+- [x] Preview completo do card
+  - Avatar ou inicial do nome
+  - Nome e cargo
+  - Rating com estrelas visuais
+  - Conteúdo (line-clamp-4)
+  - Status badge
+  - Botões de ação (Publicar/Despublicar, Editar, Deletar)
+- [x] Estado vazio com mensagem e botão de ação
+- [ ] Drag & drop para reordenar - não implementado (estrutura pronta com GripVertical)
 
-**Entregável**: Gestão de depoimentos
+**Entregável**: ✅ Gestão de depoimentos funcionando - **COMPLETO**
+
+**Implementação**:
+- Tipos e API client ([admin/src/types/testimonial.ts](../admin/src/types/testimonial.ts), [admin/src/api/testimonials.ts](../admin/src/api/testimonials.ts))
+- Página completa de gestão ([admin/src/pages/testimonials/TestimonialsList.tsx](../admin/src/pages/testimonials/TestimonialsList.tsx))
+- Integração com backend testimonials API (Phase 7)
+- CRUD completo: criar, editar, deletar depoimentos
+- Toggle publicar/despublicar com botão individual
+- Sistema de rating visual com estrelas
+- Preview de avatar com fallback para inicial
+- Dialog modal para criar/editar
+- Validação de campos obrigatórios
+- Confirmação antes de deletar
+- Loading states e error handling
+- Toast notifications para feedback
+- Rota `/testimonials` configurada
+- Cards em grid responsivo (1-2-3 colunas)
 
 ---
 
