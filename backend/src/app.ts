@@ -12,6 +12,7 @@ import authRoutes from './routes/authRoutes';
 import contactRoutes from './routes/contactRoutes';
 import newsletterRoutes from './routes/newsletterRoutes';
 import blogRoutes from './routes/blogRoutes';
+import serviceRoutes from './routes/serviceRoutes';
 
 // Create Express app
 const app: Application = express();
@@ -71,6 +72,7 @@ app.use(`${env.API_PREFIX}/auth`, authRoutes);
 app.use(`${env.API_PREFIX}/contacts`, contactRoutes);
 app.use(`${env.API_PREFIX}/newsletter`, newsletterRoutes);
 app.use(`${env.API_PREFIX}/blog`, blogRoutes);
+app.use(`${env.API_PREFIX}/services`, serviceRoutes);
 
 // Root endpoint
 app.get('/', (_req, res) => {

@@ -334,10 +334,10 @@ model BlogPost {
 
 ---
 
-## Fase 6: Gestão de Serviços (Semana 8)
+## Fase 6: Gestão de Serviços (Semana 8) ✅ COMPLETA
 
-### 6.1 Models & Database
-- [ ] Model Service (Prisma schema)
+### 6.1 Models & Database ✅
+- [x] Model Service (Prisma schema) - já existia no schema inicial
 ```prisma
 model Service {
   id          String   @id @default(uuid())
@@ -352,27 +352,40 @@ model Service {
   updatedAt   DateTime @updatedAt
 }
 ```
-- [ ] Migration
-- [ ] Indexes (slug, order, isActive)
+- [x] Migration - schema já estava sincronizado
+- [x] Indexes (slug, order, isActive) - configurados no schema
 
-### 6.2 API Endpoints (Público)
-- [ ] GET `/api/services` - Listar serviços ativos (ordenados)
-- [ ] GET `/api/services/:slug` - Ver serviço por slug
+### 6.2 API Endpoints (Público) ✅
+- [x] GET `/api/services` - Listar serviços ativos (ordenados por order)
+- [x] GET `/api/services/:slug` - Ver serviço por slug (apenas ativos)
 
-### 6.3 API Endpoints (Admin)
-- [ ] POST `/api/admin/services` - Criar serviço
-- [ ] GET `/api/admin/services` - Listar todos
-- [ ] GET `/api/admin/services/:id` - Ver serviço
-- [ ] PUT `/api/admin/services/:id` - Atualizar
-- [ ] DELETE `/api/admin/services/:id` - Deletar
-- [ ] PATCH `/api/admin/services/reorder` - Reordenar
+### 6.3 API Endpoints (Admin) ✅
+- [x] POST `/api/services/admin` - Criar serviço com geração automática de slug
+- [x] GET `/api/services/admin/all` - Listar todos os serviços
+- [x] GET `/api/services/admin/:id` - Ver serviço por ID
+- [x] PUT `/api/services/admin/:id` - Atualizar serviço
+- [x] DELETE `/api/services/admin/:id` - Deletar serviço
+- [x] PATCH `/api/services/admin/reorder` - Reordenar múltiplos serviços
+- [x] PATCH `/api/services/admin/:id/toggle` - Toggle ativo/inativo
 
 ### 6.4 Testes
 - [ ] Testes CRUD
 - [ ] Testes de ordenação
 - [ ] Testes de permissões
 
-**Entregável**: Sistema de gestão de serviços
+**Entregável**: ✅ Sistema de gestão de serviços funcionando - **COMPLETO**
+
+**Implementação**:
+- ServiceService com CRUD completo e geração de slug ([backend/src/services/serviceService.ts](../backend/src/services/serviceService.ts))
+- ServiceController com todos os endpoints públicos e admin ([backend/src/controllers/serviceController.ts](../backend/src/controllers/serviceController.ts))
+- Validadores Zod para todos os endpoints ([backend/src/validators/serviceValidators.ts](../backend/src/validators/serviceValidators.ts))
+- Rotas públicas e admin ([backend/src/routes/serviceRoutes.ts](../backend/src/routes/serviceRoutes.ts))
+- Types definidos ([backend/src/types/service.types.ts](../backend/src/types/service.types.ts))
+- Geração automática de slug único com normalização de caracteres
+- Sistema de ordenação automática (auto-incremento se não especificado)
+- Reordenação em batch de múltiplos serviços
+- Toggle ativo/inativo
+- Filtro automático de serviços ativos em rotas públicas
 
 ---
 
