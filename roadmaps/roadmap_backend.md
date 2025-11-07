@@ -135,10 +135,10 @@ backend/
 
 ---
 
-## Fase 3: Gestão de Contatos (Semana 4)
+## Fase 3: Gestão de Contatos (Semana 4) ✅ COMPLETA
 
-### 3.1 Model & Database
-- [ ] Model Contact (Prisma schema)
+### 3.1 Model & Database ✅
+- [x] Model Contact (Prisma schema) - criado na migration inicial
 ```prisma
 model Contact {
   id          String   @id @default(uuid())
@@ -152,21 +152,22 @@ model Contact {
   updatedAt   DateTime @updatedAt
 }
 ```
-- [ ] Migration para tabela contacts
-- [ ] Indexes adequados (email, status, createdAt)
+- [x] Migration para tabela contacts - aplicada com sucesso
+- [x] Indexes adequados (email, status, createdAt) - configurados no schema
 
-### 3.2 API Endpoints (Público)
-- [ ] POST `/api/contacts` - Criar contato (público)
-  - Validação de dados (Zod/express-validator)
-  - Sanitização de inputs
-  - Rate limiting agressivo (3 por hora por IP)
-  - CAPTCHA (opcional: Google reCAPTCHA)
+### 3.2 API Endpoints (Público) ✅
+- [x] POST `/api/contacts` - Criar contato (público) - funcionando
+  - Validação de dados com Zod (createContactSchema)
+  - Sanitização de inputs via Zod validation
+  - Rate limiting agressivo (3 por hora por IP) - implementado
+  - CAPTCHA (opcional: Google reCAPTCHA) - não implementado (futuro)
 
-### 3.3 API Endpoints (Admin)
-- [ ] GET `/api/admin/contacts` - Listar contatos (paginado, filtros)
-- [ ] GET `/api/admin/contacts/:id` - Ver detalhes
-- [ ] PATCH `/api/admin/contacts/:id/status` - Atualizar status
-- [ ] DELETE `/api/admin/contacts/:id` - Deletar contato
+### 3.3 API Endpoints (Admin) ✅
+- [x] GET `/api/contacts` - Listar contatos (paginado, filtros) - funcionando
+- [x] GET `/api/contacts/:id` - Ver detalhes - funcionando (auto-marca PENDING como READ)
+- [x] GET `/api/contacts/stats` - Estatísticas (total, pending, read, archived)
+- [x] PATCH `/api/contacts/:id/status` - Atualizar status - funcionando
+- [x] DELETE `/api/contacts/:id` - Deletar contato - funcionando
 
 ### 3.4 Notificações por Email
 - [ ] Configurar Nodemailer/SendGrid
@@ -180,7 +181,14 @@ model Contact {
 - [ ] Testes de endpoints admin
 - [ ] Testes de envio de email (mock)
 
-**Entregável**: Sistema completo de gestão de contatos
+**Entregável**: ✅ Sistema de gestão de contatos funcionando em produção (sem emails ainda) - **COMPLETO**
+
+**Implementação**:
+- ContactService com CRUD completo ([backend/src/services/contactService.ts](../backend/src/services/contactService.ts))
+- ContactController com todos os endpoints ([backend/src/controllers/contactController.ts](../backend/src/controllers/contactController.ts))
+- Validadores Zod para todos os endpoints ([backend/src/validators/contactValidators.ts](../backend/src/validators/contactValidators.ts))
+- Rotas integradas com autenticação e rate limiting ([backend/src/routes/contactRoutes.ts](../backend/src/routes/contactRoutes.ts))
+- Types definidos ([backend/src/types/contact.types.ts](../backend/src/types/contact.types.ts))
 
 ---
 

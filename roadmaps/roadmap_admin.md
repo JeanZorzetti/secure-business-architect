@@ -153,71 +153,85 @@ admin/
 
 ---
 
-## Fase 2: Autenticação Admin (Semana 2)
+## Fase 2: Autenticação Admin (Semana 2) ✅ COMPLETA
 
-### 2.1 Backend - Endpoints de Auth (se não existir)
-- [ ] POST `/api/auth/login` - Login de admin
-- [ ] POST `/api/auth/logout` - Logout
-- [ ] POST `/api/auth/refresh` - Refresh token
-- [ ] GET `/api/auth/me` - Dados do usuário logado
-- [ ] POST `/api/auth/forgot-password` - Solicitar reset de senha
-- [ ] POST `/api/auth/reset-password/:token` - Resetar senha
+### 2.1 Backend - Endpoints de Auth ✅
+- [x] POST `/api/auth/login` - Login de admin - funcionando
+- [x] POST `/api/auth/logout` - Logout - funcionando
+- [x] POST `/api/auth/refresh` - Refresh token - funcionando
+- [x] GET `/api/auth/me` - Dados do usuário logado - funcionando
+- [ ] POST `/api/auth/forgot-password` - Solicitar reset de senha (futuro)
+- [ ] POST `/api/auth/reset-password/:token` - Resetar senha (futuro)
 
-### 2.2 Frontend - Páginas de Auth
-- [ ] Página de Login
+### 2.2 Frontend - Páginas de Auth ✅
+- [x] Página de Login - completa
   - Form com email/senha
   - Validação com Zod
   - "Lembrar-me"
-  - Link "Esqueci minha senha"
-- [ ] Página "Esqueci minha senha"
-- [ ] Página de Reset de senha
-- [ ] Guard de rotas (PrivateRoute)
-- [ ] Auto-refresh de token
-- [ ] Logout automático em caso de 401
+  - Link "Esqueci minha senha" (visual only)
+- [ ] Página "Esqueci minha senha" (futuro)
+- [ ] Página de Reset de senha (futuro)
+- [x] Guard de rotas (PrivateRoute) - implementado
+- [x] Auto-refresh de token - implementado nos interceptors
+- [x] Logout automático em caso de 401 - implementado
 
-### 2.3 Context/Store de Autenticação
-- [ ] Zustand store para auth state
-- [ ] Funções de login/logout
-- [ ] Persistência de sessão
-- [ ] Loading states
+### 2.3 Context/Store de Autenticação ✅
+- [x] Zustand store para auth state - implementado
+- [x] Funções de login/logout - funcionando
+- [x] Persistência de sessão - usando localStorage
+- [x] Loading states - implementado
 
-**Entregável**: Sistema completo de autenticação funcionando
+**Entregável**: ✅ Sistema de autenticação funcionando (sem recuperação de senha ainda) - **COMPLETO**
 
 ---
 
-## Fase 3: Dashboard & Analytics (Semana 3)
+## Fase 3: Dashboard & Analytics (Semana 3) ✅ PARCIALMENTE COMPLETA
 
-### 3.1 Backend - Endpoints de Analytics
-- [ ] GET `/api/admin/analytics/overview` - Métricas gerais
-  - Total de leads (hoje, semana, mês)
-  - Leads por status
+### 3.1 Backend - Endpoints de Analytics ✅ Parcial
+- [x] GET `/api/contacts/stats` - Estatísticas de contatos (total, pending, read, archived)
+- [ ] GET `/api/admin/analytics/overview` - Métricas gerais (ampliado - futuro)
   - Inscritos newsletter
   - Posts publicados
   - Visualizações de blog
-- [ ] GET `/api/admin/analytics/leads-trend` - Tendência de leads
-- [ ] GET `/api/admin/analytics/top-posts` - Posts mais visualizados
-- [ ] GET `/api/admin/analytics/conversion-funnel` - Funil de conversão
+- [ ] GET `/api/admin/analytics/leads-trend` - Tendência de leads (futuro)
+- [ ] GET `/api/admin/analytics/top-posts` - Posts mais visualizados (futuro)
+- [ ] GET `/api/admin/analytics/conversion-funnel` - Funil de conversão (futuro)
 
-### 3.2 Frontend - Dashboard
-- [ ] Layout do Dashboard
-- [ ] Cards de métricas (KPIs)
-  - Total de leads
-  - Leads novos hoje
-  - Taxa de conversão
-  - Inscritos na newsletter
-- [ ] Gráfico de leads ao longo do tempo (linha)
-- [ ] Gráfico de leads por status (pizza/donut)
-- [ ] Lista de últimos leads recebidos
-- [ ] Lista de posts mais visualizados
-- [ ] Atividades recentes
+### 3.2 Frontend - Dashboard ✅ MVP Completo
+- [x] Layout do Dashboard - implementado
+- [x] Cards de métricas (KPIs) - StatCard component criado
+  - Total de contatos
+  - Contatos pendentes
+  - Contatos lidos
+  - Contatos arquivados
+- [x] Lista de contatos recentes - RecentContacts component
+  - Mostra últimos 5 contatos
+  - Status badges coloridos
+  - Informações de contato
+  - Timestamp relativo
+- [x] Welcome message personalizado com nome do usuário
+- [x] Quick actions buttons
+- [x] Loading skeletons
+- [x] Error handling
+- [ ] Gráfico de leads ao longo do tempo (linha) - futuro
+- [ ] Gráfico de leads por status (pizza/donut) - futuro
+- [ ] Lista de posts mais visualizados - futuro
 
 ### 3.3 Widgets Interativos
-- [ ] Filtros por período (hoje, 7 dias, 30 dias, custom)
-- [ ] Comparação com período anterior
-- [ ] Exportar relatórios (PDF/CSV)
-- [ ] Atualização em tempo real (opcional)
+- [ ] Filtros por período (hoje, 7 dias, 30 dias, custom) - futuro
+- [ ] Comparação com período anterior - futuro
+- [ ] Exportar relatórios (PDF/CSV) - futuro
+- [ ] Atualização em tempo real (opcional) - futuro
 
-**Entregável**: Dashboard funcional com métricas relevantes
+**Entregável**: ✅ Dashboard MVP funcional com estatísticas de contatos em tempo real - **COMPLETO**
+
+**Implementação**:
+- API de contatos integrada ([admin/src/api/contacts.ts](../admin/src/api/contacts.ts))
+- Componente StatCard reutilizável ([admin/src/components/dashboard/StatCard.tsx](../admin/src/components/dashboard/StatCard.tsx))
+- Componente RecentContacts com TanStack Query ([admin/src/components/dashboard/RecentContacts.tsx](../admin/src/components/dashboard/RecentContacts.tsx))
+- Dashboard atualizado com dados reais ([admin/src/pages/dashboard/Dashboard.tsx](../admin/src/pages/dashboard/Dashboard.tsx))
+- Tipos TypeScript para contatos ([admin/src/types/contact.ts](../admin/src/types/contact.ts))
+- Função formatRelativeTime adicionada aos utils ([admin/src/lib/utils.ts](../admin/src/lib/utils.ts))
 
 ---
 
