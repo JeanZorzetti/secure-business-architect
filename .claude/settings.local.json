@@ -9,7 +9,9 @@
       "Bash(git push:*)",
       "Bash(npm create:*)",
       "Bash(npm install:*)",
-      "Bash(npx tailwindcss init -p)"
+      "Bash(npx tailwindcss init -p)",
+      "Bash(npm run migrate:dev:*)",
+      "Bash(npm run build:*)"
     ],
     "deny": [],
     "ask": []
