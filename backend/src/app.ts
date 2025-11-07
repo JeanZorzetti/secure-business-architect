@@ -10,6 +10,7 @@ import { errorHandler, notFoundHandler } from './middlewares/errorHandler';
 import { apiLimiter } from './middlewares/rateLimiter';
 import authRoutes from './routes/authRoutes';
 import contactRoutes from './routes/contactRoutes';
+import newsletterRoutes from './routes/newsletterRoutes';
 
 // Create Express app
 const app: Application = express();
@@ -67,7 +68,7 @@ app.get('/health', (_req, res) => {
 // API routes
 app.use(`${env.API_PREFIX}/auth`, authRoutes);
 app.use(`${env.API_PREFIX}/contacts`, contactRoutes);
-// etc...
+app.use(`${env.API_PREFIX}/newsletter`, newsletterRoutes);
 
 // Root endpoint
 app.get('/', (_req, res) => {

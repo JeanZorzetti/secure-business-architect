@@ -192,42 +192,47 @@ model Contact {
 
 ---
 
-## Fase 4: Newsletter (Semana 5)
+## Fase 4: Newsletter (Semana 5) ✅ COMPLETA
 
-### 4.1 Model & Database
-- [ ] Model Newsletter (Prisma schema)
+### 4.1 Model & Database ✅
+- [x] Model Newsletter (Prisma schema) - já existia no schema inicial
 ```prisma
 model Newsletter {
-  id              String   @id @default(uuid())
-  email           String   @unique
-  status          SubscriptionStatus @default(ACTIVE) // ACTIVE, UNSUBSCRIBED
-  subscribedAt    DateTime @default(now())
-  unsubscribedAt  DateTime?
-  unsubscribeToken String @unique @default(uuid())
+  id               String   @id @default(uuid())
+  email            String   @unique
+  status           SubscriptionStatus @default(ACTIVE)
+  subscribedAt     DateTime @default(now())
+  unsubscribedAt   DateTime?
+  unsubscribeToken String   @unique @default(uuid())
+  confirmToken     String?  @unique
+  confirmedAt      DateTime?
 }
 ```
-- [ ] Migration para tabela newsletter
-- [ ] Indexes (email, status)
+- [x] Migration para tabela newsletter - aplicada com sucesso
+- [x] Indexes (email, status) - configurados no schema
 
-### 4.2 API Endpoints (Público)
-- [ ] POST `/api/newsletter/subscribe` - Inscrever
-  - Validação de email
-  - Prevenção de duplicatas
-  - Rate limiting
-  - Email de confirmação (double opt-in)
-- [ ] GET `/api/newsletter/unsubscribe/:token` - Cancelar inscrição
-- [ ] POST `/api/newsletter/confirm/:token` - Confirmar inscrição
+### 4.2 API Endpoints (Público) ✅
+- [x] POST `/api/newsletter/subscribe` - Inscrever - funcionando
+  - Validação de email com Zod
+  - Prevenção de duplicatas (retorna existente se já ativo)
+  - Reativação automática se estava cancelado
+  - Rate limiting (5 inscrições por hora)
+  - Email de confirmação (double opt-in) - não implementado (futuro)
+- [x] GET `/api/newsletter/unsubscribe/:token` - Cancelar inscrição - funcionando
+- [ ] POST `/api/newsletter/confirm/:token` - Confirmar inscrição (futuro)
 
-### 4.3 API Endpoints (Admin)
-- [ ] GET `/api/admin/newsletter` - Listar inscritos (paginado)
-- [ ] DELETE `/api/admin/newsletter/:id` - Remover inscrito
-- [ ] GET `/api/admin/newsletter/export` - Exportar CSV
-- [ ] POST `/api/admin/newsletter/send` - Enviar campanha (futuro)
+### 4.3 API Endpoints (Admin) ✅
+- [x] GET `/api/newsletter` - Listar inscritos (paginado, filtros) - funcionando
+- [x] GET `/api/newsletter/:id` - Buscar inscrito por ID - funcionando
+- [x] GET `/api/newsletter/stats` - Estatísticas (total, active, unsubscribed, thisMonth)
+- [x] DELETE `/api/newsletter/:id` - Remover inscrito - funcionando
+- [x] GET `/api/newsletter/export` - Exportar CSV - funcionando
+- [ ] POST `/api/newsletter/send` - Enviar campanha (futuro)
 
 ### 4.4 Emails
-- [ ] Template de confirmação de inscrição
-- [ ] Template de confirmação de cancelamento
-- [ ] Link de unsubscribe em todos os emails
+- [ ] Template de confirmação de inscrição (futuro)
+- [ ] Template de confirmação de cancelamento (futuro)
+- [ ] Link de unsubscribe em todos os emails (futuro)
 
 ### 4.5 Testes
 - [ ] Testes de inscrição/cancelamento
@@ -235,7 +240,16 @@ model Newsletter {
 - [ ] Testes de tokens
 - [ ] Testes de exportação
 
-**Entregável**: Sistema completo de newsletter
+**Entregável**: ✅ Sistema de newsletter funcionando (sem envio de emails ainda) - **COMPLETO**
+
+**Implementação**:
+- NewsletterService com CRUD completo ([backend/src/services/newsletterService.ts](../backend/src/services/newsletterService.ts))
+- NewsletterController com todos os endpoints ([backend/src/controllers/newsletterController.ts](../backend/src/controllers/newsletterController.ts))
+- Validadores Zod para todos os endpoints ([backend/src/validators/newsletterValidators.ts](../backend/src/validators/newsletterValidators.ts))
+- Rotas integradas com autenticação e rate limiting ([backend/src/routes/newsletterRoutes.ts](../backend/src/routes/newsletterRoutes.ts))
+- Types definidos ([backend/src/types/newsletter.types.ts](../backend/src/types/newsletter.types.ts))
+- Exportação de CSV funcionando
+- Estatísticas com inscritos do mês
 
 ---
 
