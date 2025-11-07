@@ -7,6 +7,8 @@ import { Dashboard } from './pages/dashboard/Dashboard';
 import { ContactsList } from './pages/contacts/ContactsList';
 import { ContactDetail } from './pages/contacts/ContactDetail';
 import { NewsletterList } from './pages/newsletter/NewsletterList';
+import { BlogList } from './pages/blog/BlogList';
+import { BlogEditor } from './pages/blog/BlogEditor';
 import { NotFound } from './pages/NotFound';
 import { useAuthStore } from './stores/authStore';
 
@@ -92,11 +94,16 @@ function App() {
             path="/blog"
             element={
               <PrivateRoute>
-                <div className="flex h-screen items-center justify-center">
-                  <p className="text-2xl text-muted-foreground">
-                    Página de Blog em desenvolvimento...
-                  </p>
-                </div>
+                <BlogList />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/blog/:id"
+            element={
+              <PrivateRoute>
+                <BlogEditor />
               </PrivateRoute>
             }
           />

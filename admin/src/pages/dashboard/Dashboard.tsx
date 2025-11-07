@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { StatCard } from '@/components/dashboard/StatCard';
 import { RecentContacts } from '@/components/dashboard/RecentContacts';
-import { Users, Mail, FileText, TrendingUp, AlertCircle, Send } from 'lucide-react';
+import { Users, Mail, FileText, TrendingUp, AlertCircle, Send, BookOpen, Eye } from 'lucide-react';
 import { contactsApi } from '@/api/contacts';
 import { newsletterApi } from '@/api/newsletter';
+import { blogApi } from '@/api/blog';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/stores/authStore';
@@ -22,6 +23,11 @@ export function Dashboard() {
   const { data: newsletterStats, isLoading: isLoadingNewsletter } = useQuery({
     queryKey: ['newsletter-stats'],
     queryFn: () => newsletterApi.getStats(),
+  });
+
+  const { data: blogStats, isLoading: isLoadingBlog } = useQuery({
+    queryKey: ['blog-stats'],
+    queryFn: () => blogApi.getStats(),
   });
 
   const error = contactError;
@@ -137,6 +143,49 @@ export function Dashboard() {
           </div>
         </div>
 
+        {/* Stats Grid - Blog */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4">Blog</h3>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {isLoadingBlog ? (
+              <>
+                {[...Array(4)].map((_, i) => (
+                  <Card key={i} className="p-6 h-32 animate-pulse">
+                    <div className="h-full bg-muted rounded" />
+                  </Card>
+                ))}
+              </>
+            ) : (
+              <>
+                <StatCard
+                  title="Total de Posts"
+                  value={blogStats?.total || 0}
+                  icon={BookOpen}
+                  description="Todos os posts"
+                />
+                <StatCard
+                  title="Publicados"
+                  value={blogStats?.published || 0}
+                  icon={Eye}
+                  description="Posts publicados"
+                />
+                <StatCard
+                  title="Rascunhos"
+                  value={blogStats?.drafts || 0}
+                  icon={FileText}
+                  description="Posts em rascunho"
+                />
+                <StatCard
+                  title="Novos este mês"
+                  value={blogStats?.thisMonth || 0}
+                  icon={TrendingUp}
+                  description="Posts criados no mês"
+                />
+              </>
+            )}
+          </div>
+        </div>
+
         {/* Recent Contacts */}
         <RecentContacts />
 
@@ -164,10 +213,7 @@ export function Dashboard() {
             <Button
               variant="outline"
               className="h-auto flex-col items-start p-4 gap-2"
-              onClick={() => {
-                // TODO: Navigate to new post
-                console.log('Navigate to new post');
-              }}
+              onClick={() => navigate('/blog/new')}
             >
               <FileText className="h-6 w-6 text-primary" />
               <div className="text-left">

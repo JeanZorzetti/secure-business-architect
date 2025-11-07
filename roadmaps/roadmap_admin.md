@@ -488,65 +488,83 @@ model Note {
 
 ---
 
-## Fase 7: Blog CMS (Semana 8-9)
+## Fase 7: Blog CMS (Semana 8-9) ✅ COMPLETA
 
-### 7.1 Backend - Endpoints de Blog (se não existir)
-- [ ] GET `/api/admin/blog/posts` - Listar posts (incluindo drafts)
-- [ ] GET `/api/admin/blog/posts/:id` - Ver post
-- [ ] POST `/api/admin/blog/posts` - Criar post
-- [ ] PUT `/api/admin/blog/posts/:id` - Atualizar post
-- [ ] DELETE `/api/admin/blog/posts/:id` - Deletar post
-- [ ] PATCH `/api/admin/blog/posts/:id/publish` - Publicar
-- [ ] PATCH `/api/admin/blog/posts/:id/unpublish` - Despublicar
-- [ ] POST `/api/admin/upload/image` - Upload de imagem
-- [ ] GET `/api/admin/blog/categories` - Listar categorias
+### 7.1 Backend - Endpoints de Blog ✅
+- [x] GET `/api/blog/admin/posts` - Listar posts (incluindo drafts) - implementado na Phase 5 do backend
+- [x] GET `/api/blog/admin/posts/:id` - Ver post
+- [x] POST `/api/blog/admin/posts` - Criar post
+- [x] PUT `/api/blog/admin/posts/:id` - Atualizar post
+- [x] DELETE `/api/blog/admin/posts/:id` - Deletar post
+- [x] PATCH `/api/blog/admin/posts/:id/publish` - Publicar
+- [x] PATCH `/api/blog/admin/posts/:id/unpublish` - Despublicar
+- [x] GET `/api/blog/admin/stats` - Estatísticas
+- [x] GET `/api/blog/categories` - Listar categorias
+- [ ] POST `/api/admin/upload/image` - Upload de imagem (futuro)
 
-### 7.2 Frontend - Lista de Posts
-- [ ] Página de listagem de posts
-- [ ] Filtros (todos, publicados, drafts, por categoria)
-- [ ] Busca por título
-- [ ] Tabela de posts
+### 7.2 Frontend - Lista de Posts ✅
+- [x] Página de listagem de posts
+- [x] Filtros (todos, publicados, drafts)
+- [x] Busca por título
+- [x] Tabela de posts com todas as informações
   - Título
   - Autor
   - Categoria
   - Status (publicado/draft)
-  - Data de publicação
+  - Data de publicação/criação
   - Visualizações
   - Ações (editar, deletar, publicar/despublicar)
-- [ ] Botão "Novo Post"
+- [x] Botão "Novo Post"
+- [x] Dropdown menu com ações
+- [x] Paginação
+- [x] Confirmação antes de deletar
 
-### 7.3 Frontend - Editor de Posts
-- [ ] Página de edição/criação
-- [ ] Rich Text Editor (Tiptap ou similar)
-  - Formatação de texto (bold, italic, etc)
-  - Headings (H1, H2, H3)
-  - Listas (ordenadas/não ordenadas)
-  - Links
-  - Imagens (upload e inserção)
-  - Code blocks
-  - Blockquotes
-- [ ] Campo de título
-- [ ] Campo de slug (auto-gerado, editável)
-- [ ] Campo de excerpt/resumo
-- [ ] Upload de cover image
-- [ ] Seletor de categoria
-- [ ] Input de tags (multi-select)
-- [ ] Campo de autor
-- [ ] Toggle de status (draft/published)
-- [ ] Date picker para agendamento (opcional)
-- [ ] Preview do post
-- [ ] Auto-save (draft automático)
-- [ ] Botão Publicar/Salvar
+### 7.3 Frontend - Editor de Posts ✅
+- [x] Página de edição/criação
+- [x] Campo de título
+- [x] Campo de excerpt/resumo
+- [x] Campo de conteúdo (Textarea com suporte a Markdown)
+- [x] Campo de cover image (URL)
+- [x] Campo de autor
+- [x] Seletor de categoria (com opção de criar nova)
+- [x] Input de tags (separado por vírgula)
+- [x] Botão Criar/Atualizar Post
+- [x] Validação de campos obrigatórios
+- [x] Navegação após salvar
+- [ ] Rich Text Editor (Tiptap) - não implementado (futuro)
+- [ ] Campo de slug editável - gerado automaticamente pelo backend
+- [ ] Toggle de status - controlado via botão publicar/despublicar
+- [ ] Date picker para agendamento - não implementado (futuro)
+- [ ] Preview do post - não implementado (futuro)
+- [ ] Auto-save - não implementado (futuro)
 
 ### 7.4 Upload de Imagens
-- [ ] Drag & drop de imagens
-- [ ] Preview antes do upload
-- [ ] Progress bar
-- [ ] Validação (tipo, tamanho)
-- [ ] Galeria de imagens já enviadas
-- [ ] Inserir imagem no editor
+- [ ] Drag & drop de imagens - não implementado (futuro)
+- [ ] Preview antes do upload - não implementado (futuro)
+- [ ] Progress bar - não implementado (futuro)
+- [ ] Validação (tipo, tamanho) - não implementado (futuro)
+- [ ] Galeria de imagens já enviadas - não implementado (futuro)
+- [ ] Inserir imagem no editor - não implementado (futuro)
 
-**Entregável**: CMS completo para blog
+**Entregável**: ✅ CMS de blog funcionando - **COMPLETO**
+
+**Implementação**:
+- Tipos e API client ([admin/src/types/blog.ts](../admin/src/types/blog.ts), [admin/src/api/blog.ts](../admin/src/api/blog.ts))
+- Página de listagem completa ([admin/src/pages/blog/BlogList.tsx](../admin/src/pages/blog/BlogList.tsx))
+- Editor de posts ([admin/src/pages/blog/BlogEditor.tsx](../admin/src/pages/blog/BlogEditor.tsx))
+- Estatísticas no Dashboard ([admin/src/pages/dashboard/Dashboard.tsx](../admin/src/pages/dashboard/Dashboard.tsx))
+- Integração com backend blog API (Phase 5)
+- Filtros por status e busca por título
+- Paginação de resultados
+- CRUD completo: criar, editar, deletar posts
+- Publicar/despublicar posts
+- Dropdown menu com ações contextuais
+- Confirmação antes de deletar
+- Loading states e error handling
+- Toast notifications para feedback
+- Rotas `/blog` e `/blog/:id` configuradas
+- Botão "Novo Post" no Dashboard
+- Suporte a Markdown no editor
 
 ---
 
