@@ -12,7 +12,11 @@
       "Bash(npx tailwindcss init -p)",
       "Bash(npm run migrate:dev:*)",
       "Bash(npm run build:*)",
-      "Bash(npm uninstall:*)"
+      "Bash(npm uninstall:*)",
+      "Bash(npx shadcn@latest init:*)",
+      "Bash(cat:*)",
+      "Bash(tsconfig.json)",
+      "Bash(npx shadcn@latest add:*)"
     ],
     "deny": [],
     "ask": []

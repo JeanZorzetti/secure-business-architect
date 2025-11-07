@@ -139,15 +139,17 @@ admin/
 - [x] Criar página de Login
 - [x] Criar página Dashboard inicial
 
-### 1.3 Design System
+### 1.3 Design System ✅
+
 - [x] Configurar Tailwind CSS com design tokens (CSS variables)
 - [x] Setup dark mode support
-- [ ] Definir paleta de cores customizada do admin
-- [ ] Criar componentes base customizados
-- [ ] Tipografia e espaçamentos
-- [ ] Configurar toast notifications
+- [x] Instalar e configurar shadcn/ui com estilo New York
+- [x] Adicionar componentes essenciais (Button, Card, Input, Label, Textarea, Select, Dialog, Badge, Avatar, Table, Dropdown Menu)
+- [x] Configurar toast notifications (Sonner)
+- [x] Atualizar página de Login com componentes shadcn/ui
+- [ ] Criar componentes customizados específicos do admin (quando necessário)
 
-**Entregável**: Admin frontend estruturado e pronto para desenvolvimento - **EM ANDAMENTO** 🚧
+**Entregável**: Admin frontend estruturado e pronto para desenvolvimento - **FASE 1 COMPLETA** ✅
 
 ---
 
