@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { StatCard } from '@/components/dashboard/StatCard';
 import { RecentContacts } from '@/components/dashboard/RecentContacts';
-import { Users, Mail, FileText, TrendingUp, AlertCircle } from 'lucide-react';
+import { Users, Mail, FileText, TrendingUp, AlertCircle, Send } from 'lucide-react';
 import { contactsApi } from '@/api/contacts';
+import { newsletterApi } from '@/api/newsletter';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/stores/authStore';
@@ -13,10 +14,17 @@ export function Dashboard() {
   const { user } = useAuthStore();
   const navigate = useNavigate();
 
-  const { data: contactStats, isLoading, error } = useQuery({
+  const { data: contactStats, isLoading: isLoadingContacts, error: contactError } = useQuery({
     queryKey: ['contact-stats'],
     queryFn: () => contactsApi.getStats(),
   });
+
+  const { data: newsletterStats, isLoading: isLoadingNewsletter } = useQuery({
+    queryKey: ['newsletter-stats'],
+    queryFn: () => newsletterApi.getStats(),
+  });
+
+  const error = contactError;
 
   if (error) {
     return (
@@ -43,44 +51,90 @@ export function Dashboard() {
           </p>
         </Card>
 
-        {/* Stats Grid */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {isLoading ? (
-            <>
-              {[...Array(4)].map((_, i) => (
-                <Card key={i} className="p-6 h-32 animate-pulse">
-                  <div className="h-full bg-muted rounded" />
-                </Card>
-              ))}
-            </>
-          ) : (
-            <>
-              <StatCard
-                title="Total de Contatos"
-                value={contactStats?.total || 0}
-                icon={Users}
-                description="Todos os contatos recebidos"
-              />
-              <StatCard
-                title="Pendentes"
-                value={contactStats?.pending || 0}
-                icon={Mail}
-                description="Aguardando resposta"
-              />
-              <StatCard
-                title="Lidos"
-                value={contactStats?.read || 0}
-                icon={FileText}
-                description="Contatos visualizados"
-              />
-              <StatCard
-                title="Arquivados"
-                value={contactStats?.archived || 0}
-                icon={TrendingUp}
-                description="Contatos arquivados"
-              />
-            </>
-          )}
+        {/* Stats Grid - Contatos */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4">Contatos</h3>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {isLoadingContacts ? (
+              <>
+                {[...Array(4)].map((_, i) => (
+                  <Card key={i} className="p-6 h-32 animate-pulse">
+                    <div className="h-full bg-muted rounded" />
+                  </Card>
+                ))}
+              </>
+            ) : (
+              <>
+                <StatCard
+                  title="Total de Contatos"
+                  value={contactStats?.total || 0}
+                  icon={Users}
+                  description="Todos os contatos recebidos"
+                />
+                <StatCard
+                  title="Pendentes"
+                  value={contactStats?.pending || 0}
+                  icon={Mail}
+                  description="Aguardando resposta"
+                />
+                <StatCard
+                  title="Lidos"
+                  value={contactStats?.read || 0}
+                  icon={FileText}
+                  description="Contatos visualizados"
+                />
+                <StatCard
+                  title="Arquivados"
+                  value={contactStats?.archived || 0}
+                  icon={TrendingUp}
+                  description="Contatos arquivados"
+                />
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Stats Grid - Newsletter */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4">Newsletter</h3>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {isLoadingNewsletter ? (
+              <>
+                {[...Array(4)].map((_, i) => (
+                  <Card key={i} className="p-6 h-32 animate-pulse">
+                    <div className="h-full bg-muted rounded" />
+                  </Card>
+                ))}
+              </>
+            ) : (
+              <>
+                <StatCard
+                  title="Total de Inscritos"
+                  value={newsletterStats?.total || 0}
+                  icon={Send}
+                  description="Todos os inscritos"
+                />
+                <StatCard
+                  title="Ativos"
+                  value={newsletterStats?.active || 0}
+                  icon={Mail}
+                  description="Inscritos ativos"
+                />
+                <StatCard
+                  title="Cancelados"
+                  value={newsletterStats?.unsubscribed || 0}
+                  icon={TrendingUp}
+                  description="Cancelaram inscrição"
+                />
+                <StatCard
+                  title="Novos este mês"
+                  value={newsletterStats?.thisMonth || 0}
+                  icon={Users}
+                  description="Inscritos no mês atual"
+                />
+              </>
+            )}
+          </div>
         </div>
 
         {/* Recent Contacts */}

@@ -456,22 +456,35 @@ model Note {
 ## Fase 6: Newsletter Management (Semana 7)
 
 ### 6.1 Backend - Endpoints de Newsletter
-- [ ] GET `/api/admin/newsletter/subscribers` - Listar inscritos
-- [ ] GET `/api/admin/newsletter/stats` - Estatísticas
-- [ ] DELETE `/api/admin/newsletter/subscribers/:id` - Remover inscrito
-- [ ] POST `/api/admin/newsletter/export` - Exportar lista (CSV)
+- [x] GET `/api/newsletter` - Listar inscritos (implementado na Phase 4 do backend)
+- [x] GET `/api/newsletter/stats` - Estatísticas
+- [x] DELETE `/api/newsletter/:id` - Remover inscrito
+- [x] GET `/api/newsletter/export` - Exportar lista (CSV)
 - [ ] POST `/api/admin/newsletter/campaign` - Criar campanha (futuro)
 
 ### 6.2 Frontend - Newsletter
-- [ ] Página de inscritos
-- [ ] Tabela com nome, email, data de inscrição, status
-- [ ] Filtros (ativos, cancelados)
-- [ ] Busca por email
-- [ ] Estatísticas (total, novos no mês, taxa de cancelamento)
-- [ ] Exportar lista completa
-- [ ] Remover inscrito manualmente
+- [x] Página de inscritos
+- [x] Tabela com email, data de inscrição, status
+- [x] Filtros (ativos, cancelados)
+- [x] Busca por email
+- [x] Estatísticas no Dashboard (total, ativos, cancelados, novos no mês)
+- [x] Exportar lista completa (CSV com download automático)
+- [x] Remover inscrito manualmente com confirmação
 
-**Entregável**: Gestão de newsletter
+**Entregável**: ✅ Gestão de newsletter funcionando - **COMPLETO**
+
+**Implementação**:
+- Tipos e API client ([admin/src/types/newsletter.ts](../admin/src/types/newsletter.ts), [admin/src/api/newsletter.ts](../admin/src/api/newsletter.ts))
+- Página de listagem completa ([admin/src/pages/newsletter/NewsletterList.tsx](../admin/src/pages/newsletter/NewsletterList.tsx))
+- Estatísticas no Dashboard ([admin/src/pages/dashboard/Dashboard.tsx](../admin/src/pages/dashboard/Dashboard.tsx))
+- Integração com backend newsletter API (Phase 4)
+- Filtros por status e busca por email
+- Paginação de resultados
+- Exportação CSV com download em blob
+- Delete com AlertDialog de confirmação
+- Loading states e error handling completo
+- Toast notifications para feedback
+- Rota `/newsletter` configurada no App
 
 ---
 

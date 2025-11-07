@@ -6,6 +6,7 @@ import { Login } from './pages/auth/Login';
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { ContactsList } from './pages/contacts/ContactsList';
 import { ContactDetail } from './pages/contacts/ContactDetail';
+import { NewsletterList } from './pages/newsletter/NewsletterList';
 import { NotFound } from './pages/NotFound';
 import { useAuthStore } from './stores/authStore';
 
@@ -82,11 +83,7 @@ function App() {
             path="/newsletter"
             element={
               <PrivateRoute>
-                <div className="flex h-screen items-center justify-center">
-                  <p className="text-2xl text-muted-foreground">
-                    Página de Newsletter em desenvolvimento...
-                  </p>
-                </div>
+                <NewsletterList />
               </PrivateRoute>
             }
           />
