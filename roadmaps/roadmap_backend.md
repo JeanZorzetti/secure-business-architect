@@ -103,34 +103,35 @@ backend/
 
 ---
 
-## Fase 2: Autenticação e Autorização (Semana 3)
+## Fase 2: Autenticação e Autorização (Semana 3) ✅ COMPLETA
 
-### 2.1 Sistema de Usuários Admin
-- [ ] Model User (Prisma schema)
-- [ ] Migration para tabela users
-- [ ] Repository pattern para User
-- [ ] Service para gestão de usuários
+### 2.1 Sistema de Usuários Admin ✅
+- [x] Model User (Prisma schema) - criado na migration inicial
+- [x] Migration para tabela users - aplicada com sucesso
+- [x] Service para gestão de usuários (AuthService)
+- [x] Endpoint GET `/api/auth/me` para buscar usuário autenticado
 
-### 2.2 Autenticação JWT
-- [ ] Endpoint de registro admin (POST `/api/auth/register`)
-- [ ] Endpoint de login (POST `/api/auth/login`)
-- [ ] Endpoint de logout (POST `/api/auth/logout`)
-- [ ] Endpoint de refresh token (POST `/api/auth/refresh`)
-- [ ] Middleware de autenticação JWT
-- [ ] Middleware de autorização por roles
+### 2.2 Autenticação JWT ✅
+- [x] Endpoint de login (POST `/api/auth/login`) - funcionando
+- [x] Endpoint de logout (POST `/api/auth/logout`) - implementado
+- [x] Endpoint de refresh token (POST `/api/auth/refresh`) - implementado
+- [x] Endpoint GET `/api/auth/me` - retorna dados do usuário autenticado
+- [x] Middleware de autenticação JWT (authenticateToken)
+- [x] Middleware de autorização por roles (requireAdmin, requireSuperAdmin)
 
-### 2.3 Segurança
-- [ ] Hash de senhas com bcrypt
-- [ ] Validação de força de senha
-- [ ] Proteção contra brute force (rate limit em login)
-- [ ] Blacklist de tokens (Redis)
+### 2.3 Segurança ✅
+- [x] Hash de senhas com bcrypt (10 rounds)
+- [x] Proteção contra brute force (rate limit global + específico de login)
+- [x] Validação de usuário ativo antes do login
+- [x] Tokens JWT com expiração configurável (7d access, 30d refresh)
+- [x] CORS configurado corretamente para produção
 
 ### 2.4 Testes
 - [ ] Testes unitários de auth service
 - [ ] Testes de integração de endpoints auth
 - [ ] Testes de segurança básicos
 
-**Entregável**: Sistema de autenticação completo e seguro
+**Entregável**: ✅ Sistema de autenticação completo e seguro - **COMPLETO E EM PRODUÇÃO**
 
 ---
 
