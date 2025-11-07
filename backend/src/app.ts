@@ -8,6 +8,7 @@ import { logger } from './config/logger';
 import prisma from './config/database';
 import { errorHandler, notFoundHandler } from './middlewares/errorHandler';
 import { apiLimiter } from './middlewares/rateLimiter';
+import authRoutes from './routes/authRoutes';
 
 // Create Express app
 const app: Application = express();
@@ -62,8 +63,8 @@ app.get('/health', (_req, res) => {
   });
 });
 
-// API routes will be added here
-// app.use(`${env.API_PREFIX}/auth`, authRoutes);
+// API routes
+app.use(`${env.API_PREFIX}/auth`, authRoutes);
 // app.use(`${env.API_PREFIX}/contacts`, contactRoutes);
 // etc...
 
