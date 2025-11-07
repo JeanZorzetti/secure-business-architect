@@ -16,7 +16,8 @@
       "Bash(npx shadcn@latest init:*)",
       "Bash(cat:*)",
       "Bash(tsconfig.json)",
-      "Bash(npx shadcn@latest add:*)"
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []
