@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { StatCard } from '@/components/dashboard/StatCard';
 import { RecentContacts } from '@/components/dashboard/RecentContacts';
@@ -10,6 +11,7 @@ import { useAuthStore } from '@/stores/authStore';
 
 export function Dashboard() {
   const { user } = useAuthStore();
+  const navigate = useNavigate();
 
   const { data: contactStats, isLoading, error } = useQuery({
     queryKey: ['contact-stats'],
@@ -125,10 +127,7 @@ export function Dashboard() {
             <Button
               variant="outline"
               className="h-auto flex-col items-start p-4 gap-2"
-              onClick={() => {
-                // TODO: Navigate to contacts
-                console.log('Navigate to contacts');
-              }}
+              onClick={() => navigate('/contacts')}
             >
               <Mail className="h-6 w-6 text-primary" />
               <div className="text-left">

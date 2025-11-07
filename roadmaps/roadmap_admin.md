@@ -421,24 +421,35 @@ model Note {
 
 ---
 
-## Fase 5: Gestão de Contatos (Semana 6)
+## Fase 5: Gestão de Contatos (Semana 6) ✅ COMPLETA
 
-### 5.1 Frontend - Lista de Contatos
-- [ ] Página de todos os contatos (sem CRM)
-- [ ] Filtros por status (pending, read, archived)
-- [ ] Busca por nome/email
-- [ ] Tabela de contatos
-- [ ] Visualizar mensagem
-- [ ] Mudar status (lido, arquivado)
-- [ ] Deletar contato
-- [ ] Exportar contatos
+### 5.1 Frontend - Lista de Contatos ✅
+- [x] Página de todos os contatos - implementada
+- [x] Filtros por status (pending, read, archived) - funcionando
+- [x] Busca por nome/email/empresa - funcionando
+- [x] Tabela de contatos com paginação - implementada
+- [x] Visualizar mensagem - página de detalhes completa
+- [x] Mudar status (pendente, lido, arquivado) - funcionando
+- [x] Deletar contato com confirmação - funcionando
+- [ ] Exportar contatos - futuro
 
 ### 5.2 Conversão de Contato para Lead
-- [ ] Botão "Converter em Lead" em contato
-- [ ] Form para adicionar informações de CRM
-- [ ] Criar lead e manter referência ao contato original
+- [ ] Botão "Converter em Lead" em contato - futuro (depende do CRM)
+- [ ] Form para adicionar informações de CRM - futuro
+- [ ] Criar lead e manter referência ao contato original - futuro
 
-**Entregável**: Gestão básica de contatos
+**Entregável**: ✅ Gestão completa de contatos funcionando - **COMPLETO**
+
+**Implementação**:
+- Página de listagem com filtros e busca ([admin/src/pages/contacts/ContactsList.tsx](../admin/src/pages/contacts/ContactsList.tsx))
+- Página de detalhes com todas as informações ([admin/src/pages/contacts/ContactDetail.tsx](../admin/src/pages/contacts/ContactDetail.tsx))
+- Integração completa com API de contatos
+- Mutations para atualizar status e deletar contatos
+- Invalidação automática de cache após mutations
+- Toast notifications para feedback ao usuário
+- Loading states e error handling
+- Confirmação antes de deletar
+- Navegação entre páginas configurada
 
 ---
 

@@ -4,6 +4,8 @@ import { Toaster } from '@/components/ui/sonner';
 import { PrivateRoute } from './components/auth/PrivateRoute';
 import { Login } from './pages/auth/Login';
 import { Dashboard } from './pages/dashboard/Dashboard';
+import { ContactsList } from './pages/contacts/ContactsList';
+import { ContactDetail } from './pages/contacts/ContactDetail';
 import { NotFound } from './pages/NotFound';
 import { useAuthStore } from './stores/authStore';
 
@@ -62,11 +64,16 @@ function App() {
             path="/contacts"
             element={
               <PrivateRoute>
-                <div className="flex h-screen items-center justify-center">
-                  <p className="text-2xl text-muted-foreground">
-                    Página de Contatos em desenvolvimento...
-                  </p>
-                </div>
+                <ContactsList />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/contacts/:id"
+            element={
+              <PrivateRoute>
+                <ContactDetail />
               </PrivateRoute>
             }
           />
