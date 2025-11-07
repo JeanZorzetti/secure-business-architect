@@ -389,10 +389,10 @@ model Service {
 
 ---
 
-## Fase 7: Depoimentos (Testimonials) (Semana 9)
+## Fase 7: Depoimentos (Testimonials) (Semana 9) ✅
 
-### 7.1 Models & Database
-- [ ] Model Testimonial (Prisma schema)
+### 7.1 Models & Database ✅
+- [x] Model Testimonial (Prisma schema) - já existe no schema
 ```prisma
 model Testimonial {
   id          String   @id @default(uuid())
@@ -407,24 +407,34 @@ model Testimonial {
   updatedAt   DateTime @updatedAt
 }
 ```
-- [ ] Migration
-- [ ] Indexes (isPublished, order)
+- [x] Migration - tabela já existe
+- [x] Indexes (isPublished, order) - já configurados no schema
 
-### 7.2 API Endpoints (Público)
-- [ ] GET `/api/testimonials` - Listar depoimentos publicados
+### 7.2 API Endpoints (Público) ✅
+- [x] GET `/api/testimonials` - Listar depoimentos publicados - funcionando
 
-### 7.3 API Endpoints (Admin)
-- [ ] POST `/api/admin/testimonials` - Criar
-- [ ] GET `/api/admin/testimonials` - Listar todos
-- [ ] PUT `/api/admin/testimonials/:id` - Atualizar
-- [ ] DELETE `/api/admin/testimonials/:id` - Deletar
-- [ ] PATCH `/api/admin/testimonials/:id/publish` - Publicar/Despublicar
+### 7.3 API Endpoints (Admin) ✅
+- [x] POST `/api/admin/testimonials` - Criar - funcionando
+- [x] GET `/api/admin/testimonials` - Listar todos - funcionando
+- [x] GET `/api/admin/testimonials/:id` - Buscar por ID - funcionando
+- [x] PUT `/api/admin/testimonials/:id` - Atualizar - funcionando
+- [x] DELETE `/api/admin/testimonials/:id` - Deletar - funcionando
+- [x] PATCH `/api/admin/testimonials/:id/toggle-publish` - Publicar/Despublicar - funcionando
+- [x] PATCH `/api/admin/testimonials/reorder` - Reordenar depoimentos - funcionando
 
 ### 7.4 Testes
 - [ ] Testes CRUD básicos
 - [ ] Testes de publicação
 
-**Entregável**: Sistema de depoimentos
+**Entregável**: ✅ Sistema de depoimentos - **COMPLETO**
+
+**Implementação**:
+- TestimonialService com CRUD completo ([backend/src/services/testimonialService.ts](../backend/src/services/testimonialService.ts))
+- TestimonialController com todos os endpoints ([backend/src/controllers/testimonialController.ts](../backend/src/controllers/testimonialController.ts))
+- Validadores Zod para todos os endpoints ([backend/src/validators/testimonialValidators.ts](../backend/src/validators/testimonialValidators.ts))
+- Rotas integradas com autenticação e rate limiting ([backend/src/routes/testimonialRoutes.ts](../backend/src/routes/testimonialRoutes.ts))
+- Sistema de ordenação automática
+- Toggle de publicação com single endpoint
 
 ---
 
