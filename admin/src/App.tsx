@@ -9,6 +9,7 @@ import { ContactDetail } from './pages/contacts/ContactDetail';
 import { NewsletterList } from './pages/newsletter/NewsletterList';
 import { BlogList } from './pages/blog/BlogList';
 import { BlogEditor } from './pages/blog/BlogEditor';
+import { ServicesList } from './pages/services/ServicesList';
 import { NotFound } from './pages/NotFound';
 import { useAuthStore } from './stores/authStore';
 
@@ -112,11 +113,7 @@ function App() {
             path="/services"
             element={
               <PrivateRoute>
-                <div className="flex h-screen items-center justify-center">
-                  <p className="text-2xl text-muted-foreground">
-                    Página de Serviços em desenvolvimento...
-                  </p>
-                </div>
+                <ServicesList />
               </PrivateRoute>
             }
           />

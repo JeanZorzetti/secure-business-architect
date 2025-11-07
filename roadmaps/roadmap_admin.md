@@ -568,33 +568,50 @@ model Note {
 
 ---
 
-## Fase 8: Gestão de Serviços (Semana 10)
+## Fase 8: Gestão de Serviços (Semana 10) ✅ COMPLETA
 
-### 8.1 Backend - Endpoints de Serviços (se não existir)
-- [ ] GET `/api/admin/services` - Listar serviços
-- [ ] GET `/api/admin/services/:id` - Ver serviço
-- [ ] POST `/api/admin/services` - Criar serviço
-- [ ] PUT `/api/admin/services/:id` - Atualizar serviço
-- [ ] DELETE `/api/admin/services/:id` - Deletar serviço
-- [ ] PATCH `/api/admin/services/reorder` - Reordenar serviços
+### 8.1 Backend - Endpoints de Serviços ✅
+- [x] GET `/api/services/admin/all` - Listar serviços (implementado na Phase 6 do backend)
+- [x] GET `/api/services/admin/:id` - Ver serviço
+- [x] POST `/api/services/admin` - Criar serviço
+- [x] PUT `/api/services/admin/:id` - Atualizar serviço
+- [x] DELETE `/api/services/admin/:id` - Deletar serviço
+- [x] PATCH `/api/services/admin/reorder` - Reordenar serviços
+- [x] PATCH `/api/services/admin/:id/toggle` - Toggle ativo/inativo
 
-### 8.2 Frontend - Gestão de Serviços
-- [ ] Página de listagem de serviços
-- [ ] Lista ordenável (drag & drop)
-- [ ] Card de cada serviço com preview
-- [ ] Botão "Novo Serviço"
-- [ ] Modal de edição/criação
+### 8.2 Frontend - Gestão de Serviços ✅
+- [x] Página de listagem de serviços
+- [x] Card de cada serviço com preview completo
+- [x] Botão "Novo Serviço"
+- [x] Dialog de edição/criação com todos os campos
   - Título
-  - Slug
-  - Ícone (seletor de ícones Lucide)
+  - Ícone Lucide (input de texto)
   - Descrição (textarea)
-  - Benefícios (lista editável)
-  - Status (ativo/inativo)
-- [ ] Toggle ativo/inativo
-- [ ] Deletar serviço (com confirmação)
-- [ ] Preview do card
+  - Benefícios (lista editável com add/remove)
+  - Slug gerado automaticamente pelo backend
+- [x] Toggle ativo/inativo com botão
+- [x] Deletar serviço com confirmação (AlertDialog)
+- [x] Preview completo no card (título, descrição, benefícios, status)
+- [x] Badge de status (Ativo/Inativo)
+- [x] Ícone drag handle para reordenação futura
+- [ ] Drag & drop para reordenar - não implementado (funcionalidade básica pronta)
 
-**Entregável**: Gestão de serviços
+**Entregável**: ✅ Gestão de serviços funcionando - **COMPLETO**
+
+**Implementação**:
+- Tipos e API client ([admin/src/types/service.ts](../admin/src/types/service.ts), [admin/src/api/services.ts](../admin/src/api/services.ts))
+- Página completa de gestão ([admin/src/pages/services/ServicesList.tsx](../admin/src/pages/services/ServicesList.tsx))
+- Integração com backend services API (Phase 6)
+- Dialog modal para criar/editar serviços
+- CRUD completo: criar, editar, deletar serviços
+- Toggle ativo/inativo
+- Lista de benefícios editável (add/remove dinamicamente)
+- Validação de campos obrigatórios
+- Confirmação antes de deletar
+- Loading states e error handling
+- Toast notifications para feedback
+- Rota `/services` configurada
+- Cards com preview visual completo
 
 ---
 
