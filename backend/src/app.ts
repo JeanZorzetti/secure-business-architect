@@ -11,6 +11,7 @@ import { apiLimiter } from './middlewares/rateLimiter';
 import authRoutes from './routes/authRoutes';
 import contactRoutes from './routes/contactRoutes';
 import newsletterRoutes from './routes/newsletterRoutes';
+import blogRoutes from './routes/blogRoutes';
 
 // Create Express app
 const app: Application = express();
@@ -69,6 +70,7 @@ app.get('/health', (_req, res) => {
 app.use(`${env.API_PREFIX}/auth`, authRoutes);
 app.use(`${env.API_PREFIX}/contacts`, contactRoutes);
 app.use(`${env.API_PREFIX}/newsletter`, newsletterRoutes);
+app.use(`${env.API_PREFIX}/blog`, blogRoutes);
 
 // Root endpoint
 app.get('/', (_req, res) => {
