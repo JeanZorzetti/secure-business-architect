@@ -5,7 +5,6 @@ import compression from 'compression';
 import pinoHttp from 'pino-http';
 import env from './config/env';
 import { logger } from './config/logger';
-import { connectRedis } from './config/redis';
 import prisma from './config/database';
 import { errorHandler, notFoundHandler } from './middlewares/errorHandler';
 import { apiLimiter } from './middlewares/rateLimiter';
@@ -89,9 +88,6 @@ const PORT = env.PORT;
 
 const startServer = async () => {
   try {
-    // Connect to Redis
-    await connectRedis();
-
     // Test database connection
     await prisma.$connect();
     logger.info('✅ Database connected successfully');
