@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { StatCard } from '@/components/dashboard/StatCard';
 import { RecentContacts } from '@/components/dashboard/RecentContacts';
-import { Users, Mail, FileText, TrendingUp, AlertCircle, Send, BookOpen, Eye } from 'lucide-react';
+import { Users, Mail, FileText, TrendingUp, AlertCircle, Send, BookOpen, Eye, BarChart3 } from 'lucide-react';
 import { contactsApi } from '@/api/contacts';
 import { newsletterApi } from '@/api/newsletter';
 import { blogApi } from '@/api/blog';
+import { analyticsApi } from '@/api/analytics';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/stores/authStore';
@@ -28,6 +29,11 @@ export function Dashboard() {
   const { data: blogStats, isLoading: isLoadingBlog } = useQuery({
     queryKey: ['blog-stats'],
     queryFn: () => blogApi.getStats(),
+  });
+
+  const { data: analyticsOverview, isLoading: isLoadingAnalytics } = useQuery({
+    queryKey: ['analytics-overview'],
+    queryFn: () => analyticsApi.getOverview(),
   });
 
   const error = contactError;
@@ -56,6 +62,97 @@ export function Dashboard() {
             gerenciar leads, contatos, newsletter, blog e todo o conteúdo do site.
           </p>
         </Card>
+
+        {/* Analytics Overview */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+            <BarChart3 className="h-5 w-5" />
+            Visão Geral - Analytics
+          </h3>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {isLoadingAnalytics ? (
+              <>
+                {[...Array(4)].map((_, i) => (
+                  <Card key={i} className="p-6 h-32 animate-pulse">
+                    <div className="h-full bg-muted rounded" />
+                  </Card>
+                ))}
+              </>
+            ) : (
+              <>
+                <StatCard
+                  title="Total de Visualizações"
+                  value={analyticsOverview?.totalViews || 0}
+                  icon={Eye}
+                  description="Visualizações no blog"
+                />
+                <StatCard
+                  title="Total de Contatos"
+                  value={analyticsOverview?.totalContacts || 0}
+                  icon={Users}
+                  description="Todos os contatos"
+                />
+                <StatCard
+                  title="Inscritos Newsletter"
+                  value={analyticsOverview?.totalNewsletterSubscribers || 0}
+                  icon={Send}
+                  description="Inscritos ativos"
+                />
+                <StatCard
+                  title="Posts Publicados"
+                  value={analyticsOverview?.totalBlogPosts || 0}
+                  icon={BookOpen}
+                  description="Total de posts"
+                />
+              </>
+            )}
+          </div>
+
+          {/* Métricas do mês */}
+          {!isLoadingAnalytics && analyticsOverview && (
+            <div className="mt-4">
+              <p className="text-sm text-muted-foreground mb-3">Métricas deste mês:</p>
+              <div className="grid gap-4 md:grid-cols-4">
+                <Card className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-muted-foreground">Contatos</p>
+                      <p className="text-2xl font-bold">{analyticsOverview.contactsThisMonth}</p>
+                    </div>
+                    <TrendingUp className="h-4 w-4 text-green-600" />
+                  </div>
+                </Card>
+                <Card className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-muted-foreground">Inscritos</p>
+                      <p className="text-2xl font-bold">{analyticsOverview.subscribersThisMonth}</p>
+                    </div>
+                    <TrendingUp className="h-4 w-4 text-green-600" />
+                  </div>
+                </Card>
+                <Card className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-muted-foreground">Posts</p>
+                      <p className="text-2xl font-bold">{analyticsOverview.postsThisMonth}</p>
+                    </div>
+                    <TrendingUp className="h-4 w-4 text-green-600" />
+                  </div>
+                </Card>
+                <Card className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-muted-foreground">Visualizações</p>
+                      <p className="text-2xl font-bold">{analyticsOverview.viewsThisMonth}</p>
+                    </div>
+                    <TrendingUp className="h-4 w-4 text-green-600" />
+                  </div>
+                </Card>
+              </div>
+            </div>
+          )}
+        </div>
 
         {/* Stats Grid - Contatos */}
         <div>
