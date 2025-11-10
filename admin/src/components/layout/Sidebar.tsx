@@ -13,6 +13,9 @@ import {
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/stores/authStore';
 import { UserRole } from '@/types/user';
+import { Badge } from '@/components/ui/badge';
+import { useQuery } from '@tanstack/react-query';
+import { leadsApi } from '@/api/leads';
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
@@ -29,6 +32,16 @@ const navigation = [
 export function Sidebar() {
   const location = useLocation();
   const { user, logout } = useAuthStore();
+
+  // Buscar estatísticas para mostrar badge de novos leads
+  const { data: stats } = useQuery({
+    queryKey: ['leads-stats'],
+    queryFn: () => leadsApi.getStats(),
+    refetchInterval: 30000, // Atualizar a cada 30 segundos
+  });
+
+  const newLeadsCount = stats?.byStatus.NEW || 0;
+  const overdueCount = stats?.overdueFollowUps || 0;
 
   const handleLogout = async () => {
     try {
@@ -60,19 +73,44 @@ export function Sidebar() {
           })
           .map((item) => {
             const isActive = location.pathname === item.href;
+            const isLeadsPage = item.href === '/leads';
+            const showBadge = isLeadsPage && (newLeadsCount > 0 || overdueCount > 0);
+
             return (
               <Link
                 key={item.name}
                 to={item.href}
                 className={cn(
-                  'flex items-center space-x-3 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                  'flex items-center justify-between rounded-md px-3 py-2 text-sm font-medium transition-colors',
                   isActive
                     ? 'bg-primary text-primary-foreground'
                     : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
                 )}
               >
-                <item.icon className="h-5 w-5" />
-                <span>{item.name}</span>
+                <div className="flex items-center space-x-3">
+                  <item.icon className="h-5 w-5" />
+                  <span>{item.name}</span>
+                </div>
+                {showBadge && (
+                  <div className="flex items-center gap-1">
+                    {newLeadsCount > 0 && (
+                      <Badge
+                        variant={isActive ? 'secondary' : 'default'}
+                        className="h-5 min-w-[20px] px-1.5 text-xs"
+                      >
+                        {newLeadsCount}
+                      </Badge>
+                    )}
+                    {overdueCount > 0 && (
+                      <Badge
+                        variant="destructive"
+                        className="h-5 min-w-[20px] px-1.5 text-xs"
+                      >
+                        {overdueCount}
+                      </Badge>
+                    )}
+                  </div>
+                )}
               </Link>
             );
           })}

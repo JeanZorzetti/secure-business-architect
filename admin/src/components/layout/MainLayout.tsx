@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
+import { useLeadNotifications } from '@/hooks/useLeadNotifications';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -8,6 +9,12 @@ interface MainLayoutProps {
 }
 
 export function MainLayout({ children, title }: MainLayoutProps) {
+  // Ativar notificações de leads
+  useLeadNotifications({
+    enabled: true,
+    checkInterval: 30000, // Verificar a cada 30 segundos
+  });
+
   return (
     <div className="flex h-screen overflow-hidden bg-background">
       {/* Sidebar */}

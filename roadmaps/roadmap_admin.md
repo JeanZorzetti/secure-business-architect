@@ -514,14 +514,30 @@ admin/
 - `/leads/:id` - Detalhes do lead
 - Atualizado `admin/src/App.tsx` com imports e rotas
 
-### 4.6 Notificações e Lembretes ⏸️ FUTURO
+### 4.6 Notificações e Lembretes ✅ CONCLUÍDO
 
-- [ ] Notificação de novo lead (toast) - futuro
-- [ ] Badge no menu com contagem de leads novos - futuro
-- [ ] Lembretes de follow-up (próximos ao vencimento) - futuro
+- [x] Notificação de novo lead (toast)
+- [x] Badge no menu com contagem de leads novos
+- [x] Lembretes de follow-up (próximos ao vencimento)
 - [ ] Email de notificação para admin (opcional) - futuro
 
-**Nota**: Funcionalidades de notificações marcadas para implementação futura.
+**Arquivos criados/modificados**:
+
+- Criado `admin/src/hooks/useLeadNotifications.ts` - Hook customizado para gerenciar notificações
+- Criado `admin/src/components/notifications/NotificationBell.tsx` - Componente de sino de notificações
+- Atualizado `admin/src/components/layout/MainLayout.tsx` - Integração do hook de notificações
+- Atualizado `admin/src/components/layout/Sidebar.tsx` - Badge com contagem de novos leads e follow-ups atrasados
+- Atualizado `admin/src/components/layout/Header.tsx` - Sino de notificações no header
+
+**Funcionalidades implementadas**:
+
+- Toast notification quando novos leads são recebidos (verifica a cada 30 segundos)
+- Badge azul no menu "Leads / CRM" mostrando quantidade de leads novos
+- Badge vermelho no menu mostrando follow-ups atrasados
+- Sino de notificações no header com popover detalhado
+- Notificações de follow-ups atrasados (vermelho)
+- Notificações de follow-ups próximos (amarelo)
+- Contador visual no sino (mostra 9+ quando > 9 notificações)
 
 **Entregável**: ✅ CRM completo para gestão de leads - **FASE 4 COMPLETA**
 
