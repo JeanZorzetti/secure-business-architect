@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { leadsApi } from '@/api/leads';
 import { toast } from 'sonner';
-import { Bell } from 'lucide-react';
 
 interface UseLeadNotificationsOptions {
   enabled?: boolean;
@@ -41,7 +40,6 @@ export function useLeadNotifications(options: UseLeadNotificationsOptions = {}) 
 
       toast.success(`${newCount} ${newCount === 1 ? 'novo lead recebido' : 'novos leads recebidos'}!`, {
         description: 'Acesse a página de leads para visualizar',
-        icon: <Bell className="h-4 w-4" />,
         duration: 5000,
       });
     }
