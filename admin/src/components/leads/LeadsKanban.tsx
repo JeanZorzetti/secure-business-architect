@@ -10,11 +10,9 @@ import {
   type DragEndEvent,
   type DragStartEvent,
 } from '@dnd-kit/core';
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+import { KanbanColumn } from './KanbanColumn';
 import { LeadKanbanCard } from './LeadKanbanCard';
 import type { Lead, LeadStatus } from '@/types/lead';
-import { Badge } from '@/components/ui/badge';
 
 interface LeadsKanbanProps {
   leads: Lead[];
@@ -100,60 +98,16 @@ export function LeadsKanban({ leads, onLeadClick, onStatusChange }: LeadsKanbanP
       onDragEnd={handleDragEnd}
     >
       <div className="flex gap-4 overflow-x-auto pb-4">
-        {COLUMNS.map((column) => {
-          const columnLeads = leadsByStatus[column.status];
-
-          return (
-            <div key={column.status} className="flex-shrink-0 w-80">
-              <Card className={`h-full ${column.color}`}>
-                <CardHeader className="pb-3">
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-base font-semibold">
-                      {column.label}
-                    </CardTitle>
-                    <Badge variant="secondary" className="ml-2">
-                      {columnLeads.length}
-                    </Badge>
-                  </div>
-                </CardHeader>
-
-                <div className="px-4 pb-4">
-                  <SortableContext
-                    id={column.status}
-                    items={columnLeads.map((l) => l.id)}
-                    strategy={verticalListSortingStrategy}
-                  >
-                    <div
-                      className="min-h-[500px] space-y-0"
-                      // Tornar a coluna um drop target
-                      data-droppable-id={column.status}
-                      onDrop={(e) => {
-                        e.preventDefault();
-                      }}
-                      onDragOver={(e) => {
-                        e.preventDefault();
-                      }}
-                    >
-                      {columnLeads.length === 0 ? (
-                        <div className="flex items-center justify-center h-32 text-sm text-muted-foreground">
-                          Nenhum lead
-                        </div>
-                      ) : (
-                        columnLeads.map((lead) => (
-                          <LeadKanbanCard
-                            key={lead.id}
-                            lead={lead}
-                            onClick={() => onLeadClick(lead)}
-                          />
-                        ))
-                      )}
-                    </div>
-                  </SortableContext>
-                </div>
-              </Card>
-            </div>
-          );
-        })}
+        {COLUMNS.map((column) => (
+          <KanbanColumn
+            key={column.status}
+            status={column.status}
+            label={column.label}
+            color={column.color}
+            leads={leadsByStatus[column.status]}
+            onLeadClick={onLeadClick}
+          />
+        ))}
       </div>
 
       {/* Drag Overlay - mostra o card sendo arrastado */}
