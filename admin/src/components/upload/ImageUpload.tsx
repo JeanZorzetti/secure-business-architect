@@ -3,9 +3,10 @@ import type { DragEvent, ChangeEvent } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { uploadApi } from '@/api/upload';
 import { Button } from '@/components/ui/button';
-import { Upload, X, Image as ImageIcon } from 'lucide-react';
+import { Upload, X, Image as ImageIcon, Images } from 'lucide-react';
 import { toast } from 'sonner';
 import { ALLOWED_IMAGE_TYPES, MAX_FILE_SIZE } from '@/types/upload';
+import { ImageGallery } from './ImageGallery';
 
 interface ImageUploadProps {
   onUploadSuccess: (url: string) => void;
@@ -21,6 +22,7 @@ export function ImageUpload({
   const [isDragging, setIsDragging] = useState(false);
   const [preview, setPreview] = useState<string | null>(currentImageUrl || null);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [showGallery, setShowGallery] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const uploadMutation = useMutation({
@@ -224,6 +226,33 @@ export function ImageUpload({
           </p>
         </div>
       )}
+
+      {/* Galeria de Imagens */}
+      <div className="border-t pt-4">
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={() => setShowGallery(!showGallery)}
+          className="w-full"
+        >
+          <Images className="h-4 w-4 mr-2" />
+          {showGallery ? 'Ocultar' : 'Escolher da'} Galeria de Imagens
+        </Button>
+
+        {showGallery && (
+          <div className="mt-4">
+            <ImageGallery
+              onSelectImage={(url) => {
+                setPreview(url);
+                onUploadSuccess(url);
+                setShowGallery(false);
+              }}
+              selectedUrl={preview || undefined}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

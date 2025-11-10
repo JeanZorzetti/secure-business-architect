@@ -3,6 +3,7 @@ import type {
   UploadResponse,
   MultipleUploadResponse,
   DeleteFileResponse,
+  UploadedFile,
 } from '@/types/upload';
 
 export const uploadApi = {
@@ -45,6 +46,16 @@ export const uploadApi = {
    */
   deleteImage: async (filename: string): Promise<DeleteFileResponse> => {
     const response = await api.delete<DeleteFileResponse>(`/admin/upload/${filename}`);
+    return response.data;
+  },
+
+  /**
+   * Listar todas as imagens
+   */
+  listImages: async (): Promise<{ success: boolean; images: UploadedFile[] }> => {
+    const response = await api.get<{ success: boolean; images: UploadedFile[] }>(
+      '/admin/upload/images-list'
+    );
     return response.data;
   },
 };

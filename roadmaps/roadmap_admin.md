@@ -764,7 +764,7 @@ admin/
 - [x] Progress bar ✅
 - [x] Validação (tipo, tamanho) ✅
 - [x] Integração com BlogEditor ✅
-- [ ] Galeria de imagens já enviadas - não implementado (futuro)
+- [x] Galeria de imagens já enviadas ✅
 
 **Implementação do Frontend de Upload (Fase 7.4):**
 
@@ -772,7 +772,12 @@ admin/
   - Tipos TypeScript ([admin/src/types/upload.ts](../admin/src/types/upload.ts))
   - API client ([admin/src/api/upload.ts](../admin/src/api/upload.ts))
   - Componente ImageUpload ([admin/src/components/upload/ImageUpload.tsx](../admin/src/components/upload/ImageUpload.tsx))
+  - Componente ImageGallery ([admin/src/components/upload/ImageGallery.tsx](../admin/src/components/upload/ImageGallery.tsx))
   - Integração no BlogEditor ([admin/src/pages/blog/BlogEditor.tsx](../admin/src/pages/blog/BlogEditor.tsx))
+- **Backend:**
+  - Endpoint para listar imagens ([backend/src/controllers/uploadController.ts](../backend/src/controllers/uploadController.ts))
+  - Service para listar arquivos ([backend/src/services/uploadService.ts](../backend/src/services/uploadService.ts))
+  - Rota GET /api/admin/upload/images-list
 - **Recursos:**
   - Drag & drop de arquivos
   - Preview de imagem antes do upload
@@ -784,6 +789,14 @@ admin/
   - Toast notifications (sucesso/erro)
   - Botão de remoção de imagem
   - Integrado no editor de posts do blog
+  - **Galeria de imagens enviadas:**
+    - Grid responsivo com thumbnails
+    - Ordenação por data (mais recente primeiro)
+    - Seleção visual de imagem (borda + checkmark)
+    - Botão para deletar imagem com confirmação
+    - Hover effects com info da imagem (nome e tamanho)
+    - Toggle para mostrar/ocultar galeria
+    - Integrado no componente ImageUpload
 
 **Entregável**: ✅ CMS de blog funcionando - **COMPLETO**
 

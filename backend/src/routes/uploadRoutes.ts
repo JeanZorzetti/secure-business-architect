@@ -19,6 +19,18 @@ router.post(
 );
 
 /**
+ * @route   GET /api/admin/upload/images-list
+ * @desc    Listar todas as imagens
+ * @access  Private (Admin)
+ */
+router.get(
+  '/images-list',
+  authenticateToken,
+  requireAdmin,
+  (req, res) => uploadController.listImages(req, res)
+);
+
+/**
  * @route   POST /api/admin/upload/images
  * @desc    Upload de múltiplas imagens
  * @access  Private (Admin)

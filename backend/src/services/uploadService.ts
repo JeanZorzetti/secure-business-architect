@@ -101,6 +101,63 @@ class UploadService {
   isValidSize(size: number): boolean {
     return size <= UPLOAD_CONFIG.MAX_FILE_SIZE;
   }
+
+  /**
+   * Listar todas as imagens no diretório de uploads
+   */
+  async listImages(baseUrl: string): Promise<UploadedFile[]> {
+    try {
+      const imagesDir = path.join(process.cwd(), UPLOAD_CONFIG.IMAGES_DIR);
+
+      // Verificar se diretório existe
+      try {
+        await fs.access(imagesDir);
+      } catch {
+        return [];
+      }
+
+      // Ler arquivos do diretório
+      const files = await fs.readdir(imagesDir);
+
+      // Filtrar apenas imagens e obter stats
+      const imageFiles = await Promise.all(
+        files
+          .filter((file) => !file.startsWith('.')) // Ignorar arquivos ocultos
+          .map(async (filename) => {
+            const filePath = path.join(imagesDir, filename);
+            const stats = await fs.stat(filePath);
+
+            // Determinar tipo MIME pela extensão
+            const ext = path.extname(filename).toLowerCase();
+            const mimeTypeMap: Record<string, string> = {
+              '.jpg': 'image/jpeg',
+              '.jpeg': 'image/jpeg',
+              '.png': 'image/png',
+              '.gif': 'image/gif',
+              '.webp': 'image/webp',
+              '.svg': 'image/svg+xml',
+            };
+
+            return {
+              id: filename,
+              filename,
+              originalName: filename,
+              mimeType: mimeTypeMap[ext] || 'image/jpeg',
+              size: stats.size,
+              url: `${baseUrl}/uploads/images/${filename}`,
+              path: `images/${filename}`,
+              uploadedBy: 'system',
+              createdAt: stats.birthtime,
+            };
+          })
+      );
+
+      // Ordenar por data de criação (mais recente primeiro)
+      return imageFiles.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export const uploadService = new UploadService();

@@ -125,6 +125,28 @@ class UploadController {
       });
     }
   }
+
+  /**
+   * Listar imagens
+   * GET /api/admin/upload/images
+   */
+  async listImages(_req: Request, res: Response): Promise<void> {
+    try {
+      const images = await uploadService.listImages(env.BACKEND_URL);
+
+      logger.info({ count: images.length }, 'Images listed successfully');
+      res.json({
+        success: true,
+        images,
+      });
+    } catch (error) {
+      logger.error({ error }, 'Error listing images');
+      res.status(500).json({
+        success: false,
+        error: 'Erro ao listar imagens',
+      });
+    }
+  }
 }
 
 export const uploadController = new UploadController();
