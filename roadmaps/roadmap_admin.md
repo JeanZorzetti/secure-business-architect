@@ -225,7 +225,12 @@ admin/
 - [x] Adicionar componentes essenciais (Button, Card, Input, Label, Textarea, Select, Dialog, Badge, Avatar, Table, Dropdown Menu)
 - [x] Configurar toast notifications (Sonner)
 - [x] Atualizar página de Login com componentes shadcn/ui
-- [ ] Criar componentes customizados específicos do admin (quando necessário)
+- [x] Criar componentes customizados específicos do admin
+  - LoadingSpinner - spinner reutilizável com 3 tamanhos e texto opcional
+  - EmptyState - estado vazio com ícone, título, descrição e ação opcional
+  - PageHeader - cabeçalho de página padronizado com título, descrição e actions
+  - StatusBadge - badge de status com 5 variantes coloridas
+  - DataTable - tabela genérica com loading, empty state e paginação
 
 **Entregável**: Admin frontend estruturado e pronto para desenvolvimento - **FASE 1 COMPLETA** ✅
 
