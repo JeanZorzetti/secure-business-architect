@@ -17,6 +17,8 @@ import testimonialRoutes from './routes/testimonialRoutes';
 import analyticsRoutes from './routes/analyticsRoutes';
 import leadRoutes from './routes/leadRoutes';
 import userRoutes from './routes/userRoutes';
+import uploadRoutes from './routes/uploadRoutes';
+import path from 'path';
 
 // Create Express app
 const app: Application = express();
@@ -58,6 +60,9 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Compression
 app.use(compression());
 
+// Servir arquivos estáticos da pasta uploads
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
+
 // Apply general rate limiting to all API routes
 app.use(env.API_PREFIX, apiLimiter);
 
@@ -77,6 +82,7 @@ app.use(`${env.API_PREFIX}/contacts`, contactRoutes);
 app.use(`${env.API_PREFIX}/newsletter`, newsletterRoutes);
 app.use(`${env.API_PREFIX}/blog`, blogRoutes);
 app.use(`${env.API_PREFIX}/services`, serviceRoutes);
+app.use(`${env.API_PREFIX}/admin/upload`, uploadRoutes);
 app.use(`${env.API_PREFIX}`, testimonialRoutes);
 app.use(`${env.API_PREFIX}`, analyticsRoutes);
 app.use(`${env.API_PREFIX}`, leadRoutes);

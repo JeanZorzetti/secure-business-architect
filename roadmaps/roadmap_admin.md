@@ -676,7 +676,31 @@ admin/
 - [x] PATCH `/api/blog/admin/posts/:id/unpublish` - Despublicar
 - [x] GET `/api/blog/admin/stats` - Estatísticas
 - [x] GET `/api/blog/categories` - Listar categorias
-- [ ] POST `/api/admin/upload/image` - Upload de imagem (futuro)
+- [x] POST `/api/admin/upload/image` - Upload de imagem única ✅
+- [x] POST `/api/admin/upload/images` - Upload de múltiplas imagens ✅
+- [x] DELETE `/api/admin/upload/:filename` - Deletar imagem ✅
+
+**Implementação do Sistema de Upload (Fase 7.1 - Upload de Imagens):**
+
+- **Backend:**
+  - Tipos e interfaces ([backend/src/types/upload.types.ts](../backend/src/types/upload.types.ts))
+  - Validadores Zod ([backend/src/validators/uploadValidators.ts](../backend/src/validators/uploadValidators.ts))
+  - Service layer ([backend/src/services/uploadService.ts](../backend/src/services/uploadService.ts))
+  - Controller ([backend/src/controllers/uploadController.ts](../backend/src/controllers/uploadController.ts))
+  - Middleware Multer ([backend/src/middlewares/uploadMiddleware.ts](../backend/src/middlewares/uploadMiddleware.ts))
+  - Rotas ([backend/src/routes/uploadRoutes.ts](../backend/src/routes/uploadRoutes.ts))
+  - Configuração de arquivos estáticos em [backend/src/app.ts](../backend/src/app.ts)
+  - Diretórios: `backend/uploads/images/`
+- **Recursos:**
+  - Upload de imagem única (POST `/api/admin/upload/image`)
+  - Upload de múltiplas imagens (POST `/api/admin/upload/images`)
+  - Deletar imagem (DELETE `/api/admin/upload/:filename`)
+  - Validação de tipo MIME (JPEG, JPG, PNG, GIF, WebP, SVG)
+  - Validação de tamanho (máx 5MB)
+  - Nomes únicos com UUID
+  - Servir arquivos estáticos via `/uploads`
+  - Autenticação e autorização (Admin only)
+  - Error handling e logging completo
 
 ### 7.2 Frontend - Lista de Posts ✅
 - [x] Página de listagem de posts

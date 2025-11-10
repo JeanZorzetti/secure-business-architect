@@ -20,7 +20,14 @@
       "Bash(curl:*)",
       "Bash(npx prisma migrate:*)",
       "Bash(npm audit:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(dir /b \"C:\\Users\\jeanz\\Downloads\\secure-business-architect-main\\admin\\src\\components\\common\" 2)",
+      "Bash(nul)",
+      "Bash(git log:*)",
+      "Bash(dir /s /b adminsrcpages*.tsx 2)",
+      "Bash(findstr:*)",
+      "Bash(backend/uploads/.gitkeep)",
+      "Bash(backend/uploads/images/.gitkeep)"
     ],
     "deny": [],
     "ask": []
