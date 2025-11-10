@@ -6,11 +6,13 @@ import {
   FileText,
   Briefcase,
   MessageSquare,
-  Settings,
+  UserCog,
+  Shield,
   LogOut,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/stores/authStore';
+import { UserRole } from '@/types/user';
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
@@ -20,7 +22,8 @@ const navigation = [
   { name: 'Blog', href: '/blog', icon: FileText },
   { name: 'Serviços', href: '/services', icon: Briefcase },
   { name: 'Depoimentos', href: '/testimonials', icon: MessageSquare },
-  { name: 'Configurações', href: '/settings', icon: Settings },
+  { name: 'Meu Perfil', href: '/profile', icon: UserCog },
+  { name: 'Usuários', href: '/users', icon: Shield, requireRole: UserRole.SUPER_ADMIN },
 ];
 
 export function Sidebar() {
@@ -47,24 +50,32 @@ export function Sidebar() {
 
       {/* Navigation */}
       <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
-        {navigation.map((item) => {
-          const isActive = location.pathname === item.href;
-          return (
-            <Link
-              key={item.name}
-              to={item.href}
-              className={cn(
-                'flex items-center space-x-3 rounded-md px-3 py-2 text-sm font-medium transition-colors',
-                isActive
-                  ? 'bg-primary text-primary-foreground'
-                  : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-              )}
-            >
-              <item.icon className="h-5 w-5" />
-              <span>{item.name}</span>
-            </Link>
-          );
-        })}
+        {navigation
+          .filter((item) => {
+            // Filter out items that require a specific role if user doesn't have it
+            if (item.requireRole && user?.role !== item.requireRole) {
+              return false;
+            }
+            return true;
+          })
+          .map((item) => {
+            const isActive = location.pathname === item.href;
+            return (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={cn(
+                  'flex items-center space-x-3 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                  isActive
+                    ? 'bg-primary text-primary-foreground'
+                    : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+                )}
+              >
+                <item.icon className="h-5 w-5" />
+                <span>{item.name}</span>
+              </Link>
+            );
+          })}
       </nav>
 
       {/* User Info + Logout */}
