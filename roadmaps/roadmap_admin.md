@@ -738,13 +738,33 @@ admin/
 - [ ] Preview do post - não implementado (futuro)
 - [ ] Auto-save - não implementado (futuro)
 
-### 7.4 Upload de Imagens
-- [ ] Drag & drop de imagens - não implementado (futuro)
-- [ ] Preview antes do upload - não implementado (futuro)
-- [ ] Progress bar - não implementado (futuro)
-- [ ] Validação (tipo, tamanho) - não implementado (futuro)
+### 7.4 Upload de Imagens ✅
+
+- [x] Drag & drop de imagens ✅
+- [x] Preview antes do upload ✅
+- [x] Progress bar ✅
+- [x] Validação (tipo, tamanho) ✅
+- [x] Integração com BlogEditor ✅
 - [ ] Galeria de imagens já enviadas - não implementado (futuro)
-- [ ] Inserir imagem no editor - não implementado (futuro)
+
+**Implementação do Frontend de Upload (Fase 7.4):**
+
+- **Frontend:**
+  - Tipos TypeScript ([admin/src/types/upload.ts](../admin/src/types/upload.ts))
+  - API client ([admin/src/api/upload.ts](../admin/src/api/upload.ts))
+  - Componente ImageUpload ([admin/src/components/upload/ImageUpload.tsx](../admin/src/components/upload/ImageUpload.tsx))
+  - Integração no BlogEditor ([admin/src/pages/blog/BlogEditor.tsx](../admin/src/pages/blog/BlogEditor.tsx))
+- **Recursos:**
+  - Drag & drop de arquivos
+  - Preview de imagem antes do upload
+  - Progress bar visual durante upload
+  - Validação de tipo (JPEG, PNG, GIF, WebP, SVG)
+  - Validação de tamanho (máx 5MB)
+  - Suporte a URL manual como alternativa
+  - Feedback visual (estados de loading, erro, sucesso)
+  - Toast notifications (sucesso/erro)
+  - Botão de remoção de imagem
+  - Integrado no editor de posts do blog
 
 **Entregável**: ✅ CMS de blog funcionando - **COMPLETO**
 

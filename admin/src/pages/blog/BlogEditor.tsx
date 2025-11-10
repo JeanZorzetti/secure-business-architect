@@ -18,6 +18,7 @@ import {
 import { Loader2, Save, ArrowLeft } from 'lucide-react';
 import type { CreateBlogPostDTO, UpdateBlogPostDTO } from '@/types/blog';
 import { toast } from 'sonner';
+import { ImageUpload } from '@/components/upload/ImageUpload';
 
 export function BlogEditor() {
   const { id } = useParams<{ id: string }>();
@@ -218,9 +219,16 @@ export function BlogEditor() {
                 </p>
               </div>
 
-              {/* Cover Image URL */}
+              {/* Cover Image Upload */}
               <div className="space-y-2">
-                <Label htmlFor="coverImage">URL da Imagem de Capa</Label>
+                <Label htmlFor="coverImage">Imagem de Capa</Label>
+                <ImageUpload
+                  onUploadSuccess={(url) => handleChange('coverImage', url)}
+                  currentImageUrl={formData.coverImage}
+                />
+                <p className="text-xs text-muted-foreground">
+                  Ou cole uma URL de imagem diretamente:
+                </p>
                 <Input
                   id="coverImage"
                   type="url"
