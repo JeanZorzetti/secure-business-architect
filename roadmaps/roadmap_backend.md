@@ -438,25 +438,51 @@ model Testimonial {
 
 ---
 
-## Fase 8: Analytics e Métricas (Semana 10)
+## Fase 8: Analytics e Métricas (Semana 10) ✅
 
-### 8.1 Rastreamento Básico
-- [ ] Model Analytics (views, events)
-- [ ] Middleware de tracking de requisições
-- [ ] Endpoint GET `/api/admin/analytics/overview`
-- [ ] Métricas: visualizações de posts, contatos recebidos, inscrições newsletter
+### 8.1 Rastreamento Básico ✅
+- [x] Model Analytics (views, events) - já existe no schema
+- [x] Endpoint POST `/api/analytics/track` - Registrar evento (público) - funcionando
+- [x] Endpoint GET `/api/admin/analytics/overview` - Visão geral de métricas - funcionando
+  - Total de visualizações (blog)
+  - Total de contatos
+  - Total de inscritos na newsletter
+  - Total de posts publicados
+  - Métricas do mês atual (contatos, inscritos, posts, visualizações)
+- [ ] Middleware de tracking automático - não implementado (tracking manual via endpoint)
 
-### 8.2 Dashboard Admin
-- [ ] Estatísticas gerais
-- [ ] Posts mais visualizados
-- [ ] Gráficos de tendências (últimos 30 dias)
+### 8.2 Dashboard Admin ✅
+- [x] GET `/api/admin/analytics/overview` - Estatísticas gerais - funcionando
+- [x] GET `/api/admin/analytics/top-posts` - Posts mais visualizados - funcionando
+  - Suporte a parâmetro ?limit=N
+- [x] GET `/api/admin/analytics/contacts-trend` - Tendência de contatos - funcionando
+  - Últimos 30 dias (configurável via ?days=N)
+  - Retorna array com contagem por dia
+- [x] GET `/api/admin/analytics/blog-views-trend` - Tendência de visualizações - funcionando
+  - Últimos 30 dias (configurável via ?days=N)
+  - Retorna array com contagem por dia
+- [x] GET `/api/admin/analytics/events` - Buscar eventos com filtros - funcionando
+  - Filtros: startDate, endDate, event, entityType
 
-### 8.3 Logs e Monitoramento
-- [ ] Configurar logs estruturados
-- [ ] Log rotation
-- [ ] Error tracking (Sentry opcional)
+### 8.3 Logs e Monitoramento ✅ Parcial
+- [x] Logs estruturados - Pino já configurado desde fase inicial
+- [x] Error logging em todos os serviços
+- [ ] Log rotation - não implementado (configurar no ambiente de produção)
+- [ ] Error tracking (Sentry) - não implementado (opcional)
 
-**Entregável**: Sistema básico de analytics
+**Entregável**: ✅ Sistema básico de analytics - **COMPLETO**
+
+**Implementação**:
+- AnalyticsService com métodos de agregação ([backend/src/services/analyticsService.ts](../backend/src/services/analyticsService.ts))
+- AnalyticsController com todos os endpoints ([backend/src/controllers/analyticsController.ts](../backend/src/controllers/analyticsController.ts))
+- Validadores Zod para analytics ([backend/src/validators/analyticsValidators.ts](../backend/src/validators/analyticsValidators.ts))
+- Rotas públicas e admin ([backend/src/routes/analyticsRoutes.ts](../backend/src/routes/analyticsRoutes.ts))
+- Tipos TypeScript completos ([backend/src/types/analytics.types.ts](../backend/src/types/analytics.types.ts))
+- Tracking de eventos com IP e User-Agent automáticos
+- View count automático para posts (método incrementPostViewCount)
+- Agregação de dados por período
+- Tendências com preenchimento de dias sem dados (zeros)
+- Limite de segurança de 1000 eventos por query
 
 ---
 
