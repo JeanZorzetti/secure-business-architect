@@ -329,10 +329,18 @@ admin/
   - Exibe título, slug, data de publicação e contagem de views
 
 ### 3.3 Widgets Interativos
-- [ ] Filtros por período (hoje, 7 dias, 30 dias, custom) - não implementado
-- [ ] Comparação com período anterior - não implementado
-- [ ] Exportar relatórios (PDF/CSV) - não implementado
-- [ ] Atualização em tempo real (opcional) - não implementado
+- [x] Filtros por período (7, 14, 30, 60, 90 dias) - **IMPLEMENTADO**
+  - Componente PeriodFilter com dropdown de seleção
+  - Filtro aplicado dinamicamente aos gráficos de tendência
+  - Query keys atualizadas para refetch automático
+  - Interface limpa com ícone de calendário
+- [x] Comparação com período anterior - **IMPLEMENTADO**
+  - Cálculo automático do período anterior (mesmo número de dias)
+  - Exibição de percentual de mudança com ícones (↑ verde / ↓ vermelho)
+  - Métricas totais exibidas no header dos gráficos
+  - Label descritivo "vs período anterior"
+- [ ] Exportar relatórios (PDF/CSV) - não implementado (futuro)
+- [ ] Atualização em tempo real (opcional) - não implementado (futuro)
 
 **Entregável**: ✅ Dashboard completo com analytics integrado - **COMPLETO**
 

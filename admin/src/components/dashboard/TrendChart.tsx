@@ -3,6 +3,8 @@ import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'rec
 import type { AnalyticsTrend } from '@/types/analytics';
 import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { TrendingUp, TrendingDown } from 'lucide-react';
+import type { ReactNode } from 'react';
 
 interface TrendChartProps {
   title: string;
@@ -11,6 +13,12 @@ interface TrendChartProps {
   color?: string;
   dataKey?: string;
   formatValue?: (value: number) => string;
+  headerActions?: ReactNode;
+  comparisonData?: {
+    current: number;
+    previous: number;
+    label: string;
+  };
 }
 
 export function TrendChart({
@@ -20,6 +28,8 @@ export function TrendChart({
   color = '#3b82f6',
   dataKey = 'count',
   formatValue = (value: number) => value.toString(),
+  headerActions,
+  comparisonData,
 }: TrendChartProps) {
   // Formatar dados para o gráfico
   const chartData = data.map((item) => ({
@@ -28,11 +38,51 @@ export function TrendChart({
     formattedDate: format(parseISO(item.date), 'dd/MMM', { locale: ptBR }),
   }));
 
+  // Calcular mudança percentual
+  let percentageChange: number | null = null;
+  let isIncrease = false;
+  if (comparisonData) {
+    const { current, previous } = comparisonData;
+    if (previous > 0) {
+      percentageChange = ((current - previous) / previous) * 100;
+      isIncrease = percentageChange > 0;
+    }
+  }
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        {description && <CardDescription>{description}</CardDescription>}
+        <div className="flex items-start justify-between">
+          <div className="space-y-1">
+            <CardTitle>{title}</CardTitle>
+            {description && <CardDescription>{description}</CardDescription>}
+            {comparisonData && percentageChange !== null && (
+              <div className="flex items-center gap-2 mt-2">
+                <span className="text-2xl font-bold">
+                  {formatValue(comparisonData.current)}
+                </span>
+                <div
+                  className={`flex items-center gap-1 text-sm ${
+                    isIncrease ? 'text-green-600' : 'text-red-600'
+                  }`}
+                >
+                  {isIncrease ? (
+                    <TrendingUp className="h-4 w-4" />
+                  ) : (
+                    <TrendingDown className="h-4 w-4" />
+                  )}
+                  <span className="font-semibold">
+                    {Math.abs(percentageChange).toFixed(1)}%
+                  </span>
+                </div>
+                <span className="text-xs text-muted-foreground">
+                  vs {comparisonData.label}
+                </span>
+              </div>
+            )}
+          </div>
+          {headerActions && <div className="flex items-center gap-2">{headerActions}</div>}
+        </div>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={300}>

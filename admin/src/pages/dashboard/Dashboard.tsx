@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { useState, useMemo } from 'react';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { StatCard } from '@/components/dashboard/StatCard';
 import { RecentContacts } from '@/components/dashboard/RecentContacts';
 import { TrendChart } from '@/components/dashboard/TrendChart';
 import { TopPostsList } from '@/components/dashboard/TopPostsList';
+import { PeriodFilter, type PeriodOption } from '@/components/dashboard/PeriodFilter';
 import { Users, Mail, FileText, TrendingUp, AlertCircle, Send, BookOpen, Eye, BarChart3 } from 'lucide-react';
 import { contactsApi } from '@/api/contacts';
 import { newsletterApi } from '@/api/newsletter';
@@ -17,6 +19,7 @@ import { useAuthStore } from '@/stores/authStore';
 export function Dashboard() {
   const { user } = useAuthStore();
   const navigate = useNavigate();
+  const [periodDays, setPeriodDays] = useState<PeriodOption>('30');
 
   const { data: contactStats, isLoading: isLoadingContacts, error: contactError } = useQuery({
     queryKey: ['contact-stats'],
@@ -43,15 +46,63 @@ export function Dashboard() {
     queryFn: () => analyticsApi.getTopPosts(5),
   });
 
+  const days = parseInt(periodDays, 10);
+
   const { data: contactsTrend, isLoading: isLoadingContactsTrend } = useQuery({
-    queryKey: ['contacts-trend'],
-    queryFn: () => analyticsApi.getContactsTrend(30),
+    queryKey: ['contacts-trend', days],
+    queryFn: () => analyticsApi.getContactsTrend(days),
   });
 
   const { data: blogViewsTrend, isLoading: isLoadingBlogViewsTrend } = useQuery({
-    queryKey: ['blog-views-trend'],
-    queryFn: () => analyticsApi.getBlogViewsTrend(30),
+    queryKey: ['blog-views-trend', days],
+    queryFn: () => analyticsApi.getBlogViewsTrend(days),
   });
+
+  // Buscar dados do período anterior para comparação
+  const { data: contactsTrendPrevious } = useQuery({
+    queryKey: ['contacts-trend-previous', days],
+    queryFn: () => analyticsApi.getContactsTrend(days * 2),
+    select: (data) => {
+      // Pegar apenas a primeira metade dos dados (período anterior)
+      return data.slice(0, days);
+    },
+  });
+
+  const { data: blogViewsTrendPrevious } = useQuery({
+    queryKey: ['blog-views-trend-previous', days],
+    queryFn: () => analyticsApi.getBlogViewsTrend(days * 2),
+    select: (data) => {
+      // Pegar apenas a primeira metade dos dados (período anterior)
+      return data.slice(0, days);
+    },
+  });
+
+  // Calcular totais para comparação
+  const contactsComparison = useMemo(() => {
+    if (!contactsTrend || !contactsTrendPrevious) return undefined;
+
+    const current = contactsTrend.reduce((sum, item) => sum + item.count, 0);
+    const previous = contactsTrendPrevious.reduce((sum, item) => sum + item.count, 0);
+
+    return {
+      current,
+      previous,
+      label: `período anterior (${days} dias)`,
+    };
+  }, [contactsTrend, contactsTrendPrevious, days]);
+
+  const blogViewsComparison = useMemo(() => {
+    if (!blogViewsTrend || !blogViewsTrendPrevious) return undefined;
+
+    const current = blogViewsTrend.reduce((sum, item) => sum + item.count, 0);
+    const previous = blogViewsTrendPrevious.reduce((sum, item) => sum + item.count, 0);
+
+    return {
+      current,
+      previous,
+      label: `período anterior (${days} dias)`,
+    };
+  }, [blogViewsTrend, blogViewsTrendPrevious, days]);
 
   const error = contactError;
 
@@ -172,39 +223,51 @@ export function Dashboard() {
         </div>
 
         {/* Trends and Top Posts */}
-        <div className="grid gap-6 lg:grid-cols-2">
-          {/* Contacts Trend Chart */}
-          <div>
-            {isLoadingContactsTrend ? (
-              <Card className="h-[400px] animate-pulse">
-                <div className="h-full bg-muted rounded" />
-              </Card>
-            ) : contactsTrend && contactsTrend.length > 0 ? (
-              <TrendChart
-                title="Tendência de Contatos"
-                description="Últimos 30 dias"
-                data={contactsTrend}
-                color="#3b82f6"
-                dataKey="contacts"
-              />
-            ) : null}
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold flex items-center gap-2">
+              <BarChart3 className="h-5 w-5" />
+              Tendências e Análises
+            </h3>
+            <PeriodFilter value={periodDays} onChange={setPeriodDays} />
           </div>
 
-          {/* Blog Views Trend Chart */}
-          <div>
-            {isLoadingBlogViewsTrend ? (
-              <Card className="h-[400px] animate-pulse">
-                <div className="h-full bg-muted rounded" />
-              </Card>
-            ) : blogViewsTrend && blogViewsTrend.length > 0 ? (
-              <TrendChart
-                title="Tendência de Visualizações"
-                description="Últimos 30 dias"
-                data={blogViewsTrend}
-                color="#10b981"
-                dataKey="views"
-              />
-            ) : null}
+          <div className="grid gap-6 lg:grid-cols-2">
+            {/* Contacts Trend Chart */}
+            <div>
+              {isLoadingContactsTrend ? (
+                <Card className="h-[450px] animate-pulse">
+                  <div className="h-full bg-muted rounded" />
+                </Card>
+              ) : contactsTrend && contactsTrend.length > 0 ? (
+                <TrendChart
+                  title="Tendência de Contatos"
+                  description={`Últimos ${days} dias`}
+                  data={contactsTrend}
+                  color="#3b82f6"
+                  dataKey="contacts"
+                  comparisonData={contactsComparison}
+                />
+              ) : null}
+            </div>
+
+            {/* Blog Views Trend Chart */}
+            <div>
+              {isLoadingBlogViewsTrend ? (
+                <Card className="h-[450px] animate-pulse">
+                  <div className="h-full bg-muted rounded" />
+                </Card>
+              ) : blogViewsTrend && blogViewsTrend.length > 0 ? (
+                <TrendChart
+                  title="Tendência de Visualizações"
+                  description={`Últimos ${days} dias`}
+                  data={blogViewsTrend}
+                  color="#10b981"
+                  dataKey="views"
+                  comparisonData={blogViewsComparison}
+                />
+              ) : null}
+            </div>
           </div>
         </div>
 
