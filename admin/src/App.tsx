@@ -10,6 +10,7 @@ import { LeadsList } from './pages/leads/LeadsList';
 import { LeadCreate } from './pages/leads/LeadCreate';
 import { LeadDetail } from './pages/leads/LeadDetail';
 import { NewsletterList } from './pages/newsletter/NewsletterList';
+import { CampaignsList } from './pages/newsletter/CampaignsList';
 import { BlogList } from './pages/blog/BlogList';
 import { BlogEditor } from './pages/blog/BlogEditor';
 import { ServicesList } from './pages/services/ServicesList';
@@ -107,6 +108,15 @@ function App() {
             element={
               <PrivateRoute>
                 <NewsletterList />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/newsletter/campaigns"
+            element={
+              <PrivateRoute>
+                <CampaignsList />
               </PrivateRoute>
             }
           />

@@ -22,6 +22,7 @@ const navigation = [
   { name: 'Leads / CRM', href: '/leads', icon: Users },
   { name: 'Contatos', href: '/contacts', icon: Mail },
   { name: 'Newsletter', href: '/newsletter', icon: Mail },
+  { name: 'Campanhas', href: '/newsletter/campaigns', icon: Mail },
   { name: 'Blog', href: '/blog', icon: FileText },
   { name: 'Serviços', href: '/services', icon: Briefcase },
   { name: 'Depoimentos', href: '/testimonials', icon: MessageSquare },

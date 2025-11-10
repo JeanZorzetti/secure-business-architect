@@ -607,7 +607,8 @@ admin/
 - [x] POST `/api/admin/newsletter/campaigns/:id/cancel` - Cancelar agendamento
 - [x] GET `/api/admin/newsletter/campaigns/stats` - Estatísticas de campanhas
 
-### 6.2 Frontend - Newsletter
+### 6.2 Frontend - Newsletter ✅
+
 - [x] Página de inscritos
 - [x] Tabela com email, data de inscrição, status
 - [x] Filtros (ativos, cancelados)
@@ -616,20 +617,50 @@ admin/
 - [x] Exportar lista completa (CSV com download automático)
 - [x] Remover inscrito manualmente com confirmação
 
-**Entregável**: ✅ Gestão de newsletter funcionando - **COMPLETO**
+### 6.3 Frontend - Campanhas de Newsletter ✅
 
-**Implementação**:
-- Tipos e API client ([admin/src/types/newsletter.ts](../admin/src/types/newsletter.ts), [admin/src/api/newsletter.ts](../admin/src/api/newsletter.ts))
-- Página de listagem completa ([admin/src/pages/newsletter/NewsletterList.tsx](../admin/src/pages/newsletter/NewsletterList.tsx))
+- [x] Página de listagem de campanhas
+- [x] Cards de estatísticas (total, enviadas, taxa de abertura, taxa de cliques)
+- [x] Filtros por status (rascunho, agendada, enviada, falhou)
+- [x] Busca por assunto
+- [x] Tabela de campanhas com métricas
+- [x] Dialog para criar nova campanha
+- [x] Enviar campanha imediatamente
+- [x] Agendar campanha para envio futuro
+- [x] Cancelar campanha agendada
+- [x] Deletar campanha com confirmação
+- [x] Exibição de open rate e click rate
+- [x] Rota `/newsletter/campaigns` configurada no App
+- [x] Link no menu lateral
+
+**Entregável**: ✅ Gestão completa de newsletter e campanhas funcionando - **COMPLETO**
+
+**Implementação Backend**:
+
+- Schema Prisma NewsletterCampaign ([backend/prisma/schema.prisma](../backend/prisma/schema.prisma))
+- Enum CampaignStatus (DRAFT, SCHEDULED, SENDING, SENT, FAILED)
+- Tipos e DTOs ([backend/src/types/campaign.types.ts](../backend/src/types/campaign.types.ts))
+- Validators Zod ([backend/src/validators/campaignValidators.ts](../backend/src/validators/campaignValidators.ts))
+- Service layer completo ([backend/src/services/campaignService.ts](../backend/src/services/campaignService.ts))
+- Controller com 10 endpoints ([backend/src/controllers/campaignController.ts](../backend/src/controllers/campaignController.ts))
+- Rotas configuradas ([backend/src/routes/newsletterRoutes.ts](../backend/src/routes/newsletterRoutes.ts))
+
+**Implementação Frontend**:
+
+- Tipos TypeScript ([admin/src/types/campaign.ts](../admin/src/types/campaign.ts))
+- API client ([admin/src/api/campaigns.ts](../admin/src/api/campaigns.ts))
+- Página de campanhas ([admin/src/pages/newsletter/CampaignsList.tsx](../admin/src/pages/newsletter/CampaignsList.tsx))
+- Página de inscritos ([admin/src/pages/newsletter/NewsletterList.tsx](../admin/src/pages/newsletter/NewsletterList.tsx))
 - Estatísticas no Dashboard ([admin/src/pages/dashboard/Dashboard.tsx](../admin/src/pages/dashboard/Dashboard.tsx))
-- Integração com backend newsletter API (Phase 4)
-- Filtros por status e busca por email
+- Integração completa com backend
+- Filtros e busca
 - Paginação de resultados
-- Exportação CSV com download em blob
-- Delete com AlertDialog de confirmação
-- Loading states e error handling completo
-- Toast notifications para feedback
-- Rota `/newsletter` configurada no App
+- CRUD completo de campanhas
+- Ações: enviar, agendar, cancelar
+- Dialogs e confirmações
+- Loading states e error handling
+- Toast notifications
+- Métricas e estatísticas detalhadas
 
 ---
 
