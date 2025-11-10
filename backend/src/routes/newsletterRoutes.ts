@@ -32,6 +32,91 @@ router.post('/subscribe', subscribeRateLimiter, (req, res) =>
  */
 router.get('/unsubscribe/:token', (req, res) => newsletterController.unsubscribe(req, res));
 
+// ==================== CAMPAIGN ROUTES (devem vir ANTES das rotas genéricas) ====================
+
+/**
+ * @route   GET /api/newsletter/campaigns/stats
+ * @desc    Estatísticas de campanhas
+ * @access  Private (Admin)
+ */
+router.get('/campaigns/stats', authenticateToken, requireAdmin, (req, res) =>
+  campaignController.getStats(req, res)
+);
+
+/**
+ * @route   GET /api/newsletter/campaigns
+ * @desc    Listar campanhas
+ * @access  Private (Admin)
+ */
+router.get('/campaigns', authenticateToken, requireAdmin, (req, res) =>
+  campaignController.findAllCampaigns(req, res)
+);
+
+/**
+ * @route   POST /api/newsletter/campaign
+ * @desc    Criar nova campanha
+ * @access  Private (Admin)
+ */
+router.post('/campaign', authenticateToken, requireAdmin, (req, res) =>
+  campaignController.createCampaign(req, res)
+);
+
+/**
+ * @route   GET /api/newsletter/campaigns/:id
+ * @desc    Buscar campanha por ID
+ * @access  Private (Admin)
+ */
+router.get('/campaigns/:id', authenticateToken, requireAdmin, (req, res) =>
+  campaignController.findCampaignById(req, res)
+);
+
+/**
+ * @route   PUT /api/newsletter/campaigns/:id
+ * @desc    Atualizar campanha
+ * @access  Private (Admin)
+ */
+router.put('/campaigns/:id', authenticateToken, requireAdmin, (req, res) =>
+  campaignController.updateCampaign(req, res)
+);
+
+/**
+ * @route   DELETE /api/newsletter/campaigns/:id
+ * @desc    Deletar campanha
+ * @access  Private (Admin)
+ */
+router.delete('/campaigns/:id', authenticateToken, requireAdmin, (req, res) =>
+  campaignController.deleteCampaign(req, res)
+);
+
+/**
+ * @route   POST /api/newsletter/campaigns/:id/send
+ * @desc    Enviar campanha
+ * @access  Private (Admin)
+ */
+router.post('/campaigns/:id/send', authenticateToken, requireAdmin, (req, res) =>
+  campaignController.sendCampaign(req, res)
+);
+
+/**
+ * @route   POST /api/newsletter/campaigns/:id/schedule
+ * @desc    Agendar campanha
+ * @access  Private (Admin)
+ */
+router.post('/campaigns/:id/schedule', authenticateToken, requireAdmin, (req, res) =>
+  campaignController.scheduleCampaign(req, res)
+);
+
+/**
+ * @route   POST /api/newsletter/campaigns/:id/cancel
+ * @desc    Cancelar agendamento
+ * @access  Private (Admin)
+ */
+router.post('/campaigns/:id/cancel', authenticateToken, requireAdmin, (req, res) =>
+  campaignController.cancelScheduledCampaign(req, res)
+);
+
+// ==================== NEWSLETTER SUBSCRIBER ROUTES ====================
+
 /**
  * @route   GET /api/newsletter/stats
  * @desc    Obter estatísticas da newsletter
@@ -75,89 +160,6 @@ router.get('/:id', authenticateToken, requireAdmin, (req, res) =>
  */
 router.delete('/:id', authenticateToken, requireAdmin, (req, res) =>
   newsletterController.delete(req, res)
-);
-
-// ==================== CAMPAIGN ROUTES ====================
-
-/**
- * @route   GET /api/admin/newsletter/campaigns/stats
- * @desc    Estatísticas de campanhas
- * @access  Private (Admin)
- */
-router.get('/campaigns/stats', authenticateToken, requireAdmin, (req, res) =>
-  campaignController.getStats(req, res)
-);
-
-/**
- * @route   GET /api/admin/newsletter/campaigns
- * @desc    Listar campanhas
- * @access  Private (Admin)
- */
-router.get('/campaigns', authenticateToken, requireAdmin, (req, res) =>
-  campaignController.findAllCampaigns(req, res)
-);
-
-/**
- * @route   POST /api/admin/newsletter/campaign
- * @desc    Criar nova campanha
- * @access  Private (Admin)
- */
-router.post('/campaign', authenticateToken, requireAdmin, (req, res) =>
-  campaignController.createCampaign(req, res)
-);
-
-/**
- * @route   GET /api/admin/newsletter/campaigns/:id
- * @desc    Buscar campanha por ID
- * @access  Private (Admin)
- */
-router.get('/campaigns/:id', authenticateToken, requireAdmin, (req, res) =>
-  campaignController.findCampaignById(req, res)
-);
-
-/**
- * @route   PUT /api/admin/newsletter/campaigns/:id
- * @desc    Atualizar campanha
- * @access  Private (Admin)
- */
-router.put('/campaigns/:id', authenticateToken, requireAdmin, (req, res) =>
-  campaignController.updateCampaign(req, res)
-);
-
-/**
- * @route   DELETE /api/admin/newsletter/campaigns/:id
- * @desc    Deletar campanha
- * @access  Private (Admin)
- */
-router.delete('/campaigns/:id', authenticateToken, requireAdmin, (req, res) =>
-  campaignController.deleteCampaign(req, res)
-);
-
-/**
- * @route   POST /api/admin/newsletter/campaigns/:id/send
- * @desc    Enviar campanha
- * @access  Private (Admin)
- */
-router.post('/campaigns/:id/send', authenticateToken, requireAdmin, (req, res) =>
-  campaignController.sendCampaign(req, res)
-);
-
-/**
- * @route   POST /api/admin/newsletter/campaigns/:id/schedule
- * @desc    Agendar campanha
- * @access  Private (Admin)
- */
-router.post('/campaigns/:id/schedule', authenticateToken, requireAdmin, (req, res) =>
-  campaignController.scheduleCampaign(req, res)
-);
-
-/**
- * @route   POST /api/admin/newsletter/campaigns/:id/cancel
- * @desc    Cancelar agendamento
- * @access  Private (Admin)
- */
-router.post('/campaigns/:id/cancel', authenticateToken, requireAdmin, (req, res) =>
-  campaignController.cancelScheduledCampaign(req, res)
 );
 
 export default router;
