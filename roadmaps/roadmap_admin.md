@@ -432,16 +432,41 @@ admin/
 - `admin/src/api/leads.ts` - API client com 25+ métodos
 - `admin/src/pages/leads/LeadsList.tsx` - Página de listagem (400+ linhas)
 
-### 4.4 Frontend - Kanban de Leads ⏸️ OPCIONAL
+### 4.4 Frontend - Kanban de Leads ✅ COMPLETO
 
-- [ ] View alternativa em Kanban (futuro enhancement)
-- [ ] Colunas por status (NEW, CONTACTED, QUALIFIED, etc)
-- [ ] Drag & drop entre colunas
-- [ ] Cards de leads com info resumida
-- [ ] Contador de leads por coluna
-- [ ] Filtros rápidos
+- [x] View alternativa em Kanban - **IMPLEMENTADO**
+- [x] Colunas por status (NEW, CONTACTED, QUALIFIED, PROPOSAL, NEGOTIATION, CONVERTED, LOST)
+- [x] Drag & drop entre colunas com atualização automática
+- [x] Cards de leads com info resumida
+  - Nome, email, telefone, empresa
+  - Badge de prioridade (Baixa, Média, Alta, Urgente)
+  - Próximo follow-up com destaque para atrasados
+  - Responsável assignado
+  - Tags (máximo 3 visíveis + contador)
+- [x] Contador de leads por coluna (badge)
+- [x] Filtros aplicados também no Kanban (search, status, prioridade)
+- [x] Toggle de visualização (Lista ↔ Kanban) com botões visuais
+- [x] Drag overlay visual durante arrasto
+- [x] Cores distintas por coluna para fácil identificação
+- [x] Scroll horizontal para visualização de todas as colunas
+- [x] Estado vazio para colunas sem leads
+- [x] Click no card abre página de detalhes
 
-**Nota**: Kanban board marcado como opcional/futuro enhancement.
+**Arquivos criados:**
+- `admin/src/components/leads/LeadKanbanCard.tsx` - Card de lead (110+ linhas)
+- `admin/src/components/leads/LeadsKanban.tsx` - Board Kanban com DnD (155+ linhas)
+
+**Tecnologias:**
+- @dnd-kit/core - Drag and drop engine
+- @dnd-kit/sortable - Sortable lists
+- @dnd-kit/utilities - CSS utilities
+
+**Features:**
+- Optimistic updates com TanStack Query mutations
+- Validação de drop zones e animações suaves
+- Responsivo com scroll horizontal
+- Integrado com filtros existentes
+- Limite inteligente (1000 leads no Kanban vs 20 na tabela)
 
 ### 4.5 Frontend - Detalhes do Lead ✅ COMPLETO
 

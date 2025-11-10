@@ -34,10 +34,14 @@ import {
   Calendar,
   Users,
   TrendingUp,
+  LayoutGrid,
+  List,
 } from 'lucide-react';
 import { LeadStatus, Priority } from '@/types/lead';
 import { formatRelativeTime } from '@/lib/utils';
 import type { Lead, LeadFilters } from '@/types/lead';
+import { LeadsKanban } from '@/components/leads/LeadsKanban';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 // Status colors and labels
 const statusColors = {
@@ -74,11 +78,15 @@ const priorityLabels = {
   URGENT: 'Urgente',
 };
 
+type ViewMode = 'table' | 'kanban';
+
 export function LeadsList() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const [viewMode, setViewMode] = useState<ViewMode>('table');
   const [filters, setFilters] = useState<LeadFilters>({
     page: 1,
-    limit: 20,
+    limit: viewMode === 'kanban' ? 1000 : 20, // Kanban precisa carregar todos
     search: '',
     sortBy: 'createdAt',
     sortOrder: 'desc',
@@ -100,7 +108,7 @@ export function LeadsList() {
     setFilters((prev) => ({ ...prev, search: value, page: 1 }));
   };
 
-  const handleStatusChange = (value: string) => {
+  const handleStatusFilterChange = (value: string) => {
     setFilters((prev) => ({
       ...prev,
       leadStatus: value === 'all' ? undefined : (value as any),
@@ -134,6 +142,29 @@ export function LeadsList() {
     } catch (error) {
       console.error('Erro ao exportar leads:', error);
     }
+  };
+
+  // Mutation para atualizar status do lead (drag & drop no Kanban)
+  const updateStatusMutation = useMutation({
+    mutationFn: ({ leadId, status }: { leadId: string; status: LeadStatus }) =>
+      leadsApi.update(leadId, { leadStatus: status }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['leads'] });
+      queryClient.invalidateQueries({ queryKey: ['leads-stats'] });
+    },
+  });
+
+  const handleLeadStatusChange = (leadId: string, newStatus: LeadStatus) => {
+    updateStatusMutation.mutate({ leadId, status: newStatus });
+  };
+
+  const handleViewModeChange = (mode: ViewMode) => {
+    setViewMode(mode);
+    setFilters((prev) => ({
+      ...prev,
+      limit: mode === 'kanban' ? 1000 : 20,
+      page: 1,
+    }));
   };
 
   if (error) {
@@ -241,7 +272,7 @@ export function LeadsList() {
             </div>
             <Select
               value={filters.leadStatus as string || 'all'}
-              onValueChange={handleStatusChange}
+              onValueChange={handleStatusFilterChange}
             >
               <SelectTrigger className="w-[200px]">
                 <SelectValue placeholder="Status" />
@@ -272,11 +303,43 @@ export function LeadsList() {
                 <SelectItem value={Priority.URGENT}>Urgente</SelectItem>
               </SelectContent>
             </Select>
+
+            {/* View Mode Toggle */}
+            <div className="flex border rounded-lg">
+              <Button
+                variant={viewMode === 'table' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => handleViewModeChange('table')}
+                className="rounded-r-none"
+              >
+                <List className="h-4 w-4 mr-2" />
+                Lista
+              </Button>
+              <Button
+                variant={viewMode === 'kanban' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => handleViewModeChange('kanban')}
+                className="rounded-l-none"
+              >
+                <LayoutGrid className="h-4 w-4 mr-2" />
+                Kanban
+              </Button>
+            </div>
           </div>
         </Card>
 
-        {/* Table */}
-        <Card>
+        {/* Kanban View */}
+        {viewMode === 'kanban' && data?.leads && (
+          <LeadsKanban
+            leads={data.leads}
+            onLeadClick={(lead) => navigate(`/leads/${lead.id}`)}
+            onStatusChange={handleLeadStatusChange}
+          />
+        )}
+
+        {/* Table View */}
+        {viewMode === 'table' && (
+          <Card>
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
@@ -416,7 +479,8 @@ export function LeadsList() {
               </div>
             </div>
           )}
-        </Card>
+          </Card>
+        )}
       </div>
     </MainLayout>
   );
