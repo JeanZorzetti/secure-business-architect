@@ -22,6 +22,31 @@ enum ContactStatus {
   ARCHIVED
 }
 
+enum LeadStatus {
+  NEW           // Novo lead recebido
+  CONTACTED     // Já fizemos contato
+  QUALIFIED     // Lead qualificado
+  PROPOSAL      // Proposta enviada
+  NEGOTIATION   // Em negociação
+  CONVERTED     // Convertido em cliente
+  LOST          // Perdido
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum InteractionType {
+  EMAIL
+  PHONE
+  MEETING
+  WHATSAPP
+  OTHER
+}
+
 enum SubscriptionStatus {
   ACTIVE
   UNSUBSCRIBED
@@ -44,6 +69,11 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  // Relations
+  assignedContacts Contact[]     @relation("AssignedContacts")
+  interactions     Interaction[]
+  notes            Note[]
+
   @@index([email])
   @@map("users")
 }
@@ -56,11 +86,30 @@ model Contact {
   company   String?
   message   String        @db.Text
   status    ContactStatus @default(PENDING)
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
+
+  // CRM fields
+  leadStatus   LeadStatus? @default(NEW)
+  priority     Priority    @default(MEDIUM)
+  source       String?     @default("website")
+  assignedTo   String?
+  tags         String[]
+
+  // Timestamps
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  lastContact  DateTime?
+  nextFollowUp DateTime?
+
+  // Relations
+  user         User?         @relation("AssignedContacts", fields: [assignedTo], references: [id], onDelete: SetNull)
+  interactions Interaction[]
+  notes        Note[]
 
   @@index([email])
   @@index([status])
+  @@index([leadStatus])
+  @@index([priority])
+  @@index([assignedTo])
   @@index([createdAt])
   @@map("contacts")
 }
@@ -152,4 +201,39 @@ model Analytics {
   @@index([entityId])
   @@index([createdAt])
   @@map("analytics")
+}
+
+model Interaction {
+  id        String          @id @default(uuid())
+  contactId String
+  userId    String
+  type      InteractionType
+  notes     String          @db.Text
+  createdAt DateTime        @default(now())
+
+  contact Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([contactId])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("interactions")
+}
+
+model Note {
+  id        String   @id @default(uuid())
+  contactId String
+  userId    String
+  content   String   @db.Text
+  isPinned  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  contact Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([contactId])
+  @@index([userId])
+  @@index([createdAt])
+  @@map("notes")
 }

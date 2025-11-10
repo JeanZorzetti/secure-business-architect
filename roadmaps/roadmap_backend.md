@@ -544,27 +544,27 @@ model Testimonial {
 
 ### 10.3 Deploy via Easypanel
 
-- [ ] Configurar aplicação no Easypanel - não executado (pronto para deploy)
-  - [ ] Conectar repositório Git (GitHub/GitLab)
-  - [ ] Configurar build a partir do Dockerfile
-  - [ ] Definir variáveis de ambiente (DATABASE_URL, JWT_SECRET, etc)
-  - [ ] Configurar porta da aplicação (default: 3000)
-- [ ] Configurar PostgreSQL no Easypanel - não executado
-  - [ ] Criar serviço de banco de dados PostgreSQL
-  - [ ] Conectar com a aplicação backend
-  - [ ] Configurar backups automáticos
+- [x] Configurar aplicação no Easypanel - não executado (pronto para deploy)
+  - [x] Conectar repositório Git (GitHub/GitLab)
+  - [x] Configurar build a partir do Dockerfile
+  - [x] Definir variáveis de ambiente (DATABASE_URL, JWT_SECRET, etc)
+  - [x] Configurar porta da aplicação (default: 3000)
+- [x] Configurar PostgreSQL no Easypanel - não executado
+  - [x] Criar serviço de banco de dados PostgreSQL
+  - [x] Conectar com a aplicação backend
+  - [x] Configurar backups automáticos
 - [ ] Configurar Redis no Easypanel - não necessário no momento
   - [ ] Criar serviço Redis para cache - fase 9 pausada
   - [ ] Conectar com a aplicação backend - fase 9 pausada
-- [ ] Configurar domínio e SSL - não executado
-  - [ ] Adicionar domínio customizado (backjennifer.roilabs.com.br)
-  - [ ] Easypanel provê SSL automático (Let's Encrypt)
+- [x] Configurar domínio e SSL - não executado
+  - [x] Adicionar domínio customizado (backjennifer.roilabs.com.br)
+  - [x] Easypanel provê SSL automático (Let's Encrypt)
   - [ ] Configurar CORS para domínio de produção
-- [ ] Deploy inicial - não executado
-  - [ ] Push para branch main/master
-  - [ ] Easypanel faz build automático via Dockerfile
-  - [ ] Verificar logs de deploy
-  - [ ] Executar migrations em produção (`npx prisma migrate deploy`)
+- [x] Deploy inicial - não executado
+  - [x] Push para branch main/master
+  - [x] Easypanel faz build automático via Dockerfile
+  - [x] Verificar logs de deploy
+  - [x] Executar migrations em produção (`npx prisma migrate deploy`)
 - [ ] Configurar CI/CD (opcional) - não executado
   - [ ] Auto-deploy no push para main (webhook do Git)
   - [ ] Health checks automáticos
