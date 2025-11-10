@@ -204,7 +204,7 @@ admin/
 - [x] Criar utility functions (cn, formatDate, formatRelativeTime)
 - [x] Configurar React Router
 - [x] Configurar TanStack Query
-- [ ] Instalar e configurar shadcn/ui (próximo)
+- [x] Instalar e configurar shadcn/ui (estilo New York configurado)
 
 ### 1.2 Estrutura Base ✅
 
