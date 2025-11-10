@@ -48,3 +48,16 @@ export interface AnalyticsFilters {
   event?: string;
   entityType?: string;
 }
+
+export interface ConversionFunnelStage {
+  stage: string;
+  count: number;
+  percentage: number;
+  conversionRate?: number; // Taxa de conversão para próxima etapa
+}
+
+export interface ConversionFunnelResponse {
+  stages: ConversionFunnelStage[];
+  totalLeads: number;
+  overallConversionRate: number; // Taxa de NEW -> CONVERTED
+}

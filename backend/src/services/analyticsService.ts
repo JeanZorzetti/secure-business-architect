@@ -6,6 +6,8 @@ import type {
   TopPost,
   AnalyticsTrend,
   AnalyticsFilters,
+  ConversionFunnelResponse,
+  ConversionFunnelStage,
 } from '../types/analytics.types';
 
 class AnalyticsService {
@@ -278,6 +280,83 @@ class AnalyticsService {
     });
 
     return events;
+  }
+
+  /**
+   * Buscar funil de conversão do CRM
+   * Mostra a progressão dos leads através das etapas do funil
+   */
+  async getConversionFunnel(): Promise<ConversionFunnelResponse> {
+    // Definir ordem das etapas do funil
+    const stageOrder = [
+      'NEW',
+      'CONTACTED',
+      'QUALIFIED',
+      'PROPOSAL',
+      'NEGOTIATION',
+      'CONVERTED',
+      'LOST',
+    ];
+
+    // Contar leads em cada etapa
+    const leadCounts = await prisma.contact.groupBy({
+      by: ['leadStatus'],
+      _count: {
+        id: true,
+      },
+    });
+
+    // Criar um mapa para facilitar o acesso
+    const countMap = new Map<string, number>();
+    leadCounts.forEach((item) => {
+      if (item.leadStatus) {
+        countMap.set(item.leadStatus, item._count.id);
+      }
+    });
+
+    // Total de leads (excluindo LOST da contagem principal do funil)
+    const totalLeads = Array.from(countMap.values()).reduce((sum, count) => sum + count, 0);
+
+    // Calcular métricas para cada etapa
+    const stages: ConversionFunnelStage[] = [];
+
+    for (let i = 0; i < stageOrder.length; i++) {
+      const stage = stageOrder[i];
+      const count = countMap.get(stage) || 0;
+      const percentage = totalLeads > 0 ? (count / totalLeads) * 100 : 0;
+
+      // Calcular taxa de conversão para próxima etapa (exceto última e LOST)
+      let conversionRate: number | undefined;
+      if (i < stageOrder.length - 2 && stage !== 'LOST') {
+        const currentCount = countMap.get(stage) || 0;
+        const nextStage = stageOrder[i + 1];
+        const nextCount = countMap.get(nextStage) || 0;
+
+        // Taxa de conversão: quantos do estágio atual avançaram para o próximo
+        if (currentCount > 0) {
+          conversionRate = (nextCount / currentCount) * 100;
+        }
+      }
+
+      stages.push({
+        stage,
+        count,
+        percentage: Number(percentage.toFixed(2)),
+        conversionRate: conversionRate ? Number(conversionRate.toFixed(2)) : undefined,
+      });
+    }
+
+    // Calcular taxa de conversão geral (NEW -> CONVERTED)
+    const newLeads = countMap.get('NEW') || 0;
+    const convertedLeads = countMap.get('CONVERTED') || 0;
+    const overallConversionRate =
+      newLeads > 0 ? Number(((convertedLeads / totalLeads) * 100).toFixed(2)) : 0;
+
+    return {
+      stages,
+      totalLeads,
+      overallConversionRate,
+    };
   }
 }
 

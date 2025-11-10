@@ -281,7 +281,11 @@ admin/
 - [x] GET `/api/admin/analytics/top-posts` - Posts mais visualizados - **IMPLEMENTADO**
 - [x] GET `/api/admin/analytics/contacts-trend` - Tendência de contatos - **IMPLEMENTADO**
 - [x] GET `/api/admin/analytics/blog-views-trend` - Tendência de visualizações - **IMPLEMENTADO**
-- [ ] GET `/api/admin/analytics/conversion-funnel` - Funil de conversão (CRM - futuro)
+- [x] GET `/api/admin/analytics/conversion-funnel` - Funil de conversão (CRM) - **IMPLEMENTADO**
+  - Contagem de leads por etapa (NEW, CONTACTED, QUALIFIED, PROPOSAL, NEGOTIATION, CONVERTED, LOST)
+  - Percentual de cada etapa
+  - Taxa de conversão entre etapas
+  - Taxa de conversão geral (NEW → CONVERTED)
 
 ### 3.2 Frontend - Dashboard ✅ Completo
 - [x] Layout do Dashboard - implementado

@@ -13,6 +13,7 @@ router.get('/admin/analytics/overview', authenticateToken, analyticsController.g
 router.get('/admin/analytics/top-posts', authenticateToken, analyticsController.getTopPosts.bind(analyticsController));
 router.get('/admin/analytics/contacts-trend', authenticateToken, analyticsController.getContactsTrend.bind(analyticsController));
 router.get('/admin/analytics/blog-views-trend', authenticateToken, analyticsController.getBlogViewsTrend.bind(analyticsController));
+router.get('/admin/analytics/conversion-funnel', authenticateToken, analyticsController.getConversionFunnel.bind(analyticsController));
 router.get('/admin/analytics/events', authenticateToken, analyticsController.getEvents.bind(analyticsController));
 
 export default router;

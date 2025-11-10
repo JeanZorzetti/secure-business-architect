@@ -144,6 +144,21 @@ export class AnalyticsController {
       res.status(500).json({ error: 'Erro ao buscar eventos' });
     }
   }
+
+  /**
+   * GET /api/admin/analytics/conversion-funnel
+   * Buscar funil de conversão do CRM (admin)
+   */
+  async getConversionFunnel(_req: Request, res: Response): Promise<void> {
+    try {
+      const funnel = await analyticsService.getConversionFunnel();
+
+      res.json(funnel);
+    } catch (error) {
+      logger.error({ error }, 'Erro ao buscar funil de conversão');
+      res.status(500).json({ error: 'Erro ao buscar funil de conversão' });
+    }
+  }
 }
 
 export const analyticsController = new AnalyticsController();
