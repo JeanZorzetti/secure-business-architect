@@ -731,12 +731,31 @@ admin/
 - [x] Botão Criar/Atualizar Post
 - [x] Validação de campos obrigatórios
 - [x] Navegação após salvar
-- [ ] Rich Text Editor (Tiptap) - não implementado (futuro)
-- [ ] Campo de slug editável - gerado automaticamente pelo backend
-- [ ] Toggle de status - controlado via botão publicar/despublicar
+- [x] Rich Text Editor (Tiptap) ✅
+- [x] Campo de slug editável com geração automática ✅
+- [x] Toggle entre Rich Text e Markdown/HTML ✅
+- [x] Preview do post com layout real ✅
 - [ ] Date picker para agendamento - não implementado (futuro)
-- [ ] Preview do post - não implementado (futuro)
 - [ ] Auto-save - não implementado (futuro)
+
+**Implementação dos Recursos Adicionais (Fase 7.3):**
+
+- **Rich Text Editor (Tiptap):**
+  - Componente RichTextEditor ([admin/src/components/editor/RichTextEditor.tsx](../admin/src/components/editor/RichTextEditor.tsx))
+  - Toolbar com formatação (headings, bold, italic, code, lists, quotes)
+  - Suporte a links e imagens
+  - Undo/Redo
+  - Toggle entre Rich Text e Markdown/HTML
+- **Campo de Slug:**
+  - Geração automática a partir do título
+  - Editável manualmente
+  - Normalização (remove acentos, caracteres especiais)
+  - Preview da URL resultante
+- **Preview do Post:**
+  - Visualização em tempo real do post
+  - Layout idêntico ao frontend público
+  - Botão toggle entre Editor e Preview
+  - Exibe título, imagem de capa, autor, categoria, tags e conteúdo formatado
 
 ### 7.4 Upload de Imagens ✅
 

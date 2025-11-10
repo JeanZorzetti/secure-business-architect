@@ -15,10 +15,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Loader2, Save, ArrowLeft } from 'lucide-react';
+import { Loader2, Save, ArrowLeft, Eye, FileText } from 'lucide-react';
 import type { CreateBlogPostDTO, UpdateBlogPostDTO } from '@/types/blog';
 import { toast } from 'sonner';
 import { ImageUpload } from '@/components/upload/ImageUpload';
+import { RichTextEditor } from '@/components/editor/RichTextEditor';
+import { Switch } from '@/components/ui/switch';
 
 export function BlogEditor() {
   const { id } = useParams<{ id: string }>();
@@ -37,6 +39,9 @@ export function BlogEditor() {
   });
 
   const [tagsInput, setTagsInput] = useState('');
+  const [slug, setSlug] = useState('');
+  const [showPreview, setShowPreview] = useState(false);
+  const [useRichText, setUseRichText] = useState(true);
 
   // Buscar post se estiver editando
   const { data: post, isLoading: isLoadingPost } = useQuery({
@@ -51,6 +56,25 @@ export function BlogEditor() {
     queryFn: () => blogApi.getCategories(),
   });
 
+  // Função para gerar slug a partir do título
+  const generateSlug = (title: string): string => {
+    return title
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') // Remove acentos
+      .replace(/[^\w\s-]/g, '') // Remove caracteres especiais
+      .replace(/\s+/g, '-') // Substitui espaços por hífens
+      .replace(/-+/g, '-') // Remove hífens duplicados
+      .trim();
+  };
+
+  // Gerar slug automaticamente quando o título muda (apenas em novos posts)
+  useEffect(() => {
+    if (!isEditing && formData.title) {
+      setSlug(generateSlug(formData.title));
+    }
+  }, [formData.title, isEditing]);
+
   // Preencher formulário ao carregar post
   useEffect(() => {
     if (post) {
@@ -64,6 +88,7 @@ export function BlogEditor() {
         tags: post.tags,
       });
       setTagsInput(post.tags.join(', '));
+      setSlug(post.slug);
     }
   }, [post]);
 
@@ -165,12 +190,70 @@ export function BlogEditor() {
               </p>
             </div>
           </div>
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => setShowPreview(!showPreview)}
+          >
+            {showPreview ? (
+              <>
+                <FileText className="h-4 w-4 mr-2" />
+                Editor
+              </>
+            ) : (
+              <>
+                <Eye className="h-4 w-4 mr-2" />
+                Preview
+              </>
+            )}
+          </Button>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit}>
+        {/* Form ou Preview */}
+        {showPreview ? (
           <Card className="p-6">
             <div className="space-y-6">
+              {/* Preview do Post */}
+              <div>
+                <h1 className="text-4xl font-bold mb-4">{formData.title || 'Título do Post'}</h1>
+                {formData.coverImage && (
+                  <img
+                    src={formData.coverImage}
+                    alt={formData.title}
+                    className="w-full h-64 object-cover rounded-lg mb-6"
+                  />
+                )}
+                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-6">
+                  <span>Por {formData.author || 'Autor'}</span>
+                  <span>•</span>
+                  <span>{formData.category || 'Categoria'}</span>
+                  {formData.tags && formData.tags.length > 0 && (
+                    <>
+                      <span>•</span>
+                      <div className="flex gap-2">
+                        {formData.tags.map((tag, index) => (
+                          <span key={index} className="bg-gray-100 px-2 py-1 rounded">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+                <div className="text-lg mb-6 text-muted-foreground">
+                  {formData.excerpt || 'Resumo do post...'}
+                </div>
+                <div
+                  className="prose prose-lg max-w-none"
+                  dangerouslySetInnerHTML={{ __html: formData.content || '<p>Conteúdo do post...</p>' }}
+                />
+              </div>
+            </div>
+          </Card>
+        ) : (
+          <form onSubmit={handleSubmit}>
+            <Card className="p-6">
+              <div className="space-y-6">
               {/* Título */}
               <div className="space-y-2">
                 <Label htmlFor="title">
@@ -183,6 +266,30 @@ export function BlogEditor() {
                   placeholder="Digite o título do post..."
                   required
                 />
+              </div>
+
+              {/* Slug */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="slug">Slug (URL amigável)</Label>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setSlug(generateSlug(formData.title))}
+                  >
+                    Gerar automaticamente
+                  </Button>
+                </div>
+                <Input
+                  id="slug"
+                  value={slug}
+                  onChange={(e) => setSlug(e.target.value)}
+                  placeholder="url-amigavel-do-post"
+                />
+                <p className="text-xs text-muted-foreground">
+                  URL: /blog/{slug || 'url-amigavel-do-post'}
+                </p>
               </div>
 
               {/* Resumo */}
@@ -200,23 +307,43 @@ export function BlogEditor() {
                 />
               </div>
 
-              {/* Conteúdo */}
+              {/* Conteúdo com Editor */}
               <div className="space-y-2">
-                <Label htmlFor="content">
-                  Conteúdo <span className="text-destructive">*</span>
-                </Label>
-                <Textarea
-                  id="content"
-                  value={formData.content}
-                  onChange={(e) => handleChange('content', e.target.value)}
-                  placeholder="Escreva o conteúdo completo do post..."
-                  rows={15}
-                  required
-                  className="font-mono text-sm"
-                />
-                <p className="text-xs text-muted-foreground">
-                  Markdown é suportado. Use ** para negrito, * para itálico, # para títulos, etc.
-                </p>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="content">
+                    Conteúdo <span className="text-destructive">*</span>
+                  </Label>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-muted-foreground">Rich Text</span>
+                    <Switch
+                      checked={useRichText}
+                      onCheckedChange={setUseRichText}
+                    />
+                  </div>
+                </div>
+
+                {useRichText ? (
+                  <RichTextEditor
+                    content={formData.content}
+                    onChange={(content) => handleChange('content', content)}
+                    placeholder="Escreva o conteúdo completo do post..."
+                  />
+                ) : (
+                  <>
+                    <Textarea
+                      id="content"
+                      value={formData.content}
+                      onChange={(e) => handleChange('content', e.target.value)}
+                      placeholder="Escreva o conteúdo completo do post..."
+                      rows={15}
+                      required
+                      className="font-mono text-sm"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Markdown/HTML é suportado. Use ** para negrito, * para itálico, # para títulos, etc.
+                    </p>
+                  </>
+                )}
               </div>
 
               {/* Cover Image Upload */}
@@ -328,7 +455,8 @@ export function BlogEditor() {
               </div>
             </div>
           </Card>
-        </form>
+          </form>
+        )}
       </div>
     </MainLayout>
   );
