@@ -52,6 +52,14 @@ enum SubscriptionStatus {
   UNSUBSCRIBED
 }
 
+enum CampaignStatus {
+  DRAFT
+  SCHEDULED
+  SENDING
+  SENT
+  FAILED
+}
+
 enum PostStatus {
   DRAFT
   PUBLISHED
@@ -70,9 +78,10 @@ model User {
   updatedAt DateTime @updatedAt
 
   // Relations
-  assignedContacts Contact[]     @relation("AssignedContacts")
-  interactions     Interaction[]
-  notes            Note[]
+  assignedContacts     Contact[]            @relation("AssignedContacts")
+  interactions         Interaction[]
+  notes                Note[]
+  newsletterCampaigns  NewsletterCampaign[]
 
   @@index([email])
   @@map("users")
@@ -127,6 +136,29 @@ model Newsletter {
   @@index([email])
   @@index([status])
   @@map("newsletter")
+}
+
+model NewsletterCampaign {
+  id            String         @id @default(uuid())
+  subject       String
+  content       String         @db.Text
+  status        CampaignStatus @default(DRAFT)
+  scheduledFor  DateTime?
+  sentAt        DateTime?
+  recipientCount Int           @default(0)
+  openCount     Int            @default(0)
+  clickCount    Int            @default(0)
+  createdBy     String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  creator User @relation(fields: [createdBy], references: [id], onDelete: Cascade)
+
+  @@index([status])
+  @@index([createdBy])
+  @@index([scheduledFor])
+  @@index([createdAt])
+  @@map("newsletter_campaigns")
 }
 
 model BlogPost {

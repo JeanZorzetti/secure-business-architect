@@ -591,12 +591,21 @@ admin/
 
 ## Fase 6: Newsletter Management (Semana 7)
 
-### 6.1 Backend - Endpoints de Newsletter
+### 6.1 Backend - Endpoints de Newsletter ✅
+
 - [x] GET `/api/newsletter` - Listar inscritos (implementado na Phase 4 do backend)
 - [x] GET `/api/newsletter/stats` - Estatísticas
 - [x] DELETE `/api/newsletter/:id` - Remover inscrito
 - [x] GET `/api/newsletter/export` - Exportar lista (CSV)
-- [ ] POST `/api/admin/newsletter/campaign` - Criar campanha (futuro)
+- [x] POST `/api/admin/newsletter/campaign` - Criar campanha
+- [x] GET `/api/admin/newsletter/campaigns` - Listar campanhas
+- [x] GET `/api/admin/newsletter/campaigns/:id` - Buscar campanha
+- [x] PUT `/api/admin/newsletter/campaigns/:id` - Atualizar campanha
+- [x] DELETE `/api/admin/newsletter/campaigns/:id` - Deletar campanha
+- [x] POST `/api/admin/newsletter/campaigns/:id/send` - Enviar campanha
+- [x] POST `/api/admin/newsletter/campaigns/:id/schedule` - Agendar campanha
+- [x] POST `/api/admin/newsletter/campaigns/:id/cancel` - Cancelar agendamento
+- [x] GET `/api/admin/newsletter/campaigns/stats` - Estatísticas de campanhas
 
 ### 6.2 Frontend - Newsletter
 - [x] Página de inscritos
