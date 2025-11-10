@@ -568,10 +568,11 @@ admin/
 - [x] Deletar contato com confirmação - funcionando
 - [ ] Exportar contatos - futuro
 
-### 5.2 Conversão de Contato para Lead
-- [ ] Botão "Converter em Lead" em contato - futuro (depende do CRM)
-- [ ] Form para adicionar informações de CRM - futuro
-- [ ] Criar lead e manter referência ao contato original - futuro
+### 5.2 Conversão de Contato para Lead ✅
+
+- [x] Botão "Converter em Lead" em contato
+- [x] Form para adicionar informações de CRM
+- [x] Criar lead e manter referência ao contato original
 
 **Entregável**: ✅ Gestão completa de contatos funcionando - **COMPLETO**
 

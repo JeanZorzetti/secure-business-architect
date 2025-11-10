@@ -36,6 +36,7 @@ import {
 import { ContactStatus } from '@/types/contact';
 import { formatRelativeTime } from '@/lib/utils';
 import { toast } from 'sonner';
+import { ConvertToLeadDialog } from '@/components/contacts/ConvertToLeadDialog';
 
 const statusColors = {
   PENDING: 'bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border-yellow-500/20',
@@ -202,6 +203,8 @@ export function ContactDetail() {
                 </SelectItem>
               </SelectContent>
             </Select>
+
+            <ConvertToLeadDialog contact={contact} />
 
             <AlertDialog>
               <AlertDialogTrigger asChild>
