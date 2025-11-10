@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { MainLayout } from '@/components/layout/MainLayout';
 import { testimonialsApi } from '../../api/testimonials';
 import type { Testimonial, CreateTestimonialDTO, UpdateTestimonialDTO } from '../../types/testimonial';
 import { Button } from '../../components/ui/button';
@@ -192,32 +193,35 @@ export default function TestimonialsList() {
 
   if (isLoading) {
     return (
-      <div className="p-8">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-3xl font-bold">Depoimentos</h1>
-            <p className="text-muted-foreground">Gerencie os depoimentos dos clientes</p>
+      <MainLayout title="Depoimentos">
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold">Depoimentos</h1>
+              <p className="text-muted-foreground">Gerencie os depoimentos dos clientes</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[1, 2, 3].map((i) => (
+              <Card key={i} className="animate-pulse">
+                <CardHeader>
+                  <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
+                  <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-20 bg-gray-200 rounded"></div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {[1, 2, 3].map((i) => (
-            <Card key={i} className="animate-pulse">
-              <CardHeader>
-                <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
-                <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-              </CardHeader>
-              <CardContent>
-                <div className="h-20 bg-gray-200 rounded"></div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
+      </MainLayout>
     );
   }
 
   return (
-    <div className="p-8">
+    <MainLayout title="Depoimentos">
+      <div className="space-y-6">
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-3xl font-bold">Depoimentos</h1>
@@ -471,6 +475,7 @@ export default function TestimonialsList() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </div>
+      </div>
+    </MainLayout>
   );
 }
