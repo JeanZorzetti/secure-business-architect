@@ -18,7 +18,8 @@
       "Bash(tsconfig.json)",
       "Bash(npx shadcn@latest add:*)",
       "Bash(curl:*)",
-      "Bash(npx prisma migrate:*)"
+      "Bash(npx prisma migrate:*)",
+      "Bash(npm audit:*)"
     ],
     "deny": [],
     "ask": []

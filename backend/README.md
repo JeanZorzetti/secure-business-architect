@@ -1,127 +1,103 @@
 # Secure Business Architect - Backend API
 
-Backend API para o website institucional do escritório de advocacia Secure Business Architect, especializado em direito empresarial estratégico.
+Backend REST API para o site institucional e sistema CRM da JB Advocacia.
 
 ## Stack Tecnológico
 
-- **Runtime**: Node.js 20 LTS
+- **Runtime**: Node.js 20
 - **Framework**: Express.js
 - **Linguagem**: TypeScript
 - **ORM**: Prisma
-- **Banco de Dados**: PostgreSQL 15
-- **Cache**: Redis 7
+- **Banco de Dados**: PostgreSQL
 - **Autenticação**: JWT
-- **Validação**: Zod + Express Validator
-- **Logging**: Pino
-- **Testes**: Jest + Supertest
-- **Deploy**: Docker + Easypanel
+- **Validação**: Zod
+- **Logger**: Pino
+- **Rate Limiting**: express-rate-limit
 
-## Funcionalidades
+## Requisitos
 
-- ✅ Autenticação JWT para administradores
-- ✅ Gestão de contatos (formulário de contato)
-- ✅ Sistema de newsletter com confirmação
-- ✅ CMS para blog posts
-- ✅ Gestão de serviços oferecidos
-- ✅ Sistema de depoimentos
-- ✅ Analytics básico
-- ✅ Rate limiting
-- ✅ Logs estruturados
-- ✅ Cache com Redis
+- Node.js >= 20.x
+- PostgreSQL >= 14.x
+- npm ou yarn
 
-## Pré-requisitos
+## Instalação Local
 
-- Node.js >= 20.0.0
-- npm >= 10.0.0
-- PostgreSQL >= 15
-- Redis >= 7
-- Docker e Docker Compose (opcional)
-
-## Instalação
-
-### 1. Clone o repositório
-
+1. Clone o repositório:
 ```bash
-git clone <repository-url>
-cd backend
+git clone https://github.com/JeanZorzetti/secure-business-architect.git
+cd secure-business-architect/backend
 ```
 
-### 2. Instale as dependências
-
+2. Instale as dependências:
 ```bash
 npm install
 ```
 
-### 3. Configure as variáveis de ambiente
-
+3. Configure as variáveis de ambiente:
 ```bash
 cp .env.example .env
 ```
 
-Edite o arquivo `.env` com suas configurações:
+Edite o arquivo `.env` com suas configurações.
 
-```env
-NODE_ENV=development
-PORT=3000
-DATABASE_URL=postgresql://user:password@localhost:5432/secure_business_architect
-JWT_SECRET=your-super-secret-jwt-key-min-32-characters-long
-# ... outras variáveis
-```
-
-### 4. Execute as migrations
-
+4. Execute as migrations do banco de dados:
 ```bash
-npm run migrate:dev
+npx prisma migrate dev
 ```
 
-### 5. Popule o banco de dados (opcional)
-
+5. (Opcional) Seed do banco de dados:
 ```bash
-npm run seed
+npx prisma db seed
 ```
 
-Isso criará:
-- 1 usuário admin (email: `admin@securebusinessarchitect.com`, senha: `Admin@123456`)
-- 5 serviços exemplo
-- 3 depoimentos exemplo
-- 2 posts de blog exemplo
-
-## Desenvolvimento
-
-### Rodar localmente
-
+6. Inicie o servidor de desenvolvimento:
 ```bash
 npm run dev
 ```
 
-A API estará disponível em `http://localhost:3000`
-
-### Com Docker Compose
-
-```bash
-docker-compose up -d
-```
-
-Isso iniciará:
-- PostgreSQL na porta 5432
-- Redis na porta 6379
-- API na porta 3000
+O servidor estará rodando em `http://localhost:3000`
 
 ## Scripts Disponíveis
 
-```bash
-npm run dev          # Inicia servidor em modo desenvolvimento
-npm run build        # Compila TypeScript para JavaScript
-npm start            # Inicia servidor em produção
-npm test             # Executa testes
-npm run test:watch   # Executa testes em modo watch
-npm run lint         # Verifica código com ESLint
-npm run lint:fix     # Corrige problemas de linting
-npm run format       # Formata código com Prettier
-npm run migrate:dev  # Executa migrations em dev
-npm run migrate:deploy # Executa migrations em produção
-npm run prisma:studio  # Abre Prisma Studio (GUI do banco)
-npm run seed         # Popula banco com dados iniciais
+- `npm run dev` - Inicia servidor de desenvolvimento com hot-reload
+- `npm run build` - Compila o TypeScript para JavaScript
+- `npm start` - Inicia servidor em produção
+- `npm run prisma:generate` - Gera o Prisma Client
+- `npm run prisma:migrate` - Executa migrations
+- `npm run prisma:studio` - Abre o Prisma Studio
+- `npm run lint` - Executa o linter
+- `npm run format` - Formata o código com Prettier
+
+## Variáveis de Ambiente
+
+Veja o arquivo [.env.example](.env.example) para a lista completa de variáveis.
+
+### Principais Variáveis:
+
+```env
+# Ambiente
+NODE_ENV=development
+
+# Servidor
+PORT=3000
+BACKEND_URL=http://localhost:3000
+API_PREFIX=/api
+
+# Banco de Dados
+DATABASE_URL=postgresql://user:password@localhost:5432/database
+
+# JWT
+JWT_SECRET=your-super-secret-jwt-key-change-in-production
+JWT_EXPIRES_IN=7d
+JWT_REFRESH_SECRET=your-refresh-secret-key
+JWT_REFRESH_EXPIRES_IN=30d
+
+# CORS
+ALLOWED_ORIGINS=http://localhost:5173,http://localhost:5174
+
+# Rate Limiting
+RATE_LIMIT_WINDOW_MS=900000
+RATE_LIMIT_MAX_REQUESTS=100
 ```
 
 ## Estrutura do Projeto
@@ -129,197 +105,252 @@ npm run seed         # Popula banco com dados iniciais
 ```
 backend/
 ├── prisma/
-│   ├── schema.prisma      # Schema do banco de dados
-│   └── seed.ts            # Seed inicial
+│   ├── schema.prisma          # Schema do banco de dados
+│   └── migrations/            # Migrations do Prisma
 ├── src/
-│   ├── config/            # Configurações (env, db, redis, logger)
-│   ├── controllers/       # Controllers (handlers de rotas)
-│   ├── services/          # Lógica de negócio
-│   ├── repositories/      # Acesso a dados
-│   ├── models/            # Modelos/Entidades
-│   ├── middlewares/       # Middlewares (auth, validation, etc)
-│   ├── routes/            # Definição de rotas
-│   ├── utils/             # Utilitários
-│   ├── validators/        # Schemas de validação
-│   ├── types/             # TypeScript types/interfaces
-│   ├── jobs/              # Background jobs
-│   └── app.ts             # Configuração Express
-├── tests/                 # Testes
-├── uploads/               # Uploads temporários
-├── Dockerfile             # Multi-stage Dockerfile
-├── docker-compose.yml     # Docker Compose para dev
-└── package.json
+│   ├── config/                # Configurações (env, logger, database)
+│   ├── controllers/           # Controllers da API
+│   ├── middlewares/           # Middlewares (auth, rate limit, error handling)
+│   ├── routes/                # Definição de rotas
+│   ├── services/              # Lógica de negócio
+│   ├── types/                 # Tipos TypeScript
+│   ├── validators/            # Schemas de validação (Zod)
+│   ├── app.ts                 # Configuração do Express
+│   └── server.ts              # Entry point
+├── .env.example               # Exemplo de variáveis de ambiente
+├── package.json
+├── tsconfig.json
+└── README.md
 ```
 
-## Endpoints da API
+## API Endpoints
 
-### Públicos (sem autenticação)
+### Autenticação
+- `POST /api/auth/login` - Login de admin
+- `POST /api/auth/logout` - Logout
+- `POST /api/auth/refresh` - Refresh token
+- `GET /api/auth/me` - Dados do usuário logado
 
-```
-GET    /health                         # Health check
-GET    /                               # Info da API
+### Contatos
+- `POST /api/contacts` - Criar contato (público)
+- `GET /api/contacts` - Listar contatos (admin)
+- `GET /api/contacts/stats` - Estatísticas (admin)
+- `GET /api/contacts/:id` - Buscar contato (admin)
+- `PATCH /api/contacts/:id/status` - Atualizar status (admin)
+- `DELETE /api/contacts/:id` - Deletar contato (admin)
 
-POST   /api/contacts                   # Criar contato
-GET    /api/services                   # Listar serviços
-GET    /api/services/:slug             # Ver serviço
-GET    /api/blog/posts                 # Listar posts
-GET    /api/blog/posts/:slug           # Ver post
-GET    /api/testimonials               # Listar depoimentos
-POST   /api/newsletter/subscribe       # Inscrever newsletter
-GET    /api/newsletter/unsubscribe/:token # Cancelar inscrição
-```
+### Newsletter
+- `POST /api/newsletter/subscribe` - Inscrever (público)
+- `GET /api/newsletter/unsubscribe/:token` - Cancelar inscrição (público)
+- `GET /api/newsletter` - Listar inscritos (admin)
+- `GET /api/newsletter/stats` - Estatísticas (admin)
+- `GET /api/newsletter/export` - Exportar CSV (admin)
+- `DELETE /api/newsletter/:id` - Remover inscrito (admin)
 
-### Admin (requer JWT)
+### Blog
+**Público:**
+- `GET /api/blog/posts` - Listar posts publicados
+- `GET /api/blog/posts/:slug` - Ver post por slug
+- `GET /api/blog/categories` - Listar categorias
+- `GET /api/blog/search` - Buscar posts
 
-```
-POST   /api/auth/login                 # Login
-POST   /api/auth/refresh               # Refresh token
-POST   /api/auth/logout                # Logout
+**Admin:**
+- `POST /api/blog/admin/posts` - Criar post
+- `GET /api/blog/admin/posts` - Listar todos os posts
+- `GET /api/blog/admin/posts/:id` - Buscar post
+- `PUT /api/blog/admin/posts/:id` - Atualizar post
+- `DELETE /api/blog/admin/posts/:id` - Deletar post
+- `PATCH /api/blog/admin/posts/:id/publish` - Publicar post
+- `PATCH /api/blog/admin/posts/:id/unpublish` - Despublicar post
+- `GET /api/blog/admin/stats` - Estatísticas
 
-GET    /api/admin/contacts             # Listar contatos
-PATCH  /api/admin/contacts/:id/status  # Atualizar status
-DELETE /api/admin/contacts/:id         # Deletar contato
+### Serviços
+**Público:**
+- `GET /api/services` - Listar serviços ativos
 
-CRUD   /api/admin/blog/posts           # Gestão de posts
-POST   /api/admin/upload/image         # Upload de imagem
-CRUD   /api/admin/services             # Gestão de serviços
-CRUD   /api/admin/testimonials         # Gestão de depoimentos
+**Admin:**
+- `POST /api/services/admin` - Criar serviço
+- `GET /api/services/admin/all` - Listar todos
+- `GET /api/services/admin/:id` - Buscar serviço
+- `PUT /api/services/admin/:id` - Atualizar serviço
+- `DELETE /api/services/admin/:id` - Deletar serviço
+- `PATCH /api/services/admin/:id/toggle` - Toggle ativo/inativo
+- `PATCH /api/services/admin/reorder` - Reordenar serviços
 
-GET    /api/admin/analytics/overview   # Dashboard analytics
-```
+### Depoimentos
+**Público:**
+- `GET /api/testimonials` - Listar depoimentos publicados
 
-## Testes
+**Admin:**
+- `POST /api/admin/testimonials` - Criar depoimento
+- `GET /api/admin/testimonials` - Listar todos
+- `GET /api/admin/testimonials/:id` - Buscar depoimento
+- `PUT /api/admin/testimonials/:id` - Atualizar depoimento
+- `DELETE /api/admin/testimonials/:id` - Deletar depoimento
+- `PATCH /api/admin/testimonials/:id/toggle-publish` - Publicar/despublicar
+- `PATCH /api/admin/testimonials/reorder` - Reordenar
 
-```bash
-# Executar todos os testes
-npm test
+### Analytics
+**Público:**
+- `POST /api/analytics/track` - Registrar evento
 
-# Executar com coverage
-npm test -- --coverage
+**Admin:**
+- `GET /api/admin/analytics/overview` - Visão geral
+- `GET /api/admin/analytics/top-posts` - Posts mais visualizados
+- `GET /api/admin/analytics/contacts-trend` - Tendência de contatos
+- `GET /api/admin/analytics/blog-views-trend` - Tendência de visualizações
+- `GET /api/admin/analytics/events` - Buscar eventos
 
-# Executar em modo watch
-npm run test:watch
-```
+## Segurança
+
+### Implementado:
+- ✅ JWT Authentication com refresh tokens
+- ✅ Bcrypt para hash de senhas
+- ✅ Rate limiting em todas as rotas
+- ✅ Helmet para headers de segurança
+- ✅ CORS configurável
+- ✅ Validação de entrada com Zod
+- ✅ Sanitização de SQL (Prisma)
+- ✅ Logs estruturados (Pino)
+
+### Recomendações para Produção:
+- Usar HTTPS obrigatório
+- Configurar CORS para domínios específicos
+- Implementar rate limiting mais restritivo
+- Monitorar logs com ferramentas externas
+- Backups automáticos do banco de dados
+- Implementar WAF (Web Application Firewall)
 
 ## Deploy
 
 ### Easypanel (Recomendado)
 
-1. Configure PostgreSQL e Redis no Easypanel
-2. Adicione serviço Node.js com build via Dockerfile
-3. Configure variáveis de ambiente
-4. Conecte repositório Git
-5. Deploy automático no push
+1. Crie uma aplicação Node.js no Easypanel
+2. Conecte seu repositório GitHub
+3. Configure as variáveis de ambiente
+4. Crie um serviço PostgreSQL
+5. Execute as migrations:
+```bash
+npx prisma migrate deploy
+```
+6. Deploy automático via Git push
 
-Veja [roadmap_backend.md](../roadmaps/roadmap_backend.md) para detalhes completos.
-
-### Manual com Docker
+### Docker
 
 ```bash
-# Build da imagem
-docker build -t sba-backend .
-
-# Rodar container
-docker run -p 3000:3000 --env-file .env sba-backend
+docker build -t backend-api .
+docker run -p 3000:3000 --env-file .env backend-api
 ```
 
-## Variáveis de Ambiente
+### Render / Railway / Fly.io
 
-Veja [.env.example](.env.example) para lista completa de variáveis.
+Todas as plataformas suportam deploy direto do GitHub. Configure:
+1. Repositório
+2. Variáveis de ambiente
+3. Build command: `npm run build`
+4. Start command: `npm start`
 
-Principais variáveis obrigatórias:
-- `DATABASE_URL` - URL de conexão PostgreSQL
-- `JWT_SECRET` - Secret para tokens JWT (min 32 chars)
-- `JWT_REFRESH_SECRET` - Secret para refresh tokens
-- `SMTP_*` - Configurações de email
-- `ADMIN_EMAIL` - Email do administrador
-- `FRONTEND_URL` - URL do frontend
-- `BACKEND_URL` - URL do backend
+## Banco de Dados
 
-## Segurança
+### Migrations
 
-- Autenticação JWT com refresh tokens
-- Rate limiting em todos os endpoints
-- Helmet para headers de segurança
-- Validação de inputs com Zod
-- Sanitização contra XSS/SQL Injection
-- CORS configurado
-- Senhas hasheadas com bcrypt
-- HTTPS obrigatório em produção
-
-## Logging
-
-Logs estruturados com Pino:
-- Desenvolvimento: logs coloridos e formatados
-- Produção: JSON estruturado para agregadores
-
-Níveis: `trace`, `debug`, `info`, `warn`, `error`, `fatal`
-
-## Cache
-
-Redis é usado para:
-- Blacklist de tokens JWT
-- Cache de queries frequentes
-- Sessões de rate limiting
-
-## Migrations
-
+Criar nova migration:
 ```bash
-# Criar nova migration
 npx prisma migrate dev --name nome_da_migration
-
-# Aplicar migrations em produção
-npm run migrate:deploy
-
-# Reset completo do banco (CUIDADO!)
-npm run migrate:reset
 ```
 
-## Prisma Studio
+Aplicar migrations em produção:
+```bash
+npx prisma migrate deploy
+```
 
-Interface gráfica para visualizar e editar dados:
+### Seed
+
+Execute o seed para criar dados iniciais:
+```bash
+npx prisma db seed
+```
+
+### Backup
+
+Backup manual:
+```bash
+pg_dump -U username -d database_name > backup.sql
+```
+
+Restore:
+```bash
+psql -U username -d database_name < backup.sql
+```
+
+## Monitoramento
+
+### Health Check
 
 ```bash
-npm run prisma:studio
+curl http://localhost:3000/health
 ```
 
-Acesse: http://localhost:5555
+Response:
+```json
+{
+  "status": "ok",
+  "timestamp": "2025-01-10T12:00:00.000Z",
+  "uptime": 12345,
+  "environment": "production"
+}
+```
+
+### Logs
+
+Os logs são gerados via Pino em formato JSON estruturado.
+
+Em desenvolvimento:
+```bash
+npm run dev
+```
+
+Em produção, redirecione logs para arquivo ou serviço:
+```bash
+npm start | tee -a logs/app.log
+```
 
 ## Troubleshooting
 
-### Erro de conexão com banco
-
-Verifique se PostgreSQL está rodando e `DATABASE_URL` está correto.
-
-### Erro de conexão com Redis
-
-Redis é opcional. Se não estiver disponível, a API funcionará sem cache.
-
-### Erro em migrations
-
-```bash
-# Reset e recrie
-npm run migrate:reset
-npm run migrate:dev
-npm run seed
+### Erro de conexão com banco de dados
 ```
+Error: Can't reach database server
+```
+Verifique se o PostgreSQL está rodando e se a `DATABASE_URL` está correta.
+
+### Erro de migrations
+```
+Error: Migration failed
+```
+Execute `npx prisma migrate reset` em desenvolvimento ou verifique os logs.
+
+### Erro 401 Unauthorized
+```
+{ "error": "Token inválido ou expirado" }
+```
+O token JWT expirou. Faça login novamente ou use o refresh token.
 
 ## Contribuindo
 
 1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/amazing-feature`)
-3. Commit suas mudanças (`git commit -m 'Add amazing feature'`)
-4. Push para a branch (`git push origin feature/amazing-feature`)
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
 5. Abra um Pull Request
 
 ## Licença
 
-MIT
+Este projeto é privado e propriedade da JB Advocacia.
 
 ## Suporte
 
-Para questões e suporte, abra uma issue no repositório.
+Para suporte, entre em contato com o time de desenvolvimento.
 
 ---
 
-**Desenvolvido com ❤️ para Secure Business Architect**
+**Desenvolvido com ❤️ para JB Advocacia**
