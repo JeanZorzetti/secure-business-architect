@@ -2,17 +2,6 @@ import { Request, Response, NextFunction } from 'express';
 import { authService } from '../services/authService';
 import { logger } from '../config/logger';
 
-// Estender Request para incluir userId
-declare global {
-  namespace Express {
-    interface Request {
-      userId?: string;
-      userEmail?: string;
-      userRole?: string;
-    }
-  }
-}
-
 /**
  * Middleware para verificar JWT e autenticar usuário
  */
@@ -34,7 +23,14 @@ export const authenticateToken = (
     // Verificar token
     const payload = authService.verifyToken(token);
 
-    // Adicionar dados do usuário ao request
+    // Adicionar dados do usuário ao request (usando formato do express.d.ts)
+    req.user = {
+      id: payload.userId,
+      email: payload.email,
+      role: payload.role,
+    };
+
+    // Manter compatibilidade com código antigo
     req.userId = payload.userId;
     req.userEmail = payload.email;
     req.userRole = payload.role;
