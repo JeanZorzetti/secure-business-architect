@@ -50,11 +50,26 @@ export class BlogService {
   async create(createDTO: CreateBlogPostDTO) {
     const slug = await this.generateSlug(createDTO.title);
 
+    // Se publishedAt for fornecido e for no futuro, manter como DRAFT
+    // Se publishedAt for no passado ou agora, publicar imediatamente
+    let status: PostStatus = PostStatus.DRAFT;
+    let publishedAt = createDTO.publishedAt;
+
+    if (publishedAt) {
+      const now = new Date();
+      if (publishedAt <= now) {
+        status = PostStatus.PUBLISHED;
+      }
+      // Se for no futuro, deixa como DRAFT e será publicado por um job/cron
+    }
+
     const post = await prisma.blogPost.create({
       data: {
         ...createDTO,
         slug,
         tags: createDTO.tags || [],
+        status,
+        publishedAt,
       },
     });
 
@@ -168,11 +183,23 @@ export class BlogService {
       slug = await this.generateSlug(updateDTO.title, id);
     }
 
+    // Lógica de agendamento
+    let status = existing.status;
+    if (updateDTO.publishedAt !== undefined) {
+      const now = new Date();
+      if (updateDTO.publishedAt && updateDTO.publishedAt <= now) {
+        status = PostStatus.PUBLISHED;
+      } else if (updateDTO.publishedAt && updateDTO.publishedAt > now) {
+        status = PostStatus.DRAFT;
+      }
+    }
+
     const updated = await prisma.blogPost.update({
       where: { id },
       data: {
         ...updateDTO,
         slug,
+        status,
       },
     });
 

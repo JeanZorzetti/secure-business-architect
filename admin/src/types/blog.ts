@@ -30,6 +30,7 @@ export interface CreateBlogPostDTO {
   author: string;
   category: string;
   tags?: string[];
+  publishedAt?: Date;
 }
 
 export interface UpdateBlogPostDTO {
@@ -40,6 +41,7 @@ export interface UpdateBlogPostDTO {
   author?: string;
   category?: string;
   tags?: string[];
+  publishedAt?: Date;
 }
 
 export interface BlogPostFilters {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { MainLayout } from '@/components/layout/MainLayout';
@@ -21,6 +21,7 @@ import { toast } from 'sonner';
 import { ImageUpload } from '@/components/upload/ImageUpload';
 import { RichTextEditor } from '@/components/editor/RichTextEditor';
 import { Switch } from '@/components/ui/switch';
+import { DateTimePicker } from '@/components/ui/date-time-picker';
 
 export function BlogEditor() {
   const { id } = useParams<{ id: string }>();
@@ -42,6 +43,9 @@ export function BlogEditor() {
   const [slug, setSlug] = useState('');
   const [showPreview, setShowPreview] = useState(false);
   const [useRichText, setUseRichText] = useState(true);
+  const [publishedAt, setPublishedAt] = useState<Date | null>(null);
+  const [autoSaveStatus, setAutoSaveStatus] = useState<'idle' | 'saving' | 'saved'>('idle');
+  const autoSaveTimeoutRef = useRef<number | null>(null);
 
   // Buscar post se estiver editando
   const { data: post, isLoading: isLoadingPost } = useQuery({
@@ -89,8 +93,58 @@ export function BlogEditor() {
       });
       setTagsInput(post.tags.join(', '));
       setSlug(post.slug);
+      setPublishedAt(post.publishedAt ? new Date(post.publishedAt) : null);
     }
   }, [post]);
+
+  // Auto-save function
+  const autoSave = useCallback(async () => {
+    if (!isEditing || !id) return;
+
+    try {
+      setAutoSaveStatus('saving');
+
+      const tags = tagsInput
+        .split(',')
+        .map((tag) => tag.trim())
+        .filter((tag) => tag.length > 0);
+
+      const dataToSave = {
+        ...formData,
+        tags,
+        coverImage: formData.coverImage || undefined,
+        publishedAt: publishedAt || undefined,
+      };
+
+      await blogApi.update(id, dataToSave);
+      setAutoSaveStatus('saved');
+
+      setTimeout(() => {
+        setAutoSaveStatus('idle');
+      }, 2000);
+    } catch (error) {
+      setAutoSaveStatus('idle');
+    }
+  }, [isEditing, id, formData, tagsInput, publishedAt]);
+
+  // Trigger auto-save on form changes (with debounce)
+  useEffect(() => {
+    if (!isEditing) return;
+
+    if (autoSaveTimeoutRef.current) {
+      clearTimeout(autoSaveTimeoutRef.current);
+    }
+
+    autoSaveTimeoutRef.current = setTimeout(() => {
+      autoSave();
+    }, 3000); // 3 segundos de debounce
+
+    return () => {
+      if (autoSaveTimeoutRef.current) {
+        clearTimeout(autoSaveTimeoutRef.current);
+      }
+    };
+  }, [formData, tagsInput, slug, publishedAt, isEditing, autoSave]);
 
   const createMutation = useMutation({
     mutationFn: (data: CreateBlogPostDTO) => blogApi.create(data),
@@ -138,6 +192,7 @@ export function BlogEditor() {
       ...formData,
       tags,
       coverImage: formData.coverImage || undefined,
+      publishedAt: publishedAt || undefined,
     };
 
     if (isEditing) {
@@ -190,23 +245,39 @@ export function BlogEditor() {
               </p>
             </div>
           </div>
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => setShowPreview(!showPreview)}
-          >
-            {showPreview ? (
-              <>
-                <FileText className="h-4 w-4 mr-2" />
-                Editor
-              </>
-            ) : (
-              <>
-                <Eye className="h-4 w-4 mr-2" />
-                Preview
-              </>
+          <div className="flex items-center gap-3">
+            {/* Auto-save indicator */}
+            {isEditing && (
+              <div className="flex items-center gap-2 text-sm">
+                {autoSaveStatus === 'saving' && (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+                    <span className="text-muted-foreground">Salvando...</span>
+                  </>
+                )}
+                {autoSaveStatus === 'saved' && (
+                  <span className="text-green-600">Salvo automaticamente</span>
+                )}
+              </div>
             )}
-          </Button>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setShowPreview(!showPreview)}
+            >
+              {showPreview ? (
+                <>
+                  <FileText className="h-4 w-4 mr-2" />
+                  Editor
+                </>
+              ) : (
+                <>
+                  <Eye className="h-4 w-4 mr-2" />
+                  Preview
+                </>
+              )}
+            </Button>
+          </div>
         </div>
 
         {/* Form ou Preview */}
@@ -424,6 +495,20 @@ export function BlogEditor() {
                 />
                 <p className="text-xs text-muted-foreground">
                   Separe as tags com vírgula
+                </p>
+              </div>
+
+              {/* Data de Publicação / Agendamento */}
+              <div className="space-y-2">
+                <DateTimePicker
+                  label="Agendar Publicação"
+                  placeholder="Publicar imediatamente"
+                  value={publishedAt}
+                  onChange={setPublishedAt}
+                  minDate={new Date()}
+                />
+                <p className="text-xs text-muted-foreground">
+                  Deixe em branco para publicar imediatamente ao salvar
                 </p>
               </div>
 

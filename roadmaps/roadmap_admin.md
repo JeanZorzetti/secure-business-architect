@@ -735,8 +735,8 @@ admin/
 - [x] Campo de slug editável com geração automática ✅
 - [x] Toggle entre Rich Text e Markdown/HTML ✅
 - [x] Preview do post com layout real ✅
-- [ ] Date picker para agendamento - não implementado (futuro)
-- [ ] Auto-save - não implementado (futuro)
+- [x] Date picker para agendamento ✅
+- [x] Auto-save com debounce (3 segundos) ✅
 
 **Implementação dos Recursos Adicionais (Fase 7.3):**
 
@@ -756,6 +756,17 @@ admin/
   - Layout idêntico ao frontend público
   - Botão toggle entre Editor e Preview
   - Exibe título, imagem de capa, autor, categoria, tags e conteúdo formatado
+- **Date Picker para Agendamento:**
+  - Componente DateTimePicker ([admin/src/components/ui/date-time-picker.tsx](../admin/src/components/ui/date-time-picker.tsx))
+  - Seleção de data e hora futura
+  - Publicação automática quando data chega (lógica backend)
+  - Posts agendados ficam como DRAFT até data de publicação
+  - Integrado ao BlogEditor
+- **Auto-save:**
+  - Salvamento automático com debounce de 3 segundos
+  - Indicador visual de status (salvando/salvo)
+  - Apenas em modo de edição (não em criação)
+  - Salva todos os campos do formulário automaticamente
 
 ### 7.4 Upload de Imagens ✅
 
