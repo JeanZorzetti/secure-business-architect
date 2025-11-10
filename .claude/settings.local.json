@@ -19,7 +19,8 @@
       "Bash(npx shadcn@latest add:*)",
       "Bash(curl:*)",
       "Bash(npx prisma migrate:*)",
-      "Bash(npm audit:*)"
+      "Bash(npm audit:*)",
+      "Bash(npx tsc:*)"
     ],
     "deny": [],
     "ask": []

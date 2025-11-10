@@ -13,6 +13,8 @@ import { BlogList } from './pages/blog/BlogList';
 import { BlogEditor } from './pages/blog/BlogEditor';
 import { ServicesList } from './pages/services/ServicesList';
 import TestimonialsList from './pages/testimonials/TestimonialsList';
+import { Profile } from './pages/settings/Profile';
+import { UsersList } from './pages/users/UsersList';
 import { NotFound } from './pages/NotFound';
 import { useAuthStore } from './stores/authStore';
 
@@ -136,14 +138,19 @@ function App() {
           />
 
           <Route
-            path="/settings"
+            path="/profile"
             element={
               <PrivateRoute>
-                <div className="flex h-screen items-center justify-center">
-                  <p className="text-2xl text-muted-foreground">
-                    Página de Configurações em desenvolvimento...
-                  </p>
-                </div>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/users"
+            element={
+              <PrivateRoute>
+                <UsersList />
               </PrivateRoute>
             }
           />
