@@ -6,6 +6,8 @@ import { Login } from './pages/auth/Login';
 import { Dashboard } from './pages/dashboard/Dashboard';
 import { ContactsList } from './pages/contacts/ContactsList';
 import { ContactDetail } from './pages/contacts/ContactDetail';
+import { LeadsList } from './pages/leads/LeadsList';
+import { LeadDetail } from './pages/leads/LeadDetail';
 import { NewsletterList } from './pages/newsletter/NewsletterList';
 import { BlogList } from './pages/blog/BlogList';
 import { BlogEditor } from './pages/blog/BlogEditor';
@@ -51,16 +53,21 @@ function App() {
             }
           />
 
-          {/* Placeholder routes - to be implemented */}
+          {/* Leads Routes */}
           <Route
             path="/leads"
             element={
               <PrivateRoute>
-                <div className="flex h-screen items-center justify-center">
-                  <p className="text-2xl text-muted-foreground">
-                    Página de Leads em desenvolvimento...
-                  </p>
-                </div>
+                <LeadsList />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/leads/:id"
+            element={
+              <PrivateRoute>
+                <LeadDetail />
               </PrivateRoute>
             }
           />

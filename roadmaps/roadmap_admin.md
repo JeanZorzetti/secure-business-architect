@@ -327,114 +327,49 @@ admin/
 
 ## Fase 4: CRM - Gestão de Leads (Semana 4-5)
 
-### 4.1 Backend - Extensão do Model Contact
-```prisma
-model Contact {
-  id          String        @id @default(uuid())
-  name        String
-  email       String
-  phone       String?
-  company     String?
-  message     String        @db.Text
+### 4.1 Backend - Extensão do Model Contact ✅ COMPLETO
 
-  // CRM fields
-  status      LeadStatus    @default(NEW)
-  priority    Priority      @default(MEDIUM)
-  source      String?       @default("website")
-  assignedTo  String?       // userId
-  tags        String[]
+- [x] Schemas Prisma criados (LeadStatus, Priority, InteractionType)
+- [x] Contact model estendido com campos CRM (leadStatus, priority, source, assignedTo, tags, lastContact, nextFollowUp)
+- [x] Models Interaction e Note criados com cascade delete
+- [x] Migration executada: `add_crm_features`
+- [x] Indexes criados para performance (leadStatus, priority, assignedTo)
 
-  // Timestamps
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  lastContact DateTime?
-  nextFollowUp DateTime?
+**Commits:**
 
-  // Relations
-  interactions Interaction[]
-  notes       Note[]
-  user        User?         @relation(fields: [assignedTo], references: [id])
+- cf8eb5b: feat(backend): implement Phase 4 Part 1 - Database Schema & Service Layer
+- c2b12b5: feat(backend): implement Phase 4 Part 2 - Controller & API Routes
 
-  @@index([email])
-  @@index([status])
-  @@index([priority])
-  @@index([assignedTo])
-  @@index([createdAt])
-  @@map("contacts")
-}
+### 4.2 Backend - Endpoints de Leads ✅ COMPLETO
 
-enum LeadStatus {
-  NEW           // Novo lead recebido
-  CONTACTED     // Já fizemos contato
-  QUALIFIED     // Lead qualificado
-  PROPOSAL      // Proposta enviada
-  NEGOTIATION   // Em negociação
-  CONVERTED     // Convertido em cliente
-  LOST          // Perdido
-  ARCHIVED      // Arquivado
-}
+**18 endpoints implementados:**
 
-enum Priority {
-  LOW
-  MEDIUM
-  HIGH
-  URGENT
-}
+- [x] GET `/api/admin/leads` - Listar leads (com filtros, paginação, ordenação)
+- [x] GET `/api/admin/leads/stats` - Estatísticas de leads
+- [x] GET `/api/admin/leads/export` - Exportar leads (CSV)
+- [x] GET `/api/admin/leads/:id` - Detalhes do lead
+- [x] POST `/api/admin/leads` - Criar lead
+- [x] PATCH `/api/admin/leads/:id` - Atualizar lead
+- [x] DELETE `/api/admin/leads/:id` - Deletar lead
+- [x] PATCH `/api/admin/leads/:id/convert` - Marcar como convertido
+- [x] GET `/api/admin/leads/:id/interactions` - Listar interações
+- [x] POST `/api/admin/leads/:id/interactions` - Adicionar interação
+- [x] PATCH `/api/admin/interactions/:interactionId` - Atualizar interação
+- [x] DELETE `/api/admin/interactions/:interactionId` - Deletar interação
+- [x] GET `/api/admin/leads/:id/notes` - Listar notas
+- [x] POST `/api/admin/leads/:id/notes` - Adicionar nota
+- [x] PATCH `/api/admin/notes/:noteId` - Atualizar nota
+- [x] DELETE `/api/admin/notes/:noteId` - Deletar nota
+- [x] GET `/api/admin/leads/:id/timeline` - Timeline completa
 
-model Interaction {
-  id          String   @id @default(uuid())
-  contactId   String
-  userId      String
-  type        InteractionType
-  notes       String   @db.Text
-  createdAt   DateTime @default(now())
+**Arquivos criados:**
 
-  contact     Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
-  user        User     @relation(fields: [userId], references: [id])
-
-  @@index([contactId])
-  @@map("interactions")
-}
-
-enum InteractionType {
-  EMAIL
-  PHONE
-  MEETING
-  WHATSAPP
-  OTHER
-}
-
-model Note {
-  id          String   @id @default(uuid())
-  contactId   String
-  userId      String
-  content     String   @db.Text
-  isPinned    Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  contact     Contact  @relation(fields: [contactId], references: [id], onDelete: Cascade)
-  user        User     @relation(fields: [userId], references: [id])
-
-  @@index([contactId])
-  @@map("notes")
-}
-```
-
-### 4.2 Backend - Endpoints de Leads
-- [ ] GET `/api/admin/leads` - Listar leads (com filtros)
-  - Filtros: status, priority, dateRange, assignedTo, search
-  - Paginação
-  - Ordenação
-- [ ] GET `/api/admin/leads/:id` - Detalhes do lead
-- [ ] PATCH `/api/admin/leads/:id` - Atualizar lead
-  - Status, priority, assignedTo, tags, nextFollowUp
-- [ ] DELETE `/api/admin/leads/:id` - Deletar lead
-- [ ] POST `/api/admin/leads/:id/interactions` - Adicionar interação
-- [ ] POST `/api/admin/leads/:id/notes` - Adicionar nota
-- [ ] GET `/api/admin/leads/:id/timeline` - Timeline completa
-- [ ] PATCH `/api/admin/leads/:id/convert` - Marcar como convertido
-- [ ] GET `/api/admin/leads/export` - Exportar leads (CSV)
+- `backend/src/types/lead.types.ts` - DTOs e interfaces
+- `backend/src/validators/leadValidators.ts` - Schemas Zod
+- `backend/src/services/leadsService.ts` - Service layer (450+ linhas, 25+ métodos)
+- `backend/src/controllers/leadsController.ts` - Controller (325+ linhas, 18 endpoints)
+- `backend/src/routes/leadRoutes.ts` - Rotas
+- `backend/src/types/express.d.ts` - Custom Request type
 
 ### 4.3 Frontend - Lista de Leads
 - [ ] Página de listagem de leads (tabela)
