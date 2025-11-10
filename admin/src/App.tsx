@@ -7,6 +7,7 @@ import { Dashboard } from './pages/dashboard/Dashboard';
 import { ContactsList } from './pages/contacts/ContactsList';
 import { ContactDetail } from './pages/contacts/ContactDetail';
 import { LeadsList } from './pages/leads/LeadsList';
+import { LeadCreate } from './pages/leads/LeadCreate';
 import { LeadDetail } from './pages/leads/LeadDetail';
 import { NewsletterList } from './pages/newsletter/NewsletterList';
 import { BlogList } from './pages/blog/BlogList';
@@ -61,6 +62,15 @@ function App() {
             element={
               <PrivateRoute>
                 <LeadsList />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/leads/new"
+            element={
+              <PrivateRoute>
+                <LeadCreate />
               </PrivateRoute>
             }
           />
