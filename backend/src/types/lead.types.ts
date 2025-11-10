@@ -25,8 +25,8 @@ export interface UpdateLeadDTO {
   source?: string | null;
   assignedTo?: string | null;
   tags?: string[];
-  lastContact?: Date | null;
-  nextFollowUp?: Date | null;
+  lastContact?: Date | string | null; // Allow string from request
+  nextFollowUp?: Date | string | null; // Allow string from request
 }
 
 export interface LeadFilters {
@@ -52,8 +52,8 @@ export interface LeadListQuery {
   assignedTo?: string;
   source?: string;
   search?: string;
-  dateFrom?: Date;
-  dateTo?: Date;
+  dateFrom?: Date | string; // Allow string from query params
+  dateTo?: Date | string; // Allow string from query params
   tags?: string[];
   hasNextFollowUp?: boolean;
 }
