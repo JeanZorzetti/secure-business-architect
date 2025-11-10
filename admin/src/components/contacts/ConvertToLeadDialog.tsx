@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useMutation, useQueryClient } from '@tanstack:react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { leadsApi } from '@/api/leads';
 import {
   Dialog,
@@ -58,7 +58,7 @@ export function ConvertToLeadDialog({ contact }: ConvertToLeadDialogProps) {
 
   const convertMutation = useMutation({
     mutationFn: (data: CreateLeadDTO) => leadsApi.create(data),
-    onSuccess: (lead) => {
+    onSuccess: (lead: { id: string }) => {
       queryClient.invalidateQueries({ queryKey: ['contacts'] });
       queryClient.invalidateQueries({ queryKey: ['leads'] });
       queryClient.invalidateQueries({ queryKey: ['leads-stats'] });
