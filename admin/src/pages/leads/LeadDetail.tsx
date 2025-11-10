@@ -182,7 +182,9 @@ export function LeadDetail() {
 
   const handleNextFollowUpChange = (date: string) => {
     if (id) {
-      updateLeadMutation.mutate({ id, data: { nextFollowUp: date } });
+      // Se data vazia, enviar null; caso contrário, converter para ISO 8601
+      const isoDate = date ? new Date(date).toISOString() : null;
+      updateLeadMutation.mutate({ id, data: { nextFollowUp: isoDate } });
     }
   };
 
