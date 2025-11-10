@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { StatCard } from '@/components/dashboard/StatCard';
 import { RecentContacts } from '@/components/dashboard/RecentContacts';
+import { TrendChart } from '@/components/dashboard/TrendChart';
+import { TopPostsList } from '@/components/dashboard/TopPostsList';
 import { Users, Mail, FileText, TrendingUp, AlertCircle, Send, BookOpen, Eye, BarChart3 } from 'lucide-react';
 import { contactsApi } from '@/api/contacts';
 import { newsletterApi } from '@/api/newsletter';
@@ -34,6 +36,21 @@ export function Dashboard() {
   const { data: analyticsOverview, isLoading: isLoadingAnalytics } = useQuery({
     queryKey: ['analytics-overview'],
     queryFn: () => analyticsApi.getOverview(),
+  });
+
+  const { data: topPosts, isLoading: isLoadingTopPosts } = useQuery({
+    queryKey: ['top-posts'],
+    queryFn: () => analyticsApi.getTopPosts(5),
+  });
+
+  const { data: contactsTrend, isLoading: isLoadingContactsTrend } = useQuery({
+    queryKey: ['contacts-trend'],
+    queryFn: () => analyticsApi.getContactsTrend(30),
+  });
+
+  const { data: blogViewsTrend, isLoading: isLoadingBlogViewsTrend } = useQuery({
+    queryKey: ['blog-views-trend'],
+    queryFn: () => analyticsApi.getBlogViewsTrend(30),
   });
 
   const error = contactError;
@@ -153,6 +170,52 @@ export function Dashboard() {
             </div>
           )}
         </div>
+
+        {/* Trends and Top Posts */}
+        <div className="grid gap-6 lg:grid-cols-2">
+          {/* Contacts Trend Chart */}
+          <div>
+            {isLoadingContactsTrend ? (
+              <Card className="h-[400px] animate-pulse">
+                <div className="h-full bg-muted rounded" />
+              </Card>
+            ) : contactsTrend && contactsTrend.length > 0 ? (
+              <TrendChart
+                title="Tendência de Contatos"
+                description="Últimos 30 dias"
+                data={contactsTrend}
+                color="#3b82f6"
+                dataKey="contacts"
+              />
+            ) : null}
+          </div>
+
+          {/* Blog Views Trend Chart */}
+          <div>
+            {isLoadingBlogViewsTrend ? (
+              <Card className="h-[400px] animate-pulse">
+                <div className="h-full bg-muted rounded" />
+              </Card>
+            ) : blogViewsTrend && blogViewsTrend.length > 0 ? (
+              <TrendChart
+                title="Tendência de Visualizações"
+                description="Últimos 30 dias"
+                data={blogViewsTrend}
+                color="#10b981"
+                dataKey="views"
+              />
+            ) : null}
+          </div>
+        </div>
+
+        {/* Top Posts List */}
+        {isLoadingTopPosts ? (
+          <Card className="h-[400px] animate-pulse">
+            <div className="h-full bg-muted rounded" />
+          </Card>
+        ) : topPosts && topPosts.length > 0 ? (
+          <TopPostsList posts={topPosts} />
+        ) : null}
 
         {/* Stats Grid - Contatos */}
         <div>

@@ -319,8 +319,14 @@ admin/
 - [x] Quick actions buttons
 - [x] Loading skeletons
 - [x] Error handling
-- [ ] Gráficos de tendência (linha/área) - não implementado (backend pronto)
-- [ ] Lista de posts mais visualizados - não implementado (backend pronto)
+- [x] Gráficos de tendência (linha/área) - **IMPLEMENTADO**
+  - Gráfico de tendência de contatos (últimos 30 dias)
+  - Gráfico de tendência de visualizações do blog (últimos 30 dias)
+  - Componente TrendChart com Recharts (área + gradiente)
+- [x] Lista de posts mais visualizados - **IMPLEMENTADO**
+  - Top 5 posts com mais visualizações
+  - Componente TopPostsList com ranking visual
+  - Exibe título, slug, data de publicação e contagem de views
 
 ### 3.3 Widgets Interativos
 - [ ] Filtros por período (hoje, 7 dias, 30 dias, custom) - não implementado
