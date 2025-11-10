@@ -50,7 +50,7 @@ export const leadFiltersSchema = z.object({
 
 export const leadListQuerySchema = z.object({
   page: z.coerce.number().int().positive().optional(),
-  limit: z.coerce.number().int().min(1).max(100).optional(),
+  limit: z.coerce.number().int().min(1).max(10000).optional(), // Aumentado para suportar Kanban
   sortBy: z.enum(['createdAt', 'updatedAt', 'name', 'leadStatus', 'priority', 'nextFollowUp']).optional(),
   sortOrder: z.enum(['asc', 'desc']).optional(),
   ...leadFiltersSchema.shape,
