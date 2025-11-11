@@ -5,7 +5,7 @@ class SettingsController {
   /**
    * Get site settings
    */
-  async getSettings(req: Request, res: Response) {
+  async getSettings(_req: Request, res: Response) {
     try {
       const settings = await settingsService.getSettings();
       res.json(settings);

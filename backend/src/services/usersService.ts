@@ -236,7 +236,10 @@ class UsersService {
 
     const user = await prisma.user.update({
       where: { id: userId },
-      data,
+      data: {
+        ...data,
+        preferences: data.preferences as any,
+      },
       select: {
         id: true,
         email: true,
