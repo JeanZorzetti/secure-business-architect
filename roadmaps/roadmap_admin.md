@@ -1073,7 +1073,16 @@ admin/
 - [x] Confirmações de ações destrutivas - **IMPLEMENTADO**
   - AlertDialog antes de deletar (contacts, newsletter, blog, services, testimonials)
   - Confirmação visual clara
-- [ ] Undo/redo - não implementado (futuro)
+- [x] **Undo/redo** - **IMPLEMENTADO** ✅
+  - Hook useUndoRedo com histórico de estados
+  - Hook useUndoRedoWithShortcuts com Ctrl+Z/Ctrl+Y
+  - Componente UndoRedoButtons com tooltips
+  - Histórico configurável (até 50 estados por padrão)
+  - Callbacks personalizados (onUndo/onRedo)
+  - Toast notifications opcionais
+  - Tipos genéricos TypeScript
+  - Demonstração completa (UndoRedoDemo component)
+  - Documentação detalhada (UNDO_REDO_SYSTEM.md)
 - [x] **Keyboard shortcuts** - **IMPLEMENTADO** ✅
   - Hook customizado useKeyboardShortcuts
   - Atalhos de navegação com Alt (H, L, C, B, N, S, T, P)
@@ -1114,6 +1123,7 @@ admin/
 - **Lazy loading de rotas** com React.lazy() e Suspense
 - **ErrorBoundary** para captura global de erros
 - **Keyboard shortcuts** com hook customizado (9 atalhos)
+- **Undo/Redo system** completo com hooks e componentes
 - **Tooltip component** instalado e disponível
 - TanStack Query com cache inteligente
 - Loading skeletons em todas as páginas
@@ -1126,7 +1136,12 @@ admin/
 **Arquivos Criados/Modificados**:
 - [admin/src/App.tsx](../admin/src/App.tsx) - Lazy loading e ErrorBoundary
 - [admin/src/components/common/ErrorBoundary.tsx](../admin/src/components/common/ErrorBoundary.tsx) - Novo componente
+- [admin/src/components/common/UndoRedoButtons.tsx](../admin/src/components/common/UndoRedoButtons.tsx) - Novo componente
 - [admin/src/hooks/useKeyboardShortcuts.ts](../admin/src/hooks/useKeyboardShortcuts.ts) - Novo hook
+- [admin/src/hooks/useUndoRedo.ts](../admin/src/hooks/useUndoRedo.ts) - Novo hook
+- [admin/src/hooks/useUndoRedoWithShortcuts.ts](../admin/src/hooks/useUndoRedoWithShortcuts.ts) - Novo hook
+- [admin/src/components/demo/UndoRedoDemo.tsx](../admin/src/components/demo/UndoRedoDemo.tsx) - Componente de demonstração
+- [admin/docs/UNDO_REDO_SYSTEM.md](../admin/docs/UNDO_REDO_SYSTEM.md) - Documentação completa
 - [admin/src/components/layout/MainLayout.tsx](../admin/src/components/layout/MainLayout.tsx) - Integração de shortcuts
 - [admin/src/components/ui/tooltip.tsx](../admin/src/components/ui/tooltip.tsx) - Componente shadcn/ui
 
