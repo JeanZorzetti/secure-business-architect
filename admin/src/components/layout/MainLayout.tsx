@@ -2,6 +2,7 @@ import { type ReactNode } from 'react';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 import { useLeadNotifications } from '@/hooks/useLeadNotifications';
+import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -14,6 +15,9 @@ export function MainLayout({ children, title }: MainLayoutProps) {
     enabled: true,
     checkInterval: 30000, // Verificar a cada 30 segundos
   });
+
+  // Ativar keyboard shortcuts
+  useKeyboardShortcuts();
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">

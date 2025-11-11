@@ -30,7 +30,8 @@
       "Bash(backend/uploads/images/.gitkeep)",
       "Bash(dir /b \"c:\\Users\\jeanz\\Downloads\\secure-business-architect-main\\admin\\src\\types\" 2)",
       "Bash(dir /b \"c:\\Users\\jeanz\\Downloads\\secure-business-architect-main\\admin\\src\\api\" 2)",
-      "Bash(if not exist \"c:\\Users\\jeanz\\Downloads\\secure-business-architect-main\\admin\\src\\pages\\users\" mkdir \"c:\\Users\\jeanz\\Downloads\\secure-business-architect-main\\admin\\src\\pages\\users\")"
+      "Bash(if not exist \"c:\\Users\\jeanz\\Downloads\\secure-business-architect-main\\admin\\src\\pages\\users\" mkdir \"c:\\Users\\jeanz\\Downloads\\secure-business-architect-main\\admin\\src\\pages\\users\")",
+      "Bash(timeout 10 npm start:*)"
     ],
     "deny": [],
     "ask": []

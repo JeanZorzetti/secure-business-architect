@@ -1,25 +1,74 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { lazy, Suspense } from 'react';
 import { Toaster } from '@/components/ui/sonner';
 import { PrivateRoute } from './components/auth/PrivateRoute';
+import { LoadingSpinner } from './components/common/LoadingSpinner';
+import { ErrorBoundary } from './components/common/ErrorBoundary';
+import { useAuthStore } from './stores/authStore';
+
+// Eager load critical routes
 import { Login } from './pages/auth/Login';
 import { Dashboard } from './pages/dashboard/Dashboard';
-import { ContactsList } from './pages/contacts/ContactsList';
-import { ContactDetail } from './pages/contacts/ContactDetail';
-import { LeadsList } from './pages/leads/LeadsList';
-import { LeadCreate } from './pages/leads/LeadCreate';
-import { LeadDetail } from './pages/leads/LeadDetail';
-import { NewsletterList } from './pages/newsletter/NewsletterList';
-import { CampaignsList } from './pages/newsletter/CampaignsList';
-import { BlogList } from './pages/blog/BlogList';
-import { BlogEditor } from './pages/blog/BlogEditor';
-import { ServicesList } from './pages/services/ServicesList';
-import TestimonialsList from './pages/testimonials/TestimonialsList';
-import { Profile } from './pages/settings/Profile';
-import { Settings } from './pages/settings/Settings';
-import { UsersList } from './pages/users/UsersList';
-import { NotFound } from './pages/NotFound';
-import { useAuthStore } from './stores/authStore';
+
+// Lazy load other routes
+const ContactsList = lazy(() =>
+  import('./pages/contacts/ContactsList').then((m) => ({
+    default: m.ContactsList,
+  }))
+);
+const ContactDetail = lazy(() =>
+  import('./pages/contacts/ContactDetail').then((m) => ({
+    default: m.ContactDetail,
+  }))
+);
+const LeadsList = lazy(() =>
+  import('./pages/leads/LeadsList').then((m) => ({ default: m.LeadsList }))
+);
+const LeadCreate = lazy(() =>
+  import('./pages/leads/LeadCreate').then((m) => ({ default: m.LeadCreate }))
+);
+const LeadDetail = lazy(() =>
+  import('./pages/leads/LeadDetail').then((m) => ({ default: m.LeadDetail }))
+);
+const NewsletterList = lazy(() =>
+  import('./pages/newsletter/NewsletterList').then((m) => ({
+    default: m.NewsletterList,
+  }))
+);
+const CampaignsList = lazy(() =>
+  import('./pages/newsletter/CampaignsList').then((m) => ({
+    default: m.CampaignsList,
+  }))
+);
+const BlogList = lazy(() =>
+  import('./pages/blog/BlogList').then((m) => ({ default: m.BlogList }))
+);
+const BlogEditor = lazy(() =>
+  import('./pages/blog/BlogEditor').then((m) => ({ default: m.BlogEditor }))
+);
+const ServicesList = lazy(() =>
+  import('./pages/services/ServicesList').then((m) => ({
+    default: m.ServicesList,
+  }))
+);
+const TestimonialsList = lazy(() =>
+  import('./pages/testimonials/TestimonialsList').then((m) => ({
+    default: m.default,
+  }))
+);
+const Profile = lazy(() =>
+  import('./pages/settings/Profile').then((m) => ({ default: m.Profile }))
+);
+const Settings = lazy(() =>
+  import('./pages/settings/Settings').then((m) => ({ default: m.Settings }))
+);
+const UsersList = lazy(() =>
+  import('./pages/users/UsersList').then((m) => ({ default: m.UsersList }))
+);
+const NotFound = lazy(() =>
+  import('./pages/NotFound').then((m) => ({ default: m.NotFound }))
+);
 
 // Create QueryClient instance
 const queryClient = new QueryClient({
@@ -36,10 +85,18 @@ function App() {
   const { isAuthenticated } = useAuthStore();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Toaster />
-        <Routes>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Toaster />
+          <Suspense
+            fallback={
+              <div className="flex h-screen items-center justify-center">
+                <LoadingSpinner size="lg" text="Carregando..." />
+              </div>
+            }
+          >
+            <Routes>
           {/* Public Routes */}
           <Route
             path="/login"
@@ -188,8 +245,10 @@ function App() {
           {/* 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
-    </QueryClientProvider>
+          </Suspense>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
 
