@@ -968,15 +968,15 @@ admin/
 - [x] PUT `/api/admin/profile` - Atualizar próprio perfil
 - [x] PUT `/api/admin/profile/password` - Mudar senha
 
-### 10.2 Frontend - Perfil do Usuário ✅
+### 10.2 Frontend - Perfil do Usuário ✅ COMPLETO
 
 - [x] Página de perfil
 - [x] Editar informações
   - Nome
   - Email
-  - Avatar (futuro)
+  - **Avatar (upload com preview e remoção)** ✅ NOVO
 - [x] Mudar senha
-- [ ] Preferências (futuro)
+- [ ] Preferências (futuro - roadmap próximas fases)
   - Notificações
   - Tema (light/dark)
 
@@ -1006,12 +1006,18 @@ admin/
 **Implementação**:
 
 - Backend completo com todos os endpoints de usuários e configurações
-- Types e DTOs ([backend/src/types/user.types.ts](../backend/src/types/user.types.ts), [backend/src/types/settings.types.ts](../backend/src/types/settings.types.ts))
-- Services ([backend/src/services/usersService.ts](../backend/src/services/usersService.ts), [backend/src/services/settingsService.ts](../backend/src/services/settingsService.ts))
+- **Campo avatar adicionado ao modelo User** (Migração: add_user_avatar)
+- Types e DTOs com suporte a avatar ([backend/src/types/user.types.ts](../backend/src/types/user.types.ts), [backend/src/types/settings.types.ts](../backend/src/types/settings.types.ts))
+- Services atualizados com avatar ([backend/src/services/usersService.ts](../backend/src/services/usersService.ts), [backend/src/services/settingsService.ts](../backend/src/services/settingsService.ts))
 - Controllers ([backend/src/controllers/usersController.ts](../backend/src/controllers/usersController.ts), [backend/src/controllers/settingsController.ts](../backend/src/controllers/settingsController.ts))
 - Routes protegidas com autenticação e role-based access control
-- Frontend - tipos e API clients ([admin/src/types/user.ts](../admin/src/types/user.ts), [admin/src/api/users.ts](../admin/src/api/users.ts), [admin/src/types/settings.ts](../admin/src/types/settings.ts), [admin/src/api/settings.ts](../admin/src/api/settings.ts))
-- Página de perfil com edição de dados e troca de senha ([admin/src/pages/settings/Profile.tsx](../admin/src/pages/settings/Profile.tsx))
+- Frontend - tipos e API clients com avatar ([admin/src/types/user.ts](../admin/src/types/user.ts), [admin/src/api/users.ts](../admin/src/api/users.ts), [admin/src/types/settings.ts](../admin/src/types/settings.ts), [admin/src/api/settings.ts](../admin/src/api/settings.ts))
+- **Página de perfil com upload de avatar** ([admin/src/pages/settings/Profile.tsx](../admin/src/pages/settings/Profile.tsx))
+  - Upload de imagem com preview em tempo real
+  - Botão hover para trocar avatar
+  - Botão para remover avatar
+  - Validação de tamanho (máx 5MB)
+  - Integração com sistema de upload existente
 - Página de gestão de usuários (super admin only) ([admin/src/pages/users/UsersList.tsx](../admin/src/pages/users/UsersList.tsx))
 - Página de configurações gerais com tabs organizadas ([admin/src/pages/settings/Settings.tsx](../admin/src/pages/settings/Settings.tsx))
 - Rotas configuradas no React Router

@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { usersApi } from '@/api/users';
+import { uploadApi } from '@/api/upload';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,12 +17,15 @@ import {
   Shield,
   Key,
   Save,
+  Camera,
+  X,
 } from 'lucide-react';
 import type { UpdateProfileDTO, ChangePasswordDTO } from '@/types/user';
 import { toast } from 'sonner';
 
 export function Profile() {
   const queryClient = useQueryClient();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Profile form state
   const [profileForm, setProfileForm] = useState<UpdateProfileDTO>({
@@ -35,6 +39,8 @@ export function Profile() {
     newPassword: '',
   });
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
 
   // Fetch profile
   const { data: profile, isLoading, error } = useQuery({
@@ -49,6 +55,7 @@ export function Profile() {
         name: profile.name,
         email: profile.email,
       });
+      setAvatarPreview(profile.avatar || null);
     }
   }, [profile]);
 
@@ -81,10 +88,58 @@ export function Profile() {
     },
   });
 
-  const handleProfileSubmit = (e: React.FormEvent) => {
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error('Imagem muito grande. Máximo 5MB');
+        return;
+      }
+      setAvatarFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatarPreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleRemoveAvatar = () => {
+    setAvatarFile(null);
+    setAvatarPreview(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  const handleProfileSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (profileForm.name && profileForm.email) {
-      updateProfileMutation.mutate(profileForm);
+      let avatarUrl = profileForm.avatar;
+
+      // Upload avatar if changed
+      if (avatarFile) {
+        try {
+          const response = await uploadApi.uploadImage(avatarFile);
+          if (response.success && response.file) {
+            avatarUrl = response.file.url;
+          } else {
+            toast.error('Erro ao fazer upload da imagem');
+            return;
+          }
+        } catch (error) {
+          toast.error('Erro ao fazer upload da imagem');
+          return;
+        }
+      } else if (avatarPreview === null && profile?.avatar) {
+        // Remove avatar if user clicked remove
+        avatarUrl = '';
+      }
+
+      updateProfileMutation.mutate({
+        ...profileForm,
+        avatar: avatarUrl,
+      });
     }
   };
 
@@ -142,8 +197,37 @@ export function Profile() {
           {/* Profile Info Card */}
           <Card className="p-6 lg:col-span-1">
             <div className="flex flex-col items-center text-center space-y-4">
-              <div className="h-24 w-24 rounded-full bg-primary/10 flex items-center justify-center">
-                <UserIcon className="h-12 w-12 text-primary" />
+              <div className="relative group">
+                <div className="h-24 w-24 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden">
+                  {avatarPreview ? (
+                    <img src={avatarPreview} alt={profile.name} className="w-full h-full object-cover" />
+                  ) : (
+                    <UserIcon className="h-12 w-12 text-primary" />
+                  )}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="absolute inset-0 rounded-full bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  <Camera className="h-6 w-6 text-white" />
+                </button>
+                {avatarPreview && (
+                  <button
+                    type="button"
+                    onClick={handleRemoveAvatar}
+                    className="absolute -top-1 -right-1 p-1 bg-destructive text-destructive-foreground rounded-full shadow-sm hover:bg-destructive/90"
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                )}
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleAvatarChange}
+                  className="hidden"
+                />
               </div>
               <div>
                 <h2 className="text-xl font-semibold">{profile.name}</h2>

@@ -11,6 +11,7 @@ export interface User {
   id: string;
   email: string;
   name: string;
+  avatar?: string;
   role: UserRole;
   isActive: boolean;
   createdAt: string;
@@ -35,6 +36,7 @@ export interface UpdateUserDTO {
 export interface UpdateProfileDTO {
   name?: string;
   email?: string;
+  avatar?: string;
 }
 
 export interface ChangePasswordDTO {
