@@ -33,7 +33,9 @@
       "Bash(if not exist \"c:\\Users\\jeanz\\Downloads\\secure-business-architect-main\\admin\\src\\pages\\users\" mkdir \"c:\\Users\\jeanz\\Downloads\\secure-business-architect-main\\admin\\src\\pages\\users\")",
       "Bash(timeout 10 npm start:*)",
       "Bash(npx prisma generate:*)",
-      "Bash(ssh:*)"
+      "Bash(ssh:*)",
+      "Bash(bash:*)",
+      "Bash(vercel.json)"
     ],
     "deny": [],
     "ask": []
