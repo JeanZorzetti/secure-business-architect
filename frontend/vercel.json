@@ -1,6 +1,18 @@
 {
   "rewrites": [
     {
+      "source": "/sitemap.xml",
+      "destination": "https://jbapi.roilabs.com.br/sitemap.xml"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "https://jbapi.roilabs.com.br/robots.txt"
+    },
+    {
+      "source": "/:key.txt",
+      "destination": "https://jbapi.roilabs.com.br/:key.txt"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
