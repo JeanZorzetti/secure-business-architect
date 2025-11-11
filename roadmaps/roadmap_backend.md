@@ -279,7 +279,7 @@ model BlogPost {
   viewCount   Int      @default(0)
 }
 ```
-- [ ] Model BlogCategory (opcional) - não implementado (futuro)
+- [x] Model BlogCategory (opcional) - **IMPLEMENTADO**
 - [x] Migrations - schema já estava sincronizado
 - [x] Indexes (slug, status, publishedAt, category) - configurados no schema
 
@@ -299,13 +299,13 @@ model BlogPost {
 - [x] PATCH `/api/admin/blog/posts/:id/unpublish` - Despublicar post
 - [x] GET `/api/admin/blog/stats` - Estatísticas (total, published, drafts, thisMonth)
 
-### 5.4 Upload de Imagens
-- [ ] Endpoint POST `/api/admin/upload/image` - não implementado (futuro)
-- [ ] Configurar Multer - não implementado
-- [ ] Validação de tipo/tamanho de arquivo - não implementado
-- [ ] Integração com S3/Cloudinary - não implementado
-- [ ] Geração de thumbnails - não implementado
-- [ ] Otimização de imagens - não implementado
+### 5.4 Upload de Imagens ✅ **COMPLETO**
+- [x] Endpoint POST `/api/admin/upload/image` - **IMPLEMENTADO**
+- [x] Configurar Multer - **IMPLEMENTADO** (com memoryStorage para Sharp)
+- [x] Validação de tipo/tamanho de arquivo - **IMPLEMENTADO** (5MB, jpg/png/webp/gif)
+- [x] Integração com S3/Cloudinary - **IMPLEMENTADO** (Cloudinary com fallback local)
+- [x] Geração de thumbnails - **IMPLEMENTADO** (Sharp com opções configuráveis)
+- [x] Otimização de imagens - **IMPLEMENTADO** (Sharp com mozjpeg, compressão PNG/WebP)
 
 ### 5.5 Features Avançadas ✅
 - [x] Auto-geração de slug a partir do título (com tratamento de acentos e duplicatas)
@@ -325,6 +325,36 @@ model BlogPost {
 **Entregável**: ✅ CMS completo para blog funcionando - **COMPLETO**
 
 **Implementação**:
+
+- **BlogCategory Model** ([backend/prisma/schema.prisma](../backend/prisma/schema.prisma))
+  - Model completo com name, slug, description, order, isActive
+  - Relação one-to-many com BlogPost (categoryId)
+  - Indexes para slug, isActive, order
+- **Sistema de Upload de Imagens Completo**:
+  - **Multer Config** ([backend/src/config/multer.ts](../backend/src/config/multer.ts))
+    - MemoryStorage para processamento com Sharp
+    - Validação de tipo MIME (jpg, png, webp, gif)
+    - Limite de 5MB por arquivo
+    - Filtros de extensão e tipo
+  - **Cloudinary Config** ([backend/src/config/cloudinary.ts](../backend/src/config/cloudinary.ts))
+    - Upload para cloud com transformações
+    - Geração de thumbnails via URL transformation
+    - Otimização automática (quality:auto, fetch_format:auto)
+    - Fallback para armazenamento local
+  - **UploadService** ([backend/src/services/uploadService.ts](../backend/src/services/uploadService.ts))
+    - Processamento com Sharp (otimização, redimensionamento)
+    - Geração de thumbnails configurável (width, height, fit, quality)
+    - Suporte a Cloudinary e armazenamento local
+    - Otimização multi-formato (JPEG mozjpeg, PNG compression, WebP)
+    - Delete de imagens (cloud e local)
+    - Validação de arquivos
+  - **UploadController** ([backend/src/controllers/uploadController.ts](../backend/src/controllers/uploadController.ts))
+    - Endpoint POST /api/admin/upload/image
+    - Endpoint DELETE /api/admin/upload/image/:publicId
+    - Opções: folder, thumbnailWidth/Height, optimize
+  - **Upload Routes** ([backend/src/routes/uploadRoutes.ts](../backend/src/routes/uploadRoutes.ts))
+    - Rotas protegidas (admin only)
+    - Documentação completa de parâmetros
 - BlogService com CRUD completo e geração de slug ([backend/src/services/blogService.ts](../backend/src/services/blogService.ts))
 - BlogController com todos os endpoints públicos e admin ([backend/src/controllers/blogController.ts](../backend/src/controllers/blogController.ts))
 - Validadores Zod para todos os endpoints ([backend/src/validators/blogValidators.ts](../backend/src/validators/blogValidators.ts))

@@ -1,51 +1,64 @@
-import multer from 'multer';
-import path from 'path';
-import { v4 as uuidv4 } from 'uuid';
-import { UPLOAD_CONFIG } from '../types/upload.types';
-import { Request } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import { uploadMemory } from '../config/multer';
+import { logger } from '../config/logger';
 
-// Configuração de armazenamento
-const storage = multer.diskStorage({
-  destination: async (_req, _file, cb) => {
-    // Diretório será criado pelo uploadService se não existir
-    cb(null, UPLOAD_CONFIG.IMAGES_DIR);
-  },
-  filename: (_req, file, cb) => {
-    const fileExtension = path.extname(file.originalname);
-    const filename = `${uuidv4()}${fileExtension}`;
-    cb(null, filename);
-  },
-});
+/**
+ * Middleware para upload de imagem única (em memória para processamento com Sharp)
+ */
+export const uploadSingle = (req: Request, res: Response, next: NextFunction): void => {
+  const upload = uploadMemory.single('image');
 
-// Filtro de arquivos
-const fileFilter = (
-  _req: Request,
-  file: Express.Multer.File,
-  cb: multer.FileFilterCallback
-) => {
-  // Verificar tipo MIME
-  if ((UPLOAD_CONFIG.ALLOWED_IMAGE_TYPES as readonly string[]).includes(file.mimetype)) {
-    cb(null, true);
-  } else {
-    cb(
-      new Error(
-        `Tipo de arquivo não permitido. Tipos aceitos: ${UPLOAD_CONFIG.ALLOWED_IMAGE_TYPES.join(', ')}`
-      )
-    );
-  }
+  upload(req, res, (err) => {
+    if (err) {
+      logger.error({ error: err }, 'Erro no upload de arquivo');
+
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        res.status(400).json({
+          error: 'Arquivo muito grande. Tamanho máximo: 5MB',
+        });
+        return;
+      }
+
+      res.status(400).json({
+        error: err.message || 'Erro ao fazer upload do arquivo',
+      });
+      return;
+    }
+
+    next();
+  });
 };
 
-// Configuração do multer
-export const upload = multer({
-  storage,
-  fileFilter,
-  limits: {
-    fileSize: UPLOAD_CONFIG.MAX_FILE_SIZE,
-  },
-});
+/**
+ * Middleware para upload de múltiplas imagens
+ */
+export const uploadMultiple = (req: Request, res: Response, next: NextFunction): void => {
+  const upload = uploadMemory.array('images', 10);
 
-// Middleware de upload único
-export const uploadSingle = upload.single('image');
+  upload(req, res, (err) => {
+    if (err) {
+      logger.error({ error: err }, 'Erro no upload de arquivos');
 
-// Middleware de upload múltiplo
-export const uploadMultiple = upload.array('images', 10);
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        res.status(400).json({
+          error: 'Um ou mais arquivos são muito grandes. Tamanho máximo: 5MB por arquivo',
+        });
+        return;
+      }
+
+      if (err.code === 'LIMIT_FILE_COUNT') {
+        res.status(400).json({
+          error: 'Muitos arquivos. Máximo: 10 arquivos',
+        });
+        return;
+      }
+
+      res.status(400).json({
+        error: err.message || 'Erro ao fazer upload dos arquivos',
+      });
+      return;
+    }
+
+    next();
+  });
+};

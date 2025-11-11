@@ -163,6 +163,25 @@ model NewsletterCampaign {
   @@map("newsletter_campaigns")
 }
 
+model BlogCategory {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?  @db.Text
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  posts BlogPost[]
+
+  @@index([slug])
+  @@index([isActive])
+  @@index([order])
+  @@map("blog_categories")
+}
+
 model BlogPost {
   id          String     @id @default(uuid())
   title       String
@@ -171,7 +190,8 @@ model BlogPost {
   content     String     @db.Text
   coverImage  String?
   author      String
-  category    String
+  category    String     // Manter por compatibilidade
+  categoryId  String?    // Nova relação com BlogCategory
   tags        String[]
   status      PostStatus @default(DRAFT)
   publishedAt DateTime?
@@ -179,10 +199,14 @@ model BlogPost {
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 
+  // Relations
+  blogCategory BlogCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
   @@index([slug])
   @@index([status])
   @@index([publishedAt])
   @@index([category])
+  @@index([categoryId])
   @@map("blog_posts")
 }
 

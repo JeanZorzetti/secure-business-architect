@@ -1,162 +1,314 @@
-import { UploadedFile, DeleteFileResponse, UPLOAD_CONFIG } from '../types/upload.types';
-import { promises as fs } from 'fs';
+import sharp from 'sharp';
 import path from 'path';
+import fs from 'fs/promises';
 import { v4 as uuidv4 } from 'uuid';
+import {
+  uploadToCloudinary,
+  deleteFromCloudinary,
+  getCloudinaryThumbnailUrl,
+  getCloudinaryOptimizedUrl,
+} from '../config/cloudinary';
+import { multerUtils } from '../config/multer';
+import env from '../config/env';
+import { logger } from '../config/logger';
+
+export interface ImageUploadResult {
+  url: string;
+  publicId?: string;
+  thumbnail?: string;
+  optimized?: string;
+  width: number;
+  height: number;
+  size: number;
+  format: string;
+  filename: string;
+}
+
+export interface ThumbnailOptions {
+  width?: number;
+  height?: number;
+  fit?: 'cover' | 'contain' | 'fill' | 'inside' | 'outside';
+  quality?: number;
+}
 
 class UploadService {
   /**
-   * Salvar informações do arquivo no banco de dados
+   * Upload de imagem com otimização e geração de thumbnail
    */
-  async saveFileInfo(
+  async uploadImage(
     file: Express.Multer.File,
-    userId: string,
-    folder: string = 'images'
-  ): Promise<UploadedFile> {
-    const fileId = uuidv4();
-    const fileExtension = path.extname(file.originalname);
-    const filename = `${fileId}${fileExtension}`;
-    const relativePath = `${folder}/${filename}`;
+    options: {
+      folder?: string;
+      generateThumbnail?: boolean;
+      thumbnailOptions?: ThumbnailOptions;
+      optimize?: boolean;
+    } = {}
+  ): Promise<ImageUploadResult> {
+    const {
+      folder = 'blog',
+      generateThumbnail = true,
+      thumbnailOptions = {},
+      optimize = true,
+    } = options;
 
-    // Salvar no banco de dados (opcional - para tracking)
-    // Por enquanto, retornamos os dados sem persistir no DB
-    // Se quiser persistir, precisaria criar model UploadedFile no Prisma
+    try {
+      logger.info({ filename: file.originalname }, 'Iniciando upload de imagem');
 
-    const uploadedFile: UploadedFile = {
-      id: fileId,
-      filename,
-      originalName: file.originalname,
-      mimeType: file.mimetype,
-      size: file.size,
-      url: `/uploads/${relativePath}`,
-      path: relativePath,
-      uploadedBy: userId,
-      createdAt: new Date(),
-    };
+      // Processar imagem com Sharp
+      const processedImage = await this.processImage(file.buffer, {
+        optimize,
+        ...thumbnailOptions,
+      });
 
-    return uploadedFile;
+      // Verificar se deve usar cloud storage
+      const useCloud = env.USE_CLOUD_STORAGE || env.CLOUDINARY_CLOUD_NAME;
+
+      if (useCloud && env.CLOUDINARY_CLOUD_NAME) {
+        // Upload para Cloudinary
+        return await this.uploadToCloud(processedImage, {
+          folder,
+          filename: this.generateFilename(file.originalname),
+          generateThumbnail,
+          thumbnailOptions,
+        });
+      } else {
+        // Upload local
+        return await this.uploadToLocal(processedImage, {
+          folder,
+          filename: this.generateFilename(file.originalname),
+          generateThumbnail,
+          thumbnailOptions,
+        });
+      }
+    } catch (error) {
+      logger.error({ error, filename: file.originalname }, 'Erro ao fazer upload');
+      throw new Error('Falha ao fazer upload da imagem');
+    }
   }
 
   /**
-   * Mover arquivo temporário para diretório final
+   * Processar e otimizar imagem com Sharp
    */
-  async moveFile(
-    tempPath: string,
-    finalPath: string
-  ): Promise<void> {
-    const dir = path.dirname(finalPath);
+  private async processImage(
+    buffer: Buffer,
+    options: {
+      optimize?: boolean;
+      width?: number;
+      height?: number;
+      quality?: number;
+    } = {}
+  ): Promise<Buffer> {
+    const { optimize = true, width, height, quality = 85 } = options;
+
+    let pipeline = sharp(buffer);
+
+    // Redimensionar se especificado
+    if (width || height) {
+      pipeline = pipeline.resize(width, height, {
+        fit: 'inside',
+        withoutEnlargement: true,
+      });
+    }
+
+    if (optimize) {
+      // Otimizar com base no formato
+      pipeline = pipeline
+        .jpeg({ quality, progressive: true, mozjpeg: true })
+        .png({ quality, compressionLevel: 9 })
+        .webp({ quality });
+    }
+
+    return await pipeline.toBuffer();
+  }
+
+  /**
+   * Gerar thumbnail
+   */
+  private async generateThumbnail(
+    buffer: Buffer,
+    options: ThumbnailOptions = {}
+  ): Promise<Buffer> {
+    const {
+      width = 300,
+      height = 300,
+      fit = 'cover',
+      quality = 80,
+    } = options;
+
+    return await sharp(buffer)
+      .resize(width, height, { fit })
+      .jpeg({ quality, progressive: true })
+      .toBuffer();
+  }
+
+  /**
+   * Upload para Cloudinary
+   */
+  private async uploadToCloud(
+    buffer: Buffer,
+    options: {
+      folder: string;
+      filename: string;
+      generateThumbnail: boolean;
+      thumbnailOptions: ThumbnailOptions;
+    }
+  ): Promise<ImageUploadResult> {
+    const { folder, filename, generateThumbnail, thumbnailOptions } = options;
+
+    // Upload da imagem principal
+    const result = await uploadToCloudinary(buffer, {
+      folder,
+      filename: filename.replace(/\.[^/.]+$/, ''), // Remove extensão
+    });
+
+    // URLs otimizadas e thumbnail via Cloudinary transformations
+    const optimizedUrl = getCloudinaryOptimizedUrl(result.publicId);
+    const thumbnailUrl = generateThumbnail
+      ? getCloudinaryThumbnailUrl(
+          result.publicId,
+          thumbnailOptions.width,
+          thumbnailOptions.height
+        )
+      : undefined;
+
+    logger.info(
+      { publicId: result.publicId, url: result.url },
+      'Upload para Cloudinary concluído'
+    );
+
+    return {
+      url: result.url,
+      publicId: result.publicId,
+      thumbnail: thumbnailUrl,
+      optimized: optimizedUrl,
+      width: result.width,
+      height: result.height,
+      size: result.bytes,
+      format: result.format,
+      filename,
+    };
+  }
+
+  /**
+   * Upload local (fallback)
+   */
+  private async uploadToLocal(
+    buffer: Buffer,
+    options: {
+      folder: string;
+      filename: string;
+      generateThumbnail: boolean;
+      thumbnailOptions: ThumbnailOptions;
+    }
+  ): Promise<ImageUploadResult> {
+    const { folder, filename, generateThumbnail, thumbnailOptions } = options;
 
     // Criar diretório se não existir
-    await fs.mkdir(dir, { recursive: true });
+    const uploadPath = path.join(multerUtils.IMAGES_DIR, folder);
+    await fs.mkdir(uploadPath, { recursive: true });
 
-    // Mover arquivo
-    await fs.rename(tempPath, finalPath);
-  }
+    // Salvar imagem principal
+    const imagePath = path.join(uploadPath, filename);
+    await fs.writeFile(imagePath, buffer);
 
-  /**
-   * Deletar arquivo
-   */
-  async deleteFile(filename: string): Promise<DeleteFileResponse> {
-    try {
-      const filePath = path.join(process.cwd(), UPLOAD_CONFIG.UPLOAD_DIR, filename);
-
-      // Verificar se arquivo existe
-      await fs.access(filePath);
-
-      // Deletar arquivo
-      await fs.unlink(filePath);
-
-      return {
-        success: true,
-        message: 'Arquivo deletado com sucesso',
-      };
-    } catch (error) {
-      if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
-        return {
-          success: false,
-          message: 'Arquivo não encontrado',
-        };
-      }
-
-      throw error;
-    }
-  }
-
-  /**
-   * Obter URL pública do arquivo
-   */
-  getPublicUrl(filename: string, baseUrl: string): string {
-    return `${baseUrl}/uploads/${filename}`;
-  }
-
-  /**
-   * Validar se arquivo é uma imagem
-   */
-  isValidImage(mimeType: string): boolean {
-    return (UPLOAD_CONFIG.ALLOWED_IMAGE_TYPES as readonly string[]).includes(mimeType);
-  }
-
-  /**
-   * Validar tamanho do arquivo
-   */
-  isValidSize(size: number): boolean {
-    return size <= UPLOAD_CONFIG.MAX_FILE_SIZE;
-  }
-
-  /**
-   * Listar todas as imagens no diretório de uploads
-   */
-  async listImages(baseUrl: string): Promise<UploadedFile[]> {
-    try {
-      const imagesDir = path.join(process.cwd(), UPLOAD_CONFIG.IMAGES_DIR);
-
-      // Verificar se diretório existe
-      try {
-        await fs.access(imagesDir);
-      } catch {
-        return [];
-      }
-
-      // Ler arquivos do diretório
-      const files = await fs.readdir(imagesDir);
-
-      // Filtrar apenas imagens e obter stats
-      const imageFiles = await Promise.all(
-        files
-          .filter((file) => !file.startsWith('.')) // Ignorar arquivos ocultos
-          .map(async (filename) => {
-            const filePath = path.join(imagesDir, filename);
-            const stats = await fs.stat(filePath);
-
-            // Determinar tipo MIME pela extensão
-            const ext = path.extname(filename).toLowerCase();
-            const mimeTypeMap: Record<string, string> = {
-              '.jpg': 'image/jpeg',
-              '.jpeg': 'image/jpeg',
-              '.png': 'image/png',
-              '.gif': 'image/gif',
-              '.webp': 'image/webp',
-              '.svg': 'image/svg+xml',
-            };
-
-            return {
-              id: filename,
-              filename,
-              originalName: filename,
-              mimeType: mimeTypeMap[ext] || 'image/jpeg',
-              size: stats.size,
-              url: `${baseUrl}/uploads/images/${filename}`,
-              path: `images/${filename}`,
-              uploadedBy: 'system',
-              createdAt: stats.birthtime,
-            };
-          })
+    // Gerar thumbnail se solicitado
+    let thumbnailPath: string | undefined;
+    if (generateThumbnail) {
+      const thumbnailBuffer = await this.generateThumbnail(
+        buffer,
+        thumbnailOptions
       );
-
-      // Ordenar por data de criação (mais recente primeiro)
-      return imageFiles.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
-    } catch (error) {
-      throw error;
+      const thumbnailFilename = `thumb_${filename}`;
+      thumbnailPath = path.join(uploadPath, thumbnailFilename);
+      await fs.writeFile(thumbnailPath, thumbnailBuffer);
     }
+
+    // Obter metadados da imagem
+    const metadata = await sharp(buffer).metadata();
+
+    logger.info({ path: imagePath }, 'Upload local concluído');
+
+    const baseUrl = `${env.BACKEND_URL}/uploads/images/${folder}`;
+
+    return {
+      url: `${baseUrl}/${filename}`,
+      thumbnail: thumbnailPath
+        ? `${baseUrl}/thumb_${filename}`
+        : undefined,
+      optimized: `${baseUrl}/${filename}`,
+      width: metadata.width || 0,
+      height: metadata.height || 0,
+      size: buffer.length,
+      format: metadata.format || 'unknown',
+      filename,
+    };
+  }
+
+  /**
+   * Deletar imagem
+   */
+  async deleteImage(publicIdOrPath: string): Promise<void> {
+    try {
+      if (publicIdOrPath.includes('/')) {
+        // É um publicId do Cloudinary
+        await deleteFromCloudinary(publicIdOrPath);
+        logger.info({ publicId: publicIdOrPath }, 'Imagem deletada do Cloudinary');
+      } else {
+        // É um caminho local
+        const imagePath = path.join(multerUtils.IMAGES_DIR, publicIdOrPath);
+        await fs.unlink(imagePath);
+
+        // Tentar deletar thumbnail também
+        const thumbnailPath = path.join(
+          path.dirname(imagePath),
+          `thumb_${path.basename(imagePath)}`
+        );
+        try {
+          await fs.unlink(thumbnailPath);
+        } catch {
+          // Thumbnail pode não existir
+        }
+
+        logger.info({ path: imagePath }, 'Imagem deletada localmente');
+      }
+    } catch (error) {
+      logger.error({ error, publicIdOrPath }, 'Erro ao deletar imagem');
+      throw new Error('Falha ao deletar imagem');
+    }
+  }
+
+  /**
+   * Gerar nome único de arquivo
+   */
+  private generateFilename(originalName: string): string {
+    const ext = path.extname(originalName);
+    return `${uuidv4()}${ext}`;
+  }
+
+  /**
+   * Validar arquivo
+   */
+  validateFile(file: Express.Multer.File): {
+    valid: boolean;
+    error?: string;
+  } {
+    // Verificar tamanho
+    if (file.size > multerUtils.MAX_FILE_SIZE) {
+      return {
+        valid: false,
+        error: `Arquivo muito grande. Tamanho máximo: ${multerUtils.MAX_FILE_SIZE_MB}MB`,
+      };
+    }
+
+    // Verificar tipo MIME
+    if (!multerUtils.ALLOWED_MIME_TYPES.includes(file.mimetype)) {
+      return {
+        valid: false,
+        error: `Tipo de arquivo não permitido. Use: ${multerUtils.ALLOWED_EXTENSIONS.join(', ')}`,
+      };
+    }
+
+    return { valid: true };
   }
 }
 
