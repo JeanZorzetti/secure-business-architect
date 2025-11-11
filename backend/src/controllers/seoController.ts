@@ -170,7 +170,7 @@ class SeoController {
       select: {
         title: true,
         excerpt: true,
-        featuredImage: true,
+        coverImage: true,
         slug: true,
         author: true,
         publishedAt: true,
@@ -183,7 +183,7 @@ class SeoController {
     return seoService.generateMetaTags({
       title: `${post.title} | Jennifer Barreto`,
       description: post.excerpt || '',
-      image: post.featuredImage || undefined,
+      image: post.coverImage || undefined,
       url: `https://jbadvocacia.roilabs.com.br/insights/${post.slug}`,
       type: 'article',
       author: post.author,
@@ -199,7 +199,7 @@ class SeoController {
       where: { slug },
       select: {
         title: true,
-        shortDescription: true,
+        description: true,
         slug: true,
       },
     });
@@ -208,7 +208,7 @@ class SeoController {
 
     return seoService.generateMetaTags({
       title: `${service.title} | Jennifer Barreto`,
-      description: service.shortDescription,
+      description: service.description,
       url: `https://jbadvocacia.roilabs.com.br/servicos/${service.slug}`,
       type: 'website',
     });
@@ -222,7 +222,7 @@ class SeoController {
       select: {
         title: true,
         excerpt: true,
-        featuredImage: true,
+        coverImage: true,
         slug: true,
         author: true,
         publishedAt: true,
@@ -235,7 +235,7 @@ class SeoController {
     return seoService.generateSchemaOrg('article', {
       title: post.title,
       description: post.excerpt,
-      image: post.featuredImage,
+      image: post.coverImage,
       slug: post.slug,
       author: post.author,
       publishedAt: post.publishedAt.toISOString(),
@@ -250,7 +250,7 @@ class SeoController {
       where: { slug },
       select: {
         title: true,
-        shortDescription: true,
+        description: true,
       },
     });
 
@@ -258,7 +258,7 @@ class SeoController {
 
     return seoService.generateSchemaOrg('service', {
       title: service.title,
-      description: service.shortDescription,
+      description: service.description,
     });
   }
 }

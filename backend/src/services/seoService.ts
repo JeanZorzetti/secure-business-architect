@@ -47,7 +47,7 @@ class SeoService {
 
     // Serviços dinâmicos
     const services = await prisma.service.findMany({
-      where: { published: true },
+      where: { isActive: true },
       select: { slug: true, updatedAt: true },
       orderBy: { order: 'asc' },
     });
