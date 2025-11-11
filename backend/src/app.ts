@@ -97,6 +97,9 @@ app.get('/health', (_req, res) => {
   });
 });
 
+// SEO routes (MUST be before root endpoint to catch /sitemap.xml, /robots.txt)
+app.use('/', seoRoutes);
+
 // API routes
 app.use(`${env.API_PREFIX}/auth`, authRoutes);
 app.use(`${env.API_PREFIX}/contacts`, contactRoutes);
@@ -110,9 +113,6 @@ app.use(`${env.API_PREFIX}`, analyticsRoutes);
 app.use(`${env.API_PREFIX}`, leadRoutes);
 app.use(`${env.API_PREFIX}`, userRoutes);
 app.use(`${env.API_PREFIX}`, settingsRoutes);
-
-// SEO routes (some at root level for sitemap.xml, robots.txt)
-app.use('/', seoRoutes);
 
 // Root endpoint
 app.get('/', (_req, res) => {
