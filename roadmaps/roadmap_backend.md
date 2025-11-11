@@ -307,11 +307,11 @@ model BlogPost {
 - [x] Geração de thumbnails - **IMPLEMENTADO** (Sharp com opções configuráveis)
 - [x] Otimização de imagens - **IMPLEMENTADO** (Sharp com mozjpeg, compressão PNG/WebP)
 
-### 5.5 Features Avançadas ✅
+### 5.5 Features Avançadas ✅ **COMPLETO**
 - [x] Auto-geração de slug a partir do título (com tratamento de acentos e duplicatas)
-- [ ] Sistema de rascunhos automáticos - não implementado (futuro)
-- [ ] Preview de posts antes de publicar - não implementado (futuro)
-- [ ] Agendamento de publicação (job scheduler) - não implementado (futuro)
+- [x] Sistema de rascunhos automáticos - **IMPLEMENTADO**
+- [x] Preview de posts antes de publicar - **IMPLEMENTADO**
+- [x] Agendamento de publicação (job scheduler) - **IMPLEMENTADO**
 - [x] Contador de visualizações - implementado com incremento automático
 - [x] Sistema de tags - implementado com array de strings
 
@@ -355,6 +355,34 @@ model BlogPost {
   - **Upload Routes** ([backend/src/routes/uploadRoutes.ts](../backend/src/routes/uploadRoutes.ts))
     - Rotas protegidas (admin only)
     - Documentação completa de parâmetros
+- **Sistema de Rascunhos Automáticos, Preview e Agendamento**:
+  - **Schema Prisma** ([backend/prisma/schema.prisma](../backend/prisma/schema.prisma))
+    - Campos adicionados ao BlogPost: scheduledFor, isAutoDraft, autoDraftData (JSON), lastAutoSaveAt
+    - Indexes para scheduledFor e isAutoDraft
+  - **SchedulerService** ([backend/src/services/schedulerService.ts](../backend/src/services/schedulerService.ts))
+    - Cron job rodando a cada minuto para verificar posts agendados
+    - Publicação automática de posts quando scheduledFor <= now
+    - Logs detalhados de publicações automáticas
+    - Métodos start/stop para controle do scheduler
+  - **BlogService** - Novos métodos ([backend/src/services/blogService.ts](../backend/src/services/blogService.ts))
+    - autoSave(id, data) - Salva rascunho automaticamente com timestamp
+    - createOrUpdateAutoDraft(data) - Cria/atualiza rascunho automático pelo título
+    - cleanOldAutoDrafts(days) - Remove rascunhos automáticos antigos
+    - generatePreview(data) - Gera preview com slug temporário único
+    - getScheduledPosts() - Lista posts agendados ordenados por data
+    - schedulePost(id, scheduledFor) - Agenda post para publicação futura
+    - cancelSchedule(id) - Cancela agendamento de post
+  - **BlogController** - Novos endpoints ([backend/src/controllers/blogController.ts](../backend/src/controllers/blogController.ts))
+    - POST /api/admin/blog/posts/:id/autosave
+    - POST /api/admin/blog/posts/autosave
+    - DELETE /api/admin/blog/posts/autosave/cleanup
+    - POST /api/admin/blog/posts/preview
+    - GET /api/admin/blog/posts/scheduled
+    - POST /api/admin/blog/posts/:id/schedule
+    - DELETE /api/admin/blog/posts/:id/schedule
+  - **App.ts** ([backend/src/app.ts](../backend/src/app.ts))
+    - Inicialização automática do scheduler no startup do servidor
+    - Log de confirmação: "⏰ Scheduler started for post publishing"
 - BlogService com CRUD completo e geração de slug ([backend/src/services/blogService.ts](../backend/src/services/blogService.ts))
 - BlogController com todos os endpoints públicos e admin ([backend/src/controllers/blogController.ts](../backend/src/controllers/blogController.ts))
 - Validadores Zod para todos os endpoints ([backend/src/validators/blogValidators.ts](../backend/src/validators/blogValidators.ts))
