@@ -26,6 +26,13 @@ router.post('/subscribe', subscribeRateLimiter, (req, res) =>
 );
 
 /**
+ * @route   POST /api/newsletter/confirm/:token
+ * @desc    Confirmar inscrição na newsletter
+ * @access  Public
+ */
+router.post('/confirm/:token', (req, res) => newsletterController.confirmSubscription(req, res));
+
+/**
  * @route   GET /api/newsletter/unsubscribe/:token
  * @desc    Cancelar inscrição
  * @access  Public

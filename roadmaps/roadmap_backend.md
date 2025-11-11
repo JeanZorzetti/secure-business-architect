@@ -219,7 +219,7 @@ model Newsletter {
   - Rate limiting (5 inscrições por hora)
   - Email de confirmação (double opt-in) - não implementado (futuro)
 - [x] GET `/api/newsletter/unsubscribe/:token` - Cancelar inscrição - funcionando
-- [ ] POST `/api/newsletter/confirm/:token` - Confirmar inscrição (futuro)
+- [x] POST `/api/newsletter/confirm/:token` - Confirmar inscrição - **IMPLEMENTADO**
 
 ### 4.3 API Endpoints (Admin) ✅
 - [x] GET `/api/newsletter` - Listar inscritos (paginado, filtros) - funcionando
@@ -227,7 +227,7 @@ model Newsletter {
 - [x] GET `/api/newsletter/stats` - Estatísticas (total, active, unsubscribed, thisMonth)
 - [x] DELETE `/api/newsletter/:id` - Remover inscrito - funcionando
 - [x] GET `/api/newsletter/export` - Exportar CSV - funcionando
-- [ ] POST `/api/newsletter/send` - Enviar campanha (futuro)
+- [x] POST `/api/newsletter/campaigns/:id/send` - Enviar campanha - **IMPLEMENTADO** (ver Fase 6 para detalhes de campanhas)
 
 ### 4.4 Emails
 - [ ] Template de confirmação de inscrição (futuro)
@@ -244,7 +244,11 @@ model Newsletter {
 
 **Implementação**:
 - NewsletterService com CRUD completo ([backend/src/services/newsletterService.ts](../backend/src/services/newsletterService.ts))
+  - `confirmSubscription(token)` - Confirma inscrição com double opt-in
+  - Valida token único, previne dupla confirmação
+  - Atualiza status para ACTIVE e define confirmedAt
 - NewsletterController com todos os endpoints ([backend/src/controllers/newsletterController.ts](../backend/src/controllers/newsletterController.ts))
+  - `confirmSubscription` - Endpoint POST /api/newsletter/confirm/:token
 - Validadores Zod para todos os endpoints ([backend/src/validators/newsletterValidators.ts](../backend/src/validators/newsletterValidators.ts))
 - Rotas integradas com autenticação e rate limiting ([backend/src/routes/newsletterRoutes.ts](../backend/src/routes/newsletterRoutes.ts))
 - Types definidos ([backend/src/types/newsletter.types.ts](../backend/src/types/newsletter.types.ts))

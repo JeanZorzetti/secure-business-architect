@@ -59,6 +59,42 @@ export class NewsletterService {
   }
 
   /**
+   * Confirmar inscrição via token (público)
+   */
+  async confirmSubscription(token: string) {
+    const subscriber = await prisma.newsletter.findUnique({
+      where: { confirmToken: token },
+    });
+
+    if (!subscriber) {
+      throw new Error('Token inválido ou inscrição não encontrada');
+    }
+
+    if (subscriber.confirmedAt) {
+      return {
+        message: 'Email já confirmado anteriormente',
+        subscriber,
+        alreadyConfirmed: true,
+      };
+    }
+
+    const confirmed = await prisma.newsletter.update({
+      where: { confirmToken: token },
+      data: {
+        confirmedAt: new Date(),
+        confirmToken: null, // Remove token após confirmação
+        status: SubscriptionStatus.ACTIVE,
+      },
+    });
+
+    return {
+      message: 'Email confirmado com sucesso!',
+      subscriber: confirmed,
+      alreadyConfirmed: false,
+    };
+  }
+
+  /**
    * Cancelar inscrição (público)
    */
   async unsubscribe(token: string) {

@@ -44,6 +44,47 @@ export class NewsletterController {
   }
 
   /**
+   * POST /api/newsletter/confirm/:token
+   * Confirmar inscrição (público)
+   */
+  async confirmSubscription(req: Request, res: Response): Promise<void> {
+    try {
+      const { token } = req.params;
+
+      // Validar token
+      if (!token || typeof token !== 'string') {
+        res.status(400).json({ error: 'Token inválido' });
+        return;
+      }
+
+      // Confirmar inscrição
+      const result = await newsletterService.confirmSubscription(token);
+
+      logger.info({ email: result.subscriber.email }, 'Inscrição confirmada');
+
+      res.status(result.alreadyConfirmed ? 200 : 200).json({
+        message: result.message,
+        subscriber: {
+          id: result.subscriber.id,
+          email: result.subscriber.email,
+          confirmedAt: result.subscriber.confirmedAt,
+        },
+      });
+    } catch (error) {
+      logger.error({ error }, 'Erro ao confirmar inscrição');
+
+      if (error instanceof Error) {
+        if (error.message === 'Token inválido ou inscrição não encontrada') {
+          res.status(404).json({ error: error.message });
+          return;
+        }
+      }
+
+      res.status(500).json({ error: 'Erro ao processar confirmação' });
+    }
+  }
+
+  /**
    * GET /api/newsletter/unsubscribe/:token
    * Cancelar inscrição (público)
    */
