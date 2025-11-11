@@ -6,8 +6,11 @@ import { Label } from "@/components/ui/label";
 import { Mail, Phone, MapPin, Linkedin, Clock } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
+const API_URL = import.meta.env.VITE_API_URL || 'https://backjennifer.roilabs.com.br/api';
+
 const Contact = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -16,9 +19,9 @@ const Contact = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Simple validation
     if (!formData.name || !formData.email || !formData.message) {
       toast({
@@ -29,19 +32,46 @@ const Contact = () => {
       return;
     }
 
-    toast({
-      title: "Mensagem enviada com sucesso!",
-      description: "Entrarei em contato em breve para agendarmos nossa sessão estratégica.",
-    });
+    setIsSubmitting(true);
 
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      company: "",
-      message: "",
-    });
+    try {
+      const response = await fetch(`${API_URL}/contacts`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erro ao enviar mensagem');
+      }
+
+      toast({
+        title: "Mensagem enviada com sucesso!",
+        description: "Entrarei em contato em breve para agendarmos nossa sessão estratégica.",
+      });
+
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error('Erro ao enviar formulário:', error);
+      toast({
+        title: "Erro ao enviar mensagem",
+        description: error instanceof Error ? error.message : "Por favor, tente novamente mais tarde.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -140,8 +170,14 @@ const Contact = () => {
                   />
                 </div>
 
-                <Button type="submit" variant="cta" size="lg" className="w-full">
-                  Enviar Mensagem
+                <Button
+                  type="submit"
+                  variant="cta"
+                  size="lg"
+                  className="w-full"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
                 </Button>
 
                 <p className="text-sm text-muted-foreground text-center">
