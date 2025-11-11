@@ -27,6 +27,7 @@ import leadRoutes from './routes/leadRoutes';
 import userRoutes from './routes/userRoutes';
 import uploadRoutes from './routes/uploadRoutes';
 import settingsRoutes from './routes/settingsRoutes';
+import commentRoutes from './routes/commentRoutes';
 import path from 'path';
 
 // Create Express app
@@ -102,6 +103,7 @@ app.use(`${env.API_PREFIX}/newsletter`, newsletterRoutes);
 app.use(`${env.API_PREFIX}/blog`, blogRoutes);
 app.use(`${env.API_PREFIX}/services`, serviceRoutes);
 app.use(`${env.API_PREFIX}/admin/upload`, uploadRoutes);
+app.use(`${env.API_PREFIX}/comments`, commentRoutes);
 app.use(`${env.API_PREFIX}`, testimonialRoutes);
 app.use(`${env.API_PREFIX}`, analyticsRoutes);
 app.use(`${env.API_PREFIX}`, leadRoutes);

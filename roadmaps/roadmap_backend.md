@@ -693,10 +693,53 @@ model Testimonial {
 
 ## Fase 11: Funcionalidades Avançadas (Futuro)
 
-### 11.1 Sistema de Comentários (Opcional)
-- [ ] Model Comment para blog posts
-- [ ] Moderação de comentários
-- [ ] Aprovação admin
+### 11.1 Sistema de Comentários ✅ **COMPLETO**
+
+- [x] Model Comment para blog posts - **IMPLEMENTADO**
+- [x] Moderação de comentários - **IMPLEMENTADO**
+- [x] Aprovação admin - **IMPLEMENTADO**
+
+**Implementação**:
+
+- **Model Comment** ([backend/prisma/schema.prisma](../backend/prisma/schema.prisma))
+  - Relação com BlogPost (cascade delete)
+  - Campos: name, email, content, status, ipAddress, userAgent
+  - Enum CommentStatus: PENDING, APPROVED, REJECTED
+  - Indexes: postId, status, createdAt, email
+- **Types e DTOs** ([backend/src/types/comment.types.ts](../backend/src/types/comment.types.ts))
+  - CreateCommentDTO, UpdateCommentDTO, ModerateCommentDTO
+  - CommentResponse, CommentListResponse, CommentStatsResponse
+  - PublicCommentResponse (sem dados sensíveis)
+  - CommentFilters e CommentListParams
+- **CommentService** ([backend/src/services/commentService.ts](../backend/src/services/commentService.ts))
+  - create() - Criar comentário público (verifica se post está publicado)
+  - findById() - Buscar por ID com dados do post
+  - findAll() - Listar com filtros avançados (postId, status, email, search, datas)
+  - findPublicByPost() - Listar comentários aprovados (público)
+  - update() - Atualizar comentário
+  - moderate() - Moderar status (aprovar/rejeitar/pending)
+  - approve() - Atalho para aprovação
+  - reject() - Atalho para rejeição
+  - delete() - Deletar comentário
+  - deleteMany() - Deletar múltiplos em lote
+  - getStats() - Estatísticas (total, pending, approved, rejected, today, week)
+  - countByPost() - Contar comentários por post
+- **CommentController** ([backend/src/controllers/commentController.ts](../backend/src/controllers/commentController.ts))
+  - Endpoints públicos: POST /comments, GET /comments/post/:postId
+  - Endpoints admin: GET /admin, GET /admin/:id, PUT /admin/:id
+  - Moderação: PATCH /admin/:id/moderate, /approve, /reject
+  - Gestão: DELETE /admin/:id, POST /admin/delete-many
+  - Stats: GET /admin/stats
+  - Captura automática de IP e User-Agent
+- **Validadores Zod** ([backend/src/validators/commentValidators.ts](../backend/src/validators/commentValidators.ts))
+  - createCommentSchema - Validação de criação pública
+  - updateCommentSchema - Validação de atualização admin
+  - moderateCommentSchema - Validação de moderação
+  - listCommentsSchema - Query params com paginação e filtros
+- **Rotas** ([backend/src/routes/commentRoutes.ts](../backend/src/routes/commentRoutes.ts))
+  - Rotas públicas com rate limiting
+  - Rotas admin protegidas (autenticação + requireAdmin)
+  - Total: 10 endpoints (2 públicos, 8 admin)
 
 ### 11.2 Campanhas de Email Marketing
 - [ ] Integração com Mailchimp/SendGrid
