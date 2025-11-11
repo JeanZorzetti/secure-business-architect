@@ -8,6 +8,7 @@ import {
   MessageSquare,
   UserCog,
   Shield,
+  Settings,
   LogOut,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -28,6 +29,7 @@ const navigation = [
   { name: 'Depoimentos', href: '/testimonials', icon: MessageSquare },
   { name: 'Meu Perfil', href: '/profile', icon: UserCog },
   { name: 'Usuários', href: '/users', icon: Shield, requireRole: UserRole.SUPER_ADMIN },
+  { name: 'Configurações', href: '/settings', icon: Settings, requireRole: UserRole.SUPER_ADMIN },
 ];
 
 export function Sidebar() {

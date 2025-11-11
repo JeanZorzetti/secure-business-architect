@@ -18,6 +18,7 @@ import analyticsRoutes from './routes/analyticsRoutes';
 import leadRoutes from './routes/leadRoutes';
 import userRoutes from './routes/userRoutes';
 import uploadRoutes from './routes/uploadRoutes';
+import settingsRoutes from './routes/settingsRoutes';
 import path from 'path';
 
 // Create Express app
@@ -87,6 +88,7 @@ app.use(`${env.API_PREFIX}`, testimonialRoutes);
 app.use(`${env.API_PREFIX}`, analyticsRoutes);
 app.use(`${env.API_PREFIX}`, leadRoutes);
 app.use(`${env.API_PREFIX}`, userRoutes);
+app.use(`${env.API_PREFIX}`, settingsRoutes);
 
 // Root endpoint
 app.get('/', (_req, res) => {

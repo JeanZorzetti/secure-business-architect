@@ -956,48 +956,73 @@ admin/
 
 ---
 
-## Fase 10: Configurações e Usuários (Semana 12)
+## Fase 10: Configurações e Usuários (Semana 12) ✅ COMPLETA
 
-### 10.1 Backend - Endpoints de Usuários
-- [ ] GET `/api/admin/users` - Listar usuários admin
-- [ ] POST `/api/admin/users` - Criar novo admin
-- [ ] PUT `/api/admin/users/:id` - Atualizar admin
-- [ ] DELETE `/api/admin/users/:id` - Deletar admin
-- [ ] PATCH `/api/admin/users/:id/toggle-active` - Ativar/desativar
-- [ ] PUT `/api/admin/profile` - Atualizar próprio perfil
-- [ ] PUT `/api/admin/profile/password` - Mudar senha
+### 10.1 Backend - Endpoints de Usuários ✅
 
-### 10.2 Frontend - Perfil do Usuário
-- [ ] Página de perfil
-- [ ] Editar informações
+- [x] GET `/api/admin/users` - Listar usuários admin
+- [x] POST `/api/admin/users` - Criar novo admin
+- [x] PUT `/api/admin/users/:id` - Atualizar admin
+- [x] DELETE `/api/admin/users/:id` - Deletar admin
+- [x] PATCH `/api/admin/users/:id/toggle-active` - Ativar/desativar
+- [x] PUT `/api/admin/profile` - Atualizar próprio perfil
+- [x] PUT `/api/admin/profile/password` - Mudar senha
+
+### 10.2 Frontend - Perfil do Usuário ✅
+
+- [x] Página de perfil
+- [x] Editar informações
   - Nome
   - Email
-  - Avatar (upload)
-- [ ] Mudar senha
-- [ ] Preferências
+  - Avatar (futuro)
+- [x] Mudar senha
+- [ ] Preferências (futuro)
   - Notificações
   - Tema (light/dark)
 
-### 10.3 Frontend - Gestão de Usuários (Super Admin)
-- [ ] Página de usuários (apenas super admin)
-- [ ] Listar usuários admin
-- [ ] Criar novo admin
+### 10.3 Frontend - Gestão de Usuários (Super Admin) ✅
+
+- [x] Página de usuários (apenas super admin)
+- [x] Listar usuários admin
+- [x] Criar novo admin
   - Nome
   - Email
   - Senha
   - Role (admin/super_admin)
-- [ ] Editar admin
-- [ ] Desativar/ativar admin
-- [ ] Deletar admin (com confirmação)
+- [x] Editar admin
+- [x] Desativar/ativar admin
+- [x] Deletar admin (com confirmação)
 
-### 10.4 Configurações Gerais
-- [ ] Página de configurações do site
-- [ ] Informações de contato (email, telefone)
-- [ ] Redes sociais (URLs)
-- [ ] SEO settings (meta description, keywords)
-- [ ] Configurações de email (SMTP)
+### 10.4 Configurações Gerais ✅
 
-**Entregável**: Gestão completa de usuários e configurações
+- [x] Página de configurações do site
+- [x] Informações de contato (email, telefone)
+- [x] Redes sociais (URLs)
+- [x] SEO settings (meta description, keywords)
+- [x] Configurações de email (SMTP)
+
+**Entregável**: ✅ Gestão completa de usuários e configurações - **COMPLETO**
+
+**Implementação**:
+
+- Backend completo com todos os endpoints de usuários e configurações
+- Types e DTOs ([backend/src/types/user.types.ts](../backend/src/types/user.types.ts), [backend/src/types/settings.types.ts](../backend/src/types/settings.types.ts))
+- Services ([backend/src/services/usersService.ts](../backend/src/services/usersService.ts), [backend/src/services/settingsService.ts](../backend/src/services/settingsService.ts))
+- Controllers ([backend/src/controllers/usersController.ts](../backend/src/controllers/usersController.ts), [backend/src/controllers/settingsController.ts](../backend/src/controllers/settingsController.ts))
+- Routes protegidas com autenticação e role-based access control
+- Frontend - tipos e API clients ([admin/src/types/user.ts](../admin/src/types/user.ts), [admin/src/api/users.ts](../admin/src/api/users.ts), [admin/src/types/settings.ts](../admin/src/types/settings.ts), [admin/src/api/settings.ts](../admin/src/api/settings.ts))
+- Página de perfil com edição de dados e troca de senha ([admin/src/pages/settings/Profile.tsx](../admin/src/pages/settings/Profile.tsx))
+- Página de gestão de usuários (super admin only) ([admin/src/pages/users/UsersList.tsx](../admin/src/pages/users/UsersList.tsx))
+- Página de configurações gerais com tabs organizadas ([admin/src/pages/settings/Settings.tsx](../admin/src/pages/settings/Settings.tsx))
+- Rotas configuradas no React Router
+- Links no menu de navegação com proteção de role
+- Model SiteSettings no Prisma com migração executada
+- CRUD completo de usuários com validações
+- Sistema de troca de senha segura
+- Configurações organizadas em 4 tabs (Empresa, Redes Sociais, SEO, Email/SMTP)
+- Máscaras de senha para campos sensíveis
+- Validações de campos obrigatórios
+- Toast notifications para feedback
 
 ---
 

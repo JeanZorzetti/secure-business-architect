@@ -27,7 +27,10 @@
       "Bash(dir /s /b adminsrcpages*.tsx 2)",
       "Bash(findstr:*)",
       "Bash(backend/uploads/.gitkeep)",
-      "Bash(backend/uploads/images/.gitkeep)"
+      "Bash(backend/uploads/images/.gitkeep)",
+      "Bash(dir /b \"c:\\Users\\jeanz\\Downloads\\secure-business-architect-main\\admin\\src\\types\" 2)",
+      "Bash(dir /b \"c:\\Users\\jeanz\\Downloads\\secure-business-architect-main\\admin\\src\\api\" 2)",
+      "Bash(if not exist \"c:\\Users\\jeanz\\Downloads\\secure-business-architect-main\\admin\\src\\pages\\users\" mkdir \"c:\\Users\\jeanz\\Downloads\\secure-business-architect-main\\admin\\src\\pages\\users\")"
     ],
     "deny": [],
     "ask": []

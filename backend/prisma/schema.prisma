@@ -269,3 +269,37 @@ model Note {
   @@index([createdAt])
   @@map("notes")
 }
+
+model SiteSettings {
+  id String @id @default("default")
+
+  // Company information
+  companyName     String?
+  companyEmail    String?
+  companyPhone    String?
+  companyAddress  String?
+
+  // Social media
+  facebook   String?
+  instagram  String?
+  linkedin   String?
+  twitter    String?
+  youtube    String?
+
+  // SEO settings
+  metaTitle       String?
+  metaDescription String?
+  metaKeywords    String[]
+
+  // Email settings (SMTP)
+  smtpHost     String?
+  smtpPort     Int?
+  smtpUser     String?
+  smtpPassword String?
+  smtpFrom     String?
+  smtpFromName String?
+
+  updatedAt DateTime @updatedAt
+
+  @@map("site_settings")
+}

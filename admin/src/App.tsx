@@ -16,6 +16,7 @@ import { BlogEditor } from './pages/blog/BlogEditor';
 import { ServicesList } from './pages/services/ServicesList';
 import TestimonialsList from './pages/testimonials/TestimonialsList';
 import { Profile } from './pages/settings/Profile';
+import { Settings } from './pages/settings/Settings';
 import { UsersList } from './pages/users/UsersList';
 import { NotFound } from './pages/NotFound';
 import { useAuthStore } from './stores/authStore';
@@ -171,6 +172,15 @@ function App() {
             element={
               <PrivateRoute>
                 <UsersList />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/settings"
+            element={
+              <PrivateRoute>
+                <Settings />
               </PrivateRoute>
             }
           />
