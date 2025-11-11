@@ -2,15 +2,15 @@
   "rewrites": [
     {
       "source": "/sitemap.xml",
-      "destination": "https://jbapi.roilabs.com.br/sitemap.xml"
+      "destination": "https://backjennifer.roilabs.com.br/sitemap.xml"
     },
     {
       "source": "/robots.txt",
-      "destination": "https://jbapi.roilabs.com.br/robots.txt"
+      "destination": "https://backjennifer.roilabs.com.br/robots.txt"
     },
     {
       "source": "/:key.txt",
-      "destination": "https://jbapi.roilabs.com.br/:key.txt"
+      "destination": "https://backjennifer.roilabs.com.br/:key.txt"
     },
     {
       "source": "/(.*)",
