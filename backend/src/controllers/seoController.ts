@@ -163,7 +163,7 @@ class SeoController {
   // Private helpers
 
   private async getPostMetaTags(slug: string) {
-    const { prisma } = await import('../config/database');
+    const prisma = (await import('../config/database')).default;
 
     const post = await prisma.blogPost.findUnique({
       where: { slug },
@@ -193,7 +193,7 @@ class SeoController {
   }
 
   private async getServiceMetaTags(slug: string) {
-    const { prisma } = await import('../config/database');
+    const prisma = (await import('../config/database')).default;
 
     const service = await prisma.service.findUnique({
       where: { slug },
@@ -215,7 +215,7 @@ class SeoController {
   }
 
   private async getPostSchema(slug: string) {
-    const { prisma } = await import('../config/database');
+    const prisma = (await import('../config/database')).default;
 
     const post = await prisma.blogPost.findUnique({
       where: { slug },
@@ -244,7 +244,7 @@ class SeoController {
   }
 
   private async getServiceSchema(slug: string) {
-    const { prisma } = await import('../config/database');
+    const prisma = (await import('../config/database')).default;
 
     const service = await prisma.service.findUnique({
       where: { slug },

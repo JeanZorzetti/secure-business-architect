@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { seoController } from '../controllers/seoController';
-import { authMiddleware } from '../middlewares/authMiddleware';
+import { authenticateToken } from '../middlewares/authMiddleware';
 
 const router = Router();
 
@@ -16,7 +16,7 @@ router.get('/api/seo/schema/:type/:identifier', seoController.getSchemaMarkup.bi
 // Admin routes - IndexNow notifications
 router.post(
   '/api/admin/seo/notify-indexnow',
-  authMiddleware,
+  authenticateToken,
   seoController.notifyIndexNow.bind(seoController)
 );
 

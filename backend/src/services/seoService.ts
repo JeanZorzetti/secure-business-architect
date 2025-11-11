@@ -1,4 +1,4 @@
-import { prisma } from '../config/database';
+import prisma from '../config/database';
 import { env } from '../config/env';
 import { logger } from '../config/logger';
 
@@ -52,7 +52,7 @@ class SeoService {
       orderBy: { order: 'asc' },
     });
 
-    urls.push(...services.map(service => ({
+    urls.push(...services.map((service: { slug: string; updatedAt: Date }) => ({
       loc: `${this.baseUrl}/servicos/${service.slug}`,
       lastmod: service.updatedAt.toISOString(),
       changefreq: 'weekly' as const,
@@ -66,7 +66,7 @@ class SeoService {
       orderBy: { publishedAt: 'desc' },
     });
 
-    urls.push(...posts.map(post => ({
+    urls.push(...posts.map((post: { slug: string; updatedAt: Date }) => ({
       loc: `${this.baseUrl}/insights/${post.slug}`,
       lastmod: post.updatedAt.toISOString(),
       changefreq: 'monthly' as const,

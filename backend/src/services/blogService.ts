@@ -8,7 +8,6 @@ import type {
   BlogStats,
 } from '../types/blog.types';
 import { seoService } from './seoService';
-import { env } from '../config/env';
 
 export class BlogService {
   /**
