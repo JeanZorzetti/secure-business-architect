@@ -33,7 +33,7 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024;
 /**
  * Validação de arquivo
  */
-const fileFilter: multer.Options['fileFilter'] = (req, file, cb) => {
+const fileFilter: multer.Options['fileFilter'] = (_req, file, cb) => {
   // Verificar tipo MIME
   if (!ALLOWED_MIME_TYPES.includes(file.mimetype)) {
     return cb(
@@ -60,10 +60,10 @@ const fileFilter: multer.Options['fileFilter'] = (req, file, cb) => {
  * Storage local (usado antes do upload para cloud)
  */
 const localStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
+  destination: (_req, _file, cb) => {
     cb(null, TEMP_DIR);
   },
-  filename: (req, file, cb) => {
+  filename: (_req, file, cb) => {
     const uniqueName = `${uuidv4()}${path.extname(file.originalname)}`;
     cb(null, uniqueName);
   },
