@@ -7,6 +7,7 @@ import env from './config/env';
 import { logger } from './config/logger';
 import prisma from './config/database';
 import { errorHandler, notFoundHandler } from './middlewares/errorHandler';
+import { schedulerService } from './services/schedulerService';
 import { apiLimiter } from './middlewares/rateLimiter';
 import authRoutes from './routes/authRoutes';
 import contactRoutes from './routes/contactRoutes';
@@ -114,6 +115,10 @@ const startServer = async () => {
     // Test database connection
     await prisma.$connect();
     logger.info('✅ Database connected successfully');
+
+    // Start scheduler for scheduled posts
+    schedulerService.start();
+    logger.info('⏰ Scheduler started for post publishing');
 
     // Start server
     app.listen(PORT, () => {

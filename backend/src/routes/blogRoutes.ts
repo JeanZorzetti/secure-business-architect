@@ -49,4 +49,25 @@ router.patch('/admin/posts/:id/unpublish', authenticateToken, requireAdmin, blog
 // DELETE /api/admin/blog/posts/:id - Deletar post
 router.delete('/admin/posts/:id', authenticateToken, requireAdmin, blogController.delete.bind(blogController));
 
+// POST /api/admin/blog/posts/:id/autosave - Auto-save de rascunho
+router.post('/admin/posts/:id/autosave', authenticateToken, requireAdmin, blogController.autoSave.bind(blogController));
+
+// POST /api/admin/blog/posts/autosave - Criar ou atualizar rascunho automático
+router.post('/admin/posts/autosave', authenticateToken, requireAdmin, blogController.createOrUpdateAutoDraft.bind(blogController));
+
+// DELETE /api/admin/blog/posts/autosave/cleanup - Limpar rascunhos antigos
+router.delete('/admin/posts/autosave/cleanup', authenticateToken, requireAdmin, blogController.cleanOldAutoDrafts.bind(blogController));
+
+// POST /api/admin/blog/posts/preview - Gerar preview
+router.post('/admin/posts/preview', authenticateToken, requireAdmin, blogController.generatePreview.bind(blogController));
+
+// GET /api/admin/blog/posts/scheduled - Listar posts agendados
+router.get('/admin/posts/scheduled', authenticateToken, requireAdmin, blogController.getScheduledPosts.bind(blogController));
+
+// POST /api/admin/blog/posts/:id/schedule - Agendar publicação
+router.post('/admin/posts/:id/schedule', authenticateToken, requireAdmin, blogController.schedulePost.bind(blogController));
+
+// DELETE /api/admin/blog/posts/:id/schedule - Cancelar agendamento
+router.delete('/admin/posts/:id/schedule', authenticateToken, requireAdmin, blogController.cancelSchedule.bind(blogController));
+
 export default router;

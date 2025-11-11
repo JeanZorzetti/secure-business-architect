@@ -335,6 +335,185 @@ export class BlogService {
       thisMonth,
     };
   }
+
+  /**
+   * Auto-save de rascunho
+   * Salva o conteúdo atual sem publicar
+   */
+  async autoSave(id: string, data: Partial<UpdateBlogPostDTO>) {
+    const post = await this.findById(id);
+
+    // Salvar dados no autoDraftData para histórico
+    const updated = await prisma.blogPost.update({
+      where: { id },
+      data: {
+        ...data,
+        isAutoDraft: true,
+        lastAutoSaveAt: new Date(),
+        autoDraftData: {
+          ...data,
+          savedAt: new Date().toISOString(),
+        },
+      },
+    });
+
+    return {
+      message: 'Rascunho salvo automaticamente',
+      post: updated,
+      lastAutoSaveAt: updated.lastAutoSaveAt,
+    };
+  }
+
+  /**
+   * Criar ou atualizar rascunho automático
+   * Se não existir post, cria um novo com isAutoDraft
+   */
+  async createOrUpdateAutoDraft(data: Partial<CreateBlogPostDTO>, id?: string) {
+    if (id) {
+      // Atualizar rascunho existente
+      return await this.autoSave(id, data);
+    }
+
+    // Criar novo rascunho automático
+    const slug = await this.generateSlug(data.title || 'untitled-draft');
+
+    const post = await prisma.blogPost.create({
+      data: {
+        title: data.title || 'Untitled Draft',
+        slug,
+        excerpt: data.excerpt || '',
+        content: data.content || '',
+        coverImage: data.coverImage,
+        author: data.author || 'Unknown',
+        category: data.category || 'Uncategorized',
+        tags: data.tags || [],
+        status: PostStatus.DRAFT,
+        isAutoDraft: true,
+        lastAutoSaveAt: new Date(),
+        autoDraftData: {
+          ...data,
+          savedAt: new Date().toISOString(),
+        },
+      },
+    });
+
+    return {
+      message: 'Rascunho automático criado',
+      post,
+    };
+  }
+
+  /**
+   * Limpar rascunhos automáticos antigos
+   * Remove rascunhos automáticos não editados há mais de X dias
+   */
+  async cleanOldAutoDrafts(daysOld = 30) {
+    const cutoffDate = new Date();
+    cutoffDate.setDate(cutoffDate.getDate() - daysOld);
+
+    const deleted = await prisma.blogPost.deleteMany({
+      where: {
+        isAutoDraft: true,
+        lastAutoSaveAt: {
+          lt: cutoffDate,
+        },
+      },
+    });
+
+    return {
+      message: `${deleted.count} rascunhos antigos deletados`,
+      count: deleted.count,
+    };
+  }
+
+  /**
+   * Gerar preview de post
+   * Retorna dados do post com slug temporário para preview
+   */
+  async generatePreview(data: CreateBlogPostDTO | UpdateBlogPostDTO, id?: string) {
+    let slug: string;
+
+    if ('title' in data && data.title) {
+      slug = await this.generateSlug(data.title, id);
+    } else {
+      slug = 'preview-' + Date.now();
+    }
+
+    return {
+      ...data,
+      slug,
+      previewUrl: `/blog/preview/${slug}`,
+      isPreview: true,
+    };
+  }
+
+  /**
+   * Agendar publicação de post
+   */
+  async schedulePost(id: string, scheduledFor: Date) {
+    const post = await this.findById(id);
+
+    // Validar que a data é futura
+    if (scheduledFor <= new Date()) {
+      throw new Error('Data de agendamento deve ser no futuro');
+    }
+
+    // Apenas posts em DRAFT podem ser agendados
+    if (post.status !== PostStatus.DRAFT) {
+      throw new Error('Apenas rascunhos podem ser agendados');
+    }
+
+    const scheduled = await prisma.blogPost.update({
+      where: { id },
+      data: {
+        scheduledFor,
+      },
+    });
+
+    return {
+      message: 'Post agendado para publicação',
+      post: scheduled,
+      scheduledFor: scheduled.scheduledFor,
+    };
+  }
+
+  /**
+   * Cancelar agendamento de post
+   */
+  async cancelSchedule(id: string) {
+    await this.findById(id);
+
+    const updated = await prisma.blogPost.update({
+      where: { id },
+      data: {
+        scheduledFor: null,
+      },
+    });
+
+    return {
+      message: 'Agendamento cancelado',
+      post: updated,
+    };
+  }
+
+  /**
+   * Listar posts agendados
+   */
+  async getScheduledPosts() {
+    const posts = await prisma.blogPost.findMany({
+      where: {
+        status: PostStatus.DRAFT,
+        scheduledFor: {
+          not: null,
+        },
+      },
+      orderBy: {
+        scheduledFor: 'asc',
+      },
+    });
+
+    return posts;
+  }
 }
 
 export const blogService = new BlogService();

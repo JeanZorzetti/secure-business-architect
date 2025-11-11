@@ -309,6 +309,159 @@ export class BlogController {
       res.status(500).json({ error: 'Erro ao buscar estatísticas' });
     }
   }
+
+  /**
+   * POST /api/admin/blog/posts/:id/autosave
+   * Auto-save de rascunho (admin)
+   */
+  async autoSave(req: Request, res: Response): Promise<void> {
+    try {
+      const { id } = req.params;
+      const data = req.body;
+
+      const result = await blogService.autoSave(id, data);
+
+      res.json(result);
+    } catch (error) {
+      logger.error({ error }, 'Erro ao auto-salvar rascunho');
+
+      if (error instanceof Error && error.message === 'Post não encontrado') {
+        res.status(404).json({ error: error.message });
+        return;
+      }
+
+      res.status(500).json({ error: 'Erro ao auto-salvar rascunho' });
+    }
+  }
+
+  /**
+   * POST /api/admin/blog/posts/autosave
+   * Criar ou atualizar rascunho automático (admin)
+   */
+  async createOrUpdateAutoDraft(req: Request, res: Response): Promise<void> {
+    try {
+      const data = req.body;
+      const { id } = req.query;
+
+      const result = await blogService.createOrUpdateAutoDraft(data, id as string);
+
+      res.status(id ? 200 : 201).json(result);
+    } catch (error) {
+      logger.error({ error }, 'Erro ao criar/atualizar rascunho automático');
+      res.status(500).json({ error: 'Erro ao processar rascunho automático' });
+    }
+  }
+
+  /**
+   * DELETE /api/admin/blog/posts/autosave/cleanup
+   * Limpar rascunhos automáticos antigos (admin)
+   */
+  async cleanOldAutoDrafts(req: Request, res: Response): Promise<void> {
+    try {
+      const { daysOld = 30 } = req.query;
+
+      const result = await blogService.cleanOldAutoDrafts(Number(daysOld));
+
+      logger.info({ count: result.count }, 'Rascunhos antigos limpos');
+      res.json(result);
+    } catch (error) {
+      logger.error({ error }, 'Erro ao limpar rascunhos antigos');
+      res.status(500).json({ error: 'Erro ao limpar rascunhos antigos' });
+    }
+  }
+
+  /**
+   * POST /api/admin/blog/posts/preview
+   * Gerar preview de post (admin)
+   */
+  async generatePreview(req: Request, res: Response): Promise<void> {
+    try {
+      const data = req.body;
+      const { id } = req.query;
+
+      const preview = await blogService.generatePreview(data, id as string);
+
+      res.json(preview);
+    } catch (error) {
+      logger.error({ error }, 'Erro ao gerar preview');
+      res.status(500).json({ error: 'Erro ao gerar preview' });
+    }
+  }
+
+  /**
+   * POST /api/admin/blog/posts/:id/schedule
+   * Agendar publicação de post (admin)
+   */
+  async schedulePost(req: Request, res: Response): Promise<void> {
+    try {
+      const { id } = req.params;
+      const { scheduledFor } = req.body;
+
+      if (!scheduledFor) {
+        res.status(400).json({ error: 'scheduledFor é obrigatório' });
+        return;
+      }
+
+      const result = await blogService.schedulePost(id, new Date(scheduledFor));
+
+      logger.info({ postId: id, scheduledFor }, 'Post agendado');
+      res.json(result);
+    } catch (error) {
+      logger.error({ error }, 'Erro ao agendar post');
+
+      if (error instanceof Error) {
+        if (
+          error.message === 'Post não encontrado' ||
+          error.message === 'Data de agendamento deve ser no futuro' ||
+          error.message === 'Apenas rascunhos podem ser agendados'
+        ) {
+          res.status(400).json({ error: error.message });
+          return;
+        }
+      }
+
+      res.status(500).json({ error: 'Erro ao agendar post' });
+    }
+  }
+
+  /**
+   * DELETE /api/admin/blog/posts/:id/schedule
+   * Cancelar agendamento de post (admin)
+   */
+  async cancelSchedule(req: Request, res: Response): Promise<void> {
+    try {
+      const { id } = req.params;
+
+      const result = await blogService.cancelSchedule(id);
+
+      logger.info({ postId: id }, 'Agendamento cancelado');
+      res.json(result);
+    } catch (error) {
+      logger.error({ error }, 'Erro ao cancelar agendamento');
+
+      if (error instanceof Error && error.message === 'Post não encontrado') {
+        res.status(404).json({ error: error.message });
+        return;
+      }
+
+      res.status(500).json({ error: 'Erro ao cancelar agendamento' });
+    }
+  }
+
+  /**
+   * GET /api/admin/blog/posts/scheduled
+   * Listar posts agendados (admin)
+   */
+  async getScheduledPosts(_req: Request, res: Response): Promise<void> {
+    try {
+      const posts = await blogService.getScheduledPosts();
+
+      res.json({ posts, total: posts.length });
+    } catch (error) {
+      logger.error({ error }, 'Erro ao buscar posts agendados');
+      res.status(500).json({ error: 'Erro ao buscar posts agendados' });
+    }
+  }
 }
 
 export const blogController = new BlogController();
