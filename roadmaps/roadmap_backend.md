@@ -502,7 +502,7 @@ model Testimonial {
 
 ## Fase 8: Analytics e Métricas (Semana 10) ✅
 
-### 8.1 Rastreamento Básico ✅
+### 8.1 Rastreamento Básico ✅ **COMPLETO**
 - [x] Model Analytics (views, events) - já existe no schema
 - [x] Endpoint POST `/api/analytics/track` - Registrar evento (público) - funcionando
 - [x] Endpoint GET `/api/admin/analytics/overview` - Visão geral de métricas - funcionando
@@ -511,7 +511,7 @@ model Testimonial {
   - Total de inscritos na newsletter
   - Total de posts publicados
   - Métricas do mês atual (contatos, inscritos, posts, visualizações)
-- [ ] Middleware de tracking automático - não implementado (tracking manual via endpoint)
+- [x] Middleware de tracking automático - **IMPLEMENTADO**
 
 ### 8.2 Dashboard Admin ✅
 - [x] GET `/api/admin/analytics/overview` - Estatísticas gerais - funcionando
@@ -526,11 +526,11 @@ model Testimonial {
 - [x] GET `/api/admin/analytics/events` - Buscar eventos com filtros - funcionando
   - Filtros: startDate, endDate, event, entityType
 
-### 8.3 Logs e Monitoramento ✅ Parcial
+### 8.3 Logs e Monitoramento ✅ **COMPLETO**
 - [x] Logs estruturados - Pino já configurado desde fase inicial
 - [x] Error logging em todos os serviços
-- [ ] Log rotation - não implementado (configurar no ambiente de produção)
-- [ ] Error tracking (Sentry) - não implementado (opcional)
+- [x] Log rotation - **IMPLEMENTADO** (pino-roll com rotação diária)
+- [x] Error tracking (Sentry) - **IMPLEMENTADO** (opcional, ativado via SENTRY_DSN)
 
 **Entregável**: ✅ Sistema básico de analytics - **COMPLETO**
 
@@ -545,6 +545,32 @@ model Testimonial {
 - Agregação de dados por período
 - Tendências com preenchimento de dias sem dados (zeros)
 - Limite de segurança de 1000 eventos por query
+- **Middleware de Tracking Automático** ([backend/src/middlewares/trackingMiddleware.ts](../backend/src/middlewares/trackingMiddleware.ts))
+  - Tracking assíncrono (não bloqueia resposta)
+  - Captura automática de page views em rotas públicas
+  - Detecção inteligente de tipo de evento (blog_post_view, service_view, etc.)
+  - Ignora rotas admin, assets e arquivos estáticos
+  - Captura IP, User-Agent, Referrer e metadata da requisição
+  - Factory function para tracking customizado por rota
+- **Log Rotation com Pino-Roll** ([backend/src/config/logger.ts](../backend/src/config/logger.ts))
+  - Rotação diária automática de logs em produção
+  - Arquivos salvos em ./logs/app.log
+  - Máximo de 10 arquivos mantidos (10 dias de histórico)
+  - Tamanho máximo por arquivo: 10MB
+  - Formato: app.log.YYYY-MM-DD
+  - Development: pino-pretty com output colorido
+  - Production: pino-roll com arquivos JSON
+- **Sentry Error Tracking** ([backend/src/config/sentry.ts](../backend/src/config/sentry.ts))
+  - Integração opcional (ativada via SENTRY_DSN)
+  - Captura automática de erros 500+
+  - Performance monitoring com sampling configurável
+  - Profiling com @sentry/profiling-node
+  - Filtros de dados sensíveis (passwords, tokens, API keys)
+  - Context tracking (user, http, custom)
+  - Breadcrumbs para rastreamento de eventos
+  - Ignorar erros comuns (network, timeouts, rate limits)
+  - Funções helpers: captureException, captureMessage, setUserContext
+  - Variáveis de ambiente: SENTRY_DSN, SENTRY_ENVIRONMENT, SENTRY_TRACES_SAMPLE_RATE, SENTRY_PROFILES_SAMPLE_RATE
 
 ---
 

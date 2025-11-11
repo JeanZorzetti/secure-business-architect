@@ -58,6 +58,12 @@ const envSchema = z.object({
   // Logging
   LOG_LEVEL: z.string().default('info'),
 
+  // Sentry (Optional)
+  SENTRY_DSN: z.string().optional(),
+  SENTRY_ENVIRONMENT: z.string().optional(),
+  SENTRY_TRACES_SAMPLE_RATE: z.string().transform(Number).optional(),
+  SENTRY_PROFILES_SAMPLE_RATE: z.string().transform(Number).optional(),
+
   // Security
   BCRYPT_ROUNDS: z.string().transform(Number).default('10'),
 

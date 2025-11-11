@@ -9,6 +9,13 @@ import prisma from './config/database';
 import { errorHandler, notFoundHandler } from './middlewares/errorHandler';
 import { schedulerService } from './services/schedulerService';
 import { apiLimiter } from './middlewares/rateLimiter';
+import { trackingMiddleware } from './middlewares/trackingMiddleware';
+import {
+  initSentry,
+  sentryRequestHandler,
+  sentryTracingHandler,
+  sentryErrorHandler,
+} from './config/sentry';
 import authRoutes from './routes/authRoutes';
 import contactRoutes from './routes/contactRoutes';
 import newsletterRoutes from './routes/newsletterRoutes';
@@ -24,6 +31,13 @@ import path from 'path';
 
 // Create Express app
 const app: Application = express();
+
+// Initialize Sentry (must be first!)
+initSentry();
+
+// Sentry request handler (must be before all other handlers)
+app.use(sentryRequestHandler());
+app.use(sentryTracingHandler());
 
 // Trust proxy (for rate limiting behind reverse proxy)
 app.set('trust proxy', 1);
@@ -68,6 +82,9 @@ app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 // Apply general rate limiting to all API routes
 app.use(env.API_PREFIX, apiLimiter);
 
+// Apply automatic tracking middleware to all routes
+app.use(trackingMiddleware);
+
 // Health check endpoint (no rate limit)
 app.get('/health', (_req, res) => {
   res.status(200).json({
@@ -103,6 +120,9 @@ app.get('/', (_req, res) => {
 
 // 404 handler
 app.use(notFoundHandler);
+
+// Sentry error handler (must be before errorHandler but after routes)
+app.use(sentryErrorHandler());
 
 // Error handler (must be last)
 app.use(errorHandler);
