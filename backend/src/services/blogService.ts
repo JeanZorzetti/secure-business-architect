@@ -7,6 +7,8 @@ import type {
   PaginatedBlogPosts,
   BlogStats,
 } from '../types/blog.types';
+import { seoService } from './seoService';
+import { env } from '../config/env';
 
 export class BlogService {
   /**
@@ -72,6 +74,14 @@ export class BlogService {
         publishedAt,
       },
     });
+
+    // Notificar IndexNow se publicado
+    if (status === PostStatus.PUBLISHED) {
+      const postUrl = `/insights/${slug}`;
+      await seoService.notifyIndexNow(postUrl).catch(() => {
+        // Ignore IndexNow errors, não deve bloquear a criação do post
+      });
+    }
 
     return post;
   }
@@ -203,6 +213,14 @@ export class BlogService {
       },
     });
 
+    // Notificar IndexNow se publicado
+    if (status === PostStatus.PUBLISHED) {
+      const postUrl = `/insights/${slug}`;
+      await seoService.notifyIndexNow(postUrl).catch(() => {
+        // Ignore IndexNow errors
+      });
+    }
+
     return updated;
   }
 
@@ -222,6 +240,12 @@ export class BlogService {
         status: PostStatus.PUBLISHED,
         publishedAt: new Date(),
       },
+    });
+
+    // Notificar IndexNow
+    const postUrl = `/insights/${published.slug}`;
+    await seoService.notifyIndexNow(postUrl).catch(() => {
+      // Ignore IndexNow errors
     });
 
     return { message: 'Post publicado com sucesso', post: published };

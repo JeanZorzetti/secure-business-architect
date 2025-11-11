@@ -28,6 +28,7 @@ import userRoutes from './routes/userRoutes';
 import uploadRoutes from './routes/uploadRoutes';
 import settingsRoutes from './routes/settingsRoutes';
 import commentRoutes from './routes/commentRoutes';
+import seoRoutes from './routes/seoRoutes';
 import path from 'path';
 
 // Create Express app
@@ -109,6 +110,9 @@ app.use(`${env.API_PREFIX}`, analyticsRoutes);
 app.use(`${env.API_PREFIX}`, leadRoutes);
 app.use(`${env.API_PREFIX}`, userRoutes);
 app.use(`${env.API_PREFIX}`, settingsRoutes);
+
+// SEO routes (some at root level for sitemap.xml, robots.txt)
+app.use('/', seoRoutes);
 
 // Root endpoint
 app.get('/', (_req, res) => {

@@ -748,14 +748,17 @@ model Testimonial {
 - [ ] Tracking de abertura/cliques
 
 ### 11.3 Multi-idioma (i18n)
+
 - [ ] Suporte a português e inglês
 - [ ] Conteúdo traduzido no banco
 
-### 11.4 SEO Avançado
-- [ ] Sitemap.xml dinâmico
-- [ ] Robots.txt
-- [ ] Meta tags dinâmicas por página
-- [ ] Schema.org markup
+### 11.4 SEO Avançado ✅
+
+- [x] Sitemap.xml dinâmico - endpoint `/sitemap.xml`
+- [x] Robots.txt - endpoint `/robots.txt`
+- [x] Meta tags dinâmicas por página - endpoints `/api/seo/meta/:type/:identifier`
+- [x] Schema.org markup - endpoints `/api/seo/schema/:type/:identifier`
+- [x] IndexNow integration - notificação automática de search engines em updates
 
 ### 11.5 Webhooks
 - [ ] Sistema de webhooks para integrações externas

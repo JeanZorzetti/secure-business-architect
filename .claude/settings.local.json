@@ -35,7 +35,8 @@
       "Bash(npx prisma generate:*)",
       "Bash(ssh:*)",
       "Bash(bash:*)",
-      "Bash(vercel.json)"
+      "Bash(vercel.json)",
+      "Bash(dir:*)"
     ],
     "deny": [],
     "ask": []

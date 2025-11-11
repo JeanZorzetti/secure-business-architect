@@ -70,6 +70,10 @@ const envSchema = z.object({
   // URLs
   FRONTEND_URL: z.string().url('FRONTEND_URL must be valid URL'),
   BACKEND_URL: z.string().url('BACKEND_URL must be valid URL'),
+
+  // IndexNow (Optional)
+  INDEXNOW_ENABLED: z.string().transform((v) => v === 'true').default('true'),
+  INDEXNOW_KEY: z.string().optional(),
 });
 
 // Parse and validate environment variables
