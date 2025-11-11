@@ -922,7 +922,18 @@ admin/
   - Status badge
   - Botões de ação (Publicar/Despublicar, Editar, Deletar)
 - [x] Estado vazio com mensagem e botão de ação
-- [ ] Drag & drop para reordenar - não implementado (estrutura pronta com GripVertical)
+- [x] Drag & drop para reordenar ✅
+
+  **Drag & Drop com @dnd-kit:**
+
+  - Componente SortableTestimonialItem com useSortable hook
+  - DndContext com sensores de mouse e teclado
+  - SortableContext com estratégia de grid (rectSortingStrategy)
+  - Atualização otimista da ordem na UI
+  - Sincronização automática com backend via mutation
+  - Reversão automática em caso de erro
+  - Feedback visual durante o arrasto (opacity 50%)
+  - Suporte para grid responsivo (1-2-3 colunas)
 
 **Entregável**: ✅ Gestão de depoimentos funcionando - **COMPLETO**
 
@@ -941,6 +952,7 @@ admin/
 - Toast notifications para feedback
 - Rota `/testimonials` configurada
 - Cards em grid responsivo (1-2-3 colunas)
+- Drag & drop para reordenação com @dnd-kit
 
 ---
 

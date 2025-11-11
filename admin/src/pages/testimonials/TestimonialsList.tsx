@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { testimonialsApi } from '../../api/testimonials';
@@ -29,6 +29,128 @@ import { Label } from '../../components/ui/label';
 import { Textarea } from '../../components/ui/textarea';
 import { Plus, Pencil, Trash2, Star, GripVertical } from 'lucide-react';
 import { toast } from 'sonner';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  rectSortingStrategy,
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+
+// Componente Sortable para cada depoimento
+interface SortableTestimonialItemProps {
+  testimonial: Testimonial;
+  onEdit: (testimonial: Testimonial) => void;
+  onDelete: (id: string) => void;
+  onTogglePublish: (id: string) => void;
+  renderStars: (rating: number) => React.ReactElement;
+}
+
+function SortableTestimonialItem({
+  testimonial,
+  onEdit,
+  onDelete,
+  onTogglePublish,
+  renderStars,
+}: SortableTestimonialItemProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: testimonial.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <Card ref={setNodeRef} style={style} className="relative">
+      <CardHeader>
+        <div className="flex items-start justify-between">
+          <div className="flex items-center gap-3 flex-1">
+            <div {...attributes} {...listeners} className="cursor-move touch-none">
+              <GripVertical className="h-5 w-5 text-muted-foreground" />
+            </div>
+            {testimonial.avatar ? (
+              <img
+                src={testimonial.avatar}
+                alt={testimonial.clientName}
+                className="h-12 w-12 rounded-full object-cover"
+              />
+            ) : (
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <span className="text-lg font-semibold text-primary">
+                  {testimonial.clientName.charAt(0).toUpperCase()}
+                </span>
+              </div>
+            )}
+            <div className="flex-1 min-w-0">
+              <CardTitle className="text-lg truncate">
+                {testimonial.clientName}
+              </CardTitle>
+              {testimonial.clientRole && (
+                <CardDescription className="truncate">
+                  {testimonial.clientRole}
+                </CardDescription>
+              )}
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center justify-between mt-2">
+          {renderStars(testimonial.rating)}
+          <Badge variant={testimonial.isPublished ? 'default' : 'secondary'}>
+            {testimonial.isPublished ? 'Publicado' : 'Não Publicado'}
+          </Badge>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <p className="text-sm text-muted-foreground line-clamp-4 mb-4">
+          {testimonial.content}
+        </p>
+        <div className="flex gap-2 flex-wrap">
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => onTogglePublish(testimonial.id)}
+          >
+            {testimonial.isPublished ? 'Despublicar' : 'Publicar'}
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => onEdit(testimonial)}
+          >
+            <Pencil className="h-4 w-4 mr-1" />
+            Editar
+          </Button>
+          <Button
+            size="sm"
+            variant="destructive"
+            onClick={() => onDelete(testimonial.id)}
+          >
+            <Trash2 className="h-4 w-4 mr-1" />
+            Deletar
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
 
 export default function TestimonialsList() {
   const queryClient = useQueryClient();
@@ -36,6 +158,7 @@ export default function TestimonialsList() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedTestimonial, setSelectedTestimonial] = useState<Testimonial | null>(null);
   const [testimonialToDelete, setTestimonialToDelete] = useState<string | null>(null);
+  const [localTestimonials, setLocalTestimonials] = useState<Testimonial[]>([]);
 
   const [formData, setFormData] = useState<CreateTestimonialDTO>({
     clientName: '',
@@ -45,11 +168,26 @@ export default function TestimonialsList() {
     avatar: '',
   });
 
+  // Configurar sensores para drag & drop
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
   // Query para buscar todos os depoimentos
   const { data: testimonials, isLoading } = useQuery<Testimonial[]>({
     queryKey: ['testimonials'],
     queryFn: () => testimonialsApi.getAll(),
   });
+
+  // Sincronizar localTestimonials com testimonials do servidor
+  useEffect(() => {
+    if (testimonials) {
+      setLocalTestimonials(testimonials);
+    }
+  }, [testimonials]);
 
   // Mutation para criar depoimento
   const createMutation = useMutation({
@@ -107,6 +245,48 @@ export default function TestimonialsList() {
       toast.error('Erro ao alterar status de publicação');
     },
   });
+
+  // Mutation para reordenar depoimentos
+  const reorderMutation = useMutation({
+    mutationFn: (reorderedTestimonials: Testimonial[]) => {
+      const testimonialsData = reorderedTestimonials.map((testimonial, index) => ({
+        id: testimonial.id,
+        order: index,
+      }));
+      return testimonialsApi.reorder(testimonialsData);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['testimonials'] });
+      toast.success('Ordem atualizada com sucesso!');
+    },
+    onError: () => {
+      toast.error('Erro ao atualizar ordem. Tente novamente.');
+      // Reverter para a ordem original em caso de erro
+      if (testimonials) {
+        setLocalTestimonials(testimonials);
+      }
+    },
+  });
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (!over || active.id === over.id) {
+      return;
+    }
+
+    setLocalTestimonials((items) => {
+      const oldIndex = items.findIndex((item) => item.id === active.id);
+      const newIndex = items.findIndex((item) => item.id === over.id);
+
+      const newOrder = arrayMove(items, oldIndex, newIndex);
+
+      // Chamar API para atualizar ordem no backend
+      reorderMutation.mutate(newOrder);
+
+      return newOrder;
+    });
+  };
 
   const resetForm = () => {
     setFormData({
@@ -235,7 +415,7 @@ export default function TestimonialsList() {
         </Button>
       </div>
 
-      {testimonials && testimonials.length === 0 ? (
+      {localTestimonials.length === 0 ? (
         <Card>
           <CardContent className="flex flex-col items-center justify-center py-16">
             <Star className="h-12 w-12 text-muted-foreground mb-4" />
@@ -250,78 +430,29 @@ export default function TestimonialsList() {
           </CardContent>
         </Card>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {testimonials?.map((testimonial) => (
-            <Card key={testimonial.id} className="relative">
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3 flex-1">
-                    <GripVertical className="h-5 w-5 text-muted-foreground cursor-move" />
-                    {testimonial.avatar ? (
-                      <img
-                        src={testimonial.avatar}
-                        alt={testimonial.clientName}
-                        className="h-12 w-12 rounded-full object-cover"
-                      />
-                    ) : (
-                      <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
-                        <span className="text-lg font-semibold text-primary">
-                          {testimonial.clientName.charAt(0).toUpperCase()}
-                        </span>
-                      </div>
-                    )}
-                    <div className="flex-1 min-w-0">
-                      <CardTitle className="text-lg truncate">
-                        {testimonial.clientName}
-                      </CardTitle>
-                      {testimonial.clientRole && (
-                        <CardDescription className="truncate">
-                          {testimonial.clientRole}
-                        </CardDescription>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center justify-between mt-2">
-                  {renderStars(testimonial.rating)}
-                  <Badge variant={testimonial.isPublished ? 'default' : 'secondary'}>
-                    {testimonial.isPublished ? 'Publicado' : 'Não Publicado'}
-                  </Badge>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground line-clamp-4 mb-4">
-                  {testimonial.content}
-                </p>
-                <div className="flex gap-2 flex-wrap">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => handleTogglePublish(testimonial.id)}
-                  >
-                    {testimonial.isPublished ? 'Despublicar' : 'Publicar'}
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => handleOpenDialog(testimonial)}
-                  >
-                    <Pencil className="h-4 w-4 mr-1" />
-                    Editar
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="destructive"
-                    onClick={() => handleDelete(testimonial.id)}
-                  >
-                    <Trash2 className="h-4 w-4 mr-1" />
-                    Deletar
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext
+            items={localTestimonials.map((t) => t.id)}
+            strategy={rectSortingStrategy}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {localTestimonials.map((testimonial) => (
+                <SortableTestimonialItem
+                  key={testimonial.id}
+                  testimonial={testimonial}
+                  onEdit={handleOpenDialog}
+                  onDelete={handleDelete}
+                  onTogglePublish={handleTogglePublish}
+                  renderStars={renderStars}
+                />
+              ))}
+            </div>
+          </SortableContext>
+        </DndContext>
       )}
 
       {/* Dialog de Criar/Editar */}
