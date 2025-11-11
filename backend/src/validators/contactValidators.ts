@@ -6,7 +6,7 @@ export const createContactSchema = z.object({
   email: z.string().email('Email inválido'),
   phone: z.string().optional(),
   company: z.string().max(100).optional(),
-  message: z.string().min(10, 'Mensagem deve ter no mínimo 10 caracteres').max(1000),
+  message: z.string().min(1, 'Mensagem é obrigatória').max(1000),
 });
 
 export const updateContactSchema = z.object({
