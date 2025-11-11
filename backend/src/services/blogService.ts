@@ -341,7 +341,7 @@ export class BlogService {
    * Salva o conteúdo atual sem publicar
    */
   async autoSave(id: string, data: Partial<UpdateBlogPostDTO>) {
-    const post = await this.findById(id);
+    await this.findById(id); // Valida que o post existe
 
     // Salvar dados no autoDraftData para histórico
     const updated = await prisma.blogPost.update({
@@ -353,7 +353,7 @@ export class BlogService {
         autoDraftData: {
           ...data,
           savedAt: new Date().toISOString(),
-        },
+        } as any,
       },
     });
 
