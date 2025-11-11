@@ -857,7 +857,7 @@ admin/
 - [x] Preview completo no card (título, descrição, benefícios, status)
 - [x] Badge de status (Ativo/Inativo)
 - [x] Ícone drag handle para reordenação futura
-- [ ] Drag & drop para reordenar - não implementado (funcionalidade básica pronta)
+- [x] Drag & drop para reordenar ✅
 
 **Entregável**: ✅ Gestão de serviços funcionando - **COMPLETO**
 
@@ -875,6 +875,15 @@ admin/
 - Toast notifications para feedback
 - Rota `/services` configurada
 - Cards com preview visual completo
+- **Drag & Drop com @dnd-kit:**
+  - Instalado @dnd-kit/core, @dnd-kit/sortable, @dnd-kit/utilities
+  - Componente SortableServiceItem com useSortable hook
+  - DndContext com sensores de mouse e teclado
+  - SortableContext com estratégia vertical
+  - Atualização otimista da ordem na UI
+  - Sincronização automática com backend via mutation
+  - Reversão automática em caso de erro
+  - Feedback visual durante o arrasto (opacity 50%)
 
 ---
 
