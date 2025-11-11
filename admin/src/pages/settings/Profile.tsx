@@ -19,8 +19,20 @@ import {
   Save,
   Camera,
   X,
+  Bell,
+  Moon,
+  Sun,
+  Monitor,
 } from 'lucide-react';
-import type { UpdateProfileDTO, ChangePasswordDTO } from '@/types/user';
+import { Switch } from '@/components/ui/switch';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import type { UpdateProfileDTO, ChangePasswordDTO, UserPreferences } from '@/types/user';
 import { toast } from 'sonner';
 
 export function Profile() {
@@ -31,6 +43,16 @@ export function Profile() {
   const [profileForm, setProfileForm] = useState<UpdateProfileDTO>({
     name: '',
     email: '',
+  });
+
+  // Preferences state
+  const [preferences, setPreferences] = useState<UserPreferences>({
+    theme: 'system',
+    notifications: {
+      email: true,
+      push: false,
+      newsletter: true,
+    },
   });
 
   // Password form state
@@ -56,6 +78,17 @@ export function Profile() {
         email: profile.email,
       });
       setAvatarPreview(profile.avatar || null);
+
+      if (profile.preferences) {
+        setPreferences({
+          theme: profile.preferences.theme || 'system',
+          notifications: {
+            email: profile.preferences.notifications?.email ?? true,
+            push: profile.preferences.notifications?.push ?? false,
+            newsletter: profile.preferences.notifications?.newsletter ?? true,
+          },
+        });
+      }
     }
   }, [profile]);
 
@@ -139,6 +172,7 @@ export function Profile() {
       updateProfileMutation.mutate({
         ...profileForm,
         avatar: avatarUrl,
+        preferences,
       });
     }
   };
@@ -388,6 +422,134 @@ export function Profile() {
                     )}
                   </Button>
                 </form>
+              </div>
+
+              <Separator />
+
+              {/* Preferences Section */}
+              <div>
+                <h2 className="text-xl font-semibold mb-1">Preferências</h2>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Configure suas preferências de tema e notificações
+                </p>
+
+                <div className="space-y-6">
+                  {/* Theme Selector */}
+                  <div className="space-y-3">
+                    <Label>Tema de Interface</Label>
+                    <Select
+                      value={preferences.theme}
+                      onValueChange={(value: 'light' | 'dark' | 'system') =>
+                        setPreferences((prev) => ({ ...prev, theme: value }))
+                      }
+                    >
+                      <SelectTrigger className="w-full md:w-64">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="light">
+                          <div className="flex items-center gap-2">
+                            <Sun className="h-4 w-4" />
+                            <span>Claro</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="dark">
+                          <div className="flex items-center gap-2">
+                            <Moon className="h-4 w-4" />
+                            <span>Escuro</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="system">
+                          <div className="flex items-center gap-2">
+                            <Monitor className="h-4 w-4" />
+                            <span>Sistema</span>
+                          </div>
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <p className="text-xs text-muted-foreground">
+                      Escolha o tema de aparência da interface
+                    </p>
+                  </div>
+
+                  {/* Notifications */}
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2">
+                      <Bell className="h-5 w-5" />
+                      <Label className="text-base">Notificações</Label>
+                    </div>
+
+                    <div className="space-y-3 ml-7">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="font-medium">Email</p>
+                          <p className="text-sm text-muted-foreground">
+                            Receber notificações por email
+                          </p>
+                        </div>
+                        <Switch
+                          checked={preferences.notifications?.email ?? true}
+                          onCheckedChange={(checked) =>
+                            setPreferences((prev) => ({
+                              ...prev,
+                              notifications: {
+                                ...prev.notifications,
+                                email: checked,
+                              },
+                            }))
+                          }
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="font-medium">Push</p>
+                          <p className="text-sm text-muted-foreground">
+                            Receber notificações push no navegador
+                          </p>
+                        </div>
+                        <Switch
+                          checked={preferences.notifications?.push ?? false}
+                          onCheckedChange={(checked) =>
+                            setPreferences((prev) => ({
+                              ...prev,
+                              notifications: {
+                                ...prev.notifications,
+                                push: checked,
+                              },
+                            }))
+                          }
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="font-medium">Newsletter</p>
+                          <p className="text-sm text-muted-foreground">
+                            Receber atualizações e novidades por email
+                          </p>
+                        </div>
+                        <Switch
+                          checked={preferences.notifications?.newsletter ?? true}
+                          onCheckedChange={(checked) =>
+                            setPreferences((prev) => ({
+                              ...prev,
+                              notifications: {
+                                ...prev.notifications,
+                                newsletter: checked,
+                              },
+                            }))
+                          }
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-muted-foreground">
+                    As preferências são salvas automaticamente ao clicar em "Salvar
+                    Alterações" acima
+                  </p>
+                </div>
               </div>
             </div>
           </Card>

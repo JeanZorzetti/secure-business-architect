@@ -6,12 +6,23 @@ export const UserRole = {
 
 export type UserRole = typeof UserRole[keyof typeof UserRole];
 
+// User Preferences
+export interface UserPreferences {
+  theme?: 'light' | 'dark' | 'system';
+  notifications?: {
+    email?: boolean;
+    push?: boolean;
+    newsletter?: boolean;
+  };
+}
+
 // User interface
 export interface User {
   id: string;
   email: string;
   name: string;
   avatar?: string;
+  preferences?: UserPreferences;
   role: UserRole;
   isActive: boolean;
   createdAt: string;
@@ -37,6 +48,7 @@ export interface UpdateProfileDTO {
   name?: string;
   email?: string;
   avatar?: string;
+  preferences?: UserPreferences;
 }
 
 export interface ChangePasswordDTO {

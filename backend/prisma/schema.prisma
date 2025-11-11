@@ -68,15 +68,16 @@ enum PostStatus {
 // Models
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String
-  name      String
-  avatar    String?
-  role      UserRole @default(ADMIN)
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(uuid())
+  email       String   @unique
+  password    String
+  name        String
+  avatar      String?
+  preferences Json?
+  role        UserRole @default(ADMIN)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   // Relations
   assignedContacts     Contact[]            @relation("AssignedContacts")
