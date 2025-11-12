@@ -49,8 +49,10 @@ const ContentAPI = () => {
     retry: 2,
   });
 
-  const posts = postsData?.posts || [];
-  const categories = categoriesData?.filter(cat => cat.isActive) || [];
+  const posts = Array.isArray(postsData?.posts) ? postsData.posts : [];
+  const categories = Array.isArray(categoriesData)
+    ? categoriesData.filter(cat => cat.isActive)
+    : [];
   const totalPages = postsData?.totalPages || 1;
 
   // Transform API data to component format
