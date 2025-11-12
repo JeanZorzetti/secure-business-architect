@@ -38,12 +38,28 @@ All colors MUST be HSL.
 
     --radius: 0.5rem;
     
-    /* Custom design tokens */
-    --hero-gradient: linear-gradient(135deg, hsl(210 65% 25%) 0%, hsl(210 50% 35%) 100%);
+    /* Custom design tokens - JB Advocacia Redesign */
+    --jb-navy: 210 100% 15%;           /* #0A2540 - Autoridade */
+    --jb-royal: 217 91% 60%;           /* #1E40AF - Interação */
+    --jb-gold: 38 92% 50%;             /* #F59E0B - Destaque */
+    --jb-amber: 45 93% 65%;            /* #FCD34D - Hover */
+
+    --hero-gradient: linear-gradient(135deg, hsl(210 100% 15%) 0%, hsl(217 91% 60%) 100%);
+    --card-gradient: linear-gradient(180deg, hsl(32 20% 97%) 0%, hsl(0 0% 100%) 100%);
+    --accent-gradient: linear-gradient(135deg, hsl(38 92% 50%) 0%, hsl(45 93% 65%) 100%);
+    --text-gradient: linear-gradient(135deg, hsl(38 92% 50%), hsl(45 93% 65%));
+
     --accent-glow: 15 55% 55%;
+    --gold-glow: 38 92% 50%;
+
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
     --shadow-elegant: 0 10px 40px -10px hsl(210 65% 25% / 0.15);
     --shadow-accent: 0 4px 20px -4px hsl(15 55% 55% / 0.25);
+    --shadow-glow: 0 0 20px hsl(38 92% 50% / 0.3);
+    --shadow-xl: 0 20px 25px -5px hsl(0 0% 0% / 0.1);
+    --shadow-2xl: 0 25px 50px -12px hsl(0 0% 0% / 0.25);
 
     --sidebar-background: 0 0% 98%;
 
@@ -121,16 +137,148 @@ All colors MUST be HSL.
   .hero-gradient {
     background: var(--hero-gradient);
   }
-  
+
+  .text-gradient {
+    background: var(--text-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
   .shadow-elegant {
     box-shadow: var(--shadow-elegant);
   }
-  
+
   .shadow-accent {
     box-shadow: var(--shadow-accent);
   }
-  
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .shadow-xl {
+    box-shadow: var(--shadow-xl);
+  }
+
+  .shadow-2xl {
+    box-shadow: var(--shadow-2xl);
+  }
+
   .transition-smooth {
     transition: var(--transition-smooth);
   }
+
+  .transition-bounce {
+    transition: var(--transition-bounce);
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Animation classes */
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-fadeInUp-delay-1 {
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.animate-fadeInUp-delay-2 {
+  animation: fadeInUp 0.6s ease-out 0.4s both;
+}
+
+.animate-fadeInUp-delay-3 {
+  animation: fadeInUp 0.6s ease-out 0.6s both;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.6s ease-out;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.5s ease-out;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
 }

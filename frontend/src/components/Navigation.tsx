@@ -18,7 +18,11 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border shadow-elegant">
+    <nav className="fixed top-0 left-0 right-0 z-50
+                    bg-background/80 backdrop-blur-lg
+                    border-b border-border/50
+                    shadow-elegant transition-all duration-300
+                    hover:shadow-xl">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center space-x-2">
@@ -31,17 +35,23 @@ const Navigation = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`text-sm font-medium transition-smooth ${
+                className={`text-sm font-medium transition-smooth relative group ${
                   isActive(link.path)
                     ? "text-accent"
                     : "text-foreground hover:text-accent"
                 }`}
               >
                 {link.label}
+                <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-accent transform origin-left transition-transform ${
+                  isActive(link.path) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                }`}></span>
               </Link>
             ))}
-            <Button variant="cta" size="sm" asChild>
-              <Link to="/contato">Agende uma Sessão</Link>
+            <Button variant="cta" size="sm" asChild className="group">
+              <Link to="/contato">
+                Agende uma Sessão
+                <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">→</span>
+              </Link>
             </Button>
           </div>
 
