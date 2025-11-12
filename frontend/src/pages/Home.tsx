@@ -7,6 +7,7 @@ import NumberTicker from "@/components/ui/number-ticker";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { Marquee } from "@/components/ui/marquee";
 import TestimonialCard from "@/components/TestimonialCard";
+import { SEO, OrganizationSchema, LegalServiceSchema } from "@/components/SEO";
 import heroImage from "@/assets/hero-image.jpg";
 
 const Home = () => {
@@ -116,8 +117,13 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
+    <>
+      <SEO />
+      <OrganizationSchema />
+      <LegalServiceSchema />
+
+      <div className="min-h-screen">
+        {/* Hero Section */}
       <section className="relative hero-gradient text-primary-foreground pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 opacity-10 animate-pulse-slow">
           <img
@@ -356,6 +362,7 @@ const Home = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 
