@@ -12,8 +12,8 @@ import Layout from "./pages/Layout";
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const Services = lazy(() => import("./pages/Services"));
-const Content = lazy(() => import("./pages/Content"));
-const BlogPost = lazy(() => import("./pages/BlogPost"));
+const Content = lazy(() => import("./pages/ContentAPI")); // ✅ API real ativada
+const BlogPost = lazy(() => import("./pages/BlogPostAPI")); // ✅ API real ativada
 const Contact = lazy(() => import("./pages/Contact"));
 const Calculator = lazy(() => import("./pages/Calculator"));
 const NotFound = lazy(() => import("./pages/NotFound"));
