@@ -8,7 +8,10 @@ import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { Marquee } from "@/components/ui/marquee";
 import TestimonialCard from "@/components/TestimonialCard";
 import { SEO, OrganizationSchema, LegalServiceSchema } from "@/components/SEO";
-import heroImage from "@/assets/hero-image.jpg";
+import heroVideo from "@/assets/hero-video.mp4";
+import heroTexture from "@/assets/hero-texture.png";
+import heroLeft from "@/assets/hero-left.avif";
+import heroRight from "@/assets/hero-right.avif";
 
 const Home = () => {
   const services = [
@@ -124,22 +127,61 @@ const Home = () => {
 
       <div className="min-h-screen">
         {/* Hero Section */}
-      <section className="relative hero-gradient text-primary-foreground pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 opacity-10 animate-pulse-slow">
+      <section className="relative text-primary-foreground pt-32 pb-20 overflow-hidden min-h-screen flex items-center">
+        {/* Video Background */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover object-center opacity-100"
+            style={{ height: "100%", width: "100%", objectFit: "cover", objectPosition: "center center", opacity: 1 }}
+          >
+            <source src={heroVideo} type="video/mp4" />
+          </video>
+        </div>
+
+        {/* Texture Overlay */}
+        <div
+          className="absolute inset-0 z-10"
+          style={{
+            backgroundImage: `url(${heroTexture})`,
+            backgroundSize: "auto",
+            backgroundRepeat: "repeat",
+            backgroundPosition: "center center",
+          }}
+        />
+
+        {/* Left Image */}
+        <div className="absolute left-0 top-0 bottom-0 w-1/4 z-20 hidden lg:block">
           <img
-            src={heroImage}
-            alt="Jennifer Barreto - Advocacia Empresarial"
-            className="w-full h-full object-cover"
+            src={heroLeft}
+            alt="Decorative left"
+            className="h-full w-full object-cover"
+            style={{ objectFit: "cover", objectPosition: "50% 50%", width: "100%" }}
           />
         </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fadeInUp">
+
+        {/* Right Image */}
+        <div className="absolute right-0 top-0 bottom-0 w-1/4 z-20 hidden lg:block">
+          <img
+            src={heroRight}
+            alt="Decorative right"
+            className="h-full w-full object-cover"
+            style={{ objectFit: "cover", objectPosition: "52% 24%", width: "100%" }}
+          />
+        </div>
+
+        {/* Content */}
+        <div className="container mx-auto px-4 relative z-30">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fadeInUp text-white drop-shadow-2xl">
               Seus contratos são a
-              <span className="text-gradient"> fortaleza </span>
+              <span className="text-accent"> fortaleza </span>
               ou o ponto fraco do seu negócio?
             </h1>
-            <p className="text-lg md:text-xl mb-8 text-primary-foreground/90 animate-fadeInUp-delay-1">
+            <p className="text-lg md:text-xl mb-8 text-white/90 animate-fadeInUp-delay-1 drop-shadow-xl">
               Com 12 anos de experiência, aprendi que não há contrato bom que
               salve um negócio ruim. Minha missão é garantir que a sua
               estratégia de negócio seja a base para contratos que protegem e
