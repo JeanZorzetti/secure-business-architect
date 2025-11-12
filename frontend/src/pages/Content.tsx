@@ -65,6 +65,20 @@ const Content = () => {
       date: "20 de Janeiro, 2024",
       slug: "pops-ambiente-corporativo",
     },
+    {
+      title: "Contratos Empresariais: Cláusulas Essenciais para Proteger seu Negócio",
+      excerpt:
+        "Descubra as cláusulas indispensáveis que todo contrato empresarial deve conter para garantir segurança jurídica e evitar litígios. Um guia prático para empresários que querem proteger seus interesses.",
+      date: "15 de Dezembro, 2023",
+      slug: "contratos-empresariais-clausulas-essenciais",
+    },
+    {
+      title: "A Importância da Due Diligence em Fusões e Aquisições",
+      excerpt:
+        "Due diligence é o processo que pode salvar ou arruinar uma operação de M&A. Entenda por que esse procedimento é crítico antes de qualquer aquisição ou fusão empresarial e quais são os principais pontos de atenção.",
+      date: "10 de Dezembro, 2023",
+      slug: "importancia-due-diligence-ma",
+    },
   ];
 
   return (
