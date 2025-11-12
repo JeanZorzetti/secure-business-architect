@@ -31,6 +31,7 @@ Comece com um inventário completo de todos os contratos da empresa. Categorize-
 
 A gestão de contratos não é apenas uma questão jurídica - é uma disciplina estratégica que impacta diretamente a lucratividade. Investir em processos e ferramentas adequadas pode gerar economia significativa e evitar surpresas desagradáveis.`,
     author: 'Jennifer Barreto',
+    category: 'Direito Empresarial',
     tags: ['gestão de contratos', 'direito empresarial', 'lucratividade'],
     publishedAt: new Date('2024-03-15'),
     status: 'PUBLISHED',
@@ -67,6 +68,7 @@ Um Acordo de Sócios bem estruturado pode definir mecanismos de desempate, área
 
 A sociedade 50/50 só funciona com extrema maturidade e alinhamento entre os sócios. Para a maioria das empresas, estruturas alternativas oferecem mais segurança e agilidade operacional.`,
     author: 'Jennifer Barreto',
+    category: 'Direito Empresarial',
     tags: ['sociedade', 'direito societário', 'governança'],
     publishedAt: new Date('2024-03-10'),
     status: 'PUBLISHED',
@@ -109,6 +111,7 @@ Todo contrato de parceria agrícola deve conter:
 
 O contrato de parceria é uma ferramenta valiosa para o agronegócio, mas requer estruturação cuidadosa para evitar questionamentos trabalhistas e garantir a segurança jurídica de ambas as partes.`,
     author: 'Jennifer Barreto',
+    category: 'Direito Empresarial',
     tags: ['agronegócio', 'contratos', 'direito do trabalho'],
     publishedAt: new Date('2024-03-05'),
     status: 'PUBLISHED',
@@ -159,6 +162,7 @@ O Acordo de Sócios permite regular questões delicadas longe dos olhos da conco
 
 Ambos os documentos são importantes, mas cumprem funções diferentes. O ideal é ter um Contrato Social enxuto e objetivo, complementado por um Acordo de Sócios detalhado que proteja os interesses de todos.`,
     author: 'Jennifer Barreto',
+    category: 'Direito Empresarial',
     tags: ['contrato social', 'acordo de sócios', 'direito societário'],
     publishedAt: new Date('2024-02-28'),
     status: 'PUBLISHED',
@@ -210,6 +214,7 @@ Já vi aquisições onde o comprador descobriu, tarde demais:
 
 Due diligence não é custo, é investimento. O valor gasto na investigação é ínfimo comparado aos riscos de uma aquisição mal avaliada.`,
     author: 'Jennifer Barreto',
+    category: 'Direito Empresarial',
     tags: ['due diligence', 'M&A', 'aquisições'],
     publishedAt: new Date('2024-02-20'),
     status: 'PUBLISHED',
@@ -268,6 +273,7 @@ Previsibilidade e proteção contra quebras contratuais abusivas.
 
 Estas três cláusulas formam o tripé de proteção de qualquer contrato empresarial. Invista tempo na sua redação cuidadosa - isso pode evitar problemas que custariam muito mais no futuro.`,
     author: 'Jennifer Barreto',
+    category: 'Direito Empresarial',
     tags: ['contratos', 'cláusulas contratuais', 'direito empresarial'],
     publishedAt: new Date('2024-02-12'),
     status: 'PUBLISHED',
@@ -323,6 +329,7 @@ Saber dizer não é fundamental. Um "não" firme mas educado, acompanhado de uma
 
 Negociação contratual é uma habilidade que se desenvolve com prática. As melhores negociações são aquelas onde você sai da sala com um acordo justo e uma relação comercial fortalecida.`,
     author: 'Jennifer Barreto',
+    category: 'Direito Empresarial',
     tags: ['negociação', 'contratos', 'estratégia'],
     publishedAt: new Date('2024-02-05'),
     status: 'PUBLISHED',
@@ -385,6 +392,7 @@ Vi casos onde empresas pagaram mais em passivos trabalhistas do que gastaram em 
 
 Prevenção de passivos trabalhistas não é paranoia - é gestão responsável. O custo de manter conformidade é sempre menor que o custo de corrigir anos de irregularidades.`,
     author: 'Jennifer Barreto',
+    category: 'Direito Empresarial',
     tags: ['direito do trabalho', 'compliance', 'passivos trabalhistas'],
     publishedAt: new Date('2024-01-28'),
     status: 'PUBLISHED',
@@ -468,6 +476,7 @@ POPs são a diferença entre uma empresa que funciona com base em conhecimento t
 
 Invista tempo em documentar seus processos. Seu "eu" do futuro - e seus advogados - agradecerão.`,
     author: 'Jennifer Barreto',
+    category: 'Direito Empresarial',
     tags: ['POPs', 'gestão', 'compliance', 'processos'],
     publishedAt: new Date('2024-01-20'),
     status: 'PUBLISHED',
