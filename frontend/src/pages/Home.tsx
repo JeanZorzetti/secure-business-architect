@@ -5,6 +5,8 @@ import ServiceCard from "@/components/ServiceCard";
 import BlogCard from "@/components/BlogCard";
 import NumberTicker from "@/components/ui/number-ticker";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+import { Marquee } from "@/components/ui/marquee";
+import TestimonialCard from "@/components/TestimonialCard";
 import heroImage from "@/assets/hero-image.jpg";
 
 const Home = () => {
@@ -32,6 +34,60 @@ const Home = () => {
       title: "Blindagem Trabalhista com Procedimentos Claros",
       description:
         "Criação de POPs, Regimentos e Manuais de Conduta. Redução de riscos trabalhistas através da documentação adequada.",
+    },
+  ];
+
+  const testimonials1 = [
+    {
+      name: "Marcos Silva",
+      role: "CEO",
+      company: "Tech Solutions",
+      content:
+        "Jennifer não apenas elaborou nossos contratos, ela nos ajudou a entender os riscos do negócio antes mesmo de começarmos a negociar. Isso mudou completamente nossa forma de operar.",
+      rating: 5,
+    },
+    {
+      name: "Ana Paula Costa",
+      role: "Proprietária",
+      company: "AgroCosta",
+      content:
+        "Finalmente encontrei uma advogada que fala a língua do empresário. A clareza dela em explicar questões complexas me deu a confiança que eu precisava para tomar decisões importantes.",
+      rating: 5,
+    },
+    {
+      name: "Roberto Fernandes",
+      role: "Diretor Financeiro",
+      company: "Logística Premium",
+      content:
+        "A due diligence conduzida pela Jennifer nos salvou de uma aquisição problemática. Ela identificou passivos ocultos que poderiam ter custado milhões.",
+      rating: 5,
+    },
+  ];
+
+  const testimonials2 = [
+    {
+      name: "Carla Mendes",
+      role: "Sócia",
+      company: "Boutique Fashion",
+      content:
+        "A estruturação societária que fizemos com a Jennifer preveniu conflitos que certamente teriam surgido. Hoje nossa sociedade funciona como um relógio.",
+      rating: 5,
+    },
+    {
+      name: "Pedro Augusto",
+      role: "Empresário",
+      company: "Construtora Horizonte",
+      content:
+        "Os contratos trabalhistas e POPs criados reduziram drasticamente nossos processos. O investimento se pagou em menos de 6 meses.",
+      rating: 5,
+    },
+    {
+      name: "Juliana Santos",
+      role: "Gerente Geral",
+      company: "Rede de Restaurantes",
+      content:
+        "Contratar a Jennifer foi uma das melhores decisões que tomamos. Ela entende de negócios, não só de leis. Faz toda a diferença.",
+      rating: 5,
     },
   ];
 
@@ -233,53 +289,30 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+      {/* Testimonials Section - Marquee */}
+      <section className="py-20 bg-secondary/50 overflow-hidden">
+        <div className="container mx-auto px-4 mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center animate-fadeInUp">
             O Que Meus Clientes Dizem
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="bg-card p-6 rounded-lg shadow-elegant border border-border">
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <CheckCircle
-                    key={i}
-                    className="h-5 w-5 text-accent fill-accent"
-                  />
-                ))}
-              </div>
-              <p className="text-muted-foreground mb-4">
-                "Jennifer não apenas elaborou nossos contratos, ela nos ajudou a
-                entender os riscos do negócio antes mesmo de começarmos a
-                negociar. Isso mudou completamente nossa forma de operar."
-              </p>
-              <p className="font-semibold">Marcos Silva</p>
-              <p className="text-sm text-muted-foreground">
-                CEO, Empresa de Tecnologia
-              </p>
-            </div>
-            <div className="bg-card p-6 rounded-lg shadow-elegant border border-border">
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <CheckCircle
-                    key={i}
-                    className="h-5 w-5 text-accent fill-accent"
-                  />
-                ))}
-              </div>
-              <p className="text-muted-foreground mb-4">
-                "Finalmente encontrei uma advogada que fala a língua do
-                empresário. A clareza dela em explicar questões complexas me deu
-                a confiança que eu precisava para tomar decisões importantes."
-              </p>
-              <p className="font-semibold">Ana Paula Costa</p>
-              <p className="text-sm text-muted-foreground">
-                Proprietária, Empresa do Agronegócio
-              </p>
-            </div>
-          </div>
+          <p className="text-lg text-muted-foreground text-center max-w-2xl mx-auto">
+            Confiança construída através de resultados concretos
+          </p>
         </div>
+
+        {/* Row 1 - Direction: Left to Right */}
+        <Marquee pauseOnHover className="[--duration:40s] mb-6">
+          {testimonials1.map((testimonial, index) => (
+            <TestimonialCard key={`testimonial1-${index}`} {...testimonial} />
+          ))}
+        </Marquee>
+
+        {/* Row 2 - Direction: Right to Left */}
+        <Marquee reverse pauseOnHover className="[--duration:40s]">
+          {testimonials2.map((testimonial, index) => (
+            <TestimonialCard key={`testimonial2-${index}`} {...testimonial} />
+          ))}
+        </Marquee>
       </section>
 
       {/* Blog Section */}
