@@ -1,5 +1,5 @@
 import { useParams, Navigate } from "react-router-dom";
-import { Calendar, ArrowLeft } from "lucide-react";
+import { Calendar, ArrowLeft, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const BlogPost = () => {
