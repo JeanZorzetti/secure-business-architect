@@ -22,7 +22,7 @@ const Navigation = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           <Link to="/" className="flex items-center space-x-2">
-            <h1 className="text-2xl font-bold text-primary">Jennifer Barreto</h1>
+            <h1 className="text-2xl font-bold text-primary">JB Advocacia</h1>
           </Link>
 
           {/* Desktop Navigation */}
