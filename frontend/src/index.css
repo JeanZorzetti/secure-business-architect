@@ -172,6 +172,14 @@ All colors MUST be HSL.
   .transition-bounce {
     transition: var(--transition-bounce);
   }
+
+  .animate-buttonClick {
+    animation: buttonClick 0.2s ease-in-out;
+  }
+
+  .animate-ripple {
+    animation: ripple 0.6s ease-out;
+  }
 }
 
 /* Animations */
@@ -225,6 +233,29 @@ All colors MUST be HSL.
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes buttonClick {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
   }
 }
 
