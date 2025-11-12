@@ -17,16 +17,16 @@ cd backend
 npm run seed:blog
 ```
 
-### 2. Via ts-node direto
+### 2. Via Node.js direto
 
 ```bash
 cd backend
-npx ts-node prisma/seed-blog-posts.ts
+node prisma/seed-blog-posts.js
 ```
 
 ## O Que o Seed Faz
 
-O script `seed-blog-posts.ts` irá:
+O script `seed-blog-posts.js` irá:
 
 1. Verificar se cada post já existe no banco (por slug)
 2. Se existir, pular o post
