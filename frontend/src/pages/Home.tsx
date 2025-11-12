@@ -150,6 +150,8 @@ const Home = () => {
             backgroundSize: "auto",
             backgroundRepeat: "repeat",
             backgroundPosition: "center center",
+            backgroundColor: "rgba(0, 0, 0, 0.5)",
+            backgroundBlendMode: "multiply",
           }}
         />
 
@@ -164,12 +166,12 @@ const Home = () => {
         </div>
 
         {/* Right Image */}
-        <div className="absolute right-0 top-0 bottom-0 w-1/4 z-20 hidden lg:block">
+        <div className="absolute right-0 top-0 bottom-0 w-1/3 z-20 hidden lg:block">
           <img
             src={heroRight}
             alt="Decorative right"
-            className="h-full w-full object-cover"
-            style={{ objectFit: "cover", objectPosition: "52% 24%", width: "100%" }}
+            className="h-full w-full"
+            style={{ objectFit: "contain", objectPosition: "center center", width: "100%", height: "100%" }}
           />
         </div>
 
