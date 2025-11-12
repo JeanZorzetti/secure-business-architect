@@ -1,7 +1,7 @@
 import { FeeCalculator } from "@/components/FeeCalculator";
 import { SEO } from "@/components/SEO";
 import { Reveal } from "@/components/ui/reveal";
-import { Calculator, Check } from "lucide-react";
+import { Calculator as CalculatorIcon, Check } from "lucide-react";
 
 const Calculator = () => {
   return (
@@ -19,7 +19,7 @@ const Calculator = () => {
           <div className="max-w-4xl mx-auto text-center">
             <Reveal>
               <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/20 mb-6">
-                <Calculator className="h-8 w-8 text-accent" />
+                <CalculatorIcon className="h-8 w-8 text-accent" />
               </div>
             </Reveal>
             <Reveal delay={0.1}>
