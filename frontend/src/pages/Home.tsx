@@ -155,8 +155,8 @@ const Home = () => {
           }}
         />
 
-        {/* Left Image */}
-        <div className="absolute left-0 top-0 bottom-0 w-1/4 z-20 hidden lg:block">
+        {/* Left Image - Behind texture */}
+        <div className="absolute left-0 top-0 bottom-0 w-1/4 z-5 hidden lg:block">
           <img
             src={heroLeft}
             alt="Decorative left"
@@ -165,13 +165,13 @@ const Home = () => {
           />
         </div>
 
-        {/* Right Image */}
+        {/* Right Image - Lawyer portrait */}
         <div className="absolute right-0 top-0 bottom-0 w-1/3 z-20 hidden lg:block">
           <img
             src={heroRight}
             alt="Decorative right"
             className="h-full w-full"
-            style={{ objectFit: "contain", objectPosition: "center center", width: "100%", height: "100%" }}
+            style={{ objectFit: "contain", objectPosition: "center bottom", width: "100%", height: "100%" }}
           />
         </div>
 
