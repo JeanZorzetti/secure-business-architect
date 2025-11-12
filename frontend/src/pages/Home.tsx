@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Scale, FileText, Users, ShieldCheck, CheckCircle } from "lucide-react";
+import { Scale, FileText, Users, ShieldCheck, CheckCircle, Award, TrendingUp, Target } from "lucide-react";
 import ServiceCard from "@/components/ServiceCard";
 import BlogCard from "@/components/BlogCard";
+import NumberTicker from "@/components/ui/number-ticker";
 import heroImage from "@/assets/hero-image.jpg";
 
 const Home = () => {
@@ -88,6 +89,54 @@ const Home = () => {
                   <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">→</span>
                 </Link>
               </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Statistics Section */}
+      <section className="py-16 border-b border-border">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="text-center animate-fadeInUp">
+              <div className="flex items-center justify-center mb-3">
+                <Award className="h-8 w-8 text-accent mr-2" />
+                <NumberTicker
+                  value={12}
+                  className="text-5xl md:text-6xl font-bold text-primary"
+                />
+              </div>
+              <p className="text-lg font-medium text-muted-foreground">
+                Anos de Experiência
+              </p>
+            </div>
+
+            <div className="text-center animate-fadeInUp-delay-1">
+              <div className="flex items-center justify-center mb-3">
+                <Users className="h-8 w-8 text-accent mr-2" />
+                <NumberTicker
+                  value={500}
+                  className="text-5xl md:text-6xl font-bold text-primary"
+                />
+                <span className="text-5xl md:text-6xl font-bold text-primary">+</span>
+              </div>
+              <p className="text-lg font-medium text-muted-foreground">
+                Clientes Atendidos
+              </p>
+            </div>
+
+            <div className="text-center animate-fadeInUp-delay-2">
+              <div className="flex items-center justify-center mb-3">
+                <Target className="h-8 w-8 text-accent mr-2" />
+                <NumberTicker
+                  value={95}
+                  className="text-5xl md:text-6xl font-bold text-primary"
+                />
+                <span className="text-5xl md:text-6xl font-bold text-primary">%</span>
+              </div>
+              <p className="text-lg font-medium text-muted-foreground">
+                Taxa de Sucesso
+              </p>
             </div>
           </div>
         </div>
