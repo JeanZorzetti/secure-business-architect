@@ -361,6 +361,57 @@
 
 ---
 
+### **Fase 6: Features Avançadas** ⏳ EM PROGRESSO
+
+#### Sprint 6.1: Features Essenciais ✅ COMPLETA
+
+**Data de conclusão:** 12/11/2025
+
+**Implementações:**
+
+- [x] Dark Mode toggle
+- [x] Reading Progress bar para blog posts
+- [x] Social Sharing buttons
+- [x] Reading Time calculator
+
+**Componentes criados:**
+
+- `frontend/src/components/ThemeToggle.tsx` - Dark/Light mode toggle
+- `frontend/src/components/ReadingProgress.tsx` - Progress bar + Reading time estimator
+- `frontend/src/components/SocialShare.tsx` - Social sharing component
+
+**Arquivos modificados:**
+
+- `frontend/src/components/Navigation.tsx` - ThemeToggle integration
+
+**Características especiais:**
+
+- **Dark Mode:**
+  - Theme persistence em localStorage
+  - System preference detection (prefers-color-scheme)
+  - Smooth transitions between themes
+  - .dark class on documentElement
+  - Sun/Moon icons com rotate animation
+  - Integrated in desktop + mobile navigation
+
+- **Reading Progress:**
+  - Animated progress bar com Framer Motion
+  - Appears after 300px scroll
+  - Spring physics (stiffness: 100, damping: 30)
+  - ARIA progressbar role com valuenow
+  - calculateReadingTime: 200 words/min
+  - ReadingTimeBadge component com clock icon
+
+- **Social Sharing:**
+  - 5 platforms: Facebook, Twitter, LinkedIn, Email, Copy Link
+  - Brand colors on hover (Facebook blue, Twitter blue, LinkedIn blue)
+  - Popup windows (600x400) para compartilhamento
+  - Copy to clipboard com toast feedback
+  - URL encoding para todos os parâmetros
+  - SocialShareCompact variant for inline use
+
+---
+
 ## 🚧 Próximas Fases
 
 ### **Fase 3: Páginas Internas** ✅ COMPLETA
@@ -390,18 +441,20 @@
 - [x] Schema.org markup ✅
 - [x] ARIA labels e acessibilidade ✅
 
-### **Fase 6: Features Avançadas** 🚀 PENDENTE
-- [ ] Dark mode toggle
-- [ ] Blog system integrado
-- [ ] Search functionality
-- [ ] Filtros na página de Serviços
-- [ ] Calculadora interativa
+### **Fase 6: Features Avançadas (Próximas Fases)** ⏳ EM PROGRESSO
+
+- [x] Dark mode toggle ✅
+- [x] Reading progress bar ✅
+- [x] Social sharing ✅
+- [ ] Blog system integrado (opcional - requer CMS)
+- [ ] Search functionality (opcional)
+- [ ] Calculadora interativa (opcional)
 
 ---
 
 ## 📈 Métricas de Progresso
 
-### **Componentes Criados:** 13/15
+### **Componentes Criados:** 16/18
 
 - ✅ NumberTicker
 - ✅ BentoGrid
@@ -416,6 +469,9 @@
 - ✅ PageTransition
 - ✅ OptimizedImage (+ BackgroundImage)
 - ✅ SEO (+ SchemaOrg + Organization/Attorney/LegalService schemas)
+- ✅ ThemeToggle
+- ✅ ReadingProgress (+ ReadingTimeBadge)
+- ✅ SocialShare (+ SocialShareCompact)
 
 ### **Páginas Atualizadas:** 4/5
 
@@ -425,7 +481,7 @@
 - ✅ Contato (completa)
 - ⏳ Blog (pendente)
 
-### **Commits Realizados:** 16
+### **Commits Realizados:** 18
 
 1. `feat: implement Phase 1 - Visual Foundation with modern UI improvements`
 2. `docs: update roadmap - Phase 1 completed`
@@ -443,21 +499,25 @@
 14. `docs: update progress tracking - Sprint 5.1 completed`
 15. `fix: remove modulepreload for .tsx file causing MIME type error`
 16. `feat: implement Phase 5.2 - SEO and Accessibility`
+17. `docs: update progress tracking - Sprint 5.2 completed`
+18. `feat: implement Phase 6 - Advanced Features (Part 1)`
 
-### **Progresso Geral:** ~90% ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛
+### **Progresso Geral:** ~95% ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜
 
 ---
 
 ## 🎯 Status Atual
 
-**Trabalhando em:** Fase 5 - Performance e Otimização ✅ COMPLETA
-**Última fase completada:** Sprint 5.2 - SEO e Acessibilidade
-**Próximo objetivo:** Fase 6 - Features Avançadas (opcional)
+**Trabalhando em:** Fase 6 - Features Avançadas ⏳ EM PROGRESSO
+**Última fase completada:** Sprint 6.1 - Features Essenciais
+**Próximo objetivo:** Polimento final e deployment
 **Dev server:** ✅ Rodando
 **Branch:** main
 **Última build:** ✅ Sem erros (Bundle: ~160KB gzipped)
 **SEO:** ✅ Implementado (Schema.org + Meta tags)
 **Acessibilidade:** ✅ WCAG 2.1 AA compliance
+**Dark Mode:** ✅ Implementado com persistence
+**Features:** ✅ Reading Progress + Social Sharing
 
 ---
 
