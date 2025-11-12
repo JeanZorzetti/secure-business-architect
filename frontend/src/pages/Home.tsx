@@ -4,6 +4,7 @@ import { Scale, FileText, Users, ShieldCheck, CheckCircle, Award, TrendingUp, Ta
 import ServiceCard from "@/components/ServiceCard";
 import BlogCard from "@/components/BlogCard";
 import NumberTicker from "@/components/ui/number-ticker";
+import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import heroImage from "@/assets/hero-image.jpg";
 
 const Home = () => {
@@ -164,10 +165,10 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Services Section */}
+      {/* Services Section - Bento Grid */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 animate-fadeInUp">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Áreas de Atuação Estratégica
             </h2>
@@ -176,11 +177,29 @@ const Home = () => {
               negócio
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {services.map((service, index) => (
-              <ServiceCard key={index} {...service} />
-            ))}
-          </div>
+          <BentoGrid>
+            <BentoGridItem
+              icon={<Scale className="h-10 w-10" />}
+              title="Negociações e Contratos que Geram Lucratividade"
+              description="Acompanhamento estratégico em negociações. Contratos elaborados com foco em proteger seus interesses e maximizar resultados financeiros."
+              featured={true}
+            />
+            <BentoGridItem
+              icon={<FileText className="h-8 w-8" />}
+              title="Estruturação Societária para Evitar Conflitos"
+              description="Definição clara de papéis, direitos e deveres dos sócios. Prevenção de impasses e alinhamento de visões para o futuro da empresa."
+            />
+            <BentoGridItem
+              icon={<ShieldCheck className="h-8 w-8" />}
+              title="Due Diligence para Aquisições Seguras"
+              description="Análise minuciosa de riscos antes de compras ou fusões. Identificação de passivos ocultos e garantia de decisões embasadas."
+            />
+            <BentoGridItem
+              icon={<Users className="h-8 w-8" />}
+              title="Blindagem Trabalhista com Procedimentos Claros"
+              description="Criação de POPs, Regimentos e Manuais de Conduta. Redução de riscos trabalhistas através da documentação adequada."
+            />
+          </BentoGrid>
         </div>
       </section>
 
