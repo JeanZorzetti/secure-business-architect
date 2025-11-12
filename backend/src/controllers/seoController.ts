@@ -184,7 +184,7 @@ class SeoController {
       title: `${post.title} | Jennifer Barreto`,
       description: post.excerpt || '',
       image: post.coverImage || undefined,
-      url: `https://jbadvocacia.roilabs.com.br/insights/${post.slug}`,
+      url: `https://jbadvocacia.roilabs.com.br/conteudo/${post.slug}`,
       type: 'article',
       author: post.author,
       publishedTime: post.publishedAt.toISOString(),

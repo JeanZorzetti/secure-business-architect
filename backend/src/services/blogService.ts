@@ -76,7 +76,7 @@ export class BlogService {
 
     // Notificar IndexNow se publicado
     if (status === PostStatus.PUBLISHED) {
-      const postUrl = `/insights/${slug}`;
+      const postUrl = `/conteudo/${slug}`;
       await seoService.notifyIndexNow(postUrl).catch(() => {
         // Ignore IndexNow errors, não deve bloquear a criação do post
       });
@@ -214,7 +214,7 @@ export class BlogService {
 
     // Notificar IndexNow se publicado
     if (status === PostStatus.PUBLISHED) {
-      const postUrl = `/insights/${slug}`;
+      const postUrl = `/conteudo/${slug}`;
       await seoService.notifyIndexNow(postUrl).catch(() => {
         // Ignore IndexNow errors
       });
@@ -242,7 +242,7 @@ export class BlogService {
     });
 
     // Notificar IndexNow
-    const postUrl = `/insights/${published.slug}`;
+    const postUrl = `/conteudo/${published.slug}`;
     await seoService.notifyIndexNow(postUrl).catch(() => {
       // Ignore IndexNow errors
     });

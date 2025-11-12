@@ -36,7 +36,7 @@ class SeoService {
       { loc: '/', changefreq: 'daily' as const, priority: 1.0 },
       { loc: '/sobre', changefreq: 'weekly' as const, priority: 0.8 },
       { loc: '/servicos', changefreq: 'weekly' as const, priority: 0.9 },
-      { loc: '/insights', changefreq: 'daily' as const, priority: 0.9 },
+      { loc: '/conteudo', changefreq: 'daily' as const, priority: 0.9 },
       { loc: '/contato', changefreq: 'monthly' as const, priority: 0.7 },
     ];
 
@@ -67,7 +67,7 @@ class SeoService {
     });
 
     urls.push(...posts.map((post: { slug: string; updatedAt: Date }) => ({
-      loc: `${this.baseUrl}/insights/${post.slug}`,
+      loc: `${this.baseUrl}/conteudo/${post.slug}`,
       lastmod: post.updatedAt.toISOString(),
       changefreq: 'monthly' as const,
       priority: 0.7,
@@ -279,7 +279,7 @@ Crawl-delay: 1
           dateModified: data.updatedAt || data.publishedAt,
           mainEntityOfPage: {
             '@type': 'WebPage',
-            '@id': `${this.baseUrl}/insights/${data.slug}`,
+            '@id': `${this.baseUrl}/conteudo/${data.slug}`,
           },
         };
 
