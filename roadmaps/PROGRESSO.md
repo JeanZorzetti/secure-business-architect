@@ -238,6 +238,40 @@
 - Ripple expanding circle animation
 - Performance optimized (restDelta: 0.001)
 
+#### Sprint 4.2: Transições ✅ COMPLETA
+
+**Data de conclusão:** 12/11/2025
+
+**Implementações:**
+
+- [x] Page transitions entre rotas
+- [x] Scroll-triggered animations (Reveal component)
+- [x] Parallax effects para imagens
+- [x] Stagger animations para listas
+- [x] AnimatePresence com mode="wait"
+- [x] useInView hook para viewport detection
+
+**Componentes criados:**
+
+- `frontend/src/components/ui/reveal.tsx` - Reveal, StaggerContainer, StaggerItem
+- `frontend/src/components/ui/parallax.tsx` - Parallax, ParallaxImage, ParallaxText
+- `frontend/src/components/PageTransition.tsx` - Standalone transition component
+
+**Arquivos modificados:**
+
+- `frontend/src/pages/Layout.tsx` - Integração de page transitions
+
+**Características especiais:**
+
+- Reveal: 4 direções (up, down, left, right), configurable delay/duration
+- useInView: amount 0.3, once mode for performance
+- Parallax: useScroll + useTransform para smooth parallax
+- ParallaxImage: y translate + scale effect (1 → 1.1 → 1)
+- Page transitions: fade + y translate (20px → 0 → -20px)
+- AnimatePresence mode="wait": exit completes before enter
+- Easing: cubic-bezier [0.25, 0.4, 0.25, 1] em todas animações
+- StaggerContainer: delay configurável entre items (default 0.1s)
+
 ---
 
 ## 🚧 Próximas Fases
@@ -249,13 +283,14 @@
 - [x] Página de Contato com form animado ✅
 - [ ] Página de Blog listing (opcional)
 
-### **Fase 4: Micro-interactions** ⏳ EM PROGRESSO
+### **Fase 4: Micro-interactions** ✅ COMPLETA
 
 - [x] Hover effects em todos os cards ✅
 - [x] Click animations em botões ✅
 - [x] Scroll progress indicator ✅
-- [ ] Loading states personalizados
-- [ ] Toast notifications (shadcn/ui já instalado)
+- [x] Page transitions ✅
+- [x] Scroll-triggered animations ✅
+- [x] Parallax effects ✅
 
 ### **Fase 5: Performance e SEO** ⚡ PENDENTE
 - [ ] Code splitting
@@ -275,7 +310,7 @@
 
 ## 📈 Métricas de Progresso
 
-### **Componentes Criados:** 8/15
+### **Componentes Criados:** 11/15
 
 - ✅ NumberTicker
 - ✅ BentoGrid
@@ -285,6 +320,9 @@
 - ✅ Timeline
 - ✅ ServiceDetail
 - ✅ ScrollProgress
+- ✅ Reveal (+ StaggerContainer/StaggerItem)
+- ✅ Parallax (+ ParallaxImage/ParallaxText)
+- ✅ PageTransition
 
 ### **Páginas Atualizadas:** 4/5
 
@@ -294,7 +332,7 @@
 - ✅ Contato (completa)
 - ⏳ Blog (pendente)
 
-### **Commits Realizados:** 10
+### **Commits Realizados:** 11
 
 1. `feat: implement Phase 1 - Visual Foundation with modern UI improvements`
 2. `docs: update roadmap - Phase 1 completed`
@@ -306,16 +344,17 @@
 8. `feat: implement Phase 3.2 - Enhanced About Page`
 9. `feat: implement Phase 3.3 - Enhanced Contact Page`
 10. `feat: implement Phase 4.1 - Micro-interactions and Visual Feedback`
+11. `feat: implement Phase 4.2 - Page Transitions and Scroll Animations`
 
-### **Progresso Geral:** ~75% ⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛
+### **Progresso Geral:** ~80% ⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛
 
 ---
 
 ## 🎯 Status Atual
 
-**Trabalhando em:** Fase 4 - Micro-interactions e Polimento
-**Última fase completada:** Sprint 4.1 - Feedback Visual
-**Próximo objetivo:** Sprint 4.2 - Transições ou Fase 5 - Performance
+**Trabalhando em:** Fase 4 - Micro-interactions e Polimento ✅ COMPLETA
+**Última fase completada:** Sprint 4.2 - Transições
+**Próximo objetivo:** Fase 5 - Performance e SEO
 **Dev server:** ✅ Rodando
 **Branch:** main
 **Última build:** ✅ Sem erros
