@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Componentes UI - Animate UI + MagicUI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Componente Cursor Animado - Inspirado em Animate UI */
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #3b82f6;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follow {
+            position: fixed;
+            padding: 8px 16px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 8px;
+            pointer-events: none;
+            z-index: 9998;
+            font-size: 14px;
+            font-weight: 600;
+            transform: translate(-50%, 120%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cursor-follow.active {
+            opacity: 1;
+        }
+
+        /* Marquee Animation - Inspirado em MagicUI */
+        @keyframes marquee {
+            0% {
+                transform: translateX(0%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        @keyframes marquee-reverse {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(0%);
+            }
+        }
+
+        .marquee {
+            display: flex;
+            overflow: hidden;
+            user-select: none;
+            gap: 1rem;
+        }
+
+        .marquee-content {
+            flex-shrink: 0;
+            display: flex;
+            gap: 1rem;
+            animation: marquee 20s linear infinite;
+            min-width: 100%;
+        }
+
+        .marquee-reverse .marquee-content {
+            animation: marquee-reverse 20s linear infinite;
+        }
+
+        .marquee:hover .marquee-content {
+            animation-play-state: paused;
+        }
+
+        .review-card {
+            position: relative;
+            width: 16rem;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.01);
+            transition: all 0.3s ease;
+        }
+
+        .review-card:hover {
+            background: rgba(0, 0, 0, 0.05);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Gradient Animation */
+        @keyframes gradient {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .animated-gradient {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        /* Sparkles Effect */
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1) rotate(180deg);
+            }
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen">
+    <!-- Custom Cursor (Animate UI inspired) -->
+    <div class="custom-cursor" id="customCursor"></div>
+    <div class="cursor-follow" id="cursorFollow">Designer</div>
+
+    <div class="container mx-auto px-4 py-12">
+        <header class="text-center mb-16">
+            <h1 class="text-5xl font-bold text-gray-900 mb-4">
+                Componentes UI Modernos
+            </h1>
+            <p class="text-xl text-gray-600">
+                Exemplos extraídos de Animate UI e MagicUI
+            </p>
+        </header>
+
+        <!-- Seção 1: Animated Gradient Box (21st.dev inspired) -->
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">1. Animated Gradient Box</h2>
+            <div class="animated-gradient rounded-3xl p-12 text-white text-center">
+                <h3 class="text-4xl font-bold mb-4">Gradiente Animado</h3>
+                <p class="text-lg opacity-90">Inspirado nos componentes modernos de 21st.dev</p>
+            </div>
+        </section>
+
+        <!-- Seção 2: Cursor Interativo (Animate UI) -->
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">2. Cursor Personalizado (Animate UI)</h2>
+            <div class="bg-white rounded-2xl p-12 border border-gray-200 shadow-lg hover:shadow-xl transition-all">
+                <div class="text-center space-y-4">
+                    <h3 class="text-2xl font-semibold text-gray-800">Mova o mouse sobre esta área</h3>
+                    <p class="text-gray-600">O cursor personalizado segue o movimento do mouse</p>
+                    <div class="inline-block bg-blue-500 text-white px-8 py-4 rounded-lg font-semibold cursor-pointer hover:bg-blue-600 transition-colors relative overflow-hidden" id="sparkleButton">
+                        <span class="relative z-10">Botão com Efeito</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 3: Marquee com Reviews (MagicUI) -->
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">3. Marquee de Reviews (MagicUI)</h2>
+
+            <!-- Primeira linha -->
+            <div class="marquee mb-4">
+                <div class="marquee-content">
+                    <div class="review-card">
+                        <div class="flex items-center gap-2 mb-3">
+                            <img src="https://avatar.vercel.sh/jack" alt="Jack" class="w-8 h-8 rounded-full">
+                            <div>
+                                <div class="font-semibold text-sm">Jack</div>
+                                <div class="text-xs text-gray-500">@jack</div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700">
+                            Nunca vi nada assim antes. É incrível. Eu amo!
+                        </p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="flex items-center gap-2 mb-3">
+                            <img src="https://avatar.vercel.sh/jill" alt="Jill" class="w-8 h-8 rounded-full">
+                            <div>
+                                <div class="font-semibold text-sm">Jill</div>
+                                <div class="text-xs text-gray-500">@jill</div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700">
+                            Não sei o que dizer. Estou sem palavras. Isso é incrível.
+                        </p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="flex items-center gap-2 mb-3">
+                            <img src="https://avatar.vercel.sh/john" alt="John" class="w-8 h-8 rounded-full">
+                            <div>
+                                <div class="font-semibold text-sm">John</div>
+                                <div class="text-xs text-gray-500">@john</div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700">
+                            Estou sem palavras. Isso é incrível. Eu amo!
+                        </p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="flex items-center gap-2 mb-3">
+                            <img src="https://avatar.vercel.sh/jane" alt="Jane" class="w-8 h-8 rounded-full">
+                            <div>
+                                <div class="font-semibold text-sm">Jane</div>
+                                <div class="text-xs text-gray-500">@jane</div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700">
+                            Qualidade excepcional! Superou todas as expectativas.
+                        </p>
+                    </div>
+
+                    <!-- Duplicate for seamless loop -->
+                    <div class="review-card">
+                        <div class="flex items-center gap-2 mb-3">
+                            <img src="https://avatar.vercel.sh/jack" alt="Jack" class="w-8 h-8 rounded-full">
+                            <div>
+                                <div class="font-semibold text-sm">Jack</div>
+                                <div class="text-xs text-gray-500">@jack</div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700">
+                            Nunca vi nada assim antes. É incrível. Eu amo!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Segunda linha (reversa) -->
+            <div class="marquee marquee-reverse">
+                <div class="marquee-content">
+                    <div class="review-card">
+                        <div class="flex items-center gap-2 mb-3">
+                            <img src="https://avatar.vercel.sh/jenny" alt="Jenny" class="w-8 h-8 rounded-full">
+                            <div>
+                                <div class="font-semibold text-sm">Jenny</div>
+                                <div class="text-xs text-gray-500">@jenny</div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700">
+                            Produto fantástico! Recomendo para todos.
+                        </p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="flex items-center gap-2 mb-3">
+                            <img src="https://avatar.vercel.sh/james" alt="James" class="w-8 h-8 rounded-full">
+                            <div>
+                                <div class="font-semibold text-sm">James</div>
+                                <div class="text-xs text-gray-500">@james</div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700">
+                            A melhor experiência que já tive com este tipo de produto.
+                        </p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="flex items-center gap-2 mb-3">
+                            <img src="https://avatar.vercel.sh/sarah" alt="Sarah" class="w-8 h-8 rounded-full">
+                            <div>
+                                <div class="font-semibold text-sm">Sarah</div>
+                                <div class="text-xs text-gray-500">@sarah</div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700">
+                            Design impecável e funcionalidade perfeita!
+                        </p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="flex items-center gap-2 mb-3">
+                            <img src="https://avatar.vercel.sh/mike" alt="Mike" class="w-8 h-8 rounded-full">
+                            <div>
+                                <div class="font-semibold text-sm">Mike</div>
+                                <div class="text-xs text-gray-500">@mike</div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700">
+                            Simplesmente perfeito. Não poderia pedir mais!
+                        </p>
+                    </div>
+
+                    <!-- Duplicate for seamless loop -->
+                    <div class="review-card">
+                        <div class="flex items-center gap-2 mb-3">
+                            <img src="https://avatar.vercel.sh/jenny" alt="Jenny" class="w-8 h-8 rounded-full">
+                            <div>
+                                <div class="font-semibold text-sm">Jenny</div>
+                                <div class="text-xs text-gray-500">@jenny</div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700">
+                            Produto fantástico! Recomendo para todos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 4: Cards com Hover Effects -->
+        <section class="mb-20">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">4. Cards Interativos</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 bg-blue-500 rounded-lg mb-4 flex items-center justify-center text-white text-2xl font-bold">
+                        1
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Componente Moderno</h3>
+                    <p class="text-gray-600">Design clean e responsivo com animações suaves.</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 bg-purple-500 rounded-lg mb-4 flex items-center justify-center text-white text-2xl font-bold">
+                        2
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Fácil Customização</h3>
+                    <p class="text-gray-600">Totalmente personalizável com Tailwind CSS.</p>
+                </div>
+
+                <div class="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer">
+                    <div class="w-12 h-12 bg-green-500 rounded-lg mb-4 flex items-center justify-center text-white text-2xl font-bold">
+                        3
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Performance</h3>
+                    <p class="text-gray-600">Otimizado para máxima performance e velocidade.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center py-8 border-t border-gray-200">
+            <p class="text-gray-600">
+                Componentes inspirados em <span class="font-semibold">Animate UI</span>,
+                <span class="font-semibold">MagicUI</span> e <span class="font-semibold">21st.dev</span>
+            </p>
+            <p class="text-sm text-gray-500 mt-2">
+                Criado com Puppeteer MCP Server + Tailwind CSS
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Custom Cursor Implementation (Animate UI inspired)
+        const cursor = document.getElementById('customCursor');
+        const cursorFollow = document.getElementById('cursorFollow');
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            cursor.style.left = mouseX + 'px';
+            cursor.style.top = mouseY + 'px';
+
+            cursorFollow.style.left = mouseX + 'px';
+            cursorFollow.style.top = mouseY + 'px';
+        });
+
+        // Show cursor follow on hover over interactive elements
+        const interactiveElements = document.querySelectorAll('button, a, .review-card, [id="sparkleButton"]');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorFollow.classList.add('active');
+                cursor.style.transform = 'scale(1.5)';
+                cursor.style.backgroundColor = 'rgba(59, 130, 246, 0.2)';
+            });
+
+            el.addEventListener('mouseleave', () => {
+                cursorFollow.classList.remove('active');
+                cursor.style.transform = 'scale(1)';
+                cursor.style.backgroundColor = 'transparent';
+            });
+        });
+
+        // Sparkle effect on button click
+        const sparkleButton = document.getElementById('sparkleButton');
+        sparkleButton.addEventListener('click', function(e) {
+            for (let i = 0; i < 8; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 0.5 + 's';
+                this.appendChild(sparkle);
+
+                setTimeout(() => sparkle.remove(), 1500);
+            }
+        });
+    </script>
+</body>
+</html>

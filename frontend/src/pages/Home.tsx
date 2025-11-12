@@ -61,7 +61,7 @@ const Home = () => {
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative hero-gradient text-primary-foreground pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 opacity-10 animate-pulse-slow">
           <img
             src={heroImage}
             alt="Jennifer Barreto - Advocacia Empresarial"
@@ -70,18 +70,25 @@ const Home = () => {
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Seus contratos são a fortaleza ou o ponto fraco do seu negócio?
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-fadeInUp">
+              Seus contratos são a
+              <span className="text-gradient"> fortaleza </span>
+              ou o ponto fraco do seu negócio?
             </h1>
-            <p className="text-lg md:text-xl mb-8 text-primary-foreground/90">
+            <p className="text-lg md:text-xl mb-8 text-primary-foreground/90 animate-fadeInUp-delay-1">
               Com 12 anos de experiência, aprendi que não há contrato bom que
               salve um negócio ruim. Minha missão é garantir que a sua
               estratégia de negócio seja a base para contratos que protegem e
               impulsionam seu crescimento.
             </p>
-            <Button variant="hero" size="xl" asChild>
-              <Link to="/contato">Agendar Diagnóstico Estratégico</Link>
-            </Button>
+            <div className="animate-fadeInUp-delay-2">
+              <Button variant="hero" size="xl" asChild className="group">
+                <Link to="/contato">
+                  Agendar Diagnóstico Estratégico
+                  <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">→</span>
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
