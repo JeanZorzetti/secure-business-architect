@@ -59,7 +59,7 @@ class SeoService {
       priority: 0.8,
     })));
 
-    // Blog posts
+    // Blog posts do banco de dados
     const posts = await prisma.blogPost.findMany({
       where: { status: 'PUBLISHED' },
       select: { slug: true, updatedAt: true },
@@ -69,6 +69,26 @@ class SeoService {
     urls.push(...posts.map((post: { slug: string; updatedAt: Date }) => ({
       loc: `${this.baseUrl}/conteudo/${post.slug}`,
       lastmod: post.updatedAt.toISOString(),
+      changefreq: 'monthly' as const,
+      priority: 0.7,
+    })));
+
+    // Blog posts estáticos (frontend)
+    const staticBlogPosts = [
+      { slug: 'gestao-contratos-lucratividade', date: '2024-03-15' },
+      { slug: 'sociedade-50-50-riscos', date: '2024-03-10' },
+      { slug: 'contrato-parceria-agronegocio', date: '2024-03-05' },
+      { slug: 'contrato-social-acordo-socios', date: '2024-02-28' },
+      { slug: 'due-diligence-checklist', date: '2024-02-20' },
+      { slug: 'clausulas-essenciais-contratos', date: '2024-02-12' },
+      { slug: 'negociacao-estrategica-contratos', date: '2024-02-05' },
+      { slug: 'passivos-trabalhistas-prevencao', date: '2024-01-28' },
+      { slug: 'pops-ambiente-corporativo', date: '2024-01-20' },
+    ];
+
+    urls.push(...staticBlogPosts.map(post => ({
+      loc: `${this.baseUrl}/conteudo/${post.slug}`,
+      lastmod: new Date(post.date).toISOString(),
       changefreq: 'monthly' as const,
       priority: 0.7,
     })));
