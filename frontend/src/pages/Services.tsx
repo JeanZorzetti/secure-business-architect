@@ -13,7 +13,7 @@ import {
   HeartHandshake,
 } from "lucide-react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
-import { SEO } from "@/components/SEO";
+import { SEO, BreadcrumbSchema } from "@/components/SEO";
 import { Timeline } from "@/components/ui/timeline";
 import ServiceDetail from "@/components/ServiceDetail";
 
@@ -135,6 +135,12 @@ const Services = () => {
         description="Serviços jurídicos especializados: consultoria estratégica, due diligence, estruturação societária, gestão de contratos e direito do agronegócio."
         keywords="serviços jurídicos empresariais, due diligence, consultoria jurídica, contratos empresariais, direito societário, agronegócio"
         url="https://jbadvocacia.roilabs.com.br/servicos"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://jbadvocacia.roilabs.com.br/" },
+          { name: "Serviços", url: "https://jbadvocacia.roilabs.com.br/servicos" },
+        ]}
       />
 
       <div className="min-h-screen pt-24 pb-20">

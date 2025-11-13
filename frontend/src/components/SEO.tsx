@@ -106,7 +106,7 @@ export const SEO = ({
 
 // Schema.org JSON-LD structured data
 interface SchemaOrgProps {
-  type: "Organization" | "Attorney" | "LegalService" | "Article" | "BreadcrumbList";
+  type: "Organization" | "Attorney" | "LegalService" | "Service" | "Article" | "BreadcrumbList";
   data: Record<string, any>;
 }
 
@@ -204,6 +204,115 @@ export const LegalServiceSchema = () => (
         "Compliance",
         "Direito Societário",
       ],
+    }}
+  />
+);
+
+// Service Schema - For individual service pages
+interface ServiceSchemaProps {
+  name: string;
+  description: string;
+  url: string;
+  serviceType?: string;
+}
+
+export const ServiceSchema = ({ name, description, url, serviceType }: ServiceSchemaProps) => (
+  <SchemaOrg
+    type="Service"
+    data={{
+      name,
+      description,
+      provider: {
+        "@type": "LegalService",
+        name: "Jennifer Barreto Advocacia",
+        url: "https://jbadvocacia.roilabs.com.br",
+      },
+      areaServed: {
+        "@type": "Country",
+        name: "Brasil",
+      },
+      serviceType: serviceType || name,
+      url,
+      offers: {
+        "@type": "Offer",
+        availability: "https://schema.org/InStock",
+      },
+    }}
+  />
+);
+
+// Article Schema - For blog posts
+interface ArticleSchemaProps {
+  headline: string;
+  description: string;
+  url: string;
+  image?: string;
+  datePublished: string;
+  dateModified?: string;
+  author?: string;
+  category?: string;
+}
+
+export const ArticleSchema = ({
+  headline,
+  description,
+  url,
+  image,
+  datePublished,
+  dateModified,
+  author = "Jennifer Barreto",
+  category
+}: ArticleSchemaProps) => (
+  <SchemaOrg
+    type="Article"
+    data={{
+      headline,
+      description,
+      image: image || "https://jbadvocacia.roilabs.com.br/og-image.png",
+      author: {
+        "@type": "Person",
+        name: author,
+        url: "https://jbadvocacia.roilabs.com.br/sobre",
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "Jennifer Barreto Advocacia",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://jbadvocacia.roilabs.com.br/logo.png",
+        },
+      },
+      datePublished,
+      dateModified: dateModified || datePublished,
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": url,
+      },
+      ...(category && { articleSection: category }),
+    }}
+  />
+);
+
+// Breadcrumb Schema
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+interface BreadcrumbSchemaProps {
+  items: BreadcrumbItem[];
+}
+
+export const BreadcrumbSchema = ({ items }: BreadcrumbSchemaProps) => (
+  <SchemaOrg
+    type="BreadcrumbList"
+    data={{
+      itemListElement: items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        item: item.url,
+      })),
     }}
   />
 );

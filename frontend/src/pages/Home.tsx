@@ -164,7 +164,7 @@ const Home = () => {
         <div className="absolute left-0 top-0 bottom-0 w-1/4 z-5 hidden lg:block">
           <img
             src={heroLeft}
-            alt="Decorative left"
+            alt="Padrão decorativo geométrico em tons de dourado para advocacia empresarial"
             className="h-full w-full object-cover"
             style={{ objectFit: "cover", objectPosition: "50% 50%", width: "100%" }}
           />
@@ -174,7 +174,7 @@ const Home = () => {
         <div className="absolute right-0 top-0 bottom-0 w-1/3 z-20 hidden lg:block">
           <img
             src={heroRight}
-            alt="Decorative right"
+            alt="Jennifer Barreto, advogada empresarial especializada em contratos e direito societário"
             className="h-full w-full"
             style={{ objectFit: "contain", objectPosition: "center bottom", width: "100%", height: "100%" }}
           />

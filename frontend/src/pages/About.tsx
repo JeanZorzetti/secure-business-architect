@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Award, Target, Heart, Briefcase, GraduationCap, TrendingUp, Users2 } from "lucide-react";
 import { Timeline } from "@/components/ui/timeline";
-import { SEO, AttorneySchema } from "@/components/SEO";
+import { SEO, AttorneySchema, BreadcrumbSchema } from "@/components/SEO";
 import aboutImage from "@/assets/about-image.jpg";
 
 const About = () => {
@@ -42,6 +42,12 @@ const About = () => {
         url="https://jbadvocacia.roilabs.com.br/sobre"
       />
       <AttorneySchema />
+      <BreadcrumbSchema
+        items={[
+          { name: "Home", url: "https://jbadvocacia.roilabs.com.br/" },
+          { name: "Sobre", url: "https://jbadvocacia.roilabs.com.br/sobre" },
+        ]}
+      />
 
       <div className="min-h-screen pt-24 pb-20">
       {/* Hero Section */}
