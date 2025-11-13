@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { BookOpen, Award, Target, Heart, Briefcase, GraduationCap, TrendingUp, Users2 } from "lucide-react";
 import { Timeline } from "@/components/ui/timeline";
+import { SEO, AttorneySchema } from "@/components/SEO";
 import aboutImage from "@/assets/about-image.jpg";
 
 const About = () => {
@@ -33,7 +34,16 @@ const About = () => {
   ];
 
   return (
-    <div className="min-h-screen pt-24 pb-20">
+    <>
+      <SEO
+        title="Sobre Jennifer Barreto"
+        description="Conheça Jennifer Barreto: 12 anos de experiência em direito empresarial, especialista em contratos estratégicos e assessoria para negócios complexos."
+        keywords="jennifer barreto advogada, advocacia empresarial são paulo, especialista contratos, due diligence, direito societário"
+        url="https://jbadvocacia.roilabs.com.br/sobre"
+      />
+      <AttorneySchema />
+
+      <div className="min-h-screen pt-24 pb-20">
       {/* Hero Section */}
       <section className="container mx-auto px-4 mb-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -281,7 +291,8 @@ const About = () => {
           <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-white/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

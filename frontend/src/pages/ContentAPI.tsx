@@ -135,8 +135,9 @@ const ContentAPI = () => {
     <div className="min-h-screen pt-24 pb-20">
       <SEO
         title="Blog - Da Minha Mesa"
-        description="Insights práticos sobre direito empresarial, negociações e estratégia de negócios. Conteúdos baseados em 12 anos de experiência."
-        keywords="blog jurídico, direito empresarial, artigos advocacia, insights jurídicos"
+        description="Artigos práticos sobre contratos empresariais, societário, due diligence e estratégias jurídicas para empresários. Conteúdo baseado em casos reais."
+        keywords="blog jurídico, direito empresarial, artigos advocacia, insights jurídicos, contratos empresariais"
+        url="https://jbadvocacia.roilabs.com.br/conteudo"
         type="website"
       />
 

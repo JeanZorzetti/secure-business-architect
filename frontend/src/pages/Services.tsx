@@ -13,6 +13,7 @@ import {
   HeartHandshake,
 } from "lucide-react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
+import { SEO } from "@/components/SEO";
 import { Timeline } from "@/components/ui/timeline";
 import ServiceDetail from "@/components/ServiceDetail";
 
@@ -128,7 +129,15 @@ const Services = () => {
   ];
 
   return (
-    <div className="min-h-screen pt-24 pb-20">
+    <>
+      <SEO
+        title="Serviços Jurídicos Empresariais"
+        description="Serviços jurídicos especializados: consultoria estratégica, due diligence, estruturação societária, gestão de contratos e direito do agronegócio."
+        keywords="serviços jurídicos empresariais, due diligence, consultoria jurídica, contratos empresariais, direito societário, agronegócio"
+        url="https://jbadvocacia.roilabs.com.br/servicos"
+      />
+
+      <div className="min-h-screen pt-24 pb-20">
       {/* Hero Section */}
       <section className="bg-secondary py-16 mb-20">
         <div className="container mx-auto px-4 text-center">
@@ -263,7 +272,8 @@ const Services = () => {
           <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-white/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -121,7 +121,12 @@ const Home = () => {
 
   return (
     <>
-      <SEO />
+      <SEO
+        title="Jennifer Barreto - Advocacia Empresarial Estratégica | 12 Anos de Experiência"
+        description="Advocacia empresarial com foco em estratégia, não apenas documentos. Contratos, societário, due diligence e agronegócio. 12 anos protegendo empresas."
+        keywords="advocacia empresarial, contratos estratégicos, due diligence, direito societário, agronegócio, consultoria jurídica empresarial"
+        url="https://jbadvocacia.roilabs.com.br/"
+      />
       <OrganizationSchema />
       <LegalServiceSchema />
 

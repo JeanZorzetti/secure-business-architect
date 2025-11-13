@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Mail, Phone, MapPin, Linkedin, Clock, CheckCircle2, AlertCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { SEO } from "@/components/SEO";
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://backjennifer.roilabs.com.br/api';
 
@@ -200,7 +201,15 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-20">
+    <>
+      <SEO
+        title="Contato"
+        description="Agende uma consultoria jurídica estratégica. Diagnóstico inicial gratuito. Atendimento empresarial personalizado e focado em resultados."
+        keywords="contato advocacia, agendar consultoria jurídica, diagnóstico empresarial, assessoria jurídica são paulo"
+        url="https://jbadvocacia.roilabs.com.br/contato"
+      />
+
+      <div className="min-h-screen pt-24 pb-20">
       {/* Hero Section */}
       <section className="bg-secondary py-16 mb-12">
         <div className="container mx-auto px-4 text-center">
@@ -659,7 +668,8 @@ const Contact = () => {
           <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-white/10 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-700" />
         </motion.div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 
