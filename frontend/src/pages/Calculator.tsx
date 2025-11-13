@@ -10,6 +10,7 @@ const Calculator = () => {
         title="Calculadora de Honorários"
         description="Calcule uma estimativa de honorários advocatícios para seu projeto empresarial. Ferramenta interativa para obter valores estimados de forma rápida e transparente."
         keywords="calculadora honorários advocacia, custo serviços jurídicos, orçamento advocacia, honorários advocatícios"
+        url="https://jbadvocacia.roilabs.com.br/calculadora"
         type="website"
       />
 

@@ -45,19 +45,20 @@ class SeoService {
       loc: `${this.baseUrl}${page.loc}`,
     })));
 
-    // Serviços dinâmicos
-    const services = await prisma.service.findMany({
-      where: { isActive: true },
-      select: { slug: true, updatedAt: true },
-      orderBy: { order: 'asc' },
-    });
+    // Serviços dinâmicos - COMMENTED OUT: Frontend doesn't have /servicos/:slug routes yet
+    // TODO: Uncomment when service detail pages are implemented in frontend
+    // const services = await prisma.service.findMany({
+    //   where: { isActive: true },
+    //   select: { slug: true, updatedAt: true },
+    //   orderBy: { order: 'asc' },
+    // });
 
-    urls.push(...services.map((service: { slug: string; updatedAt: Date }) => ({
-      loc: `${this.baseUrl}/servicos/${service.slug}`,
-      lastmod: service.updatedAt.toISOString(),
-      changefreq: 'weekly' as const,
-      priority: 0.8,
-    })));
+    // urls.push(...services.map((service: { slug: string; updatedAt: Date }) => ({
+    //   loc: `${this.baseUrl}/servicos/${service.slug}`,
+    //   lastmod: service.updatedAt.toISOString(),
+    //   changefreq: 'weekly' as const,
+    //   priority: 0.8,
+    // })));
 
     // Blog posts do banco de dados
     const posts = await prisma.blogPost.findMany({

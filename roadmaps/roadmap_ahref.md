@@ -3,13 +3,24 @@
 **Data da Auditoria:** 12/11/2025
 **Data da Última Atualização:** 13/11/2025
 **Site:** https://jbadvocacia.roilabs.com.br/
-**Status:** 🟢 FASE 2 CONCLUÍDA - Implementação Avançada Completa
+**Status:** 🔴 CORREÇÃO CRÍTICA APLICADA - Fix de Canonical Tags
 
 ---
 
 ## 📊 Executive Summary
 
 A auditoria Ahrefs revelou **problemas críticos de SEO** que estão impedindo o site de rankear adequadamente:
+
+### 🔴 CORREÇÃO CRÍTICA APLICADA (13/11/2025)
+
+**PROBLEMA CRÍTICO IDENTIFICADO APÓS DEPLOY P0/P1:**
+O novo crawl Ahrefs revelou que TODAS as páginas ainda apontavam canonical para `/` devido a um **bug de arquitetura** no backend:
+
+- ❌ **Bug:** Backend gerava URLs no sitemap para `/servicos/:slug` mas o frontend NÃO tinha essas rotas
+- ❌ **Resultado:** Crawlers acessavam URLs inexistentes → NotFound page → canonical apontava para `/`
+- ✅ **Fix Aplicado:** Removidas URLs de serviços individuais do sitemap (comentadas até implementação futura)
+- ✅ **Safety Net:** Adicionado SEO component ao NotFound.tsx com canonical correto
+- ✅ **Completude:** Adicionado canonical URL faltante no Calculator.tsx
 
 ### Problemas Identificados:
 
@@ -19,6 +30,7 @@ A auditoria Ahrefs revelou **problemas críticos de SEO** que estão impedindo o
 - ✅ **RESOLVIDO:** Structured Data completo (Organization, Attorney, Service, Article, Breadcrumb)
 - ✅ **RESOLVIDO:** Sitemap XML dinâmico (implementado no backend)
 - ✅ **RESOLVIDO:** Alt text adicionado em imagens principais
+- ✅ **RESOLVIDO (CRÍTICO):** Sitemap continha URLs inexistentes causando canonical incorreto
 
 ### Resultados Alcançados
 
@@ -79,10 +91,52 @@ A auditoria Ahrefs revelou **problemas críticos de SEO** que estão impedindo o
 - `backend/src/services/seoService.ts` - Sitemap dinâmico já implementado
 - `backend/src/routes/seoRoutes.ts` - Rota GET /sitemap.xml ativa
 
+### 🔴 Fase 2.5 - CORREÇÃO CRÍTICA (P0+) - ✅ CONCLUÍDA
+
+**Data de Conclusão:** 13/11/2025 (Após novo crawl Ahrefs)
+**Commit:** `[PRÓXIMO]` - fix(seo): CRITICAL - fix canonical tags bug from sitemap mismatch
+
+**Problema Crítico Descoberto:**
+
+Após deploy das Fases 1 e 2, um novo crawl Ahrefs revelou que o problema de canonical tags **PERSISTIA**. Investigação profunda revelou:
+
+1. **Root Cause:** Backend gerava sitemap com URLs `/servicos/:slug` (linhas 48-60 em `seoService.ts`)
+2. **Frontend Missing:** Não existiam rotas para `/servicos/:slug` no App.tsx (apenas `/servicos`)
+3. **Cascade Effect:** Crawlers visitavam URLs do sitemap → 404 → NotFound page → canonical apontava para `/`
+4. **Result:** Todas as 19 páginas afetadas tinham canonical incorreto
+
+**Tarefas Concluídas:**
+
+- ✅ Removidas URLs de serviços individuais do sitemap (backend/src/services/seoService.ts)
+- ✅ Adicionado SEO component ao NotFound.tsx com canonical dinâmico
+- ✅ Corrigido canonical faltante no Calculator.tsx
+- ✅ Documentado TODO para implementação futura de rotas `/servicos/:slug`
+
+**Arquivos Modificados:**
+
+- `backend/src/services/seoService.ts` - Comentadas linhas 48-61 (serviços individuais)
+- `frontend/src/pages/NotFound.tsx` - Adicionado SEO component com canonical dinâmico
+- `frontend/src/pages/Calculator.tsx` - Adicionado prop `url` ao SEO component
+
+**Páginas Agora Corretas:**
+
+Após esta correção, o sitemap conterá APENAS as seguintes páginas (todas com SEO correto):
+
+- ✅ `/` - Home (canonical próprio)
+- ✅ `/sobre` - About (canonical próprio)
+- ✅ `/servicos` - Services listing (canonical próprio)
+- ✅ `/conteudo` - Blog listing (canonical próprio)
+- ✅ `/contato` - Contact (canonical próprio)
+- ✅ `/calculadora` - Calculator (canonical próprio)
+- ✅ `/conteudo/:slug` - Blog posts (11 artigos com canonical próprio)
+
+**Total:** 6 páginas estáticas + 11 artigos = **17 páginas válidas** no sitemap
+
 ### ⏳ Fase 3 - PRIORIDADE MÉDIA (P2) - NÃO INICIADA
 
 - ⏳ Internal linking structure
 - ⏳ Performance optimization
+- ⏳ Implementar rotas individuais `/servicos/:slug` (opcional para futuro)
 
 ---
 
