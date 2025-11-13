@@ -34,6 +34,8 @@ export function RichTextEditor({ content, onChange, placeholder }: RichTextEdito
         heading: {
           levels: [1, 2, 3],
         },
+        // Disable link from StarterKit to avoid duplicate with our custom Link extension
+        link: false,
       }),
       Link.configure({
         openOnClick: false,

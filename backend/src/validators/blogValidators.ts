@@ -8,7 +8,10 @@ export const createBlogPostSchema = z.object({
   title: z.string().min(1, 'Título é obrigatório').max(200, 'Título muito longo'),
   excerpt: z.string().min(1, 'Resumo é obrigatório').max(500, 'Resumo muito longo'),
   content: z.string().min(1, 'Conteúdo é obrigatório'),
-  coverImage: z.string().url('URL da imagem inválida').optional(),
+  coverImage: z.union([
+    z.string().url('URL da imagem inválida'),
+    z.literal(''),
+  ]).optional().transform(val => val === '' ? undefined : val),
   author: z.string().min(1, 'Autor é obrigatório'),
   category: z.string().min(1, 'Categoria é obrigatória'),
   tags: z.array(z.string()).optional(),
@@ -21,7 +24,10 @@ export const updateBlogPostSchema = z.object({
   title: z.string().min(1, 'Título é obrigatório').max(200, 'Título muito longo').optional(),
   excerpt: z.string().min(1, 'Resumo é obrigatório').max(500, 'Resumo muito longo').optional(),
   content: z.string().min(1, 'Conteúdo é obrigatório').optional(),
-  coverImage: z.string().url('URL da imagem inválida').nullable().optional(),
+  coverImage: z.union([
+    z.string().url('URL da imagem inválida'),
+    z.literal(''),
+  ]).nullable().optional().transform(val => val === '' ? undefined : val),
   author: z.string().min(1, 'Autor é obrigatório').optional(),
   category: z.string().min(1, 'Categoria é obrigatória').optional(),
   tags: z.array(z.string()).optional(),
