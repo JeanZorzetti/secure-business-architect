@@ -94,7 +94,7 @@ O novo crawl Ahrefs revelou que TODAS as páginas ainda apontavam canonical para
 ### 🔴 Fase 2.5 - CORREÇÃO CRÍTICA (P0+) - ✅ CONCLUÍDA
 
 **Data de Conclusão:** 13/11/2025 (Após novo crawl Ahrefs)
-**Commit:** `[PRÓXIMO]` - fix(seo): CRITICAL - fix canonical tags bug from sitemap mismatch
+**Commit:** `bc35a9f` - fix(seo): CRITICAL - fix canonical tags bug from sitemap mismatch
 
 **Problema Crítico Descoberto:**
 
