@@ -332,16 +332,28 @@ export function BlogEditor() {
               <div className="space-y-6">
               {/* Título */}
               <div className="space-y-2">
-                <Label htmlFor="title">
-                  Título <span className="text-destructive">*</span>
-                </Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="title">
+                    Título <span className="text-destructive">*</span>
+                  </Label>
+                  <span className={`text-xs ${formData.title.length > 200 ? 'text-destructive font-semibold' : 'text-muted-foreground'}`}>
+                    {formData.title.length}/200
+                  </span>
+                </div>
                 <Input
                   id="title"
                   value={formData.title}
                   onChange={(e) => handleChange('title', e.target.value)}
                   placeholder="Digite o título do post..."
                   required
+                  maxLength={200}
+                  className={formData.title.length > 200 ? 'border-destructive' : ''}
                 />
+                {formData.title.length > 200 && (
+                  <p className="text-xs text-destructive">
+                    O título deve ter no máximo 200 caracteres
+                  </p>
+                )}
               </div>
 
               {/* Slug */}
@@ -370,9 +382,14 @@ export function BlogEditor() {
 
               {/* Resumo */}
               <div className="space-y-2">
-                <Label htmlFor="excerpt">
-                  Resumo <span className="text-destructive">*</span>
-                </Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="excerpt">
+                    Resumo <span className="text-destructive">*</span>
+                  </Label>
+                  <span className={`text-xs ${formData.excerpt.length > 500 ? 'text-destructive font-semibold' : 'text-muted-foreground'}`}>
+                    {formData.excerpt.length}/500
+                  </span>
+                </div>
                 <Textarea
                   id="excerpt"
                   value={formData.excerpt}
@@ -380,7 +397,14 @@ export function BlogEditor() {
                   placeholder="Escreva um breve resumo do post..."
                   rows={3}
                   required
+                  maxLength={500}
+                  className={formData.excerpt.length > 500 ? 'border-destructive' : ''}
                 />
+                {formData.excerpt.length > 500 && (
+                  <p className="text-xs text-destructive">
+                    O resumo deve ter no máximo 500 caracteres
+                  </p>
+                )}
               </div>
 
               {/* Conteúdo com Editor */}
