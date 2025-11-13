@@ -21,15 +21,30 @@ export const createBlogPostSchema = z.object({
  * Schema para atualizar blog post
  */
 export const updateBlogPostSchema = z.object({
-  title: z.string().min(1, 'Título é obrigatório').max(200, 'Título muito longo').optional(),
-  excerpt: z.string().min(1, 'Resumo é obrigatório').max(500, 'Resumo muito longo').optional(),
-  content: z.string().min(1, 'Conteúdo é obrigatório').optional(),
+  title: z.union([
+    z.string().min(1, 'Título é obrigatório').max(200, 'Título muito longo'),
+    z.literal(''),
+  ]).optional().transform(val => val === '' ? undefined : val),
+  excerpt: z.union([
+    z.string().min(1, 'Resumo é obrigatório').max(500, 'Resumo muito longo'),
+    z.literal(''),
+  ]).optional().transform(val => val === '' ? undefined : val),
+  content: z.union([
+    z.string().min(1, 'Conteúdo é obrigatório'),
+    z.literal(''),
+  ]).optional().transform(val => val === '' ? undefined : val),
   coverImage: z.union([
     z.string().url('URL da imagem inválida'),
     z.literal(''),
   ]).nullable().optional().transform(val => val === '' ? undefined : val),
-  author: z.string().min(1, 'Autor é obrigatório').optional(),
-  category: z.string().min(1, 'Categoria é obrigatória').optional(),
+  author: z.union([
+    z.string().min(1, 'Autor é obrigatório'),
+    z.literal(''),
+  ]).optional().transform(val => val === '' ? undefined : val),
+  category: z.union([
+    z.string().min(1, 'Categoria é obrigatória'),
+    z.literal(''),
+  ]).optional().transform(val => val === '' ? undefined : val),
   tags: z.array(z.string()).optional(),
 });
 

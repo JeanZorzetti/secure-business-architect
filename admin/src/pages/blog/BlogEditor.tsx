@@ -109,11 +109,16 @@ export function BlogEditor() {
         .map((tag) => tag.trim())
         .filter((tag) => tag.length > 0);
 
-      const dataToSave = {
-        ...formData,
-        tags,
-        coverImage: formData.coverImage || undefined,
-        publishedAt: publishedAt || undefined,
+      // Apenas enviar campos que têm valor
+      const dataToSave: UpdateBlogPostDTO = {
+        ...(formData.title && { title: formData.title }),
+        ...(formData.excerpt && { excerpt: formData.excerpt }),
+        ...(formData.content && { content: formData.content }),
+        ...(formData.coverImage && { coverImage: formData.coverImage }),
+        ...(formData.author && { author: formData.author }),
+        ...(formData.category && { category: formData.category }),
+        ...(tags.length > 0 && { tags }),
+        ...(publishedAt && { publishedAt }),
       };
 
       await blogApi.update(id, dataToSave);
