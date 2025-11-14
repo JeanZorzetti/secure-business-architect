@@ -54,6 +54,29 @@ export default {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
+  			},
+  			// Cores customizadas JB - Preto e Gold
+  			gold: {
+  				DEFAULT: '#b46d0c',
+  				50: '#fef8f0',
+  				100: '#fcefd9',
+  				200: '#f9ddb3',
+  				300: '#f5c582',
+  				400: '#f29658',
+  				500: '#e87e2c',
+  				600: '#d96922',
+  				700: '#b46d0c',
+  				800: '#925313',
+  				900: '#774413',
+  			},
+  			dark: {
+  				DEFAULT: '#000000',
+  				50: '#323232',
+  				100: '#202020',
+  				200: '#181818',
+  				300: '#141414',
+  				400: '#0a0a0a',
+  				500: '#000000',
   			}
   		},
   		borderRadius: {
