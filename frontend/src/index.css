@@ -8,112 +8,108 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 32 20% 97%;
-    --foreground: 210 20% 15%;
+    /* Paleta Preto e Gold - Inspirada em JB Advocacia */
+    --background: 0 0% 0%;              /* Preto #000000 */
+    --foreground: 0 0% 100%;            /* Branco #ffffff */
 
-    --card: 0 0% 100%;
-    --card-foreground: 210 20% 15%;
+    --card: 0 0% 8%;                    /* Cinza escuro #141414 */
+    --card-foreground: 0 0% 100%;       /* Branco */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 210 20% 15%;
+    --popover: 0 0% 8%;                 /* Cinza escuro #141414 */
+    --popover-foreground: 0 0% 100%;    /* Branco */
 
-    --primary: 210 65% 25%;
-    --primary-foreground: 32 20% 97%;
+    --primary: 32 84% 38%;              /* Gold #b46d0c */
+    --primary-foreground: 0 0% 100%;    /* Branco */
 
-    --secondary: 32 30% 92%;
-    --secondary-foreground: 210 20% 15%;
+    --secondary: 0 0% 13%;              /* Cinza escuro #202020 */
+    --secondary-foreground: 0 0% 100%;  /* Branco */
 
-    --muted: 32 15% 90%;
-    --muted-foreground: 210 15% 45%;
+    --muted: 0 0% 20%;                  /* Cinza médio #323232 */
+    --muted-foreground: 0 0% 92%;       /* Cinza claro #ebebeb */
 
-    --accent: 15 55% 55%;
-    --accent-foreground: 32 20% 97%;
+    --accent: 24 89% 65%;               /* Gold claro #f29658 */
+    --accent-foreground: 0 0% 0%;       /* Preto */
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 32 20% 97%;
+    --destructive: 0 84.2% 60.2%;       /* Vermelho (mantido) */
+    --destructive-foreground: 0 0% 100%; /* Branco */
 
-    --border: 32 20% 88%;
-    --input: 32 20% 88%;
-    --ring: 210 65% 25%;
+    --border: 0 0% 20%;                 /* Cinza médio #323232 */
+    --input: 0 0% 13%;                  /* Cinza escuro #202020 */
+    --ring: 32 84% 38%;                 /* Gold #b46d0c */
 
     --radius: 0.5rem;
-    
-    /* Custom design tokens - JB Advocacia Redesign */
-    --jb-navy: 210 100% 15%;           /* #0A2540 - Autoridade */
-    --jb-royal: 217 91% 60%;           /* #1E40AF - Interação */
-    --jb-gold: 38 92% 50%;             /* #F59E0B - Destaque */
-    --jb-amber: 45 93% 65%;            /* #FCD34D - Hover */
 
-    --hero-gradient: linear-gradient(135deg, hsl(210 100% 15%) 0%, hsl(217 91% 60%) 100%);
-    --card-gradient: linear-gradient(180deg, hsl(32 20% 97%) 0%, hsl(0 0% 100%) 100%);
-    --accent-gradient: linear-gradient(135deg, hsl(38 92% 50%) 0%, hsl(45 93% 65%) 100%);
-    --text-gradient: linear-gradient(135deg, hsl(38 92% 50%), hsl(45 93% 65%));
+    /* Custom design tokens - JB Advocacia Gold Theme */
+    --jb-gold: 32 84% 38%;             /* #b46d0c - Gold principal */
+    --jb-gold-light: 24 89% 65%;       /* #f29658 - Gold claro */
+    --jb-gold-dark: 32 84% 28%;        /* Gold escuro */
+    --jb-black: 0 0% 0%;               /* #000000 - Preto */
 
-    --accent-glow: 15 55% 55%;
-    --gold-glow: 38 92% 50%;
+    --hero-gradient: linear-gradient(135deg, hsl(0 0% 0%) 0%, hsl(0 0% 13%) 100%);
+    --card-gradient: linear-gradient(180deg, hsl(0 0% 8%) 0%, hsl(0 0% 5%) 100%);
+    --accent-gradient: linear-gradient(135deg, hsl(32 84% 38%) 0%, hsl(24 89% 65%) 100%);
+    --text-gradient: linear-gradient(135deg, hsl(32 84% 38%), hsl(24 89% 65%));
+
+    --accent-glow: 24 89% 65%;
+    --gold-glow: 32 84% 38%;
 
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-    --shadow-elegant: 0 10px 40px -10px hsl(210 65% 25% / 0.15);
-    --shadow-accent: 0 4px 20px -4px hsl(15 55% 55% / 0.25);
-    --shadow-glow: 0 0 20px hsl(38 92% 50% / 0.3);
-    --shadow-xl: 0 20px 25px -5px hsl(0 0% 0% / 0.1);
-    --shadow-2xl: 0 25px 50px -12px hsl(0 0% 0% / 0.25);
+    --shadow-elegant: 0 10px 40px -10px hsl(32 84% 38% / 0.3);
+    --shadow-accent: 0 4px 20px -4px hsl(24 89% 65% / 0.4);
+    --shadow-glow: 0 0 30px hsl(32 84% 38% / 0.5);
+    --shadow-xl: 0 20px 25px -5px hsl(0 0% 0% / 0.5);
+    --shadow-2xl: 0 25px 50px -12px hsl(0 0% 0% / 0.7);
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 32 84% 38%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 13%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 32 84% 38%;
   }
 
   .dark {
-    --background: 210 30% 8%;
-    --foreground: 32 20% 95%;
+    /* Dark mode - mesmo tema preto e gold */
+    --background: 0 0% 0%;              /* Preto #000000 */
+    --foreground: 0 0% 100%;            /* Branco */
 
-    --card: 210 25% 12%;
-    --card-foreground: 32 20% 95%;
+    --card: 0 0% 8%;                    /* Cinza escuro #141414 */
+    --card-foreground: 0 0% 100%;       /* Branco */
 
-    --popover: 210 25% 12%;
-    --popover-foreground: 32 20% 95%;
+    --popover: 0 0% 8%;                 /* Cinza escuro #141414 */
+    --popover-foreground: 0 0% 100%;    /* Branco */
 
-    --primary: 32 20% 95%;
-    --primary-foreground: 210 65% 25%;
+    --primary: 32 84% 38%;              /* Gold #b46d0c */
+    --primary-foreground: 0 0% 100%;    /* Branco */
 
-    --secondary: 210 20% 18%;
-    --secondary-foreground: 32 20% 95%;
+    --secondary: 0 0% 13%;              /* Cinza escuro #202020 */
+    --secondary-foreground: 0 0% 100%;  /* Branco */
 
-    --muted: 210 20% 18%;
-    --muted-foreground: 210 15% 65%;
+    --muted: 0 0% 20%;                  /* Cinza médio #323232 */
+    --muted-foreground: 0 0% 92%;       /* Cinza claro #ebebeb */
 
-    --accent: 15 55% 55%;
-    --accent-foreground: 32 20% 97%;
+    --accent: 24 89% 65%;               /* Gold claro #f29658 */
+    --accent-foreground: 0 0% 0%;       /* Preto */
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 32 20% 95%;
+    --destructive: 0 84.2% 60.2%;       /* Vermelho */
+    --destructive-foreground: 0 0% 100%; /* Branco */
 
-    --border: 210 20% 20%;
-    --input: 210 20% 20%;
-    --ring: 15 55% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --border: 0 0% 20%;                 /* Cinza médio #323232 */
+    --input: 0 0% 13%;                  /* Cinza escuro #202020 */
+    --ring: 32 84% 38%;                 /* Gold #b46d0c */
+
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 32 84% 38%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 0 0% 13%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 32 84% 38%;
   }
 }
 
