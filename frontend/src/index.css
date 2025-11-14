@@ -45,10 +45,35 @@ All colors MUST be HSL.
     --jb-gold-dark: 32 84% 28%;        /* Gold escuro */
     --jb-black: 0 0% 0%;               /* #000000 - Preto */
 
+    /* Gradientes Metálicos Gold */
+    --gold-metallic: linear-gradient(135deg,
+      hsl(45 93% 75%) 0%,      /* Gold muito claro - destaque */
+      hsl(38 92% 60%) 25%,     /* Gold médio */
+      hsl(32 84% 38%) 50%,     /* Gold principal */
+      hsl(30 80% 28%) 75%,     /* Gold escuro */
+      hsl(28 76% 20%) 100%     /* Gold muito escuro - sombra */
+    );
+
+    --gold-shine: linear-gradient(120deg,
+      hsl(32 84% 28%) 0%,
+      hsl(38 92% 50%) 20%,
+      hsl(45 93% 65%) 40%,
+      hsl(38 92% 50%) 60%,
+      hsl(32 84% 38%) 80%,
+      hsl(30 80% 28%) 100%
+    );
+
+    --gold-radial: radial-gradient(circle at 30% 30%,
+      hsl(45 93% 75%) 0%,
+      hsl(38 92% 60%) 30%,
+      hsl(32 84% 38%) 60%,
+      hsl(28 76% 20%) 100%
+    );
+
     --hero-gradient: linear-gradient(135deg, hsl(0 0% 0%) 0%, hsl(0 0% 13%) 100%);
     --card-gradient: linear-gradient(180deg, hsl(0 0% 8%) 0%, hsl(0 0% 5%) 100%);
-    --accent-gradient: linear-gradient(135deg, hsl(32 84% 38%) 0%, hsl(24 89% 65%) 100%);
-    --text-gradient: linear-gradient(135deg, hsl(32 84% 38%), hsl(24 89% 65%));
+    --accent-gradient: var(--gold-metallic);
+    --text-gradient: var(--gold-shine);
 
     --accent-glow: 24 89% 65%;
     --gold-glow: 32 84% 38%;
@@ -130,10 +155,24 @@ All colors MUST be HSL.
 }
 
 @layer utilities {
+  /* Gradientes de Background */
   .hero-gradient {
     background: var(--hero-gradient);
   }
 
+  .gold-metallic {
+    background: var(--gold-metallic);
+  }
+
+  .gold-shine {
+    background: var(--gold-shine);
+  }
+
+  .gold-radial {
+    background: var(--gold-radial);
+  }
+
+  /* Gradientes de Texto */
   .text-gradient {
     background: var(--text-gradient);
     -webkit-background-clip: text;
@@ -141,6 +180,21 @@ All colors MUST be HSL.
     background-clip: text;
   }
 
+  .text-gold-metallic {
+    background: var(--gold-metallic);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gold-shine {
+    background: var(--gold-shine);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Sombras */
   .shadow-elegant {
     box-shadow: var(--shadow-elegant);
   }

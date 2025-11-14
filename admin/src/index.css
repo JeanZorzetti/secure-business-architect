@@ -30,6 +30,31 @@
     --chart-3: 0 0% 38%;                /* Cinza */
     --chart-4: 32 84% 50%;              /* Gold variação */
     --chart-5: 24 89% 75%;              /* Gold muito claro */
+
+    /* Gradientes Metálicos Gold */
+    --gold-metallic: linear-gradient(135deg,
+      hsl(45 93% 75%) 0%,      /* Gold muito claro - destaque */
+      hsl(38 92% 60%) 25%,     /* Gold médio */
+      hsl(32 84% 38%) 50%,     /* Gold principal */
+      hsl(30 80% 28%) 75%,     /* Gold escuro */
+      hsl(28 76% 20%) 100%     /* Gold muito escuro - sombra */
+    );
+
+    --gold-shine: linear-gradient(120deg,
+      hsl(32 84% 28%) 0%,
+      hsl(38 92% 50%) 20%,
+      hsl(45 93% 65%) 40%,
+      hsl(38 92% 50%) 60%,
+      hsl(32 84% 38%) 80%,
+      hsl(30 80% 28%) 100%
+    );
+
+    --gold-radial: radial-gradient(circle at 30% 30%,
+      hsl(45 93% 75%) 0%,
+      hsl(38 92% 60%) 30%,
+      hsl(32 84% 38%) 60%,
+      hsl(28 76% 20%) 100%
+    );
   }
 
   .dark {
@@ -58,6 +83,31 @@
     --chart-3: 0 0% 38%;                /* Cinza */
     --chart-4: 32 84% 50%;              /* Gold variação */
     --chart-5: 24 89% 75%;              /* Gold muito claro */
+
+    /* Gradientes Metálicos Gold (mesmos do light mode) */
+    --gold-metallic: linear-gradient(135deg,
+      hsl(45 93% 75%) 0%,
+      hsl(38 92% 60%) 25%,
+      hsl(32 84% 38%) 50%,
+      hsl(30 80% 28%) 75%,
+      hsl(28 76% 20%) 100%
+    );
+
+    --gold-shine: linear-gradient(120deg,
+      hsl(32 84% 28%) 0%,
+      hsl(38 92% 50%) 20%,
+      hsl(45 93% 65%) 40%,
+      hsl(38 92% 50%) 60%,
+      hsl(32 84% 38%) 80%,
+      hsl(30 80% 28%) 100%
+    );
+
+    --gold-radial: radial-gradient(circle at 30% 30%,
+      hsl(45 93% 75%) 0%,
+      hsl(38 92% 60%) 30%,
+      hsl(32 84% 38%) 60%,
+      hsl(28 76% 20%) 100%
+    );
   }
 }
 
@@ -67,5 +117,42 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  /* Gradientes de Background */
+  .gold-metallic {
+    background: var(--gold-metallic);
+  }
+
+  .gold-shine {
+    background: var(--gold-shine);
+  }
+
+  .gold-radial {
+    background: var(--gold-radial);
+  }
+
+  /* Gradientes de Texto */
+  .text-gold-metallic {
+    background: var(--gold-metallic);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gold-shine {
+    background: var(--gold-shine);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gold-radial {
+    background: var(--gold-radial);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }
