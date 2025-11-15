@@ -6,8 +6,18 @@
     <meta name="theme-color" content="#0A0F1C" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
-    <!-- SEO meta tags managed by React Helmet - DO NOT add static meta tags here -->
-    <!-- Title, description, keywords, og:*, twitter:*, canonical are dynamically set per page -->
+    <!-- Canonical URL - Set dynamically based on current URL -->
+    <script>
+      (function() {
+        var canonical = document.createElement('link');
+        canonical.rel = 'canonical';
+        canonical.href = window.location.origin + window.location.pathname;
+        document.head.appendChild(canonical);
+      })();
+    </script>
+
+    <!-- SEO meta tags managed by React Helmet -->
+    <!-- Title, description, keywords, og:*, twitter:* are dynamically set per page by React -->
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-DFRN52K0HE"></script>
