@@ -10,11 +10,16 @@ export const revalidate = 3600;
 export async function generateStaticParams() {
   try {
     const data = await getPosts({ limit: 100 });
+    console.log(`[Build] Generating static params for ${data.posts.length} blog posts`);
     return data.posts.map((post) => ({
       slug: post.slug,
     }));
   } catch (error) {
-    console.error('Failed to generate static params:', error);
+    console.error('[Build] CRITICAL: Failed to generate static params for blog posts:', error);
+    // In production build, we need these pages, so log prominently
+    if (process.env.NODE_ENV === 'production') {
+      console.error('[Build] This will result in 404s for all blog posts!');
+    }
     return [];
   }
 }

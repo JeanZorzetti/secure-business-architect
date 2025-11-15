@@ -60,15 +60,22 @@ export async function getPosts(filters?: BlogFilters): Promise<PaginatedResponse
 
   const url = `${API_BASE_URL}/blog/posts?${params.toString()}`;
 
-  const response = await fetch(url, {
-    next: { revalidate: 3600 }, // ISR: revalidate every 1 hour
-  });
+  try {
+    const response = await fetch(url, {
+      next: { revalidate: 3600 }, // ISR: revalidate every 1 hour
+    });
 
-  if (!response.ok) {
-    throw new Error('Failed to fetch posts');
+    if (!response.ok) {
+      console.error(`[API] Failed to fetch posts: ${response.status} ${response.statusText}`);
+      throw new Error(`Failed to fetch posts: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('[API] Error fetching posts from', url, error);
+    throw error;
   }
-
-  return response.json();
 }
 
 /**
