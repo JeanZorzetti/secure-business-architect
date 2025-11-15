@@ -48,6 +48,18 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+
+  // Redirects for old URLs with accents to new slugs without accents
+  async redirects() {
+    return [
+      {
+        source: '/conteudo/importância-de-diligência-ma',
+        destination: '/conteudo/importancia-due-diligence-ma',
+        permanent: true,
+      },
+      // Add more redirects as needed for other URLs with 404
+    ];
+  },
 };
 
 export default nextConfig;
