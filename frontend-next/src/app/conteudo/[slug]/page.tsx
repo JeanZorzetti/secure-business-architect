@@ -27,20 +27,25 @@ export async function generateStaticParams() {
     'pops-ambiente-corporativo',
   ];
 
-  try {
-    const data = await getPosts({ limit: 100 });
-    console.log(`[Build] Successfully generated static params for ${data.posts.length} blog posts from API`);
-    return data.posts.map((post) => ({
-      slug: post.slug,
-    }));
-  } catch (error) {
-    console.error('[Build] CRITICAL: Failed to fetch from API during build:', error);
-    console.warn('[Build] Using fallback slugs to ensure pages are generated');
+  // TEMPORARY: Always use fallback to ensure pages are generated
+  // Will investigate API accessibility from Vercel build environment
+  console.log('[Build] Using fallback slugs for initial generation');
+  return fallbackSlugs.map(slug => ({ slug }));
 
-    // Use fallback slugs so pages are at least generated
-    // ISR will update them with real data after first request
-    return fallbackSlugs.map(slug => ({ slug }));
-  }
+  // try {
+  //   const data = await getPosts({ limit: 100 });
+  //   console.log(`[Build] Successfully generated static params for ${data.posts.length} blog posts from API`);
+  //   return data.posts.map((post) => ({
+  //     slug: post.slug,
+  //   }));
+  // } catch (error) {
+  //   console.error('[Build] CRITICAL: Failed to fetch from API during build:', error);
+  //   console.warn('[Build] Using fallback slugs to ensure pages are generated');
+
+  //   // Use fallback slugs so pages are at least generated
+  //   // ISR will update them with real data after first request
+  //   return fallbackSlugs.map(slug => ({ slug }));
+  // }
 }
 
 // Generate metadata for each post
