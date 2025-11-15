@@ -1,0 +1,13 @@
+var R=require("../../chunks/ssr/[turbopack]_runtime.js")("server/app/_not-found/page.js")
+R.c("server/chunks/ssr/Downloads_secure-business-architect-main_frontend-next_7276a609._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__b7713f50._.js")
+R.c("server/chunks/ssr/31dfb_next_dist_esm_build_templates_app-page_5c21db80.js")
+R.c("server/chunks/ssr/[root-of-the-server]__2470a684._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__17a07674._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__c94439ff._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__bfe011a8._.js")
+R.c("server/chunks/ssr/31dfb_next_dist_client_components_dfae96db._.js")
+R.c("server/chunks/ssr/31dfb_next_dist_client_components_builtin_forbidden_70a0ab3c.js")
+R.c("server/chunks/ssr/e6629_frontend-next__next-internal_server_app__not-found_page_actions_76d71f75.js")
+R.m(86330)
+module.exports=R.m(86330).exports
