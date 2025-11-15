@@ -43,7 +43,7 @@ export const SEO = ({
     description: description || defaultSEO.description,
     keywords: keywords || defaultSEO.keywords,
     image: image || defaultSEO.image,
-    url: url || defaultSEO.url,
+    url: url, // Remove fallback - cada página deve passar sua URL
     type,
   };
 
@@ -57,7 +57,7 @@ export const SEO = ({
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={seo.type} />
-      <meta property="og:url" content={seo.url} />
+      {seo.url && <meta property="og:url" content={seo.url} />}
       <meta property="og:title" content={seo.title} />
       <meta property="og:description" content={seo.description} />
       <meta property="og:image" content={seo.image} />
@@ -93,13 +93,13 @@ export const SEO = ({
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:url" content={seo.url} />
+      {seo.url && <meta name="twitter:url" content={seo.url} />}
       <meta name="twitter:title" content={seo.title} />
       <meta name="twitter:description" content={seo.description} />
       <meta name="twitter:image" content={seo.image} />
 
-      {/* Canonical URL */}
-      <link rel="canonical" href={seo.url} />
+      {/* Canonical URL - Only if URL is provided */}
+      {seo.url && <link rel="canonical" href={seo.url} />}
     </Helmet>
   );
 };
