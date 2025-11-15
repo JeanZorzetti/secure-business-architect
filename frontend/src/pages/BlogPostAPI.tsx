@@ -110,7 +110,12 @@ const BlogPostAPI = () => {
     return <Navigate to="/conteudo" replace />;
   }
 
-  const readingTime = calculateReadingTime(post.content);
+  // Calculate reading time: use the maximum between calculated and extracted
+  const calculatedTime = calculateReadingTime(post.content);
+  const extractedTime = summaryData.readingTime.match(/\d+/)?.[0] || '0';
+  const extractedTimeNum = parseInt(extractedTime, 10);
+  const readingTime = Math.max(calculatedTime, extractedTimeNum);
+
   const publishDate = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString('pt-BR', {
         day: 'numeric',
@@ -220,7 +225,7 @@ const BlogPostAPI = () => {
         {/* Executive Summary */}
         {summaryData.learningPoints.length > 0 && (
           <ExecutiveSummary
-            readingTime={summaryData.readingTime}
+            readingTime={`${readingTime} minutos`}
             learningPoints={summaryData.learningPoints}
             result={summaryData.result}
           />
