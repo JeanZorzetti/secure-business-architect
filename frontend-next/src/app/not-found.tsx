@@ -1,6 +1,16 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Home, ArrowLeft } from 'lucide-react';
+import { Home } from 'lucide-react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Página Não Encontrada - 404',
+  description: 'A página que você está procurando não existe ou foi movida.',
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function NotFound() {
   return (

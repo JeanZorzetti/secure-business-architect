@@ -292,7 +292,7 @@ export const metadata: Metadata = {
 - [x] Criar `src/app/not-found.tsx`
 - [x] Design customizado
 - [x] Links para páginas principais
-- [ ] Configurar metadata
+- [x] Configurar metadata (robots: noindex, nofollow)
 
 **Arquivo:** `src/app/not-found.tsx`
 
@@ -395,15 +395,15 @@ export const revalidate = 3600; // ISR
 **Origem:** `frontend/src/components/blog/`
 **Destino:** `frontend-next/src/components/blog/`
 
-### 4.5 Implementar Analytics (2h) ⏭️
+### 4.5 Implementar Analytics (2h) ✅
 
-- [ ] Migrar `src/utils/analytics.ts`
-- [ ] Configurar Google Analytics 4 no layout
-- [ ] Adicionar tracking de eventos
-- [ ] Testar tracking em artigos
-- [ ] Implementar tracking de scroll depth
+- [x] Migrar `src/utils/analytics.ts` → `src/lib/analytics.ts`
+- [x] Configurar Google Analytics 4 no layout
+- [x] Adicionar tracking de eventos (10 tipos)
+- [x] Criar componente GoogleAnalytics
+- [x] Implementar tracking de scroll depth
 
-**Nota:** Analytics será implementado na Fase 5 (Integrações)
+**Nota:** Implementado na Fase 5 (Integrações)
 
 **Arquivo:** `src/lib/analytics.ts`
 
