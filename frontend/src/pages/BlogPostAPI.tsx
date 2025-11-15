@@ -163,8 +163,13 @@ const BlogPostAPI = () => {
           </Link>
         </div>
 
-        {/* Layout: Article + TOC Sidebar (Desktop) */}
-        <div className="max-w-7xl mx-auto xl:grid xl:grid-cols-[1fr_280px] xl:gap-12">
+        {/* Layout: TOC Sidebar + Article (Desktop) */}
+        <div className="max-w-7xl mx-auto xl:grid xl:grid-cols-[280px_1fr] xl:gap-12">
+          {/* Table of Contents Sidebar (Desktop - Left) */}
+          <aside className="hidden xl:block">
+            <TableOfContents items={tocItems} />
+          </aside>
+
           {/* Main Article */}
           <article className="max-w-4xl"  >
 
@@ -292,15 +297,7 @@ const BlogPostAPI = () => {
           </Link>
         </div>
           </article>
-
-          {/* Table of Contents Sidebar (Desktop) */}
-          <aside className="hidden xl:block">
-            <TableOfContents items={tocItems} />
-          </aside>
         </div>
-
-        {/* Table of Contents Mobile (Floating + Drawer) */}
-        <TableOfContents items={tocItems} />
 
         {/* Mobile Share Buttons (Sticky + Native Share API) */}
         <MobileShareButtons
