@@ -6,6 +6,10 @@ import ArticleContent from '@/components/blog/article-content';
 // ISR: Revalidate every hour
 export const revalidate = 3600;
 
+// Allow dynamic params beyond those in generateStaticParams
+// This enables ISR for new posts added after build
+export const dynamicParams = true;
+
 // Generate static params for all published posts (SSG)
 export async function generateStaticParams() {
   // Fallback slugs in case API is unreachable during build
@@ -83,12 +87,14 @@ export default async function ArticlePage({
 
   try {
     post = await getPostBySlug(params.slug);
-  } catch (error) {
-    notFound();
-  }
 
-  // Only show published posts
-  if (post.status !== 'PUBLISHED') {
+    // Only show published posts
+    if (post.status !== 'PUBLISHED') {
+      console.warn(`[Page] Post ${params.slug} is not published (status: ${post.status})`);
+      notFound();
+    }
+  } catch (error) {
+    console.error(`[Page] Failed to load post ${params.slug}:`, error);
     notFound();
   }
 
