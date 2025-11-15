@@ -34,10 +34,12 @@ import {
 } from '@/components/ui/select';
 import type { UpdateProfileDTO, ChangePasswordDTO, UserPreferences } from '@/types/user';
 import { toast } from 'sonner';
+import { useTheme } from '@/hooks/useTheme';
 
 export function Profile() {
   const queryClient = useQueryClient();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const { theme, setTheme } = useTheme();
 
   // Profile form state
   const [profileForm, setProfileForm] = useState<UpdateProfileDTO>({
@@ -47,7 +49,7 @@ export function Profile() {
 
   // Preferences state
   const [preferences, setPreferences] = useState<UserPreferences>({
-    theme: 'system',
+    theme: (theme || 'light') as 'light' | 'dark' | 'system',
     notifications: {
       email: true,
       push: false,
@@ -438,10 +440,11 @@ export function Profile() {
                   <div className="space-y-3">
                     <Label>Tema de Interface</Label>
                     <Select
-                      value={preferences.theme}
-                      onValueChange={(value: 'light' | 'dark' | 'system') =>
-                        setPreferences((prev) => ({ ...prev, theme: value }))
-                      }
+                      value={theme || 'light'}
+                      onValueChange={(value: 'light' | 'dark') => {
+                        setTheme(value);
+                        setPreferences((prev) => ({ ...prev, theme: value }));
+                      }}
                     >
                       <SelectTrigger className="w-full md:w-64">
                         <SelectValue />
@@ -457,12 +460,6 @@ export function Profile() {
                           <div className="flex items-center gap-2">
                             <Moon className="h-4 w-4" />
                             <span>Escuro</span>
-                          </div>
-                        </SelectItem>
-                        <SelectItem value="system">
-                          <div className="flex items-center gap-2">
-                            <Monitor className="h-4 w-4" />
-                            <span>Sistema</span>
                           </div>
                         </SelectItem>
                       </SelectContent>
