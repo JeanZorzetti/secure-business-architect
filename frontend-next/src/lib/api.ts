@@ -129,15 +129,33 @@ export async function getPostBySlug(slug: string): Promise<BlogPost> {
 export async function getCategories(): Promise<BlogCategory[]> {
   const url = `${API_BASE_URL}/blog/categories`;
 
-  const response = await fetch(url, {
-    next: { revalidate: 3600 },
-  });
+  try {
+    const response = await fetch(url, {
+      next: { revalidate: 3600 },
+    });
 
-  if (!response.ok) {
-    throw new Error('Failed to fetch categories');
+    if (!response.ok) {
+      console.error(`[API] Failed to fetch categories: ${response.status} ${response.statusText}`);
+      throw new Error(`Failed to fetch categories: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    // Backend returns {categories: ["string1", "string2", ...]}
+    // Transform to BlogCategory objects
+    const categoryNames = data.categories || [];
+    return categoryNames.map((name: string, index: number) => ({
+      id: name.toLowerCase().replace(/\s+/g, '-'),
+      name,
+      slug: name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-'),
+      description: null,
+      order: index,
+      isActive: true,
+    }));
+  } catch (error) {
+    console.error('[API] Error fetching categories from', url, error);
+    throw error;
   }
-
-  return response.json();
 }
 
 /**
