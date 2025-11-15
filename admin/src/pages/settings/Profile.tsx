@@ -22,7 +22,6 @@ import {
   Bell,
   Moon,
   Sun,
-  Monitor,
 } from 'lucide-react';
 import { Switch } from '@/components/ui/switch';
 import {
