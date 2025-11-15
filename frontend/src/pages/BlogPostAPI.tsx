@@ -1,7 +1,7 @@
 import { useParams, Link, Navigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Calendar, ArrowLeft, Clock, Loader2, AlertCircle } from "lucide-react";
-import { SEO, AttorneySchema } from "@/components/SEO";
+import { SEO, AttorneySchema, ArticleSchema } from "@/components/SEO";
 import { ReadingProgress, calculateReadingTime } from "@/components/ReadingProgress";
 import { SocialShare } from "@/components/SocialShare";
 import { ArticleContent } from "@/components/blog/ArticleContent";
@@ -121,6 +121,16 @@ const BlogPostAPI = () => {
         }}
       />
       <AttorneySchema />
+      <ArticleSchema
+        headline={post.title}
+        description={post.excerpt}
+        url={currentUrl}
+        image={post.coverImage || undefined}
+        datePublished={post.publishedAt || post.createdAt}
+        dateModified={post.updatedAt}
+        author={post.author}
+        category={post.category}
+      />
       <ReadingProgress />
 
       <div className="container mx-auto px-4">
