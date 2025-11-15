@@ -4,8 +4,11 @@ import { Calendar, ArrowLeft, Clock, Loader2, AlertCircle } from "lucide-react";
 import { SEO, AttorneySchema } from "@/components/SEO";
 import { ReadingProgress, calculateReadingTime } from "@/components/ReadingProgress";
 import { SocialShare } from "@/components/SocialShare";
+import { ArticleContent } from "@/components/blog/ArticleContent";
+import { ExecutiveSummary } from "@/components/blog/ExecutiveSummary";
+import { extractExecutiveSummary } from "@/utils/extractExecutiveSummary";
 import blogService from "@/services/blogService";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 const BlogPostAPI = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -72,6 +75,11 @@ const BlogPostAPI = () => {
   if (post.status !== 'PUBLISHED') {
     return <Navigate to="/conteudo" replace />;
   }
+
+  // Extrair resumo executivo e conteúdo limpo
+  const summaryData = useMemo(() => {
+    return extractExecutiveSummary(post.content);
+  }, [post.content]);
 
   const readingTime = calculateReadingTime(post.content);
   const publishDate = post.publishedAt
@@ -158,10 +166,17 @@ const BlogPostAPI = () => {
           </div>
         </header>
 
+        {/* Executive Summary */}
+        {summaryData.learningPoints.length > 0 && (
+          <ExecutiveSummary
+            readingTime={summaryData.readingTime}
+            learningPoints={summaryData.learningPoints}
+            result={summaryData.result}
+          />
+        )}
+
         {/* Content */}
-        <div className="prose prose-lg max-w-none mb-12">
-          <div dangerouslySetInnerHTML={{ __html: post.content }} />
-        </div>
+        <ArticleContent htmlContent={summaryData.htmlWithoutSummary} />
 
         {/* Tags */}
         {post.tags.length > 0 && (
