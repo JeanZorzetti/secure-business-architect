@@ -1,0 +1,349 @@
+/**
+ * MobileShareButtons Styles
+ * Design: Sticky button + Drawer para compartilhamento mobile
+ */
+
+/* Sticky Share Button */
+.stickyButton {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #b46d0c 0%, #8a5409 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(180, 109, 12, 0.3), 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 40;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: slideIn 0.3s ease-out;
+}
+
+.stickyButton:hover {
+  background: linear-gradient(135deg, #8a5409 0%, #6b4207 100%);
+  box-shadow: 0 6px 20px rgba(180, 109, 12, 0.4), 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
+}
+
+.stickyButton:active {
+  transform: scale(0.95);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Drawer */
+.drawer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 51;
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 1.5rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  z-index: 1;
+}
+
+.title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.closeButton {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: #737373;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+  background: #f5f5f5;
+  color: #1a1a1a;
+}
+
+.closeButton:active {
+  background: #e5e5e5;
+  transform: scale(0.95);
+}
+
+/* Share Options Grid */
+.options {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.75rem;
+  border-radius: 12px;
+  transition: background 0.2s ease;
+}
+
+.option:hover {
+  background: #f5f5f5;
+}
+
+.option:active {
+  background: #e5e5e5;
+  transform: scale(0.95);
+}
+
+/* Icon Wrapper */
+.iconWrapper {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+/* Platform Colors */
+.whatsapp {
+  background: linear-gradient(135deg, #25D366 0%, #1EBE57 100%);
+}
+
+.facebook {
+  background: linear-gradient(135deg, #1877F2 0%, #0C63D4 100%);
+}
+
+.twitter {
+  background: linear-gradient(135deg, #1DA1F2 0%, #0C85D0 100%);
+}
+
+.linkedin {
+  background: linear-gradient(135deg, #0A66C2 0%, #004182 100%);
+}
+
+.copy {
+  background: linear-gradient(135deg, #b46d0c 0%, #8a5409 100%);
+}
+
+.option:hover .iconWrapper {
+  transform: scale(1.1);
+}
+
+.option:active .iconWrapper {
+  transform: scale(1);
+}
+
+/* Option Label */
+.optionLabel {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #525252;
+  text-align: center;
+}
+
+/* Desktop: Hide sticky button */
+@media (min-width: 1024px) {
+  .stickyButton {
+    display: none;
+  }
+}
+
+/* Tablet: Adjust button size */
+@media (max-width: 768px) {
+  .stickyButton {
+    width: 52px;
+    height: 52px;
+    bottom: 20px;
+    right: 20px;
+  }
+}
+
+/* Mobile: Smaller options grid */
+@media (max-width: 480px) {
+  .options {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .iconWrapper {
+    width: 48px;
+    height: 48px;
+  }
+
+  .optionLabel {
+    font-size: 0.6875rem;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  .stickyButton {
+    width: 48px;
+    height: 48px;
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .header {
+    padding: 1.25rem 1.25rem 0.875rem;
+  }
+
+  .title {
+    font-size: 1.125rem;
+  }
+
+  .options {
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .option {
+    padding: 0.5rem;
+  }
+
+  .iconWrapper {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Print: Hide everything */
+@media print {
+  .stickyButton,
+  .overlay,
+  .drawer {
+    display: none !important;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .stickyButton,
+  .overlay,
+  .drawer,
+  .option,
+  .iconWrapper,
+  .closeButton {
+    animation: none;
+    transition: none;
+  }
+
+  .stickyButton:hover,
+  .option:hover .iconWrapper,
+  .option:active {
+    transform: none;
+  }
+}
+
+/* Dark mode support (future) */
+@media (prefers-color-scheme: dark) {
+  .drawer {
+    background: #1a1a1a;
+    border-top: 1px solid #2d2d2d;
+  }
+
+  .header {
+    border-bottom-color: #2d2d2d;
+    background: #1a1a1a;
+  }
+
+  .title {
+    color: #ffffff;
+  }
+
+  .closeButton {
+    color: #d4d4d4;
+  }
+
+  .closeButton:hover {
+    background: #2d2d2d;
+    color: #ffffff;
+  }
+
+  .option:hover {
+    background: #2d2d2d;
+  }
+
+  .option:active {
+    background: #3d3d3d;
+  }
+
+  .optionLabel {
+    color: #d4d4d4;
+  }
+}

@@ -9,6 +9,7 @@ import { ExecutiveSummary } from "@/components/blog/ExecutiveSummary";
 import { TableOfContents } from "@/components/blog/TableOfContents";
 import { InlineCTA } from "@/components/blog/InlineCTA";
 import { RelatedArticles } from "@/components/blog/RelatedArticles";
+import { MobileShareButtons } from "@/components/blog/MobileShareButtons";
 import { extractExecutiveSummary } from "@/utils/extractExecutiveSummary";
 import { extractTableOfContents, addIdsToHeadings } from "@/utils/extractTableOfContents";
 import { getRelatedArticles } from "@/utils/getRelatedArticles";
@@ -300,6 +301,13 @@ const BlogPostAPI = () => {
 
         {/* Table of Contents Mobile (Floating + Drawer) */}
         <TableOfContents items={tocItems} />
+
+        {/* Mobile Share Buttons (Sticky + Native Share API) */}
+        <MobileShareButtons
+          url={currentUrl}
+          title={post.title}
+          description={post.excerpt}
+        />
       </div>
     </div>
   );
