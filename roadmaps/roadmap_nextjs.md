@@ -1,0 +1,829 @@
+# Roadmap - Migração Completa para Next.js SSR
+
+**Projeto:** Jennifer Barreto Advocacia
+**Objetivo:** Migração completa de SPA (React + Vite) para Next.js 16 SSR
+**Status:** Em Planejamento
+**Início:** 2025-01-15
+**Prazo:** 1 semana (44 horas)
+
+---
+
+## 📊 Status Geral
+
+| Fase | Tarefas | Concluídas | Progresso | Tempo Estimado | Tempo Real |
+|------|---------|------------|-----------|----------------|------------|
+| **Fase 1: POC** | 9 | 9 | 100% | 8h | 2h ⚡ |
+| **Fase 2: Componentes Base** | 12 | 12 | 100% | 8h | 3h ⚡ |
+| **Fase 3: Páginas Principais** | 10 | 0 | 0% | 12h | - |
+| **Fase 4: Blog e Conteúdo** | 8 | 0 | 0% | 16h | - |
+| **Fase 5: Integrações** | 6 | 0 | 0% | 4h | - |
+| **Fase 6: Deploy** | 5 | 0 | 0% | 4h | - |
+| **TOTAL** | **50** | **21** | **42%** | **52h** | **5h** |
+
+---
+
+## ✅ Fase 1: POC (Prova de Conceito) - COMPLETA
+
+**Objetivo:** Validar que Next.js SSR resolve os problemas de SEO
+**Status:** ✅ Concluída
+**Tempo:** 2h (estimado: 8h) ⚡
+
+### Tarefas Concluídas
+
+- [x] Criar projeto Next.js 16 com TypeScript
+- [x] Configurar Tailwind CSS 3.4.1
+- [x] Implementar App Router (Next.js 13+)
+- [x] Configurar Next.js Metadata API
+- [x] Criar layout raiz com SEO global
+- [x] Criar página inicial com metadata específica
+- [x] Integrar Google Analytics 4
+- [x] Testar build e validar SSR
+- [x] Validar canonical URLs no HTML estático
+- [x] Documentar resultados e criar roadmap
+
+### Arquivos Criados
+
+```
+frontend-next/
+├── package.json
+├── tsconfig.json
+├── next.config.ts
+├── tailwind.config.ts
+├── postcss.config.js
+├── .gitignore
+└── src/
+    ├── app/
+    │   ├── layout.tsx
+    │   ├── page.tsx
+    │   └── globals.css
+    └── lib/
+        └── utils.ts
+```
+
+### Validação
+
+✅ Canonical presente no HTML: `<link rel="canonical" href="https://jbadvocacia.roilabs.com.br"/>`
+✅ Title presente: `<title>Início</title>`
+✅ Meta description presente
+✅ OG tags completas
+✅ Build sucesso: 4.2s
+
+---
+
+## ✅ Fase 2: Componentes Base - COMPLETA
+
+**Objetivo:** Migrar componentes fundamentais e UI components
+**Status:** ✅ Concluída
+**Tempo Estimado:** 8h
+**Tempo Real:** 3h ⚡
+
+### 2.1 Configurar shadcn/ui Completo (1h) ✅
+
+- [x] Instalar shadcn/ui CLI
+- [x] Configurar components.json
+- [x] Adicionar utility function `cn()`
+- [x] Criar diretório `src/components/ui/`
+- [x] Testar tema dark/light
+
+**Arquivos:**
+- `components.json`
+- `src/lib/utils.ts` (atualizar)
+
+### 2.2 Migrar UI Components (3h) ✅
+
+Migrar componentes shadcn/ui do projeto atual:
+
+- [x] Button (`src/components/ui/button.tsx`)
+- [x] Card (`src/components/ui/card.tsx`)
+- [x] Input (`src/components/ui/input.tsx`)
+- [x] Badge (`src/components/ui/badge.tsx`)
+- [x] Avatar (`src/components/ui/avatar.tsx`)
+- [x] Separator (`src/components/ui/separator.tsx`)
+- [x] Skeleton (`src/components/ui/skeleton.tsx`)
+
+**Origem:** `frontend/src/components/ui/`
+**Destino:** `frontend-next/src/components/ui/`
+
+### 2.3 Migrar Navigation Component (2h) ✅
+
+- [x] Copiar `frontend/src/components/Navigation.tsx`
+- [x] Adaptar para Next.js Link (import from 'next/link')
+- [x] Manter funcionalidade mobile menu
+- [x] Adicionar active state com `usePathname()`
+- [x] Testar navegação em todas as páginas
+
+**Arquivo:** `src/components/navigation.tsx`
+
+**Mudanças principais:**
+```typescript
+// Antes (React Router)
+import { Link } from 'react-router-dom';
+
+// Depois (Next.js)
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+const pathname = usePathname();
+const isActive = pathname === '/sobre';
+```
+
+### 2.4 Migrar Footer Component (1h) ✅
+
+- [x] Copiar `frontend/src/components/Footer.tsx`
+- [x] Adaptar para Next.js Link
+- [x] Manter estilos e estrutura
+- [x] Testar em todas as páginas
+
+**Arquivo:** `src/components/footer.tsx`
+
+### 2.5 Configurar ThemeProvider (1h) ✅
+
+- [x] Instalar `next-themes`
+- [x] Criar `src/components/theme-provider.tsx`
+- [x] Configurar no layout raiz
+- [x] Migrar ThemeToggle component
+- [x] Testar tema dark/light
+
+**Dependência:**
+```bash
+npm install next-themes
+```
+
+**Arquivos:**
+- `src/components/theme-provider.tsx`
+- `src/components/theme-toggle.tsx`
+
+### 2.6 Migrar Design System Completo ✅
+
+- [x] Migrar todas as variáveis CSS customizadas
+- [x] Migrar paleta de cores Gold + Black
+- [x] Migrar gradientes metálicos
+- [x] Migrar animações customizadas
+- [x] Migrar utility classes
+
+**Arquivo:** `src/app/globals.css` (419 linhas)
+
+---
+
+## 📄 Fase 3: Páginas Principais
+
+**Objetivo:** Migrar páginas estáticas principais
+**Status:** 🔴 Não iniciada
+**Tempo Estimado:** 12h
+
+### 3.1 Página Home (3h)
+
+- [ ] Criar `src/app/page.tsx` (atualizar o existente)
+- [ ] Migrar componente Hero
+- [ ] Migrar seção Services
+- [ ] Migrar seção About
+- [ ] Migrar seção CTA
+- [ ] Configurar metadata SEO específica
+- [ ] Testar responsividade
+- [ ] Validar HTML gerado
+
+**Origem:** `frontend/src/pages/Home.tsx`
+**Destino:** `frontend-next/src/app/page.tsx`
+
+**Metadata:**
+```typescript
+export const metadata: Metadata = {
+  title: 'Advocacia Empresarial Estratégica',
+  description: 'Consultoria jurídica para empresas...',
+  alternates: {
+    canonical: 'https://jbadvocacia.roilabs.com.br',
+  },
+};
+```
+
+### 3.2 Página Sobre (2h)
+
+- [ ] Criar `src/app/sobre/page.tsx`
+- [ ] Migrar conteúdo da página About
+- [ ] Migrar componentes específicos (Timeline, etc)
+- [ ] Configurar metadata SEO
+- [ ] Testar responsividade
+- [ ] Validar canonical URL
+
+**Origem:** `frontend/src/pages/About.tsx`
+**Destino:** `frontend-next/src/app/sobre/page.tsx`
+
+**Metadata:**
+```typescript
+export const metadata: Metadata = {
+  title: 'Sobre',
+  description: 'Conheça Jennifer Barreto e sua trajetória...',
+  alternates: {
+    canonical: 'https://jbadvocacia.roilabs.com.br/sobre',
+  },
+};
+```
+
+### 3.3 Página Serviços (2h)
+
+- [ ] Criar `src/app/servicos/page.tsx`
+- [ ] Migrar grid de serviços
+- [ ] Migrar ServiceCard component
+- [ ] Configurar metadata SEO
+- [ ] Testar responsividade
+- [ ] Validar canonical URL
+
+**Origem:** `frontend/src/pages/Services.tsx`
+**Destino:** `frontend-next/src/app/servicos/page.tsx`
+
+### 3.4 Página Contato (2h)
+
+- [ ] Criar `src/app/contato/page.tsx`
+- [ ] Migrar formulário de contato
+- [ ] Configurar API route para envio (`src/app/api/contact/route.ts`)
+- [ ] Testar envio de formulário
+- [ ] Configurar metadata SEO
+- [ ] Validar canonical URL
+
+**Origem:** `frontend/src/pages/Contact.tsx`
+**Destino:**
+- `frontend-next/src/app/contato/page.tsx`
+- `frontend-next/src/app/api/contact/route.ts` (novo)
+
+### 3.5 Página Calculadora (2h)
+
+- [ ] Criar `src/app/calculadora/page.tsx`
+- [ ] Migrar lógica de cálculo
+- [ ] Migrar componentes de formulário
+- [ ] Testar funcionalidade
+- [ ] Configurar metadata SEO
+- [ ] Validar canonical URL
+
+**Origem:** `frontend/src/pages/Calculator.tsx`
+**Destino:** `frontend-next/src/app/calculadora/page.tsx`
+
+### 3.6 Página 404 (1h)
+
+- [ ] Criar `src/app/not-found.tsx`
+- [ ] Design customizado
+- [ ] Links para páginas principais
+- [ ] Configurar metadata
+
+**Arquivo:** `src/app/not-found.tsx`
+
+---
+
+## 📝 Fase 4: Blog e Conteúdo
+
+**Objetivo:** Migrar sistema de blog com ISR
+**Status:** 🔴 Não iniciada
+**Tempo Estimado:** 16h
+
+### 4.1 Configurar API Client (2h)
+
+- [ ] Criar `src/lib/api.ts`
+- [ ] Migrar funções de fetch do blog
+- [ ] Configurar tipos TypeScript
+- [ ] Implementar cache com `fetch` do Next.js
+- [ ] Testar conexão com backend
+
+**Arquivo:** `src/lib/api.ts`
+
+**Exemplo:**
+```typescript
+export async function getPosts() {
+  const res = await fetch('https://backjennifer.roilabs.com.br/api/posts', {
+    next: { revalidate: 3600 }, // ISR: revalidar a cada 1h
+  });
+  return res.json();
+}
+```
+
+### 4.2 Página Listagem de Artigos (3h)
+
+- [ ] Criar `src/app/conteudo/page.tsx`
+- [ ] Implementar listagem com ISR
+- [ ] Migrar BlogCard component
+- [ ] Implementar paginação (se necessário)
+- [ ] Configurar metadata SEO
+- [ ] Validar canonical URL
+
+**Origem:** `frontend/src/pages/ContentAPI.tsx`
+**Destino:** `frontend-next/src/app/conteudo/page.tsx`
+
+**ISR:**
+```typescript
+export const revalidate = 3600; // Revalidar a cada 1h
+
+export default async function ConteudoPage() {
+  const posts = await getPosts();
+  return <div>...</div>;
+}
+```
+
+### 4.3 Página de Artigo Individual (4h)
+
+- [ ] Criar `src/app/conteudo/[slug]/page.tsx`
+- [ ] Implementar `generateStaticParams()` para SSG
+- [ ] Migrar componente de artigo
+- [ ] Implementar TOC (Table of Contents)
+- [ ] Adicionar ArticleFeedback widget
+- [ ] Configurar metadata dinâmica
+- [ ] Validar canonical URL dinâmico
+
+**Destino:** `frontend-next/src/app/conteudo/[slug]/page.tsx`
+
+**SSG + ISR:**
+```typescript
+// Gerar páginas estáticas para todos os artigos
+export async function generateStaticParams() {
+  const posts = await getPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+// Metadata dinâmica por artigo
+export async function generateMetadata({ params }): Promise<Metadata> {
+  const post = await getPost(params.slug);
+  return {
+    title: post.title,
+    description: post.excerpt,
+    alternates: {
+      canonical: `https://jbadvocacia.roilabs.com.br/conteudo/${params.slug}`,
+    },
+  };
+}
+
+export const revalidate = 3600; // ISR
+```
+
+### 4.4 Migrar Componentes de Blog (4h)
+
+- [ ] RelatedArticles (`src/components/blog/RelatedArticles.tsx`)
+- [ ] TableOfContents (`src/components/blog/TableOfContents.tsx`)
+- [ ] ArticleFeedback (`src/components/blog/ArticleFeedback.tsx`)
+- [ ] InlineCTA (`src/components/blog/InlineCTA.tsx`)
+- [ ] BlogCard (`src/components/blog/BlogCard.tsx`)
+- [ ] ShareButtons (novo - adicionar funcionalidade)
+
+**Origem:** `frontend/src/components/blog/`
+**Destino:** `frontend-next/src/components/blog/`
+
+### 4.5 Implementar Analytics (2h)
+
+- [ ] Migrar `src/utils/analytics.ts`
+- [ ] Configurar Google Analytics 4 no layout
+- [ ] Adicionar tracking de eventos
+- [ ] Testar tracking em artigos
+- [ ] Implementar tracking de scroll depth
+
+**Arquivo:** `src/lib/analytics.ts`
+
+### 4.6 Configurar Sitemap Dinâmico (1h)
+
+- [ ] Criar `src/app/sitemap.ts`
+- [ ] Gerar URLs de todas as páginas
+- [ ] Incluir artigos do blog dinamicamente
+- [ ] Configurar prioridades e changefreq
+- [ ] Testar `/sitemap.xml`
+
+**Arquivo:** `src/app/sitemap.ts`
+
+**Exemplo:**
+```typescript
+import { getPosts } from '@/lib/api';
+
+export default async function sitemap() {
+  const posts = await getPosts();
+
+  const postUrls = posts.map((post) => ({
+    url: `https://jbadvocacia.roilabs.com.br/conteudo/${post.slug}`,
+    lastModified: post.updated_at,
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }));
+
+  return [
+    {
+      url: 'https://jbadvocacia.roilabs.com.br',
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 1,
+    },
+    {
+      url: 'https://jbadvocacia.roilabs.com.br/sobre',
+      changeFrequency: 'weekly',
+      priority: 0.8,
+    },
+    // ...
+    ...postUrls,
+  ];
+}
+```
+
+---
+
+## 🔌 Fase 5: Integrações
+
+**Objetivo:** Configurar integrações externas
+**Status:** 🔴 Não iniciada
+**Tempo Estimado:** 4h
+
+### 5.1 Google Analytics 4 (1h)
+
+- [ ] Verificar integração do GA4 no layout
+- [ ] Criar componente GoogleAnalytics
+- [ ] Adicionar tracking de conversões
+- [ ] Configurar eventos customizados
+- [ ] Testar em produção
+
+**Arquivo:** `src/components/GoogleAnalytics.tsx`
+
+### 5.2 Formulários (2h)
+
+- [ ] Configurar API route de contato
+- [ ] Integrar com serviço de email (Resend/SendGrid)
+- [ ] Adicionar validação de formulário
+- [ ] Implementar rate limiting
+- [ ] Testar envio de emails
+
+**Arquivo:** `src/app/api/contact/route.ts`
+
+**Exemplo:**
+```typescript
+import { NextResponse } from 'next/server';
+
+export async function POST(request: Request) {
+  const data = await request.json();
+
+  // Validação
+  if (!data.email || !data.message) {
+    return NextResponse.json(
+      { error: 'Campos obrigatórios' },
+      { status: 400 }
+    );
+  }
+
+  // Enviar email
+  // await sendEmail(data);
+
+  return NextResponse.json({ success: true });
+}
+```
+
+### 5.3 API Backend (1h)
+
+- [ ] Configurar variáveis de ambiente
+- [ ] Criar `.env.local` e `.env.production`
+- [ ] Configurar CORS se necessário
+- [ ] Testar comunicação com backend
+- [ ] Documentar endpoints
+
+**Arquivo:** `.env.local`
+
+```env
+NEXT_PUBLIC_API_URL=https://backjennifer.roilabs.com.br
+API_SECRET_KEY=xxx
+GA_MEASUREMENT_ID=G-DFRN52K0HE
+```
+
+---
+
+## 🚀 Fase 6: Deploy e Validação
+
+**Objetivo:** Deploy em produção e validação final
+**Status:** 🔴 Não iniciada
+**Tempo Estimado:** 4h
+
+### 6.1 Configurar Vercel (1h)
+
+- [ ] Criar projeto no Vercel
+- [ ] Conectar repositório GitHub
+- [ ] Configurar variáveis de ambiente
+- [ ] Configurar domínio `jbadvocacia.roilabs.com.br`
+- [ ] Configurar redirects do domínio antigo
+
+**Plataforma:** Vercel (recomendado para Next.js)
+
+### 6.2 Build de Produção (1h)
+
+- [ ] Executar `npm run build`
+- [ ] Verificar erros de TypeScript
+- [ ] Verificar warnings
+- [ ] Testar `npm run start` local
+- [ ] Validar todas as páginas
+
+### 6.3 Deploy Inicial (1h)
+
+- [ ] Deploy para preview
+- [ ] Testar todas as funcionalidades
+- [ ] Validar canonical URLs em produção
+- [ ] Testar formulários
+- [ ] Verificar Analytics
+
+### 6.4 Migração de Domínio (30min)
+
+- [ ] Atualizar DNS para apontar para Vercel
+- [ ] Configurar SSL/TLS
+- [ ] Testar domínio em produção
+- [ ] Configurar redirect de `www` para `non-www`
+
+### 6.5 Validação SEO Final (30min)
+
+- [ ] Executar curl em todas as páginas principais
+- [ ] Verificar canonical URLs
+- [ ] Verificar title tags
+- [ ] Verificar meta descriptions
+- [ ] Testar sitemap.xml
+- [ ] Submeter sitemap ao Google Search Console
+- [ ] Aguardar re-crawl do Ahrefs
+
+**Comandos de Validação:**
+```bash
+# Canonical
+curl https://jbadvocacia.roilabs.com.br/sobre | grep canonical
+
+# Title
+curl https://jbadvocacia.roilabs.com.br/servicos | grep title
+
+# Sitemap
+curl https://jbadvocacia.roilabs.com.br/sitemap.xml
+```
+
+---
+
+## 📋 Checklist de Validação Final
+
+### SEO
+
+- [ ] ✅ Canonical presente em TODAS as páginas
+- [ ] ✅ Title único por página
+- [ ] ✅ Meta description por página
+- [ ] ✅ OG tags completas
+- [ ] ✅ Twitter cards
+- [ ] ✅ Sitemap.xml atualizado
+- [ ] ✅ Robots.txt configurado
+- [ ] ✅ Nenhuma página órfã
+- [ ] ✅ Todos os links internos funcionando
+
+### Performance
+
+- [ ] ✅ Lighthouse Score > 90
+- [ ] ✅ First Contentful Paint < 1.5s
+- [ ] ✅ Time to Interactive < 3s
+- [ ] ✅ Cumulative Layout Shift < 0.1
+- [ ] ✅ Images otimizadas (Next.js Image)
+- [ ] ✅ Fonts otimizadas (next/font)
+
+### Funcionalidade
+
+- [ ] ✅ Navegação funcionando
+- [ ] ✅ Formulários enviando
+- [ ] ✅ Blog carregando
+- [ ] ✅ Artigos individuais carregando
+- [ ] ✅ Analytics tracking
+- [ ] ✅ Tema dark/light
+- [ ] ✅ Mobile responsivo
+- [ ] ✅ 404 page customizada
+
+### Segurança
+
+- [ ] ✅ HTTPS configurado
+- [ ] ✅ Headers de segurança
+- [ ] ✅ Rate limiting em formulários
+- [ ] ✅ Validação de inputs
+- [ ] ✅ Environment variables seguras
+
+---
+
+## 🎯 Milestones
+
+### Milestone 1: Fundação (Fase 1-2) ✅
+**Prazo:** Dia 1
+**Status:** ✅ COMPLETO
+
+- [x] POC validada
+- [x] Componentes base migrados
+- [x] UI components funcionando
+
+### Milestone 2: Páginas Core (Fase 3)
+**Prazo:** Dia 2-3
+**Status:** Não iniciada
+
+- [ ] Home, Sobre, Serviços funcionando
+- [ ] Contato e Calculadora funcionando
+- [ ] 404 customizada
+
+### Milestone 3: Blog Completo (Fase 4)
+**Prazo:** Dia 4-5
+**Status:** Não iniciada
+
+- [ ] Listagem de artigos com ISR
+- [ ] Artigos individuais com SSG
+- [ ] Componentes de blog migrados
+- [ ] Analytics integrado
+
+### Milestone 4: Go Live (Fase 5-6)
+**Prazo:** Dia 6-7
+**Status:** Não iniciada
+
+- [ ] Integrações completas
+- [ ] Deploy em produção
+- [ ] SEO validado
+- [ ] Ahrefs sem warnings
+
+---
+
+## 📊 Métricas de Sucesso
+
+### KPIs Técnicos
+
+| Métrica | SPA Atual | Meta Next.js | Status |
+|---------|-----------|--------------|--------|
+| Lighthouse SEO | ? | 100 | 🔴 |
+| Lighthouse Performance | ? | 90+ | 🔴 |
+| First Contentful Paint | ? | < 1.5s | 🔴 |
+| Time to Interactive | ? | < 3s | 🔴 |
+| Canonical URLs Corretos | 0% | 100% | 🔴 |
+| Pages com Title | 0% | 100% | 🔴 |
+
+### KPIs de Negócio
+
+| Métrica | Baseline | Meta (3 meses) | Status |
+|---------|----------|----------------|--------|
+| Posição Google (palavra-chave principal) | ? | Top 5 | 🔴 |
+| Tráfego Orgânico Mensal | ? | +50% | 🔴 |
+| Taxa de Conversão | ? | +20% | 🔴 |
+| Leads Qualificados/Mês | 10 | 15 | 🔴 |
+
+---
+
+## 🔄 Processo de Desenvolvimento
+
+### Daily Workflow
+
+1. **Manhã (4h)**
+   - Implementar novas features/páginas
+   - Commits frequentes
+   - Testes locais
+
+2. **Tarde (4h)**
+   - Resolver issues/bugs
+   - Code review
+   - Testes de integração
+   - Deploy de preview
+
+### Git Workflow
+
+```bash
+# Feature branch
+git checkout -b feature/pagina-sobre
+
+# Commits semânticos
+git commit -m "feat(sobre): implementa página sobre com SSR
+
+- Adiciona metadata SEO específica
+- Migra componente Timeline
+- Configura canonical URL
+- Testa responsividade
+
+Ref: roadmap_nextjs.md Fase 3.2"
+
+# Push e PR
+git push origin feature/pagina-sobre
+# Criar PR no GitHub
+```
+
+### Code Review Checklist
+
+Antes de mergear qualquer PR:
+
+- [ ] Build sem erros
+- [ ] TypeScript sem erros
+- [ ] ESLint sem warnings
+- [ ] Metadata SEO configurada
+- [ ] Canonical URL correto
+- [ ] Responsivo (mobile/desktop)
+- [ ] Performance ok (Lighthouse)
+- [ ] Acessibilidade (WCAG básico)
+
+---
+
+## 🆘 Troubleshooting
+
+### Problema: Build Falha
+
+**Solução:**
+```bash
+# Limpar cache
+rm -rf .next
+rm -rf node_modules
+npm install
+npm run build
+```
+
+### Problema: Canonical não aparece
+
+**Causa:** Metadata não configurada corretamente
+
+**Solução:**
+```typescript
+// Adicionar em page.tsx
+export const metadata: Metadata = {
+  alternates: {
+    canonical: 'https://jbadvocacia.roilabs.com.br/rota',
+  },
+};
+```
+
+### Problema: ISR não revalidando
+
+**Solução:**
+```typescript
+// Verificar configuração
+export const revalidate = 3600; // segundos
+
+// Ou forçar revalidação manual
+import { revalidatePath } from 'next/cache';
+revalidatePath('/conteudo');
+```
+
+---
+
+## 📚 Recursos e Referências
+
+### Documentação
+
+- [Next.js 14 Docs](https://nextjs.org/docs)
+- [Next.js App Router](https://nextjs.org/docs/app)
+- [Next.js Metadata API](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)
+- [Next.js Image Optimization](https://nextjs.org/docs/app/building-your-application/optimizing/images)
+
+### Ferramentas
+
+- [Vercel Dashboard](https://vercel.com/dashboard)
+- [Google Search Console](https://search.google.com/search-console)
+- [Ahrefs](https://ahrefs.com)
+- [PageSpeed Insights](https://pagespeed.web.dev/)
+
+---
+
+## ✅ Critérios de Aceitação
+
+Para considerar a migração **COMPLETA**, devemos ter:
+
+### Obrigatório (Must Have)
+
+- [x] POC validada com canonical correto
+- [ ] Todas as páginas principais migradas
+- [ ] Blog completo com ISR/SSG
+- [ ] SEO perfeito (sem warnings no Ahrefs)
+- [ ] Deploy em produção funcionando
+- [ ] Analytics tracking
+- [ ] Performance Lighthouse > 90
+
+### Desejável (Should Have)
+
+- [ ] Tema dark/light
+- [ ] Sitemap dinâmico
+- [ ] 404 customizada
+- [ ] API routes para formulários
+- [ ] Otimização de imagens
+- [ ] Documentação completa
+
+### Opcional (Nice to Have)
+
+- [ ] Testes automatizados
+- [ ] CI/CD configurado
+- [ ] Monitoramento de erros (Sentry)
+- [ ] A/B testing
+- [ ] PWA features
+
+---
+
+## 📝 Notas Finais
+
+### Decisões Arquiteturais
+
+1. **Renderização:** SSG + ISR para blog, SSG para páginas estáticas
+2. **Hosting:** Vercel (Edge Network global)
+3. **Styling:** Tailwind CSS (manter consistência)
+4. **State Management:** React hooks nativos (sem Redux/Zustand por enquanto)
+5. **Forms:** React Hook Form ou formulários nativos
+
+### Riscos Identificados
+
+1. **Tempo:** 44h pode ser apertado - buffer de 20% recomendado
+2. **API Backend:** Dependência externa - garantir disponibilidade
+3. **Conteúdo:** Migração de artigos grandes pode ser complexa
+4. **DNS:** Propagação pode levar 24-48h
+
+### Mitigação
+
+1. Priorizar features críticas primeiro
+2. Ter fallbacks para API offline
+3. Testar migração de conteúdo em preview
+4. Planejar migração de DNS fora de horário comercial
+
+---
+
+**Última atualização:** 2025-01-15
+**Responsável:** Claude Code (Anthropic)
+**Status:** Em Andamento - Fase 1 Completa
+**Próxima Ação:** Iniciar Fase 2 (Componentes Base)
