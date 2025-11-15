@@ -1,0 +1,332 @@
+/**
+ * ArticleFeedback Styles
+ * Design: Card interativo com feedback UX otimizado
+ */
+
+.container {
+  margin: 3rem 0;
+  width: 100%;
+}
+
+.card {
+  background: linear-gradient(
+    135deg,
+    rgba(180, 109, 12, 0.05) 0%,
+    rgba(26, 26, 26, 0.03) 100%
+  );
+  border: 2px solid rgba(180, 109, 12, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+  border-color: rgba(180, 109, 12, 0.3);
+  box-shadow: 0 4px 20px rgba(180, 109, 12, 0.1);
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.headerIcon {
+  color: #b46d0c;
+  flex-shrink: 0;
+}
+
+.title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.button {
+  flex: 1;
+  min-width: 140px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 2px solid;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.buttonPositive {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: #ffffff;
+  border-color: #22c55e;
+}
+
+.buttonPositive:hover {
+  background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+  transform: translateY(-2px);
+}
+
+.buttonNegative {
+  background: transparent;
+  color: #e5e5e5;
+  border-color: #525252;
+}
+
+.buttonNegative:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: #737373;
+  transform: translateY(-2px);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+/* Thank You Message */
+.thankYou {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: rgba(34, 197, 94, 0.1);
+  border-left: 4px solid #22c55e;
+  border-radius: 6px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #e5e5e5;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.checkIcon {
+  color: #22c55e;
+  flex-shrink: 0;
+}
+
+/* Comment Box */
+.commentBox {
+  margin-top: 1.5rem;
+  animation: slideDown 0.3s ease-out;
+}
+
+.commentLabel {
+  display: block;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #e5e5e5;
+  margin-bottom: 0.5rem;
+}
+
+.textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: #ffffff;
+  background: rgba(26, 26, 26, 0.5);
+  border: 2px solid rgba(180, 109, 12, 0.2);
+  border-radius: 8px;
+  resize: vertical;
+  transition: all 0.2s ease;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #b46d0c;
+  background: rgba(26, 26, 26, 0.7);
+}
+
+.textarea::placeholder {
+  color: #737373;
+}
+
+.commentActions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.skipButton {
+  padding: 0.625rem 1.25rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #a3a3a3;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.skipButton:hover {
+  color: #e5e5e5;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.submitButton {
+  padding: 0.625rem 1.5rem;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #b46d0c 0%, #8a5409 100%);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.submitButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, #8a5409 0%, #6b4207 100%);
+  box-shadow: 0 4px 12px rgba(180, 109, 12, 0.3);
+  transform: translateY(-2px);
+}
+
+.submitButton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Success Card */
+.successCard {
+  text-align: center;
+  padding: 2rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.successIcon {
+  color: #22c55e;
+  margin: 0 auto 1rem;
+}
+
+.successTitle {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.successText {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1rem;
+  color: #e5e5e5;
+  margin: 0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive - Tablet */
+@media (max-width: 768px) {
+  .card {
+    padding: 1.5rem;
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .button {
+    min-width: 100%;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 480px) {
+  .container {
+    margin: 2rem 0;
+  }
+
+  .card {
+    padding: 1.25rem;
+  }
+
+  .title {
+    font-size: 1.125rem;
+  }
+
+  .textarea {
+    font-size: 0.875rem;
+  }
+
+  .commentActions {
+    flex-direction: column-reverse;
+  }
+
+  .skipButton,
+  .submitButton {
+    width: 100%;
+  }
+}
+
+/* Print: Hide feedback widget */
+@media print {
+  .container {
+    display: none;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .button,
+  .textarea,
+  .skipButton,
+  .submitButton,
+  .thankYou,
+  .commentBox,
+  .successCard {
+    animation: none;
+    transition: none;
+  }
+
+  .button:hover,
+  .submitButton:hover {
+    transform: none;
+  }
+}

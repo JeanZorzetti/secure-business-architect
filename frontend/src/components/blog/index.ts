@@ -1,6 +1,6 @@
 /**
  * Blog Components - Elementos Visuais Avançados
- * Fases 4-7 do Roadmap UX/UI
+ * Fases 4-8 do Roadmap UX/UI
  */
 
 export { ArticleContent } from './ArticleContent';
@@ -12,3 +12,4 @@ export { Quote } from './Quote';
 export { InlineCTA } from './InlineCTA';
 export { RelatedArticles, type RelatedArticle } from './RelatedArticles';
 export { MobileShareButtons } from './MobileShareButtons';
+export { ArticleFeedback } from './ArticleFeedback';

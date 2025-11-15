@@ -10,11 +10,13 @@ import { TableOfContents } from "@/components/blog/TableOfContents";
 import { InlineCTA } from "@/components/blog/InlineCTA";
 import { RelatedArticles } from "@/components/blog/RelatedArticles";
 import { MobileShareButtons } from "@/components/blog/MobileShareButtons";
+import { ArticleFeedback } from "@/components/blog/ArticleFeedback";
 import { extractExecutiveSummary } from "@/utils/extractExecutiveSummary";
 import { extractTableOfContents, addIdsToHeadings } from "@/utils/extractTableOfContents";
 import { getRelatedArticles } from "@/utils/getRelatedArticles";
+import { trackPageView, trackTimeOnPage } from "@/utils/analytics";
 import blogService from "@/services/blogService";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 const BlogPostAPI = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -45,6 +47,22 @@ const BlogPostAPI = () => {
       blogService.incrementViews(slug);
     }
   }, [post, slug]);
+
+  // Analytics: Track page view and time on page
+  const startTimeRef = useRef<number>(Date.now());
+
+  useEffect(() => {
+    if (post) {
+      const currentUrl = `${window.location.origin}/conteudo/${post.slug}`;
+      trackPageView(currentUrl, post.title);
+
+      // Track time on page when component unmounts
+      return () => {
+        const timeSpent = Math.floor((Date.now() - startTimeRef.current) / 1000);
+        trackTimeOnPage(timeSpent, post.slug);
+      };
+    }
+  }, [post]);
 
   // Extrair resumo executivo e conteúdo limpo (antes dos early returns)
   const summaryData = useMemo(() => {
@@ -285,6 +303,9 @@ const BlogPostAPI = () => {
         {relatedArticles.length > 0 && (
           <RelatedArticles articles={relatedArticles} currentSlug={post.slug} />
         )}
+
+        {/* Article Feedback Widget */}
+        <ArticleFeedback articleSlug={post.slug} />
 
         {/* CTA Final */}
         <div className="bg-gradient-to-br from-accent/20 to-accent/5 p-8 rounded-lg text-center border border-accent/30">
