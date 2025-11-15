@@ -3,7 +3,7 @@
 **Data de Criação:** 13/11/2025
 **Última Atualização:** 13/11/2025
 **Objetivo:** Transformar os artigos do blog em experiência de leitura profissional e envolvente
-**Status:** 🟡 EM ANDAMENTO - Fase 1 Concluída ✅
+**Status:** 🟡 EM ANDAMENTO - Fases 1, 2 e 3 Concluídas ✅
 
 ---
 
@@ -259,25 +259,45 @@ export function ExecutiveSummary({ readingTime, keyPoints, outcome }: ExecutiveS
 
 ---
 
-## 📚 FASE 3: Table of Contents Flutuante (P1 - ALTA)
+## 📚 FASE 3: Table of Contents Flutuante (P1 - ALTA) ✅ CONCLUÍDA
 
 **Objetivo:** Adicionar navegação rápida entre seções
 
+**Data de Conclusão:** 13/11/2025
+**Commit:** adc2e1e
+
 ### Tarefas:
 
-- [ ] **3.1. Criar TableOfContents.tsx**
-  - Extrair todos os H2 do conteúdo
-  - Gerar IDs únicos para cada heading
-  - Scroll suave ao clicar
+- [x] **3.1. Criar TableOfContents.tsx** ✅
+  - Extrai todos os H2 e H3 do conteúdo
+  - Gera IDs únicos slugificados para cada heading
+  - Scroll suave ao clicar com offset de 100px
+  - Intersection Observer para detectar seção ativa
 
-- [ ] **3.2. Design Desktop**
-  - Sticky sidebar à direita (desktop)
-  - Highlight da seção atual
-  - Progress indicator
+- [x] **3.2. Design Desktop** ✅
+  - Sticky sidebar à direita (>= 1280px)
+  - Highlight da seção atual com border-left gold
+  - Background gradient (#fafaf8 → #f5f3ee)
+  - Scrollbar customizada (gold)
+  - Hover effects com background gold/5
 
-- [ ] **3.3. Design Mobile**
-  - Botão flutuante que abre drawer
-  - Lista compacta de seções
+- [x] **3.3. Design Mobile** ✅
+  - Botão flutuante fixed (bottom-right) com icon List
+  - Drawer deslizante (85% width, max 320px)
+  - Overlay escuro com fade-in animation
+  - Header preto/gold com botão close
+  - Lista scrollável com links ativos destacados
+
+### Melhorias Implementadas:
+
+- ✅ Função utilitária `extractTableOfContents.ts` com slugify automático
+- ✅ Função `addIdsToHeadings` para injetar IDs no HTML
+- ✅ Layout 2 colunas no BlogPostAPI: `xl:grid-cols-[1fr_280px]`
+- ✅ H3 com indentação (margin-left: 1rem) para hierarquia visual
+- ✅ Intersection Observer com rootMargin otimizado (-80px top, -80% bottom)
+- ✅ TOC renderizado 2x: desktop (hidden xl:block) + mobile (visível sempre)
+- ✅ Accessibility: prefers-reduced-motion support
+- ✅ Print-ready: TOC oculto em impressão
 
 ### Componente TOC:
 
