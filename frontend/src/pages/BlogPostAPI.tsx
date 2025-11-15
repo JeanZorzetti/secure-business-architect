@@ -6,7 +6,9 @@ import { ReadingProgress, calculateReadingTime } from "@/components/ReadingProgr
 import { SocialShare } from "@/components/SocialShare";
 import { ArticleContent } from "@/components/blog/ArticleContent";
 import { ExecutiveSummary } from "@/components/blog/ExecutiveSummary";
+import { TableOfContents } from "@/components/blog/TableOfContents";
 import { extractExecutiveSummary } from "@/utils/extractExecutiveSummary";
+import { extractTableOfContents, addIdsToHeadings } from "@/utils/extractTableOfContents";
 import blogService from "@/services/blogService";
 import { useEffect, useMemo } from "react";
 
@@ -81,6 +83,15 @@ const BlogPostAPI = () => {
     return extractExecutiveSummary(post.content);
   }, [post.content]);
 
+  // Extrair table of contents e adicionar IDs aos headings
+  const tocItems = useMemo(() => {
+    return extractTableOfContents(summaryData.htmlWithoutSummary);
+  }, [summaryData.htmlWithoutSummary]);
+
+  const contentWithIds = useMemo(() => {
+    return addIdsToHeadings(summaryData.htmlWithoutSummary, tocItems);
+  }, [summaryData.htmlWithoutSummary, tocItems]);
+
   const readingTime = calculateReadingTime(post.content);
   const publishDate = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString('pt-BR', {
@@ -112,15 +123,22 @@ const BlogPostAPI = () => {
       <AttorneySchema />
       <ReadingProgress />
 
-      <article className="container mx-auto px-4 max-w-4xl">
+      <div className="container mx-auto px-4">
         {/* Back Button */}
-        <Link
-          to="/conteudo"
-          className="inline-flex items-center gap-2 text-muted-foreground hover:text-accent transition-smooth mb-8"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Voltar para o blog
-        </Link>
+        <div className="max-w-7xl mx-auto mb-8">
+          <Link
+            to="/conteudo"
+            className="inline-flex items-center gap-2 text-muted-foreground hover:text-accent transition-smooth"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Voltar para o blog
+          </Link>
+        </div>
+
+        {/* Layout: Article + TOC Sidebar (Desktop) */}
+        <div className="max-w-7xl mx-auto xl:grid xl:grid-cols-[1fr_280px] xl:gap-12">
+          {/* Main Article */}
+          <article className="max-w-4xl"  >
 
         {/* Cover Image */}
         {post.coverImage && (
@@ -176,7 +194,7 @@ const BlogPostAPI = () => {
         )}
 
         {/* Content */}
-        <ArticleContent htmlContent={summaryData.htmlWithoutSummary} />
+        <ArticleContent htmlContent={contentWithIds} />
 
         {/* Tags */}
         {post.tags.length > 0 && (
@@ -237,7 +255,17 @@ const BlogPostAPI = () => {
             Agendar Consulta
           </Link>
         </div>
-      </article>
+          </article>
+
+          {/* Table of Contents Sidebar (Desktop) */}
+          <aside className="hidden xl:block">
+            <TableOfContents items={tocItems} />
+          </aside>
+        </div>
+
+        {/* Table of Contents Mobile (Floating + Drawer) */}
+        <TableOfContents items={tocItems} />
+      </div>
     </div>
   );
 };

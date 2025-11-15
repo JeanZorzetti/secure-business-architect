@@ -15,18 +15,34 @@ export function ArticleContent({ htmlContent }: ArticleContentProps) {
 
         const { name, attribs, children } = domNode;
 
-        // Headings com classes customizadas
+        // Headings com classes customizadas e IDs para navegação
         if (name === 'h1') {
-          return <h1 className={styles.h1}>{domToReact(children as DOMNode[], options)}</h1>;
+          return (
+            <h1 id={attribs.id} className={styles.h1}>
+              {domToReact(children as DOMNode[], options)}
+            </h1>
+          );
         }
         if (name === 'h2') {
-          return <h2 className={styles.h2}>{domToReact(children as DOMNode[], options)}</h2>;
+          return (
+            <h2 id={attribs.id} className={styles.h2}>
+              {domToReact(children as DOMNode[], options)}
+            </h2>
+          );
         }
         if (name === 'h3') {
-          return <h3 className={styles.h3}>{domToReact(children as DOMNode[], options)}</h3>;
+          return (
+            <h3 id={attribs.id} className={styles.h3}>
+              {domToReact(children as DOMNode[], options)}
+            </h3>
+          );
         }
         if (name === 'h4') {
-          return <h4 className={styles.h4}>{domToReact(children as DOMNode[], options)}</h4>;
+          return (
+            <h4 id={attribs.id} className={styles.h4}>
+              {domToReact(children as DOMNode[], options)}
+            </h4>
+          );
         }
 
         // Parágrafos
