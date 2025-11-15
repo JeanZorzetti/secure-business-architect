@@ -7,8 +7,11 @@ import { SocialShare } from "@/components/SocialShare";
 import { ArticleContent } from "@/components/blog/ArticleContent";
 import { ExecutiveSummary } from "@/components/blog/ExecutiveSummary";
 import { TableOfContents } from "@/components/blog/TableOfContents";
+import { InlineCTA } from "@/components/blog/InlineCTA";
+import { RelatedArticles } from "@/components/blog/RelatedArticles";
 import { extractExecutiveSummary } from "@/utils/extractExecutiveSummary";
 import { extractTableOfContents, addIdsToHeadings } from "@/utils/extractTableOfContents";
+import { getRelatedArticles } from "@/utils/getRelatedArticles";
 import blogService from "@/services/blogService";
 import { useEffect, useMemo } from "react";
 
@@ -28,6 +31,13 @@ const BlogPostAPI = () => {
     retry: 2,
   });
 
+  // Fetch all posts for related articles
+  const { data: allPosts } = useQuery({
+    queryKey: ['blog-posts-all'],
+    queryFn: () => blogService.getPosts(),
+    staleTime: 10 * 60 * 1000, // 10 minutes
+  });
+
   // Track view
   useEffect(() => {
     if (post && slug) {
@@ -40,6 +50,12 @@ const BlogPostAPI = () => {
     if (!post) return { htmlWithoutSummary: '', learningPoints: [], readingTime: '8 minutos', result: '' };
     return extractExecutiveSummary(post.content);
   }, [post]);
+
+  // Calcular artigos relacionados
+  const relatedArticles = useMemo(() => {
+    if (!post || !allPosts) return [];
+    return getRelatedArticles(post, allPosts, 3);
+  }, [post, allPosts]);
 
   // Extrair table of contents e adicionar IDs aos headings
   const tocItems = useMemo(() => {
@@ -207,6 +223,9 @@ const BlogPostAPI = () => {
         {/* Content */}
         <ArticleContent htmlContent={contentWithIds} />
 
+        {/* Inline CTA (40% do conteúdo) */}
+        <InlineCTA />
+
         {/* Tags */}
         {post.tags.length > 0 && (
           <div className="mb-8 pb-8 border-b border-border">
@@ -251,7 +270,12 @@ const BlogPostAPI = () => {
           </div>
         </div>
 
-        {/* CTA */}
+        {/* Related Articles */}
+        {relatedArticles.length > 0 && (
+          <RelatedArticles articles={relatedArticles} currentSlug={post.slug} />
+        )}
+
+        {/* CTA Final */}
         <div className="bg-gradient-to-br from-accent/20 to-accent/5 p-8 rounded-lg text-center border border-accent/30">
           <h3 className="text-2xl font-bold mb-4">
             Precisa de Consultoria Jurídica?

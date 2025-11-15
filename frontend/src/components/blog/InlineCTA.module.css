@@ -1,0 +1,241 @@
+/**
+ * InlineCTA Styles
+ * Design: Card premium com gradiente Gold/Black para conversão
+ */
+
+.container {
+  margin: 4rem 0;
+  width: 100%;
+}
+
+.card {
+  background: linear-gradient(
+    135deg,
+    rgba(180, 109, 12, 0.08) 0%,
+    rgba(180, 109, 12, 0.03) 50%,
+    rgba(26, 26, 26, 0.03) 100%
+  );
+  border: 2px solid rgba(180, 109, 12, 0.2);
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Gradient overlay on hover */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(180, 109, 12, 0.05) 0%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.card:hover {
+  border-color: rgba(180, 109, 12, 0.4);
+  box-shadow: 0 8px 30px rgba(180, 109, 12, 0.15);
+  transform: translateY(-2px);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/* Icon Wrapper */
+.iconWrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #b46d0c 0%, #8a5409 100%);
+  border-radius: 50%;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 4px 15px rgba(180, 109, 12, 0.25);
+}
+
+.icon {
+  color: #ffffff;
+  stroke-width: 1.5;
+}
+
+/* Title */
+.title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.875rem; /* 30px */
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+/* Description */
+.description {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.7;
+  color: #525252;
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* CTA Button */
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #b46d0c 0%, #8a5409 100%);
+  color: #ffffff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(180, 109, 12, 0.3);
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: linear-gradient(135deg, #8a5409 0%, #6b4207 100%);
+  box-shadow: 0 6px 20px rgba(180, 109, 12, 0.4);
+  transform: translateY(-2px);
+}
+
+.button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(180, 109, 12, 0.3);
+}
+
+.buttonIcon {
+  flex-shrink: 0;
+}
+
+/* Subtext */
+.subtext {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.875rem; /* 14px */
+  color: #737373;
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 768px) {
+  .card {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .iconWrapper {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1.25rem;
+  }
+
+  .icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .title {
+    font-size: 1.5rem; /* 24px */
+    margin-bottom: 0.875rem;
+  }
+
+  .description {
+    font-size: 1rem; /* 16px */
+    margin-bottom: 1.5rem;
+  }
+
+  .button {
+    font-size: 1rem;
+    padding: 0.875rem 1.75rem;
+  }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 480px) {
+  .container {
+    margin: 3rem 0;
+  }
+
+  .card {
+    padding: 2rem 1.25rem;
+  }
+
+  .iconWrapper {
+    width: 56px;
+    height: 56px;
+  }
+
+  .icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .title {
+    font-size: 1.375rem; /* 22px */
+  }
+
+  .description {
+    font-size: 0.9375rem; /* 15px */
+  }
+
+  .button {
+    width: 100%;
+    justify-content: center;
+    padding: 1rem 1.5rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .card {
+    border: 2px solid #b46d0c;
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+
+  .card::before {
+    display: none;
+  }
+
+  .button {
+    background: #b46d0c;
+    color: #ffffff;
+    box-shadow: none;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card::before,
+  .button {
+    transition: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+
+  .button:hover {
+    transform: none;
+  }
+}

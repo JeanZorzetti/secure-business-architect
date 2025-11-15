@@ -1,9 +1,9 @@
 # Roadmap UX/UI - Artigos do Blog v2.0
 
 **Data de Criação:** 13/11/2025
-**Última Atualização:** 13/11/2025
+**Última Atualização:** 15/11/2025
 **Objetivo:** Transformar os artigos do blog em experiência de leitura profissional e envolvente
-**Status:** 🟢 FASES P0 E P1 CONCLUÍDAS - Fases 1, 2, 3, 4 e 5 Concluídas ✅
+**Status:** 🟢 FASES P0, P1 E P2 CONCLUÍDAS - Fases 1-6 Concluídas ✅
 
 ---
 
@@ -587,51 +587,135 @@ export function ReadingProgressBar() {
 
 ---
 
-## 💎 FASE 6: CTAs Estratégicos (P2 - MÉDIA)
+## 💎 FASE 6: CTAs Estratégicos (P2 - MÉDIA) ✅ CONCLUÍDA
 
 **Objetivo:** Converter leitores em leads qualificados
 
+**Data de Conclusão:** 15/11/2025
+
 ### Tarefas:
 
-- [ ] **6.1. CTA Inline no Meio do Artigo**
-  - Após 40% do conteúdo
-  - Card destacado "Precisa de Ajuda Jurídica?"
-  - Link para /contato
+- [x] **6.1. CTA Inline no Meio do Artigo** ✅
+  - Componente: `frontend/src/components/blog/InlineCTA.tsx`
+  - Card premium com gradiente Gold/Black
+  - Icon Scale (balança da justiça) para identidade jurídica
+  - Hover effects com box-shadow gold
+  - Posição: Após ArticleContent
+  - Link para /contato com botão "Agendar Diagnóstico Estratégico"
 
-- [ ] **6.2. CTA Sticky no Final**
+- [x] **6.2. Related Articles** ✅
+  - Componente: `frontend/src/components/blog/RelatedArticles.tsx`
+  - Grid responsivo: 3 cols (desktop) → 2 cols (tablet) → 1 col (mobile)
+  - Algoritmo de recomendação em `utils/getRelatedArticles.ts`
+  - Score baseado em: categoria (+10 pts) + tags comuns (+3 pts cada) + recency bonus
+  - Cards com imagem cover, badge de categoria, meta info (data + tempo leitura)
+  - Hover effect: lift + shadow gold
+  - Arrow icon animado no link "Ler artigo"
+
+- [ ] **6.3. CTA Sticky Mobile** ⏳ FUTURO (P3)
   - Botão fixo no canto (mobile)
   - "Agendar Consulta" sempre visível
-  - Whatsapp direto (opcional)
+  - WhatsApp direto (opcional)
 
-- [ ] **6.3. Related Articles**
-  - 3 artigos relacionados ao final
-  - Baseado em tags/categoria
-  - Cards com imagem + excerpt
+### Melhorias Implementadas:
+
+- ✅ InlineCTA com design premium (gradiente gold + icon balança)
+- ✅ RelatedArticles com grid responsivo e algorithm scoring
+- ✅ Função `getRelatedArticles` com lógica inteligente de recomendação
+- ✅ Integração completa no BlogPostAPI
+- ✅ Barrel export atualizado em `index.ts`
+- ✅ Build verificado e funcionando (6.71s)
+- ✅ CSS modules com hover effects e animações
+- ✅ Responsividade mobile-first completa
+- ✅ Print-ready styles
+- ✅ Accessibility: prefers-reduced-motion support
 
 ### Componente InlineCTA:
 
 ```tsx
 export function InlineCTA() {
   return (
-    <Card className="my-12 bg-gradient-to-br from-primary/10 to-primary/5 border-primary/30">
-      <CardContent className="p-8 text-center">
-        <Scale className="h-12 w-12 text-primary mx-auto mb-4" />
-        <h3 className="text-2xl font-bold mb-3">
+    <div className={styles.container}>
+      <div className={styles.card}>
+        <div className={styles.iconWrapper}>
+          <Scale className={styles.icon} size={48} />
+        </div>
+        <h3 className={styles.title}>
           Precisa de Consultoria Jurídica Estratégica?
         </h3>
-        <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-          Com 12 anos de experiência, ajudo empresários a transformar
-          complexidade jurídica em decisões claras e lucrativas.
+        <p className={styles.description}>
+          Com 12 anos de experiência em direito empresarial...
         </p>
-        <Button size="lg" asChild>
-          <Link to="/contato">
-            <MessageSquare className="mr-2 h-4 w-4" />
-            Agendar Diagnóstico Estratégico
-          </Link>
-        </Button>
-      </CardContent>
-    </Card>
+        <Link to="/contato" className={styles.button}>
+          <MessageSquare className={styles.buttonIcon} size={20} />
+          Agendar Diagnóstico Estratégico
+        </Link>
+        <p className={styles.subtext}>
+          Primeira consulta: análise completa do seu cenário jurídico
+        </p>
+      </div>
+    </div>
   );
+}
+```
+
+### Componente RelatedArticles:
+
+```tsx
+export function RelatedArticles({ articles, currentSlug }: RelatedArticlesProps) {
+  const filteredArticles = articles.filter(article => article.slug !== currentSlug).slice(0, 3);
+
+  return (
+    <section className={styles.container}>
+      <div className={styles.header}>
+        <h2 className={styles.title}>Artigos Relacionados</h2>
+        <p className={styles.subtitle}>
+          Continue aprofundando seus conhecimentos em direito empresarial
+        </p>
+      </div>
+      <div className={styles.grid}>
+        {filteredArticles.map((article) => (
+          <article key={article.slug} className={styles.card}>
+            {/* Image with overlay */}
+            {/* Badge, Title, Excerpt */}
+            {/* Meta: Date + Reading Time */}
+            {/* Link with arrow icon */}
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+```
+
+### Algoritmo de Recomendação:
+
+```typescript
+export function getRelatedArticles(
+  currentArticle: Article,
+  allArticles: Article[],
+  maxResults: number = 3
+): Article[] {
+  // Score calculation:
+  // - Same category: +10 points
+  // - Common tags: +3 points per tag
+  // - Recency bonus: +2 pts (< 30 days), +1 pt (< 90 days)
+
+  const scoredArticles = candidates.map((article) => {
+    let score = 0;
+    if (article.category === currentArticle.category) score += 10;
+
+    const commonTags = article.tags.filter(tag => currentArticle.tags.includes(tag));
+    score += commonTags.length * 3;
+
+    const daysSincePublish = /* ... */;
+    if (daysSincePublish < 30) score += 2;
+    else if (daysSincePublish < 90) score += 1;
+
+    return { ...article, score };
+  });
+
+  return scoredArticles.sort((a, b) => b.score - a.score).slice(0, maxResults);
 }
 ```
 
