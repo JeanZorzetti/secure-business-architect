@@ -2,22 +2,139 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here.
+All colors MUST be HSL.
+*/
+
 @layer base {
   :root {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --accent: 191 91% 36%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 191 91% 36%;
+    /* Paleta Preto e Gold - Inspirada em JB Advocacia */
+    --background: 0 0% 0%;              /* Preto #000000 */
+    --foreground: 0 0% 100%;            /* Branco #ffffff */
+
+    --card: 0 0% 8%;                    /* Cinza escuro #141414 */
+    --card-foreground: 0 0% 100%;       /* Branco */
+
+    --popover: 0 0% 8%;                 /* Cinza escuro #141414 */
+    --popover-foreground: 0 0% 100%;    /* Branco */
+
+    --primary: 32 84% 38%;              /* Gold #b46d0c */
+    --primary-foreground: 0 0% 100%;    /* Branco */
+
+    --secondary: 0 0% 13%;              /* Cinza escuro #202020 */
+    --secondary-foreground: 0 0% 100%;  /* Branco */
+
+    --muted: 0 0% 20%;                  /* Cinza médio #323232 */
+    --muted-foreground: 0 0% 92%;       /* Cinza claro #ebebeb */
+
+    --accent: 24 89% 65%;               /* Gold claro #f29658 */
+    --accent-foreground: 0 0% 0%;       /* Preto */
+
+    --destructive: 0 84.2% 60.2%;       /* Vermelho (mantido) */
+    --destructive-foreground: 0 0% 100%; /* Branco */
+
+    --border: 0 0% 20%;                 /* Cinza médio #323232 */
+    --input: 0 0% 13%;                  /* Cinza escuro #202020 */
+    --ring: 32 84% 38%;                 /* Gold #b46d0c */
+
     --radius: 0.5rem;
+
+    /* Custom design tokens - JB Advocacia Gold Theme */
+    --jb-gold: 32 84% 38%;             /* #b46d0c - Gold principal */
+    --jb-gold-light: 24 89% 65%;       /* #f29658 - Gold claro */
+    --jb-gold-dark: 32 84% 28%;        /* Gold escuro */
+    --jb-black: 0 0% 0%;               /* #000000 - Preto */
+
+    /* Gradientes Metálicos Gold */
+    --gold-metallic: linear-gradient(135deg,
+      hsl(45 93% 75%) 0%,      /* Gold muito claro - destaque */
+      hsl(38 92% 60%) 25%,     /* Gold médio */
+      hsl(32 84% 38%) 50%,     /* Gold principal */
+      hsl(30 80% 28%) 75%,     /* Gold escuro */
+      hsl(28 76% 20%) 100%     /* Gold muito escuro - sombra */
+    );
+
+    --gold-shine: linear-gradient(120deg,
+      hsl(32 84% 28%) 0%,
+      hsl(38 92% 50%) 20%,
+      hsl(45 93% 65%) 40%,
+      hsl(38 92% 50%) 60%,
+      hsl(32 84% 38%) 80%,
+      hsl(30 80% 28%) 100%
+    );
+
+    --gold-radial: radial-gradient(circle at 30% 30%,
+      hsl(45 93% 75%) 0%,
+      hsl(38 92% 60%) 30%,
+      hsl(32 84% 38%) 60%,
+      hsl(28 76% 20%) 100%
+    );
+
+    --hero-gradient: linear-gradient(135deg, hsl(0 0% 0%) 0%, hsl(0 0% 13%) 100%);
+    --card-gradient: linear-gradient(180deg, hsl(0 0% 8%) 0%, hsl(0 0% 5%) 100%);
+    --accent-gradient: var(--gold-metallic);
+    --text-gradient: var(--gold-shine);
+
+    --accent-glow: 24 89% 65%;
+    --gold-glow: 32 84% 38%;
+
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    --shadow-elegant: 0 10px 40px -10px hsl(32 84% 38% / 0.3);
+    --shadow-accent: 0 4px 20px -4px hsl(24 89% 65% / 0.4);
+    --shadow-glow: 0 0 30px hsl(32 84% 38% / 0.5);
+    --shadow-xl: 0 20px 25px -5px hsl(0 0% 0% / 0.5);
+    --shadow-2xl: 0 25px 50px -12px hsl(0 0% 0% / 0.7);
+
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 32 84% 38%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 13%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 32 84% 38%;
+  }
+
+  .dark {
+    /* Dark mode - mesmo tema preto e gold */
+    --background: 0 0% 0%;              /* Preto #000000 */
+    --foreground: 0 0% 100%;            /* Branco */
+
+    --card: 0 0% 8%;                    /* Cinza escuro #141414 */
+    --card-foreground: 0 0% 100%;       /* Branco */
+
+    --popover: 0 0% 8%;                 /* Cinza escuro #141414 */
+    --popover-foreground: 0 0% 100%;    /* Branco */
+
+    --primary: 32 84% 38%;              /* Gold #b46d0c */
+    --primary-foreground: 0 0% 100%;    /* Branco */
+
+    --secondary: 0 0% 13%;              /* Cinza escuro #202020 */
+    --secondary-foreground: 0 0% 100%;  /* Branco */
+
+    --muted: 0 0% 20%;                  /* Cinza médio #323232 */
+    --muted-foreground: 0 0% 92%;       /* Cinza claro #ebebeb */
+
+    --accent: 24 89% 65%;               /* Gold claro #f29658 */
+    --accent-foreground: 0 0% 0%;       /* Preto */
+
+    --destructive: 0 84.2% 60.2%;       /* Vermelho */
+    --destructive-foreground: 0 0% 100%; /* Branco */
+
+    --border: 0 0% 20%;                 /* Cinza médio #323232 */
+    --input: 0 0% 13%;                  /* Cinza escuro #202020 */
+    --ring: 32 84% 38%;                 /* Gold #b46d0c */
+
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 32 84% 38%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 13%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 32 84% 38%;
   }
 }
 
@@ -25,7 +142,277 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-lato), system-ui, -apple-system, sans-serif;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-playfair), Georgia, serif;
+    font-weight: 700;
+  }
+}
+
+@layer utilities {
+  /* Gradientes de Background */
+  .hero-gradient {
+    background: var(--hero-gradient);
+  }
+
+  .gold-metallic {
+    background: var(--gold-metallic);
+  }
+
+  .gold-shine {
+    background: var(--gold-shine);
+  }
+
+  .gold-radial {
+    background: var(--gold-radial);
+  }
+
+  /* Gradientes de Texto */
+  .text-gradient {
+    background: var(--text-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gold-metallic {
+    background: var(--gold-metallic);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gold-shine {
+    background: var(--gold-shine);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Sombras */
+  .shadow-elegant {
+    box-shadow: var(--shadow-elegant);
+  }
+
+  .shadow-accent {
+    box-shadow: var(--shadow-accent);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .shadow-xl {
+    box-shadow: var(--shadow-xl);
+  }
+
+  .shadow-2xl {
+    box-shadow: var(--shadow-2xl);
+  }
+
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  .transition-bounce {
+    transition: var(--transition-bounce);
+  }
+
+  .animate-buttonClick {
+    animation: buttonClick 0.2s ease-in-out;
+  }
+
+  .animate-ripple {
+    animation: ripple 0.6s ease-out;
+  }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes buttonClick {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Animation classes */
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-fadeInUp-delay-1 {
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.animate-fadeInUp-delay-2 {
+  animation: fadeInUp 0.6s ease-out 0.4s both;
+}
+
+.animate-fadeInUp-delay-3 {
+  animation: fadeInUp 0.6s ease-out 0.6s both;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.6s ease-out;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.5s ease-out;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+/* Marquee Animations */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - 1rem));
+  }
+}
+
+@keyframes marquee-reverse {
+  from {
+    transform: translateX(calc(-100% - 1rem));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100% - 1rem));
+  }
+}
+
+@keyframes marquee-vertical-reverse {
+  from {
+    transform: translateY(calc(-100% - 1rem));
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-marquee {
+  animation: marquee var(--duration, 40s) linear infinite;
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse var(--duration, 40s) linear infinite;
+}
+
+.animate-marquee-vertical {
+  animation: marquee-vertical var(--duration, 40s) linear infinite;
+}
+
+.animate-marquee-vertical-reverse {
+  animation: marquee-vertical-reverse var(--duration, 40s) linear infinite;
 }
