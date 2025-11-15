@@ -6,13 +6,15 @@
     <meta name="theme-color" content="#0A0F1C" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
-    <!-- Canonical URL - Set dynamically based on current URL -->
+    <!-- Canonical URL - Static fallback, updated by inline script for crawlers -->
+    <link rel="canonical" href="https://jbadvocacia.roilabs.com.br/" id="canonical-tag" />
     <script>
+      // Update canonical immediately based on current URL (executes before page render)
       (function() {
-        var canonical = document.createElement('link');
-        canonical.rel = 'canonical';
-        canonical.href = window.location.origin + window.location.pathname;
-        document.head.appendChild(canonical);
+        var canonical = document.getElementById('canonical-tag');
+        if (canonical) {
+          canonical.href = window.location.origin + window.location.pathname;
+        }
       })();
     </script>
 
