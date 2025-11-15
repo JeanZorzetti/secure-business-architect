@@ -4,32 +4,32 @@
 
 @layer base {
   :root {
-    /* Paleta Preto e Gold - Inspirada em JB Advocacia */
-    --background: 0 0% 0%;              /* Preto #000000 */
-    --foreground: 0 0% 100%;            /* Branco #ffffff */
-    --card: 0 0% 8%;                    /* Cinza escuro #141414 */
-    --card-foreground: 0 0% 100%;       /* Branco */
-    --popover: 0 0% 8%;                 /* Cinza escuro #141414 */
-    --popover-foreground: 0 0% 100%;    /* Branco */
+    /* Tema Light - Gold e Branco Limpo */
+    --background: 0 0% 100%;            /* Branco #ffffff */
+    --foreground: 0 0% 10%;             /* Preto suave #1a1a1a */
+    --card: 0 0% 98%;                   /* Branco off-white #fafafa */
+    --card-foreground: 0 0% 10%;        /* Preto suave */
+    --popover: 0 0% 100%;               /* Branco */
+    --popover-foreground: 0 0% 10%;     /* Preto suave */
     --primary: 32 84% 38%;              /* Gold #b46d0c */
     --primary-foreground: 0 0% 100%;    /* Branco */
-    --secondary: 0 0% 13%;              /* Cinza escuro #202020 */
-    --secondary-foreground: 0 0% 100%;  /* Branco */
-    --muted: 0 0% 20%;                  /* Cinza médio #323232 */
-    --muted-foreground: 0 0% 92%;       /* Cinza claro #ebebeb */
-    --accent: 24 89% 65%;               /* Gold claro #f29658 */
-    --accent-foreground: 0 0% 0%;       /* Preto */
-    --destructive: 0 84.2% 60.2%;       /* Vermelho (mantido) */
+    --secondary: 0 0% 96%;              /* Cinza muito claro #f5f5f5 */
+    --secondary-foreground: 0 0% 10%;   /* Preto suave */
+    --muted: 0 0% 96%;                  /* Cinza muito claro #f5f5f5 */
+    --muted-foreground: 0 0% 45%;       /* Cinza médio #737373 */
+    --accent: 32 84% 38%;               /* Gold #b46d0c */
+    --accent-foreground: 0 0% 100%;     /* Branco */
+    --destructive: 0 84.2% 60.2%;       /* Vermelho */
     --destructive-foreground: 0 0% 100%; /* Branco */
-    --border: 0 0% 20%;                 /* Cinza médio #323232 */
-    --input: 0 0% 13%;                  /* Cinza escuro #202020 */
+    --border: 0 0% 90%;                 /* Cinza claro #e5e5e5 */
+    --input: 0 0% 90%;                  /* Cinza claro #e5e5e5 */
     --ring: 32 84% 38%;                 /* Gold #b46d0c */
     --radius: 0.5rem;
     --chart-1: 32 84% 38%;              /* Gold #b46d0c */
-    --chart-2: 24 89% 65%;              /* Gold claro #f29658 */
-    --chart-3: 0 0% 38%;                /* Cinza */
-    --chart-4: 32 84% 50%;              /* Gold variação */
-    --chart-5: 24 89% 75%;              /* Gold muito claro */
+    --chart-2: 24 89% 55%;              /* Gold médio */
+    --chart-3: 0 0% 60%;                /* Cinza médio */
+    --chart-4: 32 84% 50%;              /* Gold claro */
+    --chart-5: 45 93% 70%;              /* Gold muito claro */
 
     /* Gradientes Metálicos Gold */
     --gold-metallic: linear-gradient(135deg,
@@ -58,31 +58,31 @@
   }
 
   .dark {
-    /* Dark mode - mesmo tema preto e gold */
-    --background: 0 0% 0%;              /* Preto #000000 */
-    --foreground: 0 0% 100%;            /* Branco */
+    /* Tema Dark - Preto e Gold Luxuoso */
+    --background: 0 0% 5%;              /* Preto suave #0d0d0d */
+    --foreground: 0 0% 98%;             /* Branco quase total */
     --card: 0 0% 8%;                    /* Cinza escuro #141414 */
-    --card-foreground: 0 0% 100%;       /* Branco */
+    --card-foreground: 0 0% 98%;        /* Branco quase total */
     --popover: 0 0% 8%;                 /* Cinza escuro #141414 */
-    --popover-foreground: 0 0% 100%;    /* Branco */
-    --primary: 32 84% 38%;              /* Gold #b46d0c */
-    --primary-foreground: 0 0% 100%;    /* Branco */
+    --popover-foreground: 0 0% 98%;     /* Branco quase total */
+    --primary: 32 84% 45%;              /* Gold mais claro #d4a574 */
+    --primary-foreground: 0 0% 5%;      /* Preto suave */
     --secondary: 0 0% 13%;              /* Cinza escuro #202020 */
-    --secondary-foreground: 0 0% 100%;  /* Branco */
-    --muted: 0 0% 20%;                  /* Cinza médio #323232 */
-    --muted-foreground: 0 0% 92%;       /* Cinza claro #ebebeb */
-    --accent: 24 89% 65%;               /* Gold claro #f29658 */
-    --accent-foreground: 0 0% 0%;       /* Preto */
+    --secondary-foreground: 0 0% 98%;   /* Branco quase total */
+    --muted: 0 0% 15%;                  /* Cinza médio escuro */
+    --muted-foreground: 0 0% 70%;       /* Cinza médio claro */
+    --accent: 32 84% 45%;               /* Gold mais claro #d4a574 */
+    --accent-foreground: 0 0% 5%;       /* Preto suave */
     --destructive: 0 84.2% 60.2%;       /* Vermelho */
-    --destructive-foreground: 0 0% 100%; /* Branco */
+    --destructive-foreground: 0 0% 98%; /* Branco quase total */
     --border: 0 0% 20%;                 /* Cinza médio #323232 */
     --input: 0 0% 13%;                  /* Cinza escuro #202020 */
-    --ring: 32 84% 38%;                 /* Gold #b46d0c */
-    --chart-1: 32 84% 38%;              /* Gold #b46d0c */
-    --chart-2: 24 89% 65%;              /* Gold claro #f29658 */
-    --chart-3: 0 0% 38%;                /* Cinza */
-    --chart-4: 32 84% 50%;              /* Gold variação */
-    --chart-5: 24 89% 75%;              /* Gold muito claro */
+    --ring: 32 84% 45%;                 /* Gold mais claro */
+    --chart-1: 32 84% 45%;              /* Gold mais claro */
+    --chart-2: 24 89% 60%;              /* Gold claro */
+    --chart-3: 0 0% 40%;                /* Cinza médio */
+    --chart-4: 32 84% 55%;              /* Gold variação */
+    --chart-5: 45 93% 75%;              /* Gold muito claro */
 
     /* Gradientes Metálicos Gold (mesmos do light mode) */
     --gold-metallic: linear-gradient(135deg,

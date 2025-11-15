@@ -17,6 +17,7 @@ import { UserRole } from '@/types/user';
 import { Badge } from '@/components/ui/badge';
 import { useQuery } from '@tanstack/react-query';
 import { leadsApi } from '@/api/leads';
+import { ThemeToggle } from './ThemeToggle';
 
 const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
@@ -56,12 +57,13 @@ export function Sidebar() {
 
   return (
     <div className="flex h-full w-64 flex-col border-r bg-card">
-      {/* Logo */}
-      <div className="flex h-16 items-center border-b px-6">
+      {/* Logo + Theme Toggle */}
+      <div className="flex h-16 items-center justify-between border-b px-6">
         <Link to="/" className="flex items-center space-x-2">
           <Briefcase className="h-6 w-6 text-primary" />
           <span className="text-lg font-bold">JB Advocacia</span>
         </Link>
+        <ThemeToggle />
       </div>
 
       {/* Navigation */}

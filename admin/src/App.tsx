@@ -5,6 +5,7 @@ import { Toaster } from '@/components/ui/sonner';
 import { PrivateRoute } from './components/auth/PrivateRoute';
 import { LoadingSpinner } from './components/common/LoadingSpinner';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
+import { ThemeProvider } from './components/layout/ThemeProvider';
 import { useAuthStore } from './stores/authStore';
 
 // Eager load critical routes
@@ -86,17 +87,18 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <Toaster />
-          <Suspense
-            fallback={
-              <div className="flex h-screen items-center justify-center">
-                <LoadingSpinner size="lg" text="Carregando..." />
-              </div>
-            }
-          >
-            <Routes>
+      <ThemeProvider defaultTheme="light">
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <Toaster />
+            <Suspense
+              fallback={
+                <div className="flex h-screen items-center justify-center">
+                  <LoadingSpinner size="lg" text="Carregando..." />
+                </div>
+              }
+            >
+              <Routes>
           {/* Public Routes */}
           <Route
             path="/login"
@@ -245,9 +247,10 @@ function App() {
           {/* 404 */}
           <Route path="*" element={<NotFound />} />
         </Routes>
-          </Suspense>
-        </BrowserRouter>
-      </QueryClientProvider>
+            </Suspense>
+          </BrowserRouter>
+        </QueryClientProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   );
 }
