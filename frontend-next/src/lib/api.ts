@@ -112,15 +112,25 @@ export async function searchPosts(
 export async function getPostBySlug(slug: string): Promise<BlogPost> {
   const url = `${API_BASE_URL}/blog/posts/${slug}`;
 
-  const response = await fetch(url, {
-    next: { revalidate: 3600 },
-  });
+  try {
+    console.log(`[API] Fetching post from: ${url}`);
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch post: ${slug}`);
+    const response = await fetch(url, {
+      next: { revalidate: 3600 },
+    });
+
+    if (!response.ok) {
+      console.error(`[API] Failed to fetch post ${slug}: ${response.status} ${response.statusText}`);
+      throw new Error(`Failed to fetch post ${slug}: ${response.status} ${response.statusText}`);
+    }
+
+    const post = await response.json();
+    console.log(`[API] Successfully fetched post: ${post.title}`);
+    return post;
+  } catch (error) {
+    console.error('[API] Error fetching post from', url, error);
+    throw error;
   }
-
-  return response.json();
 }
 
 /**

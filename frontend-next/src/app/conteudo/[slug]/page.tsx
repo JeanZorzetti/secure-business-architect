@@ -52,10 +52,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  const resolvedParams = await params;
+
   try {
-    const post = await getPostBySlug(params.slug);
+    const post = await getPostBySlug(resolvedParams.slug);
 
     return {
       title: `${post.title} | Blog JB Advocacia`,
@@ -86,20 +88,21 @@ export async function generateMetadata({
 export default async function ArticlePage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
+  const resolvedParams = await params;
   let post;
 
   try {
-    post = await getPostBySlug(params.slug);
+    post = await getPostBySlug(resolvedParams.slug);
 
     // Only show published posts
     if (post.status !== 'PUBLISHED') {
-      console.warn(`[Page] Post ${params.slug} is not published (status: ${post.status})`);
+      console.warn(`[Page] Post ${resolvedParams.slug} is not published (status: ${post.status})`);
       notFound();
     }
   } catch (error) {
-    console.error(`[Page] Failed to load post ${params.slug}:`, error);
+    console.error(`[Page] Failed to load post ${resolvedParams.slug}:`, error);
     notFound();
   }
 
