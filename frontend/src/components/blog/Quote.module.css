@@ -1,0 +1,154 @@
+/* ============================================
+   QUOTE - Citações Destacadas
+   Design elegante com aspas e borda gold
+   ============================================ */
+
+.container {
+  position: relative;
+  margin: 2.5rem 0;
+  padding: 2rem 2rem 2rem 3.5rem;
+  background: linear-gradient(135deg, #fafaf8 0%, #f5f3ee 100%);
+  border-left: 4px solid #b46d0c;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.container:hover {
+  box-shadow: 0 4px 16px rgba(180, 109, 12, 0.12);
+}
+
+/* ============================================
+   QUOTE ICON
+   ============================================ */
+
+.icon {
+  position: absolute;
+  top: 1.75rem;
+  left: 1.25rem;
+  color: #b46d0c;
+  opacity: 0.3;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   QUOTE TEXT
+   ============================================ */
+
+.quote {
+  margin: 0;
+  padding: 0;
+}
+
+.text {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.375rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: #1a1a1a;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.text p {
+  margin: 0;
+}
+
+.text p + p {
+  margin-top: 1rem;
+}
+
+/* ============================================
+   FOOTER - Author & Source
+   ============================================ */
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 2px solid #e8e5df;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.author {
+  font-style: normal;
+  font-weight: 600;
+  color: #b46d0c;
+}
+
+.separator {
+  color: #999;
+  font-weight: 300;
+}
+
+.source {
+  color: #666;
+  font-weight: 400;
+}
+
+/* ============================================
+   RESPONSIVE - Mobile
+   ============================================ */
+
+@media (max-width: 768px) {
+  .container {
+    margin: 2rem 0;
+    padding: 1.5rem 1.25rem 1.5rem 3rem;
+  }
+
+  .icon {
+    top: 1.25rem;
+    left: 0.875rem;
+    width: 24px;
+    height: 24px;
+  }
+
+  .text {
+    font-size: 1.1875rem;
+    line-height: 1.5;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+  }
+
+  .separator {
+    display: none;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .container {
+    transition: none;
+  }
+}
+
+/* ============================================
+   PRINT
+   ============================================ */
+
+@media print {
+  .container {
+    box-shadow: none;
+    border: 1px solid #b46d0c;
+    page-break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .icon {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
