@@ -35,6 +35,21 @@ const BlogPostAPI = () => {
     }
   }, [post, slug]);
 
+  // Extrair resumo executivo e conteúdo limpo (antes dos early returns)
+  const summaryData = useMemo(() => {
+    if (!post) return { htmlWithoutSummary: '', learningPoints: [], readingTime: '8 minutos', result: '' };
+    return extractExecutiveSummary(post.content);
+  }, [post]);
+
+  // Extrair table of contents e adicionar IDs aos headings
+  const tocItems = useMemo(() => {
+    return extractTableOfContents(summaryData.htmlWithoutSummary);
+  }, [summaryData.htmlWithoutSummary]);
+
+  const contentWithIds = useMemo(() => {
+    return addIdsToHeadings(summaryData.htmlWithoutSummary, tocItems);
+  }, [summaryData.htmlWithoutSummary, tocItems]);
+
   // Loading state
   if (isLoading) {
     return (
@@ -77,20 +92,6 @@ const BlogPostAPI = () => {
   if (post.status !== 'PUBLISHED') {
     return <Navigate to="/conteudo" replace />;
   }
-
-  // Extrair resumo executivo e conteúdo limpo
-  const summaryData = useMemo(() => {
-    return extractExecutiveSummary(post.content);
-  }, [post.content]);
-
-  // Extrair table of contents e adicionar IDs aos headings
-  const tocItems = useMemo(() => {
-    return extractTableOfContents(summaryData.htmlWithoutSummary);
-  }, [summaryData.htmlWithoutSummary]);
-
-  const contentWithIds = useMemo(() => {
-    return addIdsToHeadings(summaryData.htmlWithoutSummary, tocItems);
-  }, [summaryData.htmlWithoutSummary, tocItems]);
 
   const readingTime = calculateReadingTime(post.content);
   const publishDate = post.publishedAt
