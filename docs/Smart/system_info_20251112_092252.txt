@@ -1,0 +1,5 @@
+=== INFORMAÇÕES DO AMBIENTE ===
+Timestamp: 2025-11-12 09:22:52
+Diretório de trabalho: c:\Users\jeanz\Downloads\secure-business-architect-main
+Arquivos no diretório: 58967
+Status: Ambiente mapeado com sucesso

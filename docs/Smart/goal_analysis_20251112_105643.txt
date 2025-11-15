@@ -1,0 +1,5 @@
+=== ANÁLISE DE OBJETIVO ===
+Objetivo: realizar análise estratégica completa do frontend do projeto de advocacia: 1) estudar profundamente toda a estrutura do frontend atual (componentes, páginas, rotas, estilos), 2) pesquisar extensivamente sites de advocacia modernos e referências de ui/ux para escritórios de advocacia, 3) adotar postura disruptiva de design mantendo profissionalismo jurídico, 4) fazer pesquisa profunda no magicui identificando os melhores componentes para escritório de advocacia (usar magicui mcp server se disponível), 5) criar documento detalhado com ideias inovadoras para implementar no frontend incluindo componentes específicos, layouts modernos, animações sutis, e melhorias de ux que combinem inovação com credibilidade profissional do setor jurídico.
+Analisado em: 2025-11-12 10:56:43
+Estratégia: Plano de 4 passos gerado
+Status: Pronto para execução

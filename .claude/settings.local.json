@@ -36,7 +36,9 @@
       "Bash(ssh:*)",
       "Bash(bash:*)",
       "Bash(vercel.json)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(git branch:*)",
+      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch:*)"
     ],
     "deny": [],
     "ask": []

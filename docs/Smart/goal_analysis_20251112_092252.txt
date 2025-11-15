@@ -1,0 +1,5 @@
+=== ANÁLISE DE OBJETIVO ===
+Objetivo: realizar análise comparativa completa e detalhada dos sites de componentes ui: animate ui (animate-ui.com), magicui (magicui.design) e 21st.dev. analisar múltiplos critérios incluindo qualidade de design, variedade de componentes, documentação, usabilidade, performance, inovação, código, comunidade, preço/acessibilidade, e experiência do desenvolvedor. gerar pontuação de 1 a 10 (com decimais) para cada critério e calcular média ponderada final.
+Analisado em: 2025-11-12 09:22:52
+Estratégia: Plano de 4 passos gerado
+Status: Pronto para execução

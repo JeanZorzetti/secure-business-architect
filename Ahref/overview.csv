@@ -1,0 +1,44 @@
+URL type,Is internal URL,URL,HTTP status code,First found at,Download status (CURL code),Content type,Depth,Is indexable page,Canonical URL,Canonical URL code,Canonical URL no-crawl reason,Is self-canonical,Is canonical target canonical,Redirect URL,Redirect URL code,Redirect URL no-crawl reason,Is redirect target canonical,Redirect chain URLs,Redirect chain URLs codes,Redirect chain URLs no-crawl reasons,No. of redirect chain URLs,Is redirect loop,Meta robots,Robots information in HTTP headers,Is in sitemap,Referenced in sitemaps,PR,Is valid (200) internal HTML page,Is sitemap index,Crawl datetime,HTTP headers,Time to first byte (ms),Loading time (ms),Size (bytes),Compression,Title,No. of pages having the same title,Meta description,No. of pages having the same description,H1,No. of pages having the same H1,H2,No. of content characters,No. of content words,No. of pages having the same content,HTML lang,Is valid HTML lang,Open graph title,Open graph URL,Is Open graph URL valid,Open graph URL inconsistent with canonical,Open graph image,Is open graph image URL valid,Open graph attributes,Open graph values,Is valid X (Twitter) card,X (Twitter) card type,X (Twitter) card title,X (Twitter) card description,X (Twitter) card image,Is X (Twitter) card image URL valid,X (Twitter) card site,X (Twitter) card HTTPS URL to iFrame player,X (Twitter) card width of iFrame player,X (Twitter) card height of iFrame player,X (Twitter) card app ID in the App Store for iPhone,X (Twitter) card app ID in the App Store for iPad,X (Twitter) card app ID in Google Play,X (Twitter) card attributes,X (Twitter) card values,Self-hreflang,Is valid self-hreflang,No. of hreflang outlinks,No. of hreflang inlinks,Pagination prev URL,Pagination prev URL code,Pagination prev URL no-crawl reason,Pagination next URL,Pagination next URL code,Pagination next URL no-crawl reason,No. of pagination inlinks,Number of pages in pagination group,Pagination group ID
+"HTML Page
+Seed",true,https://jbadvocacia.roilabs.com.br/,200,,0,text/html; charset=utf-8,0,true,https://jbadvocacia.roilabs.com.br/,200,,true,true,,,,,,,,0,,,,true,https://jbadvocacia.roilabs.com.br/sitemap.xml,40,true,,2025-11-12 20:03:30,"HTTP/2 200
+accept-ranges: bytes
+access-control-allow-origin: *
+age: 35
+cache-control: public, max-age=0, must-revalidate
+content-disposition: inline
+content-encoding: br
+content-type: text/html; charset=utf-8
+date: Wed, 12 Nov 2025 20:03:30 GMT
+etag: ""11cbb04898131e25afae98f890878a27""
+last-modified: Wed, 12 Nov 2025 20:02:55 GMT
+server: Vercel
+strict-transport-security: max-age=63072000
+x-vercel-cache: HIT
+x-vercel-id: iad1::g8slb-1762977810758-b9287e5a0975
+content-length: 1400",16,16,1400,Br,Jennifer Barreto - Advocacia Empresarial Estratégica,21,Assessoria jurídica estratégica para empresários que dominam seu produto mas precisam de segurança em contratos e negociações. 12 anos de experiência em direito empresarial.,21,,,,311,6,21,en,true,Jennifer Barreto - Advocacia Empresarial Estratégica,https://jbadvocacia.roilabs.com.br/,true,false,https://jbadvocacia.roilabs.com.br/og-image.png,true,"og:locale
+og:site_name
+og:image:type
+og:image:height
+og:image:width
+og:image
+og:description
+og:title
+og:url
+og:type","pt_BR
+Jennifer Barreto - Advocacia Empresarial
+image/png
+630
+1200
+https://jbadvocacia.roilabs.com.br/og-image.png
+Estratégia Antes da Minuta. Assessoria jurídica que começa na negociação e no entendimento do seu negócio.
+Jennifer Barreto - Advocacia Empresarial Estratégica
+https://jbadvocacia.roilabs.com.br/
+website",true,summary_large_image,Jennifer Barreto - Advocacia Empresarial Estratégica,Estratégia Antes da Minuta. Assessoria jurídica que começa na negociação e no entendimento do seu negócio.,https://jbadvocacia.roilabs.com.br/og-image.png,true,,,,,,,,"twitter:image
+twitter:description
+twitter:title
+twitter:url
+twitter:card","https://jbadvocacia.roilabs.com.br/og-image.png
+Estratégia Antes da Minuta. Assessoria jurídica que começa na negociação e no entendimento do seu negócio.
+Jennifer Barreto - Advocacia Empresarial Estratégica
+https://jbadvocacia.roilabs.com.br/
+summary_large_image",,,0,0,,,,,,,0,,
