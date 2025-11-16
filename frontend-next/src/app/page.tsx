@@ -7,6 +7,7 @@ import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { Marquee } from "@/components/ui/marquee";
 import TestimonialCard from "@/components/testimonial-card";
 import BlogCard from "@/components/blog-card";
+import { getPosts } from '@/lib/api';
 
 export const metadata: Metadata = {
   title: 'Jennifer Barreto - Advocacia Empresarial Estratégica | 12 Anos de Experiência',
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
   const testimonials1 = [
     {
       name: "Marcos Silva",
@@ -80,29 +81,31 @@ export default function Home() {
     },
   ];
 
-  const blogPosts = [
-    {
-      title: "Por que a gestão de contratos é crucial para a lucratividade?",
-      excerpt:
-        "Entenda como um contrato bem gerenciado pode ser a diferença entre o sucesso e o fracasso de uma operação comercial.",
-      date: "15 de Março, 2024",
-      slug: "gestao-contratos-lucratividade",
-    },
-    {
-      title: "Sociedade 50/50: Por que pode não ser a melhor escolha",
-      excerpt:
-        "Analisamos os riscos de uma divisão igualitária e como estruturar melhor sua sociedade para evitar impasses futuros.",
-      date: "10 de Março, 2024",
-      slug: "sociedade-50-50-riscos",
-    },
-    {
-      title: "Contrato de Parceria no Agronegócio: Uma solução estratégica",
-      excerpt:
-        "Como estruturar contratos de parceria que protegem ambas as partes e garantem a continuidade da operação.",
-      date: "5 de Março, 2024",
-      slug: "contrato-parceria-agronegocio",
-    },
-  ];
+  // Fetch latest blog posts dynamically
+  let blogPosts: Array<{
+    title: string;
+    excerpt: string;
+    date: string;
+    slug: string;
+  }> = [];
+  try {
+    const data = await getPosts({ limit: 6 });
+    blogPosts = data.posts.map(post => ({
+      title: post.title,
+      excerpt: post.excerpt,
+      date: post.publishedAt
+        ? new Date(post.publishedAt).toLocaleDateString('pt-BR', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          })
+        : 'Data não disponível',
+      slug: post.slug,
+    }));
+  } catch (error) {
+    console.error('[HomePage] Failed to fetch blog posts:', error);
+    // Fallback to empty array if API fails
+  }
 
   return (
     <div className="min-h-screen">
@@ -357,16 +360,26 @@ export default function Home() {
               negócios
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {blogPosts.map((post, index) => (
-              <BlogCard key={index} {...post} />
-            ))}
-          </div>
-          <div className="text-center mt-8">
-            <Button variant="outline" asChild>
-              <Link href="/conteudo">Ver todos os artigos</Link>
-            </Button>
-          </div>
+          {blogPosts.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {blogPosts.map((post, index) => (
+                  <BlogCard key={post.slug} {...post} />
+                ))}
+              </div>
+              <div className="text-center mt-8">
+                <Button variant="outline" asChild>
+                  <Link href="/conteudo">Ver todos os artigos</Link>
+                </Button>
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground">
+                Novos artigos em breve. Fique atento!
+              </p>
+            </div>
+          )}
         </div>
       </section>
 

@@ -12,9 +12,11 @@ import { TableOfContents } from './table-of-contents';
 import InlineCTA from './inline-cta';
 import MobileShareButtons from './mobile-share-buttons';
 import ArticleFeedback from './article-feedback';
+import { RelatedArticles } from './related-articles';
 
 interface ArticleContentProps {
   post: BlogPost;
+  relatedArticles?: BlogPost[];
 }
 
 // Calculate reading time (simple estimation: 200 words per minute)
@@ -23,7 +25,7 @@ function calculateReadingTime(content: string): number {
   return Math.ceil(words / 200);
 }
 
-export default function ArticleContent({ post }: ArticleContentProps) {
+export default function ArticleContent({ post, relatedArticles = [] }: ArticleContentProps) {
   const readingTime = calculateReadingTime(post.content);
   const publishDate = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString('pt-BR', {
@@ -144,6 +146,11 @@ export default function ArticleContent({ post }: ArticleContentProps) {
 
             {/* Article Feedback */}
             <ArticleFeedback articleSlug={post.slug} />
+
+            {/* Related Articles */}
+            {relatedArticles.length > 0 && (
+              <RelatedArticles articles={relatedArticles} currentSlug={post.slug} />
+            )}
           </article>
 
           {/* Desktop Table of Contents (Sticky Sidebar) */}

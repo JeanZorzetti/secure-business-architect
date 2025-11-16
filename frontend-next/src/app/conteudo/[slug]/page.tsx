@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getPostBySlug, getPosts } from '@/lib/api';
+import { getPostBySlug, getPosts, BlogPost } from '@/lib/api';
+import { getRelatedArticles } from '@/lib/get-related-articles';
 import ArticleContent from '@/components/blog/article-content';
 
 // ISR: Revalidate every hour
@@ -106,5 +107,15 @@ export default async function ArticlePage({
     notFound();
   }
 
-  return <ArticleContent post={post} />;
+  // Fetch all posts to find related articles
+  let relatedArticles: BlogPost[] = [];
+  try {
+    const allPosts = await getPosts({ limit: 100 });
+    relatedArticles = getRelatedArticles(post, allPosts.posts, 3);
+  } catch (error) {
+    console.error('[Page] Failed to fetch related articles:', error);
+    // Continue without related articles
+  }
+
+  return <ArticleContent post={post} relatedArticles={relatedArticles} />;
 }

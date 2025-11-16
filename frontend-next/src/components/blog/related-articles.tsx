@@ -1,18 +1,9 @@
 import Link from 'next/link';
 import { ArrowRight, Calendar, Clock } from 'lucide-react';
-
-export interface RelatedArticle {
-  slug: string;
-  title: string;
-  excerpt: string;
-  coverImage?: string;
-  category: string;
-  publishedAt: string;
-  content: string;
-}
+import { BlogPost } from '@/lib/api';
 
 interface RelatedArticlesProps {
-  articles: RelatedArticle[];
+  articles: BlogPost[];
   currentSlug?: string;
 }
 
@@ -46,14 +37,13 @@ export function RelatedArticles({ articles, currentSlug }: RelatedArticlesProps)
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredArticles.map((article) => {
           const readingTime = calculateReadingTime(article.content);
-          const publishDate = new Date(article.publishedAt).toLocaleDateString(
-            'pt-BR',
-            {
-              day: 'numeric',
-              month: 'short',
-              year: 'numeric',
-            }
-          );
+          const publishDate = article.publishedAt
+            ? new Date(article.publishedAt).toLocaleDateString('pt-BR', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric',
+              })
+            : 'Data não disponível';
 
           return (
             <article
