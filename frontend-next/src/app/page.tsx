@@ -10,14 +10,14 @@ import BlogCard from "@/components/blog-card";
 import { getPosts } from '@/lib/api';
 
 export const metadata: Metadata = {
-  title: 'Jennifer Barreto - Advocacia Empresarial Estratégica | 12 Anos de Experiência',
+  title: 'Jennifer Barreto | Advocacia Empresarial Estratégica',
   description: 'Advocacia empresarial com foco em estratégia, não apenas documentos. Contratos, societário, due diligence e agronegócio. 12 anos protegendo empresas.',
   keywords: 'advocacia empresarial, contratos estratégicos, due diligence, direito societário, agronegócio, consultoria jurídica empresarial',
   alternates: {
     canonical: 'https://jbadvocacia.roilabs.com.br',
   },
   openGraph: {
-    title: 'Jennifer Barreto - Advocacia Empresarial Estratégica | 12 Anos de Experiência',
+    title: 'Jennifer Barreto | Advocacia Empresarial Estratégica',
     description: 'Advocacia empresarial com foco em estratégia. 12 anos protegendo empresas.',
     url: 'https://jbadvocacia.roilabs.com.br',
     siteName: 'Jennifer Barreto Advocacia',

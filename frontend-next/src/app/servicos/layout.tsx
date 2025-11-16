@@ -1,14 +1,14 @@
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Serviços Jurídicos Empresariais | Jennifer Barreto Advocacia',
+  title: 'Serviços Jurídicos | Jennifer Barreto Advocacia',
   description: 'Consultoria estratégica, due diligence, estruturação societária e gestão de contratos empresariais. Soluções jurídicas personalizadas para empresas.',
   keywords: 'serviços jurídicos empresariais, consultoria advocacia, due diligence, contratos empresariais, direito societário',
   alternates: {
     canonical: 'https://jbadvocacia.roilabs.com.br/servicos',
   },
   openGraph: {
-    title: 'Serviços Jurídicos Empresariais | Jennifer Barreto Advocacia',
+    title: 'Serviços Jurídicos | Jennifer Barreto Advocacia',
     description: 'Consultoria estratégica, due diligence, estruturação societária e gestão de contratos empresariais.',
     type: 'website',
     url: 'https://jbadvocacia.roilabs.com.br/servicos',

@@ -61,7 +61,7 @@ export async function generateMetadata({
     const post = await getPostBySlug(resolvedParams.slug);
 
     return {
-      title: `${post.title} | Blog JB Advocacia`,
+      title: post.title,
       description: post.excerpt,
       keywords: post.tags.join(', '),
       authors: [{ name: post.author }],
