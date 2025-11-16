@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     locale: 'pt_BR',
     images: [
       {
-        url: 'https://jbadvocacia.roilabs.com.br/og-image.jpg',
+        url: 'https://jbadvocacia.roilabs.com.br/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Serviços Jurídicos Empresariais - Jennifer Barreto Advocacia',

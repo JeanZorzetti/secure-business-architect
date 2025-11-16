@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     locale: 'pt_BR',
     images: [
       {
-        url: 'https://jbadvocacia.roilabs.com.br/og-image-blog.jpg',
+        url: 'https://jbadvocacia.roilabs.com.br/og-image-blog.png',
         width: 1200,
         height: 630,
         alt: 'Blog - Da Minha Mesa | Jennifer Barreto Advocacia',

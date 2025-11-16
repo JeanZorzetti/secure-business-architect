@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: 'https://jbadvocacia.roilabs.com.br/og-image.jpg',
+        url: 'https://jbadvocacia.roilabs.com.br/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Jennifer Barreto - Advocacia Empresarial Estratégica',
