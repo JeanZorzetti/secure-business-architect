@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OG Images Templates - Jennifer Barreto Advocacia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f0f0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #1a1a1a;
+            margin-bottom: 20px;
+        }
+
+        .instructions {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            border-left: 4px solid #C9A961;
+        }
+
+        .instructions h2 {
+            color: #1a1a1a;
+            margin-bottom: 10px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+
+        .instructions code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+
+        /* OG Image Canvas */
+        .og-image {
+            width: 1200px;
+            height: 630px;
+            position: relative;
+            margin-bottom: 60px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        /* OG Image 1 - Homepage/General */
+        #og-image-general {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px;
+            text-align: center;
+        }
+
+        #og-image-general::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                linear-gradient(30deg, #C9A961 12%, transparent 12.5%, transparent 87%, #C9A961 87.5%, #C9A961),
+                linear-gradient(150deg, #C9A961 12%, transparent 12.5%, transparent 87%, #C9A961 87.5%, #C9A961),
+                linear-gradient(30deg, #C9A961 12%, transparent 12.5%, transparent 87%, #C9A961 87.5%, #C9A961),
+                linear-gradient(150deg, #C9A961 12%, transparent 12.5%, transparent 87%, #C9A961 87.5%, #C9A961);
+            background-size: 80px 140px;
+            background-position: 0 0, 0 0, 40px 70px, 40px 70px;
+            opacity: 0.03;
+            z-index: 1;
+        }
+
+        #og-image-general .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        #og-image-general .logo {
+            width: 120px;
+            height: 120px;
+            background: #C9A961;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 40px;
+            font-size: 48px;
+            font-weight: bold;
+            color: #1a1a1a;
+            letter-spacing: -2px;
+        }
+
+        #og-image-general h1 {
+            font-size: 72px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        #og-image-general .highlight {
+            color: #C9A961;
+        }
+
+        #og-image-general .subtitle {
+            font-size: 32px;
+            color: #C9A961;
+            font-weight: 600;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        #og-image-general .tagline {
+            font-size: 28px;
+            color: rgba(255,255,255,0.8);
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+
+        #og-image-general .footer {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        /* OG Image 2 - Blog */
+        #og-image-blog {
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+            display: flex;
+            padding: 0;
+        }
+
+        #og-image-blog .left-section {
+            flex: 1;
+            background: linear-gradient(135deg, #C9A961 0%, #B89951 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #og-image-blog .left-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.05) 10px,
+                rgba(255,255,255,0.05) 20px
+            );
+            animation: shimmer 20s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-50%) translateY(-50%) rotate(0deg); }
+            100% { transform: translateX(-50%) translateY(-50%) rotate(360deg); }
+        }
+
+        #og-image-blog .book-icon {
+            position: relative;
+            z-index: 2;
+            width: 200px;
+            height: 200px;
+            background: #1a1a1a;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        #og-image-blog .book-icon svg {
+            width: 120px;
+            height: 120px;
+            fill: #C9A961;
+        }
+
+        #og-image-blog .blog-badge {
+            position: relative;
+            z-index: 2;
+            background: #1a1a1a;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        #og-image-blog .right-section {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px;
+        }
+
+        #og-image-blog h1 {
+            font-size: 64px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        #og-image-blog .blog-title {
+            color: #C9A961;
+        }
+
+        #og-image-blog .tagline {
+            font-size: 28px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.4;
+            margin-bottom: 40px;
+        }
+
+        #og-image-blog .author {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #og-image-blog .author-avatar {
+            width: 60px;
+            height: 60px;
+            background: #C9A961;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: #1a1a1a;
+        }
+
+        #og-image-blog .author-info {
+            color: rgba(255,255,255,0.8);
+        }
+
+        #og-image-blog .author-name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        #og-image-blog .author-title {
+            font-size: 18px;
+            opacity: 0.7;
+        }
+
+        .label {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .screenshot-btn {
+            background: #C9A961;
+            color: #1a1a1a;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .screenshot-btn:hover {
+            background: #B89951;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(201, 169, 97, 0.3);
+        }
+
+        .download-section {
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Templates de Imagens Open Graph</h1>
+
+        <div class="instructions">
+            <h2>📋 Como Usar:</h2>
+            <ol>
+                <li>Abra este arquivo HTML no navegador (Chrome ou Firefox)</li>
+                <li>Pressione <code>F12</code> para abrir o DevTools</li>
+                <li>Clique em "Toggle Device Toolbar" ou pressione <code>Ctrl+Shift+M</code></li>
+                <li>Configure uma resolução customizada de <strong>1200x630px</strong></li>
+                <li>Role até a imagem desejada</li>
+                <li>Clique com botão direito na imagem → "Capturar screenshot do nó"</li>
+                <li>Salve como <code>og-image.jpg</code> ou <code>og-image-blog.jpg</code></li>
+                <li>Coloque os arquivos em <code>/frontend-next/public/</code></li>
+            </ol>
+            <p><strong>Alternativa:</strong> Use uma ferramenta online como <a href="https://www.screenshotmachine.com/" target="_blank">ScreenshotMachine</a> ou <a href="https://html-to-image.com/" target="_blank">HTML to Image</a></p>
+        </div>
+
+        <!-- OG Image 1: Homepage/General -->
+        <div>
+            <div class="og-image" id="og-image-general">
+                <div class="content">
+                    <div class="logo">JB</div>
+                    <div class="subtitle">Advocacia Empresarial</div>
+                    <h1>Jennifer <span class="highlight">Barreto</span></h1>
+                    <div class="tagline">
+                        Estratégia jurídica que protege e impulsiona seu negócio
+                    </div>
+                </div>
+                <div class="footer">jbadvocacia.roilabs.com.br</div>
+            </div>
+            <div class="label">og-image.jpg (Homepage, Contato, Serviços, Calculadora, Sobre)</div>
+        </div>
+
+        <!-- OG Image 2: Blog -->
+        <div>
+            <div class="og-image" id="og-image-blog">
+                <div class="left-section">
+                    <div class="book-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/>
+                        </svg>
+                    </div>
+                    <div class="blog-badge">Blog</div>
+                </div>
+                <div class="right-section">
+                    <h1><span class="blog-title">Da Minha Mesa</span></h1>
+                    <div class="tagline">
+                        Insights práticos sobre direito empresarial e estratégias jurídicas
+                    </div>
+                    <div class="author">
+                        <div class="author-avatar">JB</div>
+                        <div class="author-info">
+                            <div class="author-name">Jennifer Barreto</div>
+                            <div class="author-title">Advocacia Empresarial</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="label">og-image-blog.jpg (Blog Listing e Posts sem Cover Image)</div>
+        </div>
+
+        <div class="download-section">
+            <h2>💡 Dicas de Qualidade</h2>
+            <ul style="text-align: left; max-width: 600px; margin: 20px auto; line-height: 1.8;">
+                <li>Use resolução exata de 1200x630px</li>
+                <li>Salve como JPG com qualidade 90-95%</li>
+                <li>Tamanho máximo recomendado: 300KB por imagem</li>
+                <li>Teste as imagens em: <a href="https://www.opengraph.xyz/" target="_blank">OpenGraph.xyz</a></li>
+                <li>Valide no Facebook Debugger após upload</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
