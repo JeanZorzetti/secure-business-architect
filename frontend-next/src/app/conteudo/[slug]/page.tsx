@@ -69,10 +69,29 @@ export async function generateMetadata({
         title: post.title,
         description: post.excerpt,
         type: 'article',
+        url: `https://jbadvocacia.roilabs.com.br/conteudo/${post.slug}`,
+        siteName: 'Jennifer Barreto Advocacia',
+        locale: 'pt_BR',
         publishedTime: post.publishedAt || undefined,
         authors: [post.author],
         tags: post.tags,
-        images: post.coverImage ? [post.coverImage] : [],
+        images: post.coverImage
+          ? [
+              {
+                url: post.coverImage,
+                width: 1200,
+                height: 630,
+                alt: post.title,
+              },
+            ]
+          : [
+              {
+                url: 'https://jbadvocacia.roilabs.com.br/og-image-blog.jpg',
+                width: 1200,
+                height: 630,
+                alt: post.title,
+              },
+            ],
       },
       alternates: {
         canonical: `https://jbadvocacia.roilabs.com.br/conteudo/${post.slug}`,

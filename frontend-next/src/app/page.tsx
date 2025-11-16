@@ -17,12 +17,20 @@ export const metadata: Metadata = {
     canonical: 'https://jbadvocacia.roilabs.com.br',
   },
   openGraph: {
-    title: 'Jennifer Barreto - Advocacia Empresarial Estratégica',
+    title: 'Jennifer Barreto - Advocacia Empresarial Estratégica | 12 Anos de Experiência',
     description: 'Advocacia empresarial com foco em estratégia. 12 anos protegendo empresas.',
     url: 'https://jbadvocacia.roilabs.com.br',
     siteName: 'Jennifer Barreto Advocacia',
     locale: 'pt_BR',
     type: 'website',
+    images: [
+      {
+        url: 'https://jbadvocacia.roilabs.com.br/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Jennifer Barreto - Advocacia Empresarial Estratégica',
+      },
+    ],
   },
 };
 

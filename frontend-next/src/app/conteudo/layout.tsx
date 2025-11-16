@@ -12,6 +12,16 @@ export const metadata: Metadata = {
     description: 'Insights práticos sobre direito empresarial, negociações e estratégia de negócios.',
     type: 'website',
     url: 'https://jbadvocacia.roilabs.com.br/conteudo',
+    siteName: 'Jennifer Barreto Advocacia',
+    locale: 'pt_BR',
+    images: [
+      {
+        url: 'https://jbadvocacia.roilabs.com.br/og-image-blog.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Blog - Da Minha Mesa | Jennifer Barreto Advocacia',
+      },
+    ],
   },
 };
 
