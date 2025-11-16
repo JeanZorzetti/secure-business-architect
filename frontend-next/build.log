@@ -1,0 +1,40 @@
+
+> jb-advocacia-nextjs@1.0.0 build
+> next build
+
+   ▲ Next.js 16.0.3 (Turbopack)
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 5.6s
+   Running TypeScript ...
+   Collecting page data using 11 workers ...
+   Generating static pages using 11 workers (0/22) ...
+   Generating static pages using 11 workers (5/22) 
+   Generating static pages using 11 workers (10/22) 
+   Generating static pages using 11 workers (16/22) 
+ ✓ Generating static pages using 11 workers (22/22) in 1705.1ms
+   Finalizing page optimization ...
+
+Route (app)                                                Revalidate  Expire
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/contact
+├ ○ /calculadora
+├ ○ /contato
+├ ○ /conteudo
+├ ● /conteudo/[slug]                                               1h      1y
+│ ├ /conteudo/contratos-empresariais-clausulas-essenciais          1h      1y
+│ ├ /conteudo/importancia-due-diligence-ma                         1h      1y
+│ ├ /conteudo/gestao-contratos-lucratividade                       1h      1y
+│ └ [+8 more paths]
+├ ○ /robots.txt
+├ ○ /servicos
+├ ○ /sitemap.xml                                                   1h      1y
+└ ○ /sobre
+
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+

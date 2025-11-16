@@ -38,7 +38,13 @@
       "Bash(vercel.json)",
       "Bash(dir:*)",
       "Bash(git branch:*)",
-      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch:*)"
+      "Bash(FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch:*)",
+      "Bash(test:*)",
+      "Bash(git reset:*)",
+      "Bash(for slug in \"importancia-due-diligence-ma\" \"gestao-contratos-lucratividade\" \"sociedade-50-50-riscos\")",
+      "Bash(do echo \"Testing: /conteudo/$slug\")",
+      "Bash(done)",
+      "Bash(git rm:*)"
     ],
     "deny": [],
     "ask": []
