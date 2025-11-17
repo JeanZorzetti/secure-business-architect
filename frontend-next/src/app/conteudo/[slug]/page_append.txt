@@ -1,0 +1,17 @@
+
+
+  // Structured Data
+  const articleUrl = `https://jbadvocacia.roilabs.com.br/conteudo/${post.slug}`;
+  const articleSchema = getArticleSchema(post, articleUrl);
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', url: 'https://jbadvocacia.roilabs.com.br' },
+    { name: 'Blog', url: 'https://jbadvocacia.roilabs.com.br/conteudo' },
+    { name: post.title },
+  ]);
+
+  return (
+    <>
+      <JsonLd data={[articleSchema, breadcrumbSchema]} />
+      <ArticleContent post={post} relatedArticles={relatedArticles} />
+    </>
+  );

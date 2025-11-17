@@ -5,6 +5,8 @@ import { ThemeProvider } from '@/components/theme-provider';
 import Navigation from '@/components/navigation';
 import Footer from '@/components/footer';
 import GoogleAnalytics from '@/components/google-analytics';
+import JsonLd from '@/components/seo/json-ld';
+import { getOrganizationSchema, getWebSiteSchema } from '@/lib/structured-data';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
@@ -55,6 +57,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="theme-color" content="#0A0F1C" />
+        <JsonLd data={[getOrganizationSchema(), getWebSiteSchema()]} />
       </head>
       <body className={`${inter.variable} ${playfair.variable} ${lato.variable} font-sans antialiased`}>
         <GoogleAnalytics />

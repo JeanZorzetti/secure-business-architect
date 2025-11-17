@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { getPostBySlug, getPosts, BlogPost } from '@/lib/api';
 import { getRelatedArticles } from '@/lib/get-related-articles';
 import ArticleContent from '@/components/blog/article-content';
+import JsonLd from '@/components/seo/json-ld';
+import { getArticleSchema, getBreadcrumbSchema } from '@/lib/structured-data';
 
 // ISR: Revalidate every hour
 export const revalidate = 3600;
@@ -32,21 +34,6 @@ export async function generateStaticParams() {
   // Will investigate API accessibility from Vercel build environment
   console.log('[Build] Using fallback slugs for initial generation');
   return fallbackSlugs.map(slug => ({ slug }));
-
-  // try {
-  //   const data = await getPosts({ limit: 100 });
-  //   console.log(`[Build] Successfully generated static params for ${data.posts.length} blog posts from API`);
-  //   return data.posts.map((post) => ({
-  //     slug: post.slug,
-  //   }));
-  // } catch (error) {
-  //   console.error('[Build] CRITICAL: Failed to fetch from API during build:', error);
-  //   console.warn('[Build] Using fallback slugs to ensure pages are generated');
-
-  //   // Use fallback slugs so pages are at least generated
-  //   // ISR will update them with real data after first request
-  //   return fallbackSlugs.map(slug => ({ slug }));
-  // }
 }
 
 // Generate metadata for each post
@@ -136,5 +123,19 @@ export default async function ArticlePage({
     // Continue without related articles
   }
 
-  return <ArticleContent post={post} relatedArticles={relatedArticles} />;
+  // Structured Data
+  const articleUrl = `https://jbadvocacia.roilabs.com.br/conteudo/${post.slug}`;
+  const articleSchema = getArticleSchema(post, articleUrl);
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', url: 'https://jbadvocacia.roilabs.com.br' },
+    { name: 'Blog', url: 'https://jbadvocacia.roilabs.com.br/conteudo' },
+    { name: post.title },
+  ]);
+
+  return (
+    <>
+      <JsonLd data={[articleSchema, breadcrumbSchema]} />
+      <ArticleContent post={post} relatedArticles={relatedArticles} />
+    </>
+  );
 }
