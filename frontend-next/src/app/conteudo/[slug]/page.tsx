@@ -5,6 +5,7 @@ import { getRelatedArticles } from '@/lib/get-related-articles';
 import ArticleContent from '@/components/blog/article-content';
 import JsonLd from '@/components/seo/json-ld';
 import { getArticleSchema, getBreadcrumbSchema } from '@/lib/structured-data';
+import { markdownToHtml } from '@/lib/markdown';
 
 // ISR: Revalidate every hour
 export const revalidate = 3600;
@@ -64,21 +65,21 @@ export async function generateMetadata({
         tags: post.tags,
         images: post.coverImage
           ? [
-              {
-                url: post.coverImage,
-                width: 1200,
-                height: 630,
-                alt: post.title,
-              },
-            ]
+            {
+              url: post.coverImage,
+              width: 1200,
+              height: 630,
+              alt: post.title,
+            },
+          ]
           : [
-              {
-                url: 'https://jbadvocacia.roilabs.com.br/og-image-blog.png',
-                width: 1200,
-                height: 630,
-                alt: post.title,
-              },
-            ],
+            {
+              url: 'https://jbadvocacia.roilabs.com.br/og-image-blog.png',
+              width: 1200,
+              height: 630,
+              alt: post.title,
+            },
+          ],
       },
       alternates: {
         canonical: `https://jbadvocacia.roilabs.com.br/conteudo/${post.slug}`,
@@ -92,6 +93,8 @@ export async function generateMetadata({
   }
 }
 
+
+
 export default async function ArticlePage({
   params,
 }: {
@@ -102,6 +105,13 @@ export default async function ArticlePage({
 
   try {
     post = await getPostBySlug(resolvedParams.slug);
+
+    // Convert Markdown to HTML if needed
+    // We assume content starting with headers (#) or containing markdown syntax is markdown
+    // Or we just run it through marked, which handles HTML gracefully too (usually)
+    if (post.content) {
+      post.content = await markdownToHtml(post.content);
+    }
 
     // Only show published posts
     if (post.status !== 'PUBLISHED') {
