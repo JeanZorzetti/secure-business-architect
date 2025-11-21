@@ -481,6 +481,150 @@ Invista tempo em documentar seus processos. Seu "eu" do futuro - e seus advogado
     publishedAt: new Date('2024-01-20'),
     status: 'PUBLISHED',
   },
+  {
+    title: 'Gestão de Riscos em Contratos de Vesting para Startups',
+    slug: 'gestao-riscos-contratos-vesting-startups',
+    excerpt:
+      'O vesting é essencial para reter talentos e proteger a sociedade, mas erros na sua estruturação podem gerar passivos enormes. Entenda como configurar cliffs, aceleração e cláusulas de good/bad leaver com segurança jurídica.',
+    content: `# Gestão de Riscos em Contratos de Vesting para Startups
+
+O vesting se tornou o padrão ouro para retenção de talentos e alinhamento de interesses em startups. No entanto, a importação desse modelo do direito norte-americano para o brasileiro exige cuidados específicos para evitar que a solução se torne um problema.
+
+## O que é Vesting (e o que não é)
+
+Juridicamente, no Brasil, o vesting não é um "tipo" de contrato, mas uma condição suspensiva de aquisição de direitos. Geralmente, é operacionalizado através de uma Opção de Compra de Ações (Stock Options) ou um contrato de cessão de quotas condicionado ao tempo ou performance.
+
+## Pontos Críticos de Atenção
+
+### 1. A Natureza Salarial Disfarçada
+O maior risco do vesting no Brasil é ser caracterizado como "salário indireto". Se a Receita Federal ou a Justiça do Trabalho entenderem que as quotas foram dadas como remuneração pelo trabalho, incidirão encargos trabalhistas e previdenciários sobre o valor total.
+
+**Como mitigar:** O contrato deve ter onerosidade (o beneficiário deve pagar algo pelas quotas, mesmo que um valor simbólico) e risco mercantil (possibilidade de perda).
+
+### 2. Good Leaver vs. Bad Leaver
+A saída de um sócio ou colaborador chave é o momento da verdade do vesting.
+- **Good Leaver:** Sai por motivos alheios à vontade (morte, invalidez) ou em bons termos. Geralmente mantém o que já "vestiu".
+- **Bad Leaver:** Sai por justa causa ou violação de deveres. Pode ser obrigado a revender suas quotas pelo valor nominal ou contábil (perde a valorização).
+
+**O risco:** Cláusulas de Bad Leaver mal redigidas são frequentemente anuladas na justiça por serem consideradas leoninas (abusivas). A definição do que constitui "Bad Leaver" deve ser objetiva e taxativa.
+
+### 3. O Cliff
+O período de carência (cliff), geralmente de 1 ano, serve para testar o fit cultural antes de entregar qualquer participação.
+**Erro comum:** Não prever o que acontece se a pessoa for demitida no mês 11. O contrato deve ser claro: saiu antes do cliff, sai com zero.
+
+## Aceleração de Vesting
+Em caso de venda da empresa (Exit), o que acontece com as quotas não vestidas?
+- **Single Trigger:** Acelera tudo na venda. (Bom para o fundador, ruim para o comprador).
+- **Double Trigger:** Acelera apenas se houver venda E o fundador for demitido pelo comprador. (Padrão de mercado).
+
+## Conclusão
+
+O vesting é uma ferramenta poderosa, mas não é "copiar e colar". Um contrato de vesting mal feito pode travar uma rodada de investimento ou gerar um passivo trabalhista impagável. A estruturação deve ser feita com olhar cirúrgico para a realidade brasileira.`,
+    author: 'Jennifer Barreto',
+    category: 'Startups',
+    tags: ['startups', 'vesting', 'direito societário', 'stock options'],
+    publishedAt: new Date(),
+    status: 'PUBLISHED',
+  },
+  {
+    title: 'Como Blindar seu Patrimônio Pessoal em Sociedades Limitadas',
+    slug: 'blindagem-patrimonio-pessoal-sociedade-limitada',
+    excerpt:
+      'A promessa da "Responsabilidade Limitada" (LTDA) nem sempre se sustenta na prática. Descubra quando seus bens pessoais podem ser atingidos por dívidas da empresa e as estratégias legais para fortalecer essa separação.',
+    content: `# Como Blindar seu Patrimônio Pessoal em Sociedades Limitadas
+
+A sigla "LTDA" (Limitada) carrega uma promessa sedutora: a de que o risco do negócio está limitado ao capital da empresa, e que o patrimônio pessoal dos sócios (casa, carro, investimentos) está seguro.
+
+Na prática jurídica brasileira, essa barreira é mais porosa do que parece.
+
+## O Mito da Proteção Absoluta
+
+A "Desconsideração da Personalidade Jurídica" é o instrumento legal que permite ao juiz ignorar a empresa e buscar os bens dos sócios para pagar dívidas. E no Brasil, especialmente na Justiça do Trabalho e Fiscal, isso acontece com frequência assustadora.
+
+## Quando a Blindagem Falha?
+
+O Código Civil (Art. 50) estabelece que a desconsideração ocorre em caso de **abuso da personalidade jurídica**, caracterizado por:
+
+1.  **Desvio de Finalidade:** Usar a empresa para fins lesivos ou diferentes do objeto social.
+2.  **Confusão Patrimonial:** O erro mais comum e fatal.
+
+### O Pecado Capital: Confusão Patrimonial
+Pagar a escola dos filhos com o cartão da empresa. Receber aluguel pessoal na conta da PJ. Usar o carro da empresa para viagens de férias sem registro.
+Qualquer mistura entre o bolso do sócio e o caixa da empresa é prova de confusão patrimonial. Se você não respeita a separação da sua empresa, o juiz também não respeitará.
+
+## Estratégias de Fortalecimento (Blindagem Legal)
+
+Não existe "blindagem" mágica (ocultação de bens é crime). Existe estruturação inteligente.
+
+### 1. Governança Financeira Impecável
+Tenha contas separadas. Faça retiradas de pró-labore e distribuição de lucros formalizadas contabilmente. Nunca pague contas pessoais na PJ.
+
+### 2. Holding Patrimonial
+Criar uma empresa (Holding) para ser dona dos seus bens pessoais e participar das empresas operacionais.
+**Vantagem:** Adiciona uma camada extra de proteção e facilita a sucessão.
+**Alerta:** Só funciona se tiver propósito negocial real, não apenas para esconder bens.
+
+### 3. Integralização Total do Capital
+A responsabilidade dos sócios é limitada ao valor das quotas, mas todos respondem solidariamente pela integralização do capital social. Se o capital social é R$ 100 mil, mas só R$ 10 mil foram integralizados, os sócios devem R$ 90 mil. Certifique-se de que o capital está totalmente integralizado.
+
+## Conclusão
+
+A melhor proteção patrimonial é a prevenção. Uma contabilidade rigorosa e a separação estrita entre PF e PJ são mais eficazes que qualquer manobra jurídica complexa. Proteja seu legado agindo com profissionalismo.`,
+    author: 'Jennifer Barreto',
+    category: 'Direito Empresarial',
+    tags: ['proteção patrimonial', 'direito empresarial', 'holding', 'responsabilidade limitada'],
+    publishedAt: new Date(),
+    status: 'PUBLISHED',
+  },
+  {
+    title: 'A Nova Lei de Licitações: O que muda para pequenas e médias empresas',
+    slug: 'nova-lei-licitacoes-mudancas-pme',
+    excerpt:
+      'A Lei 14.133/2021 trouxe mudanças profundas nas compras públicas. O pregão eletrônico virou regra e novas modalidades de disputa abrem portas para PMEs. Entenda como aproveitar essas oportunidades.',
+    content: `# A Nova Lei de Licitações: O que muda para pequenas e médias empresas
+
+O governo é o maior comprador do país. Com a plena vigência da Nova Lei de Licitações (Lei 14.133/2021), as regras do jogo mudaram, e muitas dessas mudanças favorecem a participação de Pequenas e Médias Empresas (PMEs).
+
+## O Fim do Papel e a Era Digital
+
+A mudança mais impactante é que o processo eletrônico agora é a regra absoluta. Licitações presenciais são exceção raríssima.
+**Oportunidade:** Isso democratiza o acesso. Uma empresa do interior de Minas pode disputar um contrato no Amazonas sem custos de viagem.
+
+## Principais Inovações para PMEs
+
+### 1. Dispensa de Licitação (Valores Maiores)
+Os limites para compra direta (sem licitação complexa) aumentaram significativamente:
+- Até **R$ 119.812,02** para obras e serviços de engenharia.
+- Até **R$ 59.906,02** para outros serviços e compras.
+*(Valores atualizados anualmente).*
+
+Isso agiliza contratações menores, onde PMEs são mais competitivas.
+
+### 2. Modo de Disputa: Aberto e Fechado
+A nova lei formaliza diferentes modos de disputa.
+- **Modo Aberto:** O clássico leilão, com lances sucessivos.
+- **Modo Aberto e Fechado:** Após os lances, os melhores classificados dão um lance final e sigiloso. Isso evita o "mergulho" suicida de preços e favorece quem tem margem real.
+
+### 3. Exigência de Compliance
+Para contratos de grande vulto (acima de R$ 200 milhões), o programa de integridade é obrigatório. Mas mesmo em contratos menores, ter um compliance básico começa a ser um diferencial de pontuação e critério de desempate.
+
+## O Portal Nacional de Contratações Públicas (PNCP)
+Todas as licitações do país (federais, estaduais e municipais) devem ser centralizadas no PNCP.
+**Dica:** Monitore o portal. A informação nunca esteve tão acessível.
+
+## Cuidados Necessários
+
+A facilidade do eletrônico traz também maior responsabilidade. As penalidades para quem vence e não entrega, ou frauda a licitação, ficaram mais severas e abrangentes. A "declaração de inidoneidade" agora vale para todos os entes federativos, ou seja, "queimou" com a Prefeitura, está queimado com a União.
+
+## Conclusão
+
+A Nova Lei de Licitações profissionalizou as compras públicas. Para PMEs, é um mercado gigantesco que exige organização documental e estratégia de preços, mas oferece pagamentos garantidos e escala de vendas.`,
+    author: 'Jennifer Barreto',
+    category: 'Direito Administrativo',
+    tags: ['licitações', 'nova lei de licitações', 'direito administrativo', 'compras públicas'],
+    publishedAt: new Date(),
+    status: 'PUBLISHED',
+  },
 ];
 
 async function main() {
