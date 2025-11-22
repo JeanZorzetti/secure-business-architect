@@ -45,7 +45,8 @@
       "Bash(do echo \"Testing: /conteudo/$slug\")",
       "Bash(done)",
       "Bash(git rm:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(jq:*)"
     ],
     "deny": [],
     "ask": []
