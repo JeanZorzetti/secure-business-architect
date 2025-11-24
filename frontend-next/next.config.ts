@@ -59,6 +59,11 @@ const nextConfig: NextConfig = {
       },
       // Redirect old /insights/ blog path to /conteudo/
       {
+        source: '/insights',
+        destination: '/conteudo',
+        permanent: true,
+      },
+      {
         source: '/insights/:slug*',
         destination: '/conteudo/:slug*',
         permanent: true,
