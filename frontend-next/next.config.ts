@@ -57,7 +57,18 @@ const nextConfig: NextConfig = {
         destination: '/conteudo/importancia-due-diligence-ma',
         permanent: true,
       },
-      // Add more redirects as needed for other URLs with 404
+      // Redirect old /insights/ blog path to /conteudo/
+      {
+        source: '/insights/:slug*',
+        destination: '/conteudo/:slug*',
+        permanent: true,
+      },
+      // Redirect non-existent service subpages to the main services page
+      {
+        source: '/servicos/:slug*',
+        destination: '/servicos',
+        permanent: true,
+      },
     ];
   },
 };
