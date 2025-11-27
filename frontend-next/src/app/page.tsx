@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
-import { Scale, FileText, Users, ShieldCheck, Award, Target } from "lucide-react";
+import { Scale, FileText, Users, ShieldCheck, Award, Target, TrendingUp } from "lucide-react";
 import NumberTicker from "@/components/ui/number-ticker";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { Marquee } from "@/components/ui/marquee";
@@ -303,6 +303,14 @@ export default async function Home() {
               description="Criação de POPs, Regimentos e Manuais de Conduta. Redução de riscos trabalhistas através da documentação adequada."
               href="/servicos/consultoria-trabalhista"
               cta="Saiba Mais"
+            />
+            <BentoGridItem
+              icon={<TrendingUp className="h-8 w-8" />}
+              title="Contratos de Parceria no Agronegócio"
+              description="Soluções personalizadas para o campo. Estruturação de parcerias que equilibram interesses e protegem investimentos."
+              href="/servicos/direito-agronegocio"
+              cta="Saiba Mais"
+              className="md:col-span-2"
             />
           </BentoGrid>
         </div>
