@@ -49,7 +49,7 @@
     -   **Tática "Listicle":** Usar listas (`<ul>`, `<ol>`) para processos e benefícios (a IA prefere dados estruturados).
     -   **Estrutura de Perguntas:** Usar H2/H3 como perguntas reais (ex: "O que é Due Diligence?" vs "Definição").
 
-- [ ] **2. E-E-A-T: O Fator "Experiência"**
+- [x] **2. E-E-A-T: O Fator "Experiência"**
     -   **Autoridade:** Garantir que a bio de Jennifer Barreto esteja visível e linkada em todos os posts.
     -   **Mídia Original:** Substituir fotos de banco de imagens genéricas por fotos reais do escritório ou da advogada atuando (onde possível), para sinalizar autenticidade ao Google.
 

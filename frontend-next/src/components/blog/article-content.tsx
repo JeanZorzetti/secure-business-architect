@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo } from 'react';
+import Link from 'next/link';
 import { Calendar, Clock, User, Tag } from 'lucide-react';
 import { BlogPost } from '@/lib/api';
 import { extractExecutiveSummary } from '@/lib/extract-executive-summary';
@@ -13,6 +14,7 @@ import InlineCTA from './inline-cta';
 import MobileShareButtons from './mobile-share-buttons';
 import ArticleFeedback from './article-feedback';
 import { RelatedArticles } from './related-articles';
+import { AuthorBio } from './author-bio';
 
 interface ArticleContentProps {
   post: BlogPost;
@@ -29,10 +31,10 @@ export default function ArticleContent({ post, relatedArticles = [] }: ArticleCo
   const readingTime = calculateReadingTime(post.content);
   const publishDate = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString('pt-BR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      })
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    })
     : 'Data não disponível';
 
   // Extract executive summary from HTML content
@@ -88,7 +90,9 @@ export default function ArticleContent({ post, relatedArticles = [] }: ArticleCo
               <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground border-y border-border py-4">
                 <div className="flex items-center gap-2">
                   <User className="h-4 w-4" />
-                  <span>{post.author}</span>
+                  <Link href="/sobre" className="hover:text-primary transition-colors hover:underline">
+                    {post.author}
+                  </Link>
                 </div>
                 <div className="flex items-center gap-2">
                   <Calendar className="h-4 w-4" />
@@ -143,6 +147,9 @@ export default function ArticleContent({ post, relatedArticles = [] }: ArticleCo
 
             {/* Inline CTA */}
             <InlineCTA />
+
+            {/* Author Bio - E-E-A-T */}
+            <AuthorBio />
 
             {/* Article Feedback */}
             <ArticleFeedback articleSlug={post.slug} />
