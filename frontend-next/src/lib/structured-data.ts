@@ -132,3 +132,42 @@ export function getBlogSchema() {
     },
   };
 }
+
+/**
+ * Service Schema for individual service pages
+ */
+export function getServiceSchema(service: any, url: string) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    serviceType: service.title,
+    provider: {
+      '@type': 'LegalService',
+      name: SITE_NAME,
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'Brasil',
+    },
+    description: service.description,
+    url: url,
+    offers: {
+      '@type': 'Offer',
+      availability: 'https://schema.org/InStock',
+      priceCurrency: 'BRL',
+      price: '0', // Consult for price
+      priceValidUntil: '2025-12-31',
+    },
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Benefícios',
+      itemListElement: service.benefits.map((benefit: string) => ({
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: benefit,
+        },
+      })),
+    },
+  };
+}
