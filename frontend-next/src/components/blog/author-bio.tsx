@@ -28,7 +28,7 @@ export function AuthorBio() {
                         </Link>
                     </Button>
                     <Button variant="ghost" size="icon" asChild>
-                        <Link href="https://www.linkedin.com/in/jenniferbarreto" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                        <Link href="https://www.linkedin.com/company/jb-advocacia-de-neg%C3%B3cios-e-contratos-empresariais/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                             <Linkedin className="h-5 w-5" />
                         </Link>
                     </Button>

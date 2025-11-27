@@ -20,6 +20,16 @@ export function getOrganizationSchema() {
       '@type': 'PostalAddress',
       addressCountry: 'BR',
     },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+55-54-9702-3784',
+      contactType: 'customer service',
+      email: 'juridico@jbnegociosempresariais.com.br',
+    },
+    sameAs: [
+      'https://www.linkedin.com/company/jb-advocacia-de-neg%C3%B3cios-e-contratos-empresariais/',
+      'https://www.instagram.com/jbadv.contratos/',
+    ],
     priceRange: '$$',
     founder: {
       '@type': 'Person',

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, Phone, MapPin, Linkedin, Clock, CheckCircle2, AlertCircle } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Instagram, Clock, CheckCircle2, AlertCircle } from "lucide-react";
 import Link from "next/link";
 
 export default function Contato() {
@@ -261,13 +261,12 @@ export default function Contato() {
                         onChange={handleChange}
                         onBlur={() => handleBlur("name")}
                         required
-                        className={`mt-1 transition-all duration-300 ${
-                          touched.name && errors.name
-                            ? "border-red-500 focus:border-red-500"
-                            : touched.name && !errors.name
+                        className={`mt-1 transition-all duration-300 ${touched.name && errors.name
+                          ? "border-red-500 focus:border-red-500"
+                          : touched.name && !errors.name
                             ? "border-green-500 focus:border-green-500"
                             : ""
-                        }`}
+                          }`}
                       />
                       {touched.name && (
                         <div className="absolute right-3 top-1/2 -translate-y-1/2 mt-0.5">
@@ -302,13 +301,12 @@ export default function Contato() {
                         onChange={handleChange}
                         onBlur={() => handleBlur("email")}
                         required
-                        className={`mt-1 transition-all duration-300 ${
-                          touched.email && errors.email
-                            ? "border-red-500 focus:border-red-500"
-                            : touched.email && !errors.email
+                        className={`mt-1 transition-all duration-300 ${touched.email && errors.email
+                          ? "border-red-500 focus:border-red-500"
+                          : touched.email && !errors.email
                             ? "border-green-500 focus:border-green-500"
                             : ""
-                        }`}
+                          }`}
                       />
                       {touched.email && (
                         <div className="absolute right-3 top-1/2 -translate-y-1/2 mt-0.5">
@@ -342,13 +340,12 @@ export default function Contato() {
                         value={formData.phone}
                         onChange={handleChange}
                         onBlur={() => handleBlur("phone")}
-                        className={`mt-1 transition-all duration-300 ${
-                          touched.phone && errors.phone
-                            ? "border-red-500 focus:border-red-500"
-                            : touched.phone && formData.phone && !errors.phone
+                        className={`mt-1 transition-all duration-300 ${touched.phone && errors.phone
+                          ? "border-red-500 focus:border-red-500"
+                          : touched.phone && formData.phone && !errors.phone
                             ? "border-green-500 focus:border-green-500"
                             : ""
-                        }`}
+                          }`}
                       />
                       {touched.phone && formData.phone && (
                         <div className="absolute right-3 top-1/2 -translate-y-1/2 mt-0.5">
@@ -396,13 +393,12 @@ export default function Contato() {
                         onChange={handleChange}
                         onBlur={() => handleBlur("message")}
                         required
-                        className={`mt-1 transition-all duration-300 ${
-                          touched.message && errors.message
-                            ? "border-red-500 focus:border-red-500"
-                            : touched.message && !errors.message
+                        className={`mt-1 transition-all duration-300 ${touched.message && errors.message
+                          ? "border-red-500 focus:border-red-500"
+                          : touched.message && !errors.message
                             ? "border-green-500 focus:border-green-500"
                             : ""
-                        }`}
+                          }`}
                         placeholder="Conte-me um pouco sobre seu negócio e o que você precisa..."
                       />
                       {touched.message && (
@@ -516,36 +512,72 @@ export default function Contato() {
                 transition={{ delay: 0.3 }}
                 className="bg-card p-6 rounded-xl shadow-elegant border border-border transition-all duration-300 hover:shadow-2xl hover:border-accent/30 hover:-translate-y-1"
               >
+                {/* Email */}
                 <div className="flex items-start gap-4">
-                  <Mail className="h-6 w-6 text-accent flex-shrink-0 mt-1" />
+                  <div className="bg-accent/10 p-3 rounded-lg">
+                    <Mail className="h-6 w-6 text-accent flex-shrink-0 mt-1" />
+                  </div>
                   <div>
                     <h3 className="font-semibold mb-1">Email</h3>
                     <a
-                      href="mailto:contato@jbadvocacia.com.br"
+                      href="mailto:juridico@jbnegociosempresariais.com.br"
                       className="text-muted-foreground hover:text-accent transition-colors"
                     >
-                      contato@jbadvocacia.com.br
+                      juridico@jbnegociosempresariais.com.br
                     </a>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Resposta em até 24h úteis
+                    </p>
                   </div>
                 </div>
-              </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-                className="bg-card p-6 rounded-xl shadow-elegant border border-border transition-all duration-300 hover:shadow-2xl hover:border-accent/30 hover:-translate-y-1"
-              >
-                <div className="flex items-start gap-4">
-                  <Phone className="h-6 w-6 text-accent flex-shrink-0 mt-1" />
+                {/* Phone */}
+                <div className="flex items-start gap-4 mt-6">
+                  <div className="bg-accent/10 p-3 rounded-lg">
+                    <Phone className="h-6 w-6 text-accent flex-shrink-0 mt-1" />
+                  </div>
                   <div>
-                    <h3 className="font-semibold mb-1">Telefone</h3>
+                    <h3 className="font-semibold mb-1">Telefone / WhatsApp</h3>
                     <a
-                      href="tel:+5511999999999"
+                      href="https://wa.me/555497023784"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-muted-foreground hover:text-accent transition-colors"
                     >
-                      (11) 99999-9999
+                      (54) 9702-3784
                     </a>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Segunda a Sexta, 9h às 18h
+                    </p>
+                  </div>
+                </div>
+
+                {/* Social Media */}
+                <div className="flex items-start gap-4 mt-6">
+                  <div className="bg-accent/10 p-3 rounded-lg">
+                    <Linkedin className="h-6 w-6 text-accent flex-shrink-0 mt-1" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-1">Redes Sociais</h3>
+                    <div className="flex flex-col gap-2">
+                      <a
+                        href="https://www.linkedin.com/company/jb-advocacia-de-neg%C3%B3cios-e-contratos-empresariais/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground hover:text-accent transition-colors flex items-center gap-2"
+                      >
+                        LinkedIn
+                      </a>
+                      <a
+                        href="https://www.instagram.com/jbadv.contratos/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground hover:text-accent transition-colors flex items-center gap-2"
+                      >
+                        <Instagram className="h-4 w-4" />
+                        Instagram
+                      </a>
+                    </div>
                   </div>
                 </div>
               </motion.div>

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Mail, Phone, Linkedin } from 'lucide-react';
+import { Mail, Phone, Linkedin, Instagram } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -54,36 +54,42 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Contact */}
           <div>
-            <h4 className="font-semibold mb-4">Contato</h4>
-            <ul className="space-y-3">
+            <h3 className="font-semibold mb-4">Contato</h3>
+            <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4" />
-                <a
-                  href="mailto:contato@jenniferbarreto.adv.br"
-                  className="text-sm text-primary-foreground/80 hover:text-accent transition-smooth"
-                >
-                  contato@jenniferbarreto.adv.br
+                <a href="mailto:juridico@jbnegociosempresariais.com.br" className="hover:text-primary transition-colors">
+                  juridico@jbnegociosempresariais.com.br
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <Phone className="h-4 w-4" />
-                <a
-                  href="tel:+5511999999999"
-                  className="text-sm text-primary-foreground/80 hover:text-accent transition-smooth"
-                >
-                  (11) 99999-9999
+                <a href="https://wa.me/555497023784" className="hover:text-primary transition-colors">
+                  (54) 9702-3784
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <Linkedin className="h-4 w-4" />
                 <a
-                  href="https://linkedin.com/in/jenniferbarreto"
+                  href="https://www.linkedin.com/company/jb-advocacia-de-neg%C3%B3cios-e-contratos-empresariais/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-primary-foreground/80 hover:text-accent transition-smooth"
+                  className="hover:text-primary transition-colors"
                 >
                   LinkedIn
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <Instagram className="h-4 w-4" />
+                <a
+                  href="https://www.instagram.com/jbadv.contratos/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary transition-colors"
+                >
+                  Instagram
                 </a>
               </li>
             </ul>
