@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getPostBySlug, getPosts, BlogPost } from '@/lib/api';
 import { getRelatedArticles } from '@/lib/get-related-articles';
 import ArticleContent from '@/components/blog/article-content';
+import { RelatedServices } from '@/components/blog/related-services';
 import JsonLd from '@/components/seo/json-ld';
 import { getArticleSchema, getBreadcrumbSchema } from '@/lib/structured-data';
 import { markdownToHtml } from '@/lib/markdown';
@@ -146,6 +147,9 @@ export default async function ArticlePage({
     <>
       <JsonLd data={[articleSchema, breadcrumbSchema]} />
       <ArticleContent post={post} relatedArticles={relatedArticles} />
+      <div className="container mx-auto px-4 max-w-4xl">
+        <RelatedServices tags={post.tags || []} />
+      </div>
     </>
   );
 }

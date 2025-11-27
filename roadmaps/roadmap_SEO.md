@@ -60,7 +60,7 @@
 ### 🟦 Fase 3: Autoridade e Linkagem (P2)
 *Consolidando a liderança tópica.*
 
-- [ ] **1. Topic Clusters (Teia de Aranha)**
+- [x] **1. Topic Clusters (Teia de Aranha)**
     -   **Ação:** Linkar artigos do blog ("Satélites") para as novas páginas de serviço ("Pilar").
     -   **Exemplo:** Artigo sobre riscos contratuais linka para `/servicos/gestao-contratos`.
 
