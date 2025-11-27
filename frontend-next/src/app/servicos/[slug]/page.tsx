@@ -13,7 +13,7 @@ import {
     ArrowLeft,
 } from "lucide-react";
 import JsonLd from '@/components/seo/json-ld';
-import { getServiceSchema, getBreadcrumbSchema } from '@/lib/structured-data';
+import { getServiceSchema, getBreadcrumbSchema, getFAQSchema, getReviewSchema } from '@/lib/structured-data';
 
 // Map icon names to components
 const iconMap = {
@@ -86,10 +86,12 @@ export default async function ServicePage({
         { name: 'Serviços', url: 'https://jbadvocacia.roilabs.com.br/servicos' },
         { name: service.title },
     ]);
+    const faqSchema = getFAQSchema(service.faq);
+    const reviewSchema = getReviewSchema(service.reviews);
 
     return (
         <>
-            <JsonLd data={[serviceSchema, breadcrumbSchema]} />
+            <JsonLd data={[serviceSchema, breadcrumbSchema, faqSchema, reviewSchema]} />
 
             <div className="min-h-screen pt-24 pb-20">
                 {/* Breadcrumb / Back Link */}
@@ -150,6 +152,51 @@ export default async function ServicePage({
                         <p className="text-lg font-medium">
                             {service.results}
                         </p>
+                    </div>
+                </section>
+
+                {/* FAQ Section - AI Overviews Optimization */}
+                <section className="container mx-auto px-4 mb-16">
+                    <div className="max-w-3xl mx-auto">
+                        <h2 className="text-3xl font-bold text-center mb-8">
+                            Perguntas Frequentes
+                        </h2>
+                        <div className="space-y-6">
+                            {service.faq.map((item, index) => (
+                                <div key={index} className="bg-card border border-border rounded-lg p-6">
+                                    <h3 className="text-xl font-semibold mb-3 text-primary">
+                                        {item.question}
+                                    </h3>
+                                    <p className="text-muted-foreground">
+                                        {item.answer}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+
+                {/* Reviews Section - Social Proof */}
+                <section className="bg-secondary/30 py-16 mb-16">
+                    <div className="container mx-auto px-4">
+                        <h2 className="text-3xl font-bold text-center mb-12">
+                            O Que Nossos Clientes Dizem
+                        </h2>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                            {service.reviews.map((review, index) => (
+                                <div key={index} className="bg-card p-6 rounded-lg border border-border shadow-sm">
+                                    <div className="flex items-center mb-4">
+                                        {[...Array(review.rating)].map((_, i) => (
+                                            <svg key={i} className="w-5 h-5 text-yellow-500 fill-current" viewBox="0 0 24 24">
+                                                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                            </svg>
+                                        ))}
+                                    </div>
+                                    <p className="text-muted-foreground mb-4 italic">"{review.text}"</p>
+                                    <p className="font-semibold text-primary">{review.author}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </section>
 

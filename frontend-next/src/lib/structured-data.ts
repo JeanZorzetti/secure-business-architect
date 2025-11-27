@@ -171,3 +171,53 @@ export function getServiceSchema(service: any, url: string) {
     },
   };
 }
+
+/**
+ * FAQ Schema for service pages
+ */
+export function getFAQSchema(faq: { question: string; answer: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  };
+}
+
+/**
+ * Review Schema for service pages (merges with Service schema via @id)
+ */
+export function getReviewSchema(reviews: { author: string; rating: number; text: string }[], url?: string) {
+  if (!reviews || reviews.length === 0) return null;
+
+  const ratingValue = (reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length).toFixed(1);
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': url, // Merge with main Service node
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: ratingValue,
+      reviewCount: reviews.length,
+    },
+    review: reviews.map((review) => ({
+      '@type': 'Review',
+      author: {
+        '@type': 'Person',
+        name: review.author,
+      },
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: review.rating,
+      },
+      reviewBody: review.text,
+    })),
+  };
+}

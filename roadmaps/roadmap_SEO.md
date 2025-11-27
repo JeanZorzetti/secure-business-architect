@@ -44,7 +44,7 @@
 ### 🟨 Fase 2: Estratégia de Conteúdo & AI Overviews (P1)
 *Otimizando para ser a resposta da Inteligência Artificial.*
 
-- [ ] **1. Otimização para AI Overviews (SGE)**
+- [x] **1. Otimização para AI Overviews (SGE)**
     -   **Tática "Direct Answer":** O primeiro parágrafo após um H2 deve responder à pergunta do título em 2-3 frases (estilo dicionário).
     -   **Tática "Listicle":** Usar listas (`<ul>`, `<ol>`) para processos e benefícios (a IA prefere dados estruturados).
     -   **Estrutura de Perguntas:** Usar H2/H3 como perguntas reais (ex: "O que é Due Diligence?" vs "Definição").
@@ -53,8 +53,9 @@
     -   **Autoridade:** Garantir que a bio de Jennifer Barreto esteja visível e linkada em todos os posts.
     -   **Mídia Original:** Substituir fotos de banco de imagens genéricas por fotos reais do escritório ou da advogada atuando (onde possível), para sinalizar autenticidade ao Google.
 
-- [ ] **3. Seção de Avaliações (`ReviewSchema`)**
-    -   **Ação:** Implementar seção de depoimentos com marcação de dados estruturados (`Review` ou `AggregateRating`) para exibir estrelas nos resultados de busca.
+- [x] **3. Prova Social Verificável**
+    -   **Seção de Avaliações:** Adicionar `ReviewSchema` ou `AggregateRating` nas páginas de serviço.
+    -   **Depoimentos Reais:** Incluir depoimentos específicos para cada serviço (não apenas genéricos na home).
 
 ### 🟦 Fase 3: Autoridade e Linkagem (P2)
 *Consolidando a liderança tópica.*

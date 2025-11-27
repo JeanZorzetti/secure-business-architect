@@ -68,12 +68,6 @@ const nextConfig: NextConfig = {
         destination: '/conteudo/:slug*',
         permanent: true,
       },
-      // Redirect non-existent service subpages to the main services page
-      {
-        source: '/servicos/:slug*',
-        destination: '/servicos',
-        permanent: true,
-      },
     ];
   },
 };
