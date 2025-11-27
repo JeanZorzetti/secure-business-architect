@@ -19,12 +19,17 @@ export const BentoGrid = ({ children, className }: BentoGridProps) => {
   );
 };
 
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+
 interface BentoGridItemProps {
   title: string;
   description: string;
   icon?: ReactNode;
   className?: string;
   featured?: boolean;
+  href?: string;
+  cta?: string;
 }
 
 export const BentoGridItem = ({
@@ -33,18 +38,11 @@ export const BentoGridItem = ({
   icon,
   className,
   featured = false,
+  href,
+  cta,
 }: BentoGridItemProps) => {
-  return (
-    <div
-      className={cn(
-        "group relative overflow-hidden rounded-2xl border border-border bg-card p-6",
-        "transition-all duration-500 ease-out",
-        "hover:shadow-2xl hover:-translate-y-2 hover:border-accent/50",
-        "cursor-pointer",
-        featured && "md:col-span-2 lg:row-span-2 p-8",
-        className
-      )}
-    >
+  const Content = () => (
+    <>
       {/* Background Gradient on Hover */}
       <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
@@ -70,21 +68,64 @@ export const BentoGridItem = ({
         {/* Description */}
         <p
           className={cn(
-            "text-muted-foreground transition-colors duration-300 group-hover:text-foreground",
+            "text-muted-foreground transition-colors duration-300 group-hover:text-foreground mb-4",
             featured ? "text-base lg:text-lg" : "text-sm"
           )}
         >
           {description}
         </p>
 
-        {/* Decorative Element */}
-        <div className="mt-auto pt-4">
-          <div className="h-1 w-0 bg-gradient-to-r from-accent to-accent/50 group-hover:w-full transition-all duration-500 rounded-full" />
-        </div>
+        {/* CTA Button */}
+        {cta && (
+          <div className="mt-auto pt-4">
+            <span className="inline-flex items-center text-sm font-semibold text-accent group-hover:translate-x-1 transition-transform">
+              {cta} <span className="ml-1">→</span>
+            </span>
+          </div>
+        )}
+
+        {/* Decorative Element (only if no CTA) */}
+        {!cta && (
+          <div className="mt-auto pt-4">
+            <div className="h-1 w-0 bg-gradient-to-r from-accent to-accent/50 group-hover:w-full transition-all duration-500 rounded-full" />
+          </div>
+        )}
       </div>
 
       {/* Corner Accent */}
       <div className="absolute -right-8 -bottom-8 w-24 h-24 bg-accent/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-500" />
+    </>
+  );
+
+  if (href) {
+    return (
+      <Link
+        href={href}
+        className={cn(
+          "group relative overflow-hidden rounded-2xl border border-border bg-card p-6 block h-full",
+          "transition-all duration-500 ease-out",
+          "hover:shadow-2xl hover:-translate-y-2 hover:border-accent/50",
+          featured && "md:col-span-2 lg:row-span-2 p-8",
+          className
+        )}
+      >
+        <Content />
+      </Link>
+    );
+  }
+
+  return (
+    <div
+      className={cn(
+        "group relative overflow-hidden rounded-2xl border border-border bg-card p-6",
+        "transition-all duration-500 ease-out",
+        "hover:shadow-2xl hover:-translate-y-2 hover:border-accent/50",
+        "cursor-pointer",
+        featured && "md:col-span-2 lg:row-span-2 p-8",
+        className
+      )}
+    >
+      <Content />
     </div>
   );
 };

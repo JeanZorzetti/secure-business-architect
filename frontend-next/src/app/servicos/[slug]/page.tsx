@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import JsonLd from '@/components/seo/json-ld';
 import { getServiceSchema, getBreadcrumbSchema, getFAQSchema, getReviewSchema } from '@/lib/structured-data';
+import { AuthorBio } from '@/components/blog/author-bio';
 
 // Map icon names to components
 const iconMap = {
@@ -176,6 +177,8 @@ export default async function ServicePage({
                     </div>
                 </section>
 
+
+
                 {/* Reviews Section - Social Proof */}
                 <section className="bg-secondary/30 py-16 mb-16">
                     <div className="container mx-auto px-4">
@@ -199,6 +202,11 @@ export default async function ServicePage({
                         </div>
                     </div>
                 </section>
+
+                {/* Author Bio Section */}
+                <div className="container mx-auto px-4 mb-16 max-w-4xl">
+                    <AuthorBio />
+                </div>
 
                 {/* CTA Section */}
                 <section className="container mx-auto px-4 text-center">

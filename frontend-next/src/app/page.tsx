@@ -103,10 +103,10 @@ export default async function Home() {
       excerpt: post.excerpt,
       date: post.publishedAt
         ? new Date(post.publishedAt).toLocaleDateString('pt-BR', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-          })
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        })
         : 'Data não disponível',
       slug: post.slug,
     }));
@@ -280,21 +280,29 @@ export default async function Home() {
               title="Negociações e Contratos que Geram Lucratividade"
               description="Acompanhamento estratégico em negociações. Contratos elaborados com foco em proteger seus interesses e maximizar resultados financeiros."
               featured={true}
+              href="/servicos/contratos-empresariais"
+              cta="Saiba Mais"
             />
             <BentoGridItem
               icon={<FileText className="h-8 w-8" />}
               title="Estruturação Societária para Evitar Conflitos"
               description="Definição clara de papéis, direitos e deveres dos sócios. Prevenção de impasses e alinhamento de visões para o futuro da empresa."
+              href="/servicos/estruturacao-societaria"
+              cta="Saiba Mais"
             />
             <BentoGridItem
               icon={<ShieldCheck className="h-8 w-8" />}
               title="Due Diligence para Aquisições Seguras"
               description="Análise minuciosa de riscos antes de compras ou fusões. Identificação de passivos ocultos e garantia de decisões embasadas."
+              href="/servicos/due-diligence"
+              cta="Saiba Mais"
             />
             <BentoGridItem
               icon={<Users className="h-8 w-8" />}
               title="Blindagem Trabalhista com Procedimentos Claros"
               description="Criação de POPs, Regimentos e Manuais de Conduta. Redução de riscos trabalhistas através da documentação adequada."
+              href="/servicos/consultoria-trabalhista"
+              cta="Saiba Mais"
             />
           </BentoGrid>
         </div>
