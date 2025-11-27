@@ -48,24 +48,22 @@ export default function Navigation() {
               <Link
                 key={link.path}
                 href={link.path}
-                className={`text-sm font-medium transition-smooth relative group ${
-                  isActive(link.path)
+                className={`text-sm font-medium transition-smooth relative group ${isActive(link.path)
                     ? 'text-accent'
                     : 'text-foreground hover:text-accent'
-                }`}
+                  }`}
                 role="menuitem"
                 aria-current={isActive(link.path) ? 'page' : undefined}
               >
                 {link.label}
                 <span
-                  className={`absolute bottom-0 left-0 w-full h-0.5 bg-accent transform origin-left transition-transform ${
-                    isActive(link.path) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
-                  }`}
+                  className={`absolute bottom-0 left-0 w-full h-0.5 bg-accent transform origin-left transition-transform ${isActive(link.path) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                    }`}
                   aria-hidden="true"
                 ></span>
               </Link>
             ))}
-            <ThemeToggle />
+
             <Button variant="default" size="sm" asChild className="group">
               <Link href="/contato">
                 Agende uma Sessão
@@ -76,7 +74,7 @@ export default function Navigation() {
 
           {/* Mobile Navigation Controls */}
           <div className="md:hidden flex items-center gap-2">
-            <ThemeToggle />
+
             {/* Mobile Menu Button */}
             <button
               className="p-2"
@@ -102,11 +100,10 @@ export default function Navigation() {
               <Link
                 key={link.path}
                 href={link.path}
-                className={`block py-2 text-base font-medium transition-smooth ${
-                  isActive(link.path)
+                className={`block py-2 text-base font-medium transition-smooth ${isActive(link.path)
                     ? 'text-accent'
                     : 'text-foreground hover:text-accent'
-                }`}
+                  }`}
                 onClick={() => setIsOpen(false)}
                 role="menuitem"
                 aria-current={isActive(link.path) ? 'page' : undefined}

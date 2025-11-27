@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Calculator,
@@ -71,6 +71,7 @@ export default function Calculadora() {
   const [urgency, setUrgency] = useState<keyof typeof urgencyMultipliers>("normal");
   const [companySize, setCompanySize] = useState<"small" | "medium" | "large">("small");
   const [showResult, setShowResult] = useState(false);
+  const resultRef = useRef<HTMLDivElement>(null);
 
   const calculateFee = () => {
     if (!selectedService) return 0;
@@ -83,8 +84,8 @@ export default function Calculadora() {
 
     const companySizeMult =
       companySize === "small" ? 1.0 :
-      companySize === "medium" ? 1.2 :
-      1.5;
+        companySize === "medium" ? 1.2 :
+          1.5;
 
     const total = service.basePrice * complexityMult * urgencyMult * companySizeMult;
     return Math.round(total);
@@ -93,6 +94,9 @@ export default function Calculadora() {
   const handleCalculate = () => {
     if (selectedService) {
       setShowResult(true);
+      setTimeout(() => {
+        resultRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 100);
     }
   };
 
@@ -146,16 +150,16 @@ export default function Calculadora() {
                   const Icon = service.icon;
                   return (
                     <button
+                      type="button"
                       key={service.id}
                       onClick={() => {
                         setSelectedService(service.id);
                         setShowResult(false);
                       }}
-                      className={`p-4 rounded-lg border-2 transition-all text-left hover:border-accent ${
-                        selectedService === service.id
-                          ? "border-accent bg-accent/5"
-                          : "border-border bg-background"
-                      }`}
+                      className={`p-4 rounded-lg border-2 transition-all text-left hover:border-accent ${selectedService === service.id
+                        ? "border-accent bg-accent/5"
+                        : "border-border bg-background"
+                        }`}
                     >
                       <div className="flex items-start gap-3">
                         <div className="p-2 rounded-md bg-accent/10 text-accent">
@@ -182,16 +186,16 @@ export default function Calculadora() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                 {Object.entries(complexityMultipliers).map(([key, { label }]) => (
                   <button
+                    type="button"
                     key={key}
                     onClick={() => {
                       setComplexity(key as keyof typeof complexityMultipliers);
                       setShowResult(false);
                     }}
-                    className={`px-4 py-3 rounded-md text-sm font-medium transition-all ${
-                      complexity === key
-                        ? "bg-accent text-accent-foreground"
-                        : "bg-secondary text-secondary-foreground hover:bg-accent/20"
-                    }`}
+                    className={`px-4 py-3 rounded-md text-sm font-medium transition-all ${complexity === key
+                      ? "bg-accent text-accent-foreground"
+                      : "bg-secondary text-secondary-foreground hover:bg-accent/20"
+                      }`}
                   >
                     {label}
                   </button>
@@ -207,16 +211,16 @@ export default function Calculadora() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                 {Object.entries(urgencyMultipliers).map(([key, { label }]) => (
                   <button
+                    type="button"
                     key={key}
                     onClick={() => {
                       setUrgency(key as keyof typeof urgencyMultipliers);
                       setShowResult(false);
                     }}
-                    className={`px-4 py-3 rounded-md text-sm font-medium transition-all ${
-                      urgency === key
-                        ? "bg-accent text-accent-foreground"
-                        : "bg-secondary text-secondary-foreground hover:bg-accent/20"
-                    }`}
+                    className={`px-4 py-3 rounded-md text-sm font-medium transition-all ${urgency === key
+                      ? "bg-accent text-accent-foreground"
+                      : "bg-secondary text-secondary-foreground hover:bg-accent/20"
+                      }`}
                   >
                     {label}
                   </button>
@@ -231,41 +235,41 @@ export default function Calculadora() {
               </label>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
                 <button
+                  type="button"
                   onClick={() => {
                     setCompanySize("small");
                     setShowResult(false);
                   }}
-                  className={`px-4 py-3 rounded-md text-sm font-medium transition-all ${
-                    companySize === "small"
-                      ? "bg-accent text-accent-foreground"
-                      : "bg-secondary text-secondary-foreground hover:bg-accent/20"
-                  }`}
+                  className={`px-4 py-3 rounded-md text-sm font-medium transition-all ${companySize === "small"
+                    ? "bg-accent text-accent-foreground"
+                    : "bg-secondary text-secondary-foreground hover:bg-accent/20"
+                    }`}
                 >
                   Pequeno Porte
                 </button>
                 <button
+                  type="button"
                   onClick={() => {
                     setCompanySize("medium");
                     setShowResult(false);
                   }}
-                  className={`px-4 py-3 rounded-md text-sm font-medium transition-all ${
-                    companySize === "medium"
-                      ? "bg-accent text-accent-foreground"
-                      : "bg-secondary text-secondary-foreground hover:bg-accent/20"
-                  }`}
+                  className={`px-4 py-3 rounded-md text-sm font-medium transition-all ${companySize === "medium"
+                    ? "bg-accent text-accent-foreground"
+                    : "bg-secondary text-secondary-foreground hover:bg-accent/20"
+                    }`}
                 >
                   Médio Porte
                 </button>
                 <button
+                  type="button"
                   onClick={() => {
                     setCompanySize("large");
                     setShowResult(false);
                   }}
-                  className={`px-4 py-3 rounded-md text-sm font-medium transition-all ${
-                    companySize === "large"
-                      ? "bg-accent text-accent-foreground"
-                      : "bg-secondary text-secondary-foreground hover:bg-accent/20"
-                  }`}
+                  className={`px-4 py-3 rounded-md text-sm font-medium transition-all ${companySize === "large"
+                    ? "bg-accent text-accent-foreground"
+                    : "bg-secondary text-secondary-foreground hover:bg-accent/20"
+                    }`}
                 >
                   Grande Porte
                 </button>
@@ -274,6 +278,7 @@ export default function Calculadora() {
 
             {/* Calculate Button */}
             <Button
+              type="button"
               onClick={handleCalculate}
               disabled={!selectedService}
               variant="hero"
@@ -286,7 +291,7 @@ export default function Calculadora() {
 
             {/* Result Display */}
             {showResult && selectedService && (
-              <div className="bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/30 rounded-lg p-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div ref={resultRef} className="bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/30 rounded-lg p-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <div className="text-center mb-4">
                   <p className="text-sm text-muted-foreground mb-2">
                     Estimativa de Honorários
