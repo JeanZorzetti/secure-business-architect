@@ -151,6 +151,7 @@ export default function Servicos() {
               benefits={service.benefits}
               results={service.results}
               reverse={index % 2 === 1}
+              slug={service.slug}
             />
           ))}
         </div>

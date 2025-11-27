@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
+import Link from "next/link";
 import { CheckCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 interface ServiceDetailProps {
   icon: ReactNode;
@@ -11,6 +13,7 @@ interface ServiceDetailProps {
   results: string;
   reverse?: boolean;
   className?: string;
+  slug?: string;
 }
 
 const ServiceDetail = ({
@@ -22,6 +25,7 @@ const ServiceDetail = ({
   results,
   reverse = false,
   className,
+  slug,
 }: ServiceDetailProps) => {
   return (
     <div
@@ -56,9 +60,21 @@ const ServiceDetail = ({
             </p>
 
             {/* Results Badge */}
-            <div className="bg-accent/10 p-4 rounded-xl border border-accent/30 backdrop-blur-sm">
+            <div className="bg-accent/10 p-4 rounded-xl border border-accent/30 backdrop-blur-sm mb-6">
               <p className="font-semibold text-accent text-sm">{results}</p>
             </div>
+
+            {/* Link to Individual Page */}
+            {slug && (
+              <Button variant="outline" className="w-full group/btn" asChild>
+                <Link href={`/servicos/${slug}`}>
+                  Saiba Mais
+                  <span className="ml-2 inline-block transition-transform group-hover/btn:translate-x-1">
+                    →
+                  </span>
+                </Link>
+              </Button>
+            )}
           </div>
 
           {/* Decorative Corner */}
