@@ -310,7 +310,6 @@ export default async function Home() {
               description="Soluções personalizadas para o campo. Estruturação de parcerias que equilibram interesses e protegem investimentos."
               href="/servicos/direito-agronegocio"
               cta="Saiba Mais"
-              className="md:col-span-2"
             />
           </BentoGrid>
         </div>
