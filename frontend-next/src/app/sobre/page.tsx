@@ -76,7 +76,7 @@ export default function Sobre() {
               <img
                 src="/assets/about-image.jpg"
                 alt="Jennifer Barreto em reunião profissional"
-                className="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-auto object-contain rounded-2xl transition-transform duration-700 group-hover:scale-105"
               />
               {/* Gradient Overlay on Hover */}
               <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
