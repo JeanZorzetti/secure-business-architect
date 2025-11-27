@@ -19,7 +19,7 @@ export default function Navigation() {
     { path: '/servicos', label: 'Serviços' },
     { path: '/conteudo', label: 'Insights' },
     { path: '/calculadora', label: 'Calculadora' },
-    { path: '/contato', label: 'Contato' },
+    { path: '/como-funciona', label: 'Como Funciona' },
   ];
 
   return (
@@ -49,8 +49,8 @@ export default function Navigation() {
                 key={link.path}
                 href={link.path}
                 className={`text-sm font-medium transition-smooth relative group ${isActive(link.path)
-                    ? 'text-accent'
-                    : 'text-foreground hover:text-accent'
+                  ? 'text-accent'
+                  : 'text-foreground hover:text-accent'
                   }`}
                 role="menuitem"
                 aria-current={isActive(link.path) ? 'page' : undefined}
@@ -101,8 +101,8 @@ export default function Navigation() {
                 key={link.path}
                 href={link.path}
                 className={`block py-2 text-base font-medium transition-smooth ${isActive(link.path)
-                    ? 'text-accent'
-                    : 'text-foreground hover:text-accent'
+                  ? 'text-accent'
+                  : 'text-foreground hover:text-accent'
                   }`}
                 onClick={() => setIsOpen(false)}
                 role="menuitem"
