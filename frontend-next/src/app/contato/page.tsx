@@ -599,46 +599,7 @@ export default function Contato() {
                 </div>
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.6 }}
-                className="bg-card p-6 rounded-xl shadow-elegant border border-border transition-all duration-300 hover:shadow-2xl hover:border-accent/30 hover:-translate-y-1"
-              >
-                <div className="flex items-start gap-4">
-                  <MapPin className="h-6 w-6 text-accent flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-semibold mb-1">Localização</h3>
-                    <p className="text-muted-foreground">
-                      Atendimento presencial e online
-                      <br />
-                      São Paulo, Brasil
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.7 }}
-                className="bg-card p-6 rounded-xl shadow-elegant border border-border transition-all duration-300 hover:shadow-2xl hover:border-accent/30 hover:-translate-y-1"
-              >
-                <div className="flex items-start gap-4">
-                  <Linkedin className="h-6 w-6 text-accent flex-shrink-0 mt-1" />
-                  <div>
-                    <h3 className="font-semibold mb-1">LinkedIn</h3>
-                    <a
-                      href="https://linkedin.com/in/jennifer-barreto"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-muted-foreground hover:text-accent transition-colors"
-                    >
-                      Conecte-se no LinkedIn
-                    </a>
-                  </div>
-                </div>
-              </motion.div>
             </div>
           </motion.div>
         </div>

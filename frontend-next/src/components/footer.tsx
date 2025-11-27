@@ -12,7 +12,7 @@ export default function Footer() {
               Advocacia Empresarial Estratégica
             </p>
             <p className="text-sm text-primary-foreground/80 mt-2">
-              OAB/XX 123456
+              OAB/RS 85.296
             </p>
           </div>
 
