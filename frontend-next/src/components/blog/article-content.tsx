@@ -125,7 +125,7 @@ export default function ArticleContent({ post, relatedArticles = [] }: ArticleCo
             />
 
             {/* Enhanced Article Content (HTML Parser) */}
-            <EnhancedArticleContent content={contentWithIds} />
+            <EnhancedArticleContent content={contentWithIds} title={post.title} />
 
             {/* Tags */}
             {post.tags && post.tags.length > 0 && (

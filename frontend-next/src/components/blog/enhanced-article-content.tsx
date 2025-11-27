@@ -6,11 +6,13 @@ import { cn } from '@/lib/utils';
 interface EnhancedArticleContentProps {
   content: string;
   className?: string;
+  title?: string;
 }
 
 export default function EnhancedArticleContent({
   content,
-  className
+  className,
+  title
 }: EnhancedArticleContentProps) {
 
   const options: HTMLReactParserOptions = {
@@ -21,10 +23,35 @@ export default function EnhancedArticleContent({
 
       // Headings
       if (name === 'h1') {
+        // Get text content to check for duplicates
+        // We need to render children to string to compare, but domToReact returns ReactNodes.
+        // For simple comparison, we can try to access the data of the first child if it's text.
+        // A more robust way is to let it render, but we need to decide BEFORE returning.
+
+        // Simple check: if the content looks like the title, skip it.
+        // Since we can't easily get the full text content here without complex recursion,
+        // we'll assume that if a title prop is provided, ANY h1 in the content is likely a duplicate
+        // of the page title and should be either removed or demoted.
+
+        // Strategy: If it matches title (normalized), remove it. Otherwise, demote to h2.
+
+        // Note: extracting text from domNode children is tricky with html-react-parser types in this context.
+        // Let's try to inspect the first child.
+        const firstChild = children[0] as any;
+        const textContent = firstChild?.data || '';
+
+        const isDuplicate = title && textContent &&
+          textContent.trim().toLowerCase() === title.trim().toLowerCase();
+
+        if (isDuplicate) {
+          return <></>; // Remove duplicate title
+        }
+
+        // If not duplicate, demote to h2 to maintain semantic hierarchy (only 1 h1 per page)
         return (
-          <h1 className="font-serif text-4xl md:text-5xl font-bold mt-8 mb-6 text-foreground leading-tight">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold mt-12 mb-6 text-foreground border-b-2 border-accent pb-3 leading-tight">
             {domToReact(children, options)}
-          </h1>
+          </h2>
         );
       }
 
