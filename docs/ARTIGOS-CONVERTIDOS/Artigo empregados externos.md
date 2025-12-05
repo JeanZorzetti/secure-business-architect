@@ -1,17 +1,3 @@
-# Contratação de Vendedores Externos: Principais Riscos Trabalhistas e Como Evitá-los
-
-**Slug:** contratacao-vendedores-externos-riscos-trabalhistas
-**Categoria:** Direito Trabalhista
-**Tags:** ["trabalhista", "vendedores externos", "comissão", "controle de jornada", "CLT", "horas extras"]
-**Autor:** Jennifer Barreto
-**Data:** 2025-12-04
-**Tempo de leitura:** 3 min
-
-## Meta Description (155 chars)
-Contratação de vendedores externos: riscos trabalhistas com comissão, controle de jornada e art. 62 da CLT. Guia prático para empresas evitarem processos.
-
----
-
 ## Introdução
 
 Empresas que trabalham com prospecção e visitas comerciais geralmente lidam com dúvidas sobre comissão, metas e controle de jornada. Um parecer jurídico elaborado para uma empresa do ramo evidenciou riscos que são comuns em praticamente qualquer setor que contrata vendedores externos.

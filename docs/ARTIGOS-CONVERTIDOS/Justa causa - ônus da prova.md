@@ -1,17 +1,3 @@
-# Justa Causa por Furto: Como a Empresa Deve Agir para Manter a Penalidade
-
-**Slug:** justa-causa-furto-onus-prova-empresa
-**Categoria:** Direito Trabalhista
-**Tags:** ["trabalhista", "justa causa", "furto", "ônus da prova", "improbidade", "CLT", "rescisão"]
-**Autor:** Jennifer Barreto
-**Data:** 2025-12-04
-**Tempo de leitura:** 6 min
-
-## Meta Description (155 chars)
-Justa causa por furto exige prova robusta da empresa. Saiba como proceder para manter a penalidade e evitar rescisão indireta com danos morais.
-
----
-
 ## Introdução
 
 Uma empresa de logística em Porto Alegre enfrentou um caso que ilustra perfeitamente os riscos de uma demissão por justa causa mal conduzida. Uma recepcionista foi acusada de furtar um malote com R$ 2 mil. A empresa a dispensou por justa causa no mesmo dia, sem investigação formal.

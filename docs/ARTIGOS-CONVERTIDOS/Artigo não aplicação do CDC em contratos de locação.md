@@ -1,17 +1,3 @@
-# Inaplicabilidade do CDC em Contratos de Locação: O Que as Imobiliárias Precisam Saber
-
-**Slug:** inaplicabilidade-cdc-contratos-locacao-imobiliaria
-**Categoria:** Direito Imobiliário
-**Tags:** ["direito imobiliário", "CDC", "locação", "STJ", "Lei do Inquilinato", "contratos", "imobiliária"]
-**Autor:** Jennifer Barreto
-**Data:** 2025-12-04
-**Tempo de leitura:** 5 min
-
-## Meta Description (155 chars)
-STJ consolidou que CDC não se aplica a contratos de locação regidos pela Lei 8.245/91. Entenda as consequências práticas para locadores e locatários.
-
----
-
 ## Introdução
 
 Uma discussão que volta e meia ressurge nos tribunais: locatários que buscam aplicar o Código de Defesa do Consumidor (CDC) em contratos de locação imobiliária. A argumentação geralmente inclui pedidos de inversão do ônus da prova, responsabilidade objetiva e nulidade de cláusulas contratuais — todos institutos típicos das relações de consumo.
