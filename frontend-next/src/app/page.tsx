@@ -37,27 +37,25 @@ export const metadata: Metadata = {
 export default async function Home() {
   const testimonials1 = [
     {
-      name: "Marcos Silva",
-      role: "CEO",
-      company: "Tech Solutions",
+      name: "Gilberto Fontana",
+      role: "Vice-Presidente",
+      company: "Asacop",
       content:
-        "Jennifer não apenas elaborou nossos contratos, ela nos ajudou a entender os riscos do negócio antes mesmo de começarmos a negociar. Isso mudou completamente nossa forma de operar.",
+        "Atendimento muito atencioso, profissional personalizado, buscando sempre solucionar o problema e achar alternativas para resolver os problemas, se você está passando por alguma dificuldade jurídica procure a Jennifer, com certeza ela vai te ajudar!",
       rating: 5,
     },
     {
-      name: "Ana Paula Costa",
-      role: "Proprietária",
-      company: "AgroCosta",
+      name: "Maurici da luz",
+      role: "Editora Ellus",
       content:
-        "Finalmente encontrei uma advogada que fala a língua do empresário. A clareza dela em explicar questões complexas me deu a confiança que eu precisava para tomar decisões importantes.",
+        "A equipe toda sempre muita atenciosa e prestativa, todos os momentos que precisei dos serviços sempre fui bem atendido e sempre tive excelentes resultados. Recomendo o trabalho, excelentes profissionais.",
       rating: 5,
     },
     {
-      name: "Roberto Fernandes",
-      role: "Diretor Financeiro",
-      company: "Logística Premium",
+      name: "Cezar Almeida",
+      role: "Mega System Informática",
       content:
-        "A due diligence conduzida pela Jennifer nos salvou de uma aquisição problemática. Ela identificou passivos ocultos que poderiam ter custado milhões.",
+        "Gostaria de expressar minha gratidão pelo excelente atendimento que tenho recebido da equipe da JB Advocacia até o momento. Desde o início do nosso processo, tenho sido assistido com muito empenho e profissionalismo, e isso tem feito toda a diferença para mim. Agradeço sinceramente pelo cuidado e pela atenção dedicados ao lidar com as questões do meu caso. Estou confiante de que, com sua expertise e comprometimento, alcançaremos um resultado positivo. Fico feliz por ter escolhido a JB Advocacia para me representar e estou ansioso pelo desfecho favorável do processo.",
       rating: 5,
     },
   ];
