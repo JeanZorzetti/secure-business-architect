@@ -1,296 +1,59 @@
-## Introdução
-
+# **CONTRATAÇÃO DE VENDEDORES EXTERNOS: PRINCIPAIS RISCOS TRABALHISTAS E COMO EVITÁ-LOS NA PRÁTICA**
+**Resumo:** A contratação de empregados externos envolve riscos trabalhistas importantes — especialmente quando há comissão e dúvidas sobre controle de jornada. Neste artigo, explico os principais cuidados que empresas precisam ter, com base em parecer jurídico recente sobre o tema.
+## **1\. Introdução**
 Empresas que trabalham com prospecção e visitas comerciais geralmente lidam com dúvidas sobre comissão, metas e controle de jornada. Um parecer jurídico elaborado para uma empresa do ramo evidenciou riscos que são comuns em praticamente qualquer setor que contrata vendedores externos.
-
-A contratação de empregados externos envolve riscos trabalhistas importantes — especialmente quando há comissão e dúvidas sobre controle de jornada. Neste artigo, explico os principais cuidados que empresas precisam ter para evitar condenações milionárias por horas extras.
-
----
-
-## 1. A Remuneração Variável Integra o Salário
-
+A seguir, apresento os principais pontos.
+# **1\. A remuneração variável integra o salário**
 No caso analisado, o empregado recebia 0,1% sobre vendas provenientes de clientes visitados, resgatados ou prospectados.
-
 Como o contrato determinava que as verbas variáveis integram a remuneração, essa comissão tem **natureza salarial**. Isso significa reflexos automáticos em:
-
-- Férias + 1/3
-- 13º salário
-- FGTS
-- Aviso prévio
-- Horas extras (se houver)
-
-### Pode Aumentar. Não Pode Diminuir.
-
+-   férias + 1/3
+-   13º salário
+-   FGTS
+-   aviso prévio
+-   horas extras (se houver)
+### **➡ Pode aumentar. Não pode diminuir.**
 A empresa pode aumentar o percentual — porque isso beneficia o empregado (art. 468, CLT).
-
 Mas **não pode reduzir**, pois a comissão é parte do salário, protegido pela **irredutibilidade salarial** (art. 7º, VI, CF). Somente um **acordo coletivo** permitiria essa redução.
-
-**Atenção:** Redução unilateral de comissão = passivo trabalhista + possível rescisão indireta por falta grave do empregador.
-
----
-
-## 2. Trabalho Externo ≠ Ausência de Controle
-
-Um dos equívocos mais comuns das empresas é supor que todo vendedor externo se enquadra automaticamente no **art. 62, I da CLT**.
-
-### O Que Diz o Art. 62, I da CLT?
-
-> "Não são abrangidos pelo regime de duração do trabalho os empregados que exercem atividade externa **incompatível com a fixação de horário de trabalho**."
-
-**Palavra-chave:** incompatível.
-
-### Quando NÃO Se Aplica o Art. 62?
-
+# **2\. Trabalho externo não é sinônimo de ausência de controle**
+Um dos equívocos mais comuns das empresas é supor que todo vendedor externo se enquadra automaticamente no art. 62 da CLT.
 No caso avaliado, o próprio contrato afirma que **há compatibilidade com o controle de jornada**. Isso impede a aplicação do art. 62, devendo a empresa:
-
-✔ Registrar jornada diária
-✔ Respeitar limite de 8h/dia e 44h/semana
-✔ Pagar horas extras quando ultrapassado o limite legal
-
-### Como Controlar a Jornada de Quem Trabalha na Rua?
-
+✔ registrar jornada diária;
+✔ respeitar limite de 8h/44h;
+✔ pagar horas extras quando ultrapassado o limite legal.
+### **➡ Como controlar a jornada de quem trabalha na rua?**
 Ferramentas práticas:
-
-- **Aplicativos de ponto** (com geolocalização)
-- **CRM com registro de rotas** (Salesforce, Pipedrive, RD Station)
-- **Geolocalização autorizada** (app corporativo)
-- **Relatórios eletrônicos** de visitas diárias
-
-**Regra de ouro:** Se é possível controlar, **deve-se controlar**. Caso contrário, presume-se jornada de 8h + horas extras devidas.
-
----
-
-## 3. Os Primeiros 90 Dias Exigem Atenção Especial
-
-O parecer recomenda uma **auditoria da rotina do empregado nos primeiros três meses de contratação**. Isso permite:
-
-- Medir deslocamentos e tempo real de visitas
-- Detectar horas extras habituais (padrão recorrente)
-- Ajustar o plano de rotas para caber em 8h/dia
-- Avaliar se futuramente é possível enquadrar no art. 62 (se realmente for incompatível controlar)
-
-### Por Que 90 Dias?
-
-Porque após 90 dias, se houver horas extras habituais, a empresa já acumulou:
-
-- **~20 horas extras/mês** x 3 meses = 60 horas extras
-- Adicional de 50% (mínimo) = 90 horas totais
-- Reflexos em: férias, 13º, FGTS, aviso prévio
-
-**Custo estimado:** R$ 5.000 - R$ 15.000 de passivo trabalhista em apenas 3 meses.
-
-A ausência desse diagnóstico inicial pode resultar em condenações elevadas por horas extras acumuladas ao longo de anos.
-
----
-
-## 4. O Que as Empresas Precisam Fazer? (Checklist Prático)
-
-### Sobre a Remuneração Variável
-
-✅ **Pode aumentar comissão** (beneficia o empregado, não precisa de acordo)
-✘ **Não pode reduzir** sem acordo coletivo
-✅ **Documentar cálculo** (transparência evita disputas)
-✅ **Gera reflexos** em todas as verbas trabalhistas
-
-### Sobre a Jornada
-
-✅ **Se o contrato admite controle, deve controlar**
-✅ **Registrar entradas, saídas e deslocamentos**
-✘ **Não confiar apenas em "relatos de rotas"** (sem comprovação eletrônica, Justiça presume horas extras)
-✅ **Implementar sistema de ponto digital** (obrigatório se há possibilidade de controle)
-
-### Sobre a Gestão Prática
-
-✅ **Auditoria de jornada nos primeiros 90 dias**
-✅ **Ajustes logísticos** para evitar excesso de horas
-✅ **Documentação clara das rotinas** (rotas, horários, metas)
-✅ **Treinamento de gestores** sobre riscos trabalhistas
-
----
-
-## 5. Quando o Art. 62 Realmente Se Aplica?
-
-O art. 62, I da CLT **só se aplica quando:**
-
-1. **Impossibilidade técnica real** de controlar a jornada
-2. **Autonomia plena** do empregado (define próprios horários e rotas)
-3. **Ausência de ferramentas de controle** (sem CRM, sem app, sem GPS)
-
-**Exemplo válido:**
-Representante comercial autônomo que:
-- Define próprias rotas
-- Não reporta horários
-- Não usa sistema da empresa para registrar visitas
-- Trabalha por resultados (comissão pura)
-
-**Exemplo inválido (não se aplica art. 62):**
-Vendedor externo que:
-- Recebe rotas pré-definidas pelo gestor
-- Usa CRM da empresa
-- Reporta visitas diariamente
-- Tem meta de visitas/dia
-
----
-
-## 6. Consequências de Não Controlar a Jornada
-
-### Risco Trabalhista
-
-Se a empresa **não controla jornada mas deveria**, na Justiça do Trabalho:
-
-1. **Presume-se jornada de 8h/dia** (mínimo)
-2. **Empregado alega horas extras** (geralmente 10-12h/dia)
-3. **Empresa não tem como provar o contrário** (ausência de registros)
-4. **Juiz defere as horas alegadas** pelo empregado (inversão do ônus da prova)
-
-### Exemplo Real de Condenação
-
-**Caso:** Vendedor externo trabalhou 3 anos sem controle de jornada. Alegou 10h/dia (2h extras/dia).
-
-**Cálculo:**
-- 2h extras/dia x 22 dias úteis = 44h extras/mês
-- 44h/mês x 36 meses = 1.584h extras
-- Hora R$ 30 x 1,5 (50% adicional) = R$ 45
-- Total: 1.584h x R$ 45 = **R$ 71.280**
-- Reflexos (férias, 13º, FGTS): + R$ 25.000
-- **Total da condenação: R$ 96.280**
-
-**Saiba mais:** [Justa Causa por Furto: Ônus da Prova](https://jbadvocacia.roilabs.com.br/conteudo/justa-causa-furto-onus-prova-empresa)
-
----
-
-## 7. Como Implementar Controle de Jornada (Passo a Passo)
-
-### Passo 1: Escolher Sistema de Ponto Digital
-
-Opções:
-- **Tangerino** (gratuito até 5 funcionários)
-- **Ahgora**
-- **Pontotel**
-- **Senior** (para empresas maiores)
-
-**Requisitos:**
-- Registro por geolocalização (GPS)
-- App mobile (funcionário bate ponto pelo celular)
-- Relatórios exportáveis (para comprovar jornada em processos)
-
-### Passo 2: Definir Política de Jornada
-
-Documento interno que define:
-- Horário de início/fim de expediente
-- Intervalo intrajornada (1h de almoço obrigatório)
-- Como registrar deslocamentos (tempo de trajeto conta como jornada?)
-- Limite de horas extras mensais (20h/mês, por exemplo)
-
-### Passo 3: Treinar Gestores e Empregados
-
-**Gestores precisam saber:**
-- Como analisar relatórios de ponto
-- Como identificar horas extras habituais
-- Como ajustar rotas para caber em 8h/dia
-
-**Empregados precisam saber:**
-- Como usar o app de ponto
-- Que horas extras precisam ser previamente autorizadas
-- Que jornada não registrada = desconto de ponto
-
-### Passo 4: Auditar Mensalmente
-
-Todo mês, gestor deve:
-1. Exportar relatório de ponto de todos os vendedores externos
-2. Identificar horas extras recorrentes
-3. Ajustar rotas/metas se necessário
-4. Arquivar relatórios (comprovação em eventuais processos)
-
----
-
-## FAQ - Perguntas Frequentes
-
-### 1. Posso pagar apenas comissão, sem salário fixo?
-
-**Sim**, mas com cuidado. A legislação permite, **desde que**:
-- Salário total (comissões) não seja inferior ao salário mínimo/mês
-- Comissão seja calculada sobre vendas **efetivamente recebidas** (não basta vender, cliente precisa pagar)
-- Haja previsão contratual clara
-
-### 2. Vendedor externo tem direito a vale-transporte?
-
-**Depende.** Se o vendedor:
-- Vai diariamente à empresa antes de sair para rua → **sim, tem direito**
-- Sai direto de casa para visitas → **não tem direito** (não há deslocamento residência-trabalho-residência)
-
-### 3. Devo pagar quilometragem/combustível?
-
-**Não é obrigatório por lei**, mas é comum:
-- Empresas pagam ajuda de custo (não integra salário se comprovada despesa)
-- Ou fornecem veículo corporativo
-- Ou reembolsam combustível mediante comprovação
-
-**Atenção:** Ajuda de custo **sem comprovação** pode ser considerada salário (com todos os reflexos).
-
-### 4. Como enquadrar vendedor externo no art. 62?
-
-Para enquadrar **validamente** no art. 62:
-1. **Contrato de trabalho** deve prever expressamente que a atividade é incompatível com controle de horário
-2. **Carteira de trabalho** deve conter anotação "art. 62, I da CLT"
-3. **Na prática**, empresa não pode controlar jornada (sem CRM obrigatório, sem rotas definidas, sem meta de visitas/dia)
-
-**Importante:** Anotação na CTPS não é suficiente. Se houver controle de fato, art. 62 não se aplica.
-
-### 5. Posso descontar comissão de vendas canceladas?
-
-**Não diretamente.** Comissão sobre venda cancelada por inadimplência do cliente:
-- **Teoria do risco empresarial:** Risco da atividade é do empregador, não do empregado
-- **Posição majoritária:** Empregador não pode descontar comissão já paga
-
-**Solução:** Estipular no contrato que comissão só é devida após **recebimento efetivo** do cliente (não no fechamento da venda).
-
----
-
-## Conclusão
-
+-   aplicativos de ponto
+-   CRM com registro de rotas
+-   geolocalização autorizada
+-   relatórios eletrônicos
+Se é possível controlar, **deve-se controlar**.
+# **3\. Os primeiros 90 dias exigem atenção especial**
+O parecer recomenda uma auditoria da rotina do empregado nos primeiros três meses de contratação. Isso permite:
+-   medir deslocamentos e tempo de visitas;
+-   detectar horas extras habituais;
+-   ajustar o plano de rotas;
+-   avaliar se futuramente é possível enquadrar o empregado no art. 62 da CLT (se realmente for incompatível controlar).
+A ausência desse diagnóstico inicial pode resultar em condenações elevadas por horas extras.
+# **4\. O que as empresas precisam fazer? (Checklist rápido)**
+### **Sobre a remuneração variável**
+✔ pode aumentar comissão
+✘ não pode reduzir sem acordo coletivo
+✔ gera reflexos como parte do salário
+### **Sobre a jornada**
+✔ se o contrato admite controle, deve controlar
+✔ registrar entradas, saídas e deslocamentos
+✘ não confiar apenas em “relatos de rotas”
+### **Sobre a gestão prática**
+✔ auditoria de jornada nos primeiros 90 dias
+✔ ajustes logísticos para evitar excesso de horas
+✔ documentação clara das rotinas
+# **Conclusão**
 A contratação de vendedores externos não é simples e envolve riscos trabalhistas reais. O caso analisado demonstra a importância de:
-
-- **Clareza contratual:** Definir natureza da comissão e possibilidade de controle
-- **Controle efetivo da jornada:** Implementar sistema de ponto digital
-- **Cuidado com remuneração variável:** Não reduzir unilateralmente
-- **Acompanhamento dos primeiros meses:** Auditoria de jornada nos 90 dias iniciais
-
-**Lembre-se:** Prevenir é sempre mais barato que responder a uma ação trabalhista. Investimento em compliance trabalhista evita condenações milionárias.
-
----
-
-## Consultoria Trabalhista para Empresas
-
-Precisa estruturar a contratação de vendedores externos de forma segura?
-
-Ofereço **assessoria trabalhista preventiva** para empresas:
-
-✅ Revisão de contratos de trabalho
-✅ Implementação de controle de jornada
-✅ Auditoria de passivo trabalhista
-✅ Defesa em processos trabalhistas
-
-[**📞 Agendar Consultoria**](https://jbadvocacia.roilabs.com.br/contato)
-
----
-
-**Sobre a Autora:**
-Jennifer Barreto é advogada especializada em Direito do Trabalho, com experiência em assessoria preventiva e contenciosa para empresas no Rio Grande do Sul.
-
-[Conheça mais sobre meu trabalho](https://jbadvocacia.roilabs.com.br/sobre)
-
----
-
-## Leia Também
-
-- [Justa Causa por Furto: Ônus da Prova da Empresa](https://jbadvocacia.roilabs.com.br/conteudo/justa-causa-furto-onus-prova-empresa)
-- [Inaplicabilidade do CDC em Contratos de Locação](https://jbadvocacia.roilabs.com.br/conteudo/inaplicabilidade-cdc-contratos-locacao-imobiliaria)
-- [Gestão de Riscos: Contratos de Vesting em Startups](https://jbadvocacia.roilabs.com.br/conteudo/gestao-riscos-contratos-vesting-startups)
-
----
-
-**Palavras:** ~1450
-**Links internos:** 3
-**H2 sections:** 9
-**H3 subsections:** 15
-**Tempo de leitura:** 6 min
+-   clareza contratual;
+-   controle efetivo da jornada;
+-   cuidado com remuneração variável;
+-   acompanhamento dos primeiros meses de trabalho.
+Prevenir é sempre mais barato que responder a uma ação trabalhista.
+![](data:image/png;base64,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)
+**Jennifer Leal Furtado Barreto**
+**OAB/RS 85.296**
